@@ -78,3 +78,33 @@ document.getElementById("facebook-negocio").href =
 
 document.getElementById("instagram-negocio").href =
     negocio.instagram;
+
+// =========================
+// SERVICIOS
+// =========================
+
+const listaServicios =
+    document.getElementById("lista-servicios");
+
+
+negocio.servicios.forEach(function(servicio) {
+
+    const tarjeta = document.createElement("div");
+
+    tarjeta.className = "service";
+
+
+    tarjeta.innerHTML = `
+
+        <h3>${servicio.nombre}</h3>
+
+        <p>
+            ${servicio.descripcion}
+        </p>
+
+    `;
+
+
+    listaServicios.appendChild(tarjeta);
+
+});
