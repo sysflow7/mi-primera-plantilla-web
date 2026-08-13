@@ -133,3 +133,71 @@ negocio.servicios.forEach(function(servicio) {
     listaServicios.appendChild(tarjeta);
 
 });
+
+// =========================
+// PRODUCTOS
+// =========================
+
+const listaProductos =
+    document.getElementById("lista-productos");
+
+
+negocio.productos.forEach(function(producto) {
+
+    const tarjeta =
+        document.createElement("div");
+
+    tarjeta.className = "product";
+
+
+    const mensaje =
+        "Hola, estoy interesado en " +
+        producto.nombre +
+        " de " +
+        producto.precio;
+
+
+    const enlaceWhatsApp =
+        "https://wa.me/" +
+        negocio.whatsapp +
+        "?text=" +
+        encodeURIComponent(mensaje);
+
+
+    tarjeta.innerHTML = `
+
+        <img
+            src="images/${producto.imagen}"
+            alt="${producto.nombre}"
+        >
+
+        <div class="product-content">
+
+            <h3>
+                ${producto.nombre}
+            </h3>
+
+            <p>
+                ${producto.descripcion}
+            </p>
+
+            <strong>
+                ${producto.precio}
+            </strong>
+
+            <a
+                class="product-whatsapp"
+                href="${enlaceWhatsApp}"
+                target="_blank"
+            >
+                💬 Consultar por WhatsApp
+            </a>
+
+        </div>
+
+    `;
+
+
+    listaProductos.appendChild(tarjeta);
+
+});
