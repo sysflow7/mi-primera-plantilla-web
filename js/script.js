@@ -1,21 +1,39 @@
 const negocio = {
 
-    nombre: "Ferretería El Constructor",
+    nombre: "Mi Negocio",
 
-    slogan: "Todo para tus proyectos",
+    slogan: "Calidad, confianza y servicio profesional",
 
-    whatsapp: "50371234567",
+    whatsapp: "50300000000",
 
-    telefono: "+503 7123-4567",
+    telefono: "+503 0000-0000",
 
     ciudad: "San Salvador, El Salvador",
 
-    facebook: "https://facebook.com/...",
+    facebook: "#",
 
-    instagram: "https://instagram.com/..."
+    instagram: "#",
+
+    servicios: [
+
+        {
+            nombre: "Servicio 1",
+            descripcion: "Descripción del primer servicio que ofrece el negocio."
+        },
+
+        {
+            nombre: "Servicio 2",
+            descripcion: "Descripción del segundo servicio que ofrece el negocio."
+        },
+
+        {
+            nombre: "Servicio 3",
+            descripcion: "Descripción del tercer servicio que ofrece el negocio."
+        }
+
+    ]
 
 };
-
 
 // =========================
 // DATOS GENERALES
