@@ -145,3 +145,112 @@ footer {
         padding: 40px 15px;
     }
 }
+
+/* =========================
+   MENÚ DE NAVEGACIÓN
+========================= */
+
+.navbar {
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    text-decoration: none;
+    font-weight: bold;
+    color: #111827;
+    font-size: 18px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+}
+
+
+/* =========================
+   WHATSAPP FLOTANTE
+========================= */
+
+.whatsapp-float {
+
+    position: fixed;
+
+    width: 60px;
+    height: 60px;
+
+    right: 20px;
+    bottom: 20px;
+
+    background: #25D366;
+
+    color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 28px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+
+    z-index: 2000;
+}
+
+
+/* =========================
+   AJUSTES PARA CELULAR
+========================= */
+
+@media (max-width: 700px) {
+
+    .nav-container {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+
+    .nav-links {
+
+        width: 100%;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+    }
+
+    .nav-links a {
+
+        font-size: 13px;
+
+    }
+
+}
