@@ -36,9 +36,9 @@ const negocio = {
         productos: [
 
         {
-            nombre: "Producto 1",
-            precio: "$15.00",
-            descripcion: "Descripción breve del producto.",
+            nombre: "Filtro de Agua",
+            precio: "$30.00",
+            descripcion: "filtro de dos etapas",
             imagen: "producto1.jpg"
         },
 
