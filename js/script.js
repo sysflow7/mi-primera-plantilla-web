@@ -31,6 +31,31 @@ const negocio = {
             descripcion: "Descripción del tercer servicio que ofrece el negocio."
         }
 
+    ],
+
+        productos: [
+
+        {
+            nombre: "Producto 1",
+            precio: "$15.00",
+            descripcion: "Descripción breve del producto.",
+            imagen: "producto1.jpg"
+        },
+
+        {
+            nombre: "Producto 2",
+            precio: "$25.00",
+            descripcion: "Descripción breve del producto.",
+            imagen: "producto2.jpg"
+        },
+
+        {
+            nombre: "Producto 3",
+            precio: "$35.00",
+            descripcion: "Descripción breve del producto.",
+            imagen: "producto3.jpg"
+        }
+
     ]
 
 };
