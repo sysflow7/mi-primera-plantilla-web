@@ -1,19 +1,20 @@
 const negocio = {
 
-    nombre: "Barbería El Estilo",
+    nombre: "Mi Negocio",
 
-    slogan: "Tu estilo, nuestra pasión",
+    slogan: "Calidad, confianza y servicio profesional",
 
-    whatsapp: "50371234567",
+    whatsapp: "50300000000",
 
-    telefono: "+503 7123-4567",
+    telefono: "+503 0000-0000",
 
-    ciudad: "San Salvador",
+    ciudad: "San Salvador, El Salvador",
 
-    facebook: "...",
+    facebook: "#",
 
-    instagram: "..."
+    instagram: "#"
 
 };
+
 
 console.log("Sistema de página cargado correctamente");
