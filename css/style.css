@@ -351,3 +351,97 @@ footer {
     font-weight: bold;
 
 }
+
+/* =========================
+   BOTÓN MENÚ MÓVIL
+========================= */
+
+.menu-button {
+
+    display: none;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #111827;
+
+}
+
+
+/* =========================
+   MENÚ PARA CELULAR
+========================= */
+
+@media (max-width: 700px) {
+
+    .nav-container {
+
+        position: relative;
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+    }
+
+
+    .menu-button {
+
+        display: block;
+
+    }
+
+
+    .nav-links {
+
+        display: none;
+
+        position: absolute;
+
+        top: 100%;
+
+        left: 0;
+
+        width: 100%;
+
+        background: white;
+
+        flex-direction: column;
+
+        gap: 0;
+
+        box-shadow:
+            0 5px 10px rgba(0,0,0,0.10);
+
+    }
+
+
+    .nav-links.active {
+
+        display: flex;
+
+    }
+
+
+    .nav-links a {
+
+        display: block;
+
+        width: 100%;
+
+        padding: 14px 20px;
+
+        border-top: 1px solid #eeeeee;
+
+        text-align: center;
+
+        font-size: 15px;
+
+    }
+
+}
