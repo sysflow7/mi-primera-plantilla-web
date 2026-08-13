@@ -16,7 +16,6 @@ const negocio = {
 
 };
 
-
 const negocio = {
 
     nombre: "Mi Negocio",
