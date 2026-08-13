@@ -17,7 +17,7 @@ const negocio = {
     servicios: [
 
         {
-            nombre: "Instalaciones eléctricas",
+            nombre: "Servicio 1",
             descripcion: "Descripción del primer servicio que ofrece el negocio."
         },
 
