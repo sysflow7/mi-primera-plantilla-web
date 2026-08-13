@@ -15,3 +15,5 @@ const negocio = {
     instagram: "#"
 
 };
+
+console.log("Sistema de página cargado correctamente");
