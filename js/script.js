@@ -325,3 +325,26 @@ negocio.beneficios.forEach(function(beneficio) {
 
 });
 
+
+// =========================
+// GALERÍA
+// =========================
+
+const listaGaleria =
+    document.getElementById("lista-galeria");
+
+
+negocio.galeria.forEach(function(imagen, indice) {
+
+    const foto =
+        document.createElement("img");
+
+    foto.src =
+        "images/" + imagen;
+
+    foto.alt =
+        negocio.nombre + " - Foto " + (indice + 1);
+
+    listaGaleria.appendChild(foto);
+
+});
