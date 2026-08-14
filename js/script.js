@@ -260,3 +260,42 @@ menuButton.addEventListener("click", function() {
     navLinks.classList.toggle("active");
 
 });
+
+
+// =========================
+// BENEFICIOS
+// =========================
+
+const listaBeneficios =
+    document.getElementById("lista-beneficios");
+
+
+negocio.beneficios.forEach(function(beneficio) {
+
+    const tarjeta =
+        document.createElement("div");
+
+    tarjeta.className = "benefit";
+
+
+    tarjeta.innerHTML = `
+
+        <div class="benefit-icon">
+            ✓
+        </div>
+
+        <h3>
+            ${beneficio.titulo}
+        </h3>
+
+        <p>
+            ${beneficio.descripcion}
+        </p>
+
+    `;
+
+
+    listaBeneficios.appendChild(tarjeta);
+
+});
+
