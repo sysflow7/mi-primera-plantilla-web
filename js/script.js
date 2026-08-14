@@ -9,9 +9,9 @@
 
 const negocio = {
 
-    nombre: "Mi Negocio",
+    nombre: "Ferretería El Constructor",
 
-    slogan: "Calidad, confianza y servicio profesional",
+    slogan: "Todo para construir tus proyectos",
 
     whatsapp: "50300000000",
 
@@ -32,18 +32,18 @@ const negocio = {
     servicios: [
 
         {
-            nombre: "Servicio 1",
-            descripcion: "Descripción del primer servicio que ofrece el negocio."
+            nombre: "Herramientas",
+            descripcion: "Encuentra herramientas para tus proyectos de construcción y reparación."
         },
 
         {
-            nombre: "Servicio 2",
-            descripcion: "Descripción del segundo servicio que ofrece el negocio."
+            nombre: "Materiales de construcción",
+            descripcion: "Productos y materiales para tus proyectos de construcción."
         },
 
         {
-            nombre: "Servicio 3",
-            descripcion: "Descripción del tercer servicio que ofrece el negocio."
+            nombre: "Accesorios para el hogar",
+            descripcion: "Soluciones prácticas para mantenimiento y reparación del hogar."
         }
 
     ],
@@ -51,23 +51,23 @@ const negocio = {
         productos: [
 
         {
-            nombre: "Producto 1",
-            precio: "$30.00",
-            descripcion: "Descripción breve del producto.",
+            nombre: "Taladro Profesional",
+            precio: "$49.99",
+            descripcion: "Taladro profesional para trabajos del hogar y construcción.",
             imagen: "producto1.jpg"
         },
 
         {
-            nombre: "Producto 2",
-            precio: "$25.00",
-            descripcion: "Descripción breve del producto.",
+            nombre: "Juego de Herramientas",
+            precio: "$35.00",
+            descripcion: "Kit de herramientas para reparaciones y mantenimiento.",
             imagen: "producto2.jpg"
         },
 
         {
-            nombre: "Producto 3",
-            precio: "$35.00",
-            descripcion: "Descripción breve del producto.",
+            nombre: "Lámpara LED",
+            precio: "$15.00",
+            descripcion: "Lámpara LED para iluminación del hogar y espacios de trabajo.",
             imagen: "producto3.jpg"
         }
 
@@ -82,23 +82,23 @@ const negocio = {
 beneficios: [
 
     {
-        titulo: "Atención personalizada",
-        descripcion: "Te ayudamos a encontrar la solución adecuada para tus necesidades."
-    },
-
-    {
         titulo: "Productos de calidad",
         descripcion: "Seleccionamos productos confiables para nuestros clientes."
     },
 
     {
-        titulo: "Servicio rápido",
-        descripcion: "Atendemos tus consultas de forma rápida y eficiente."
+        titulo: "Atención personalizada",
+        descripcion: "Te ayudamos a encontrar lo que necesitas para tu proyecto."
     },
 
     {
-        titulo: "Confianza",
-        descripcion: "Trabajamos para brindar una atención responsable y profesional."
+        titulo: "Amplia variedad",
+        descripcion: "Encuentra diferentes opciones de herramientas y materiales."
+    },
+
+    {
+        titulo: "Experiencia",
+        descripcion: "Estamos para ayudarte a encontrar la solución adecuada."
     }
 
 ]    
