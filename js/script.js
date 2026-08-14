@@ -60,7 +60,7 @@ const negocio = {
             imagen: "producto3.jpg"
         }
 
-    ]
+    ],
 
 beneficios: [
 
