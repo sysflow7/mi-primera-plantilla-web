@@ -18,6 +18,8 @@ const negocio = {
 
     catalogo: "https://wa.me/c/50300000000",
 
+    logo: "logo.png",
+
     servicios: [
 
         {
@@ -61,6 +63,12 @@ const negocio = {
         }
 
     ],
+
+    galeria: [
+        "foto1.jpg",
+        "foto2.jpg",
+        "foto3.jpg"
+    ],    
 
 beneficios: [
 
