@@ -109,6 +109,13 @@ document.getElementById("instagram-negocio").href =
     negocio.instagram;
 
 // =========================
+// GOOGLE MAPS
+// =========================
+
+document.getElementById("maps-negocio").href =
+    negocio.maps;
+
+// =========================
 // SERVICIOS
 // =========================
 
