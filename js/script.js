@@ -14,6 +14,10 @@ const negocio = {
 
     instagram: "#",
 
+    maps: "https://www.google.com/maps",
+
+    catalogo: "https://wa.me/c/50300000000",
+
     servicios: [
 
         {
