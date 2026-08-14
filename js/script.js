@@ -60,7 +60,31 @@ const negocio = {
             imagen: "producto3.jpg"
         }
 
-    ]
+    ],
+
+beneficios: [
+
+    {
+        titulo: "Atención personalizada",
+        descripcion: "Te ayudamos a encontrar la solución adecuada para tus necesidades."
+    },
+
+    {
+        titulo: "Productos de calidad",
+        descripcion: "Seleccionamos productos confiables para nuestros clientes."
+    },
+
+    {
+        titulo: "Servicio rápido",
+        descripcion: "Atendemos tus consultas de forma rápida y eficiente."
+    },
+
+    {
+        titulo: "Confianza",
+        descripcion: "Trabajamos para brindar una atención responsable y profesional."
+    }
+
+]    
 
 };
 
