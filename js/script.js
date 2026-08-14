@@ -116,6 +116,13 @@ document.getElementById("maps-negocio").href =
     negocio.maps;
 
 // =========================
+// CATÁLOGO WHATSAPP
+// =========================
+
+document.getElementById("catalogo-negocio").href =
+    negocio.catalogo;
+
+// =========================
 // SERVICIOS
 // =========================
 
