@@ -1,3 +1,12 @@
+// ==================================================
+// CONFIGURACIÓN DEL NEGOCIO
+// ==================================================
+//
+// ⚠️ ESTA ES LA ÚNICA SECCIÓN QUE DEBES MODIFICAR
+// CUANDO CREES UNA PÁGINA PARA UN NUEVO CLIENTE.
+//
+// ==================================================
+
 const negocio = {
 
     nombre: "Mi Negocio",
@@ -95,6 +104,13 @@ beneficios: [
 ]    
 
 };
+
+// ==================================================
+// FIN DE CONFIGURACIÓN DEL NEGOCIO
+// ==================================================
+//
+// ⚠️ A PARTIR DE AQUÍ NO MODIFICAR
+// ==================================================
 
 // =========================
 // DATOS GENERALES
