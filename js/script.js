@@ -103,6 +103,9 @@ beneficios: [
 document.getElementById("nombre-negocio").textContent =
     negocio.nombre;
 
+document.getElementById("logo-negocio").src =
+    "images/" + negocio.logo;
+
 document.getElementById("slogan-negocio").textContent =
     negocio.slogan;
 
@@ -117,7 +120,7 @@ document.getElementById("ciudad-negocio").textContent =
 // WHATSAPP
 // =========================
 
-const enlaceWhatsApp =
+    const enlaceWhatsApp =
     "https://wa.me/" + negocio.whatsapp;
 
 
