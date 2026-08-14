@@ -262,6 +262,21 @@ menuButton.addEventListener("click", function() {
 });
 
 
+const enlacesMenu =
+    navLinks.querySelectorAll("a");
+
+
+enlacesMenu.forEach(function(enlace) {
+
+    enlace.addEventListener("click", function() {
+
+        navLinks.classList.remove("active");
+
+    });
+
+});
+
+
 // =========================
 // BENEFICIOS
 // =========================
