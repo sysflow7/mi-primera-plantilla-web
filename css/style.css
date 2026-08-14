@@ -493,3 +493,76 @@ footer {
     font-weight: bold;
 
 }
+
+/* =========================
+   BENEFICIOS
+========================= */
+
+.benefits {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+
+}
+
+
+.benefit {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+
+.benefit-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #111827;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+}
+
+
+.benefit h3 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.benefit p {
+
+    color: #555;
+
+}
+
