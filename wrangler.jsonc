@@ -3,6 +3,10 @@
   "name": "mi-primera-plantilla-web",
   "compatibility_date": "2026-08-16",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "exclude": [
+      "**/.git/**",
+      "**/.wrangler/**"
+    ]
   }
 }
