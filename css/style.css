@@ -566,3 +566,91 @@ footer {
 
 }
 
+/* =========================
+   ACCIONES DE CONTACTO
+========================= */
+
+.contact-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 18px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.contact-action {
+
+    border: none;
+
+    background: white;
+
+    color: #111827;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.contact-action:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 14px rgba(0,0,0,0.20);
+
+}
+
+
+.contact-action:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================
+   ACCIONES DE CONTACTO
+   EN CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+    .contact-actions {
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 10px;
+
+    }
+
+
+    .contact-action {
+
+        width: min(100%, 280px);
+
+    }
+
+}
+

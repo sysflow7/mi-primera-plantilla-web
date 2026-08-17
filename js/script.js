@@ -147,6 +147,8 @@ document.getElementById("whatsapp-principal").href =
 document.getElementById("whatsapp-final").href =
     enlaceWhatsApp;
 
+document.getElementById("whatsapp-flotante").href =
+    enlaceWhatsApp;
 
 // =========================
 // REDES SOCIALES
@@ -364,3 +366,129 @@ negocio.galeria.forEach(function(imagen, indice) {
     listaGaleria.appendChild(foto);
 
 });
+
+// =========================
+// GUARDAR CONTACTO
+// =========================
+
+const botonGuardarContacto =
+    document.getElementById("guardar-contacto");
+
+
+botonGuardarContacto.addEventListener("click", function() {
+
+    const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+FN:${negocio.nombre}
+ORG:${negocio.nombre}
+TEL;TYPE=CELL:${negocio.whatsapp}
+TEL;TYPE=WORK:${negocio.telefono}
+ADR;TYPE=WORK:;;${negocio.ciudad};;;
+URL:${window.location.href}
+END:VCARD`;
+
+
+    const archivo =
+        new Blob(
+            [vcard],
+            { type: "text/vcard;charset=utf-8" }
+        );
+
+
+    const url =
+        URL.createObjectURL(archivo);
+
+
+    const enlace =
+        document.createElement("a");
+
+
+    enlace.href = url;
+
+    enlace.download =
+        negocio.nombre + ".vcf";
+
+
+    document.body.appendChild(enlace);
+
+    enlace.click();
+
+    document.body.removeChild(enlace);
+
+
+    URL.revokeObjectURL(url);
+
+});
+
+// =========================
+// COMPARTIR NEGOCIO
+// =========================
+
+const botonCompartirNegocio =
+    document.getElementById("compartir-negocio");
+
+
+botonCompartirNegocio.addEventListener("click", async function() {
+
+    const datosCompartir = {
+
+        title: negocio.nombre,
+
+        text:
+            "Te comparto " +
+            negocio.nombre +
+            ". Puedes contactarlos por WhatsApp:",
+
+        url: window.location.href
+
+    };
+
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share(datosCompartir);
+
+        } catch (error) {
+
+            // El usuario canceló el menú de compartir.
+            // No hacemos nada.
+
+        }
+
+    } else {
+
+        // Alternativa para navegadores
+        // que no soportan compartir de forma nativa.
+
+        const texto =
+            "Te comparto " +
+            negocio.nombre +
+            ": " +
+            window.location.href;
+
+
+        try {
+
+            await navigator.clipboard.writeText(texto);
+
+            alert(
+                "El enlace del negocio fue copiado. " +
+                "Ahora puedes pegarlo y compartirlo."
+            );
+
+        } catch (error) {
+
+            alert(
+                "Copia este enlace para compartir el negocio:\n\n" +
+                window.location.href
+            );
+
+        }
+
+    }
+
+});
+
