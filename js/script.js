@@ -418,3 +418,75 @@ END:VCARD`;
     URL.revokeObjectURL(url);
 
 });
+
+// =========================
+// COMPARTIR NEGOCIO
+// =========================
+
+const botonCompartirNegocio =
+    document.getElementById("compartir-negocio");
+
+
+botonCompartirNegocio.addEventListener("click", async function() {
+
+    const datosCompartir = {
+
+        title: negocio.nombre,
+
+        text:
+            "Te comparto " +
+            negocio.nombre +
+            ". Puedes contactarlos por WhatsApp:",
+
+        url: window.location.href
+
+    };
+
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share(datosCompartir);
+
+        } catch (error) {
+
+            // El usuario canceló el menú de compartir.
+            // No hacemos nada.
+
+        }
+
+    } else {
+
+        // Alternativa para navegadores
+        // que no soportan compartir de forma nativa.
+
+        const texto =
+            "Te comparto " +
+            negocio.nombre +
+            ": " +
+            window.location.href;
+
+
+        try {
+
+            await navigator.clipboard.writeText(texto);
+
+            alert(
+                "El enlace del negocio fue copiado. " +
+                "Ahora puedes pegarlo y compartirlo."
+            );
+
+        } catch (error) {
+
+            alert(
+                "Copia este enlace para compartir el negocio:\n\n" +
+                window.location.href
+            );
+
+        }
+
+    }
+
+});
+
