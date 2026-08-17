@@ -364,3 +364,57 @@ negocio.galeria.forEach(function(imagen, indice) {
     listaGaleria.appendChild(foto);
 
 });
+
+// =========================
+// GUARDAR CONTACTO
+// =========================
+
+const botonGuardarContacto =
+    document.getElementById("guardar-contacto");
+
+
+botonGuardarContacto.addEventListener("click", function() {
+
+    const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+FN:${negocio.nombre}
+ORG:${negocio.nombre}
+TEL;TYPE=CELL:${negocio.whatsapp}
+TEL;TYPE=WORK:${negocio.telefono}
+ADR;TYPE=WORK:;;${negocio.ciudad};;;
+URL:${window.location.href}
+END:VCARD`;
+
+
+    const archivo =
+        new Blob(
+            [vcard],
+            { type: "text/vcard;charset=utf-8" }
+        );
+
+
+    const url =
+        URL.createObjectURL(archivo);
+
+
+    const enlace =
+        document.createElement("a");
+
+
+    enlace.href = url;
+
+    enlace.download =
+        negocio.nombre + ".vcf";
+
+
+    document.body.appendChild(enlace);
+
+    enlace.click();
+
+    document.body.removeChild(enlace);
+
+
+    URL.revokeObjectURL(url);
+
+});
