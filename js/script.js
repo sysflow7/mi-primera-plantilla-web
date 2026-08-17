@@ -147,6 +147,8 @@ document.getElementById("whatsapp-principal").href =
 document.getElementById("whatsapp-final").href =
     enlaceWhatsApp;
 
+document.getElementById("whatsapp-flotante").href =
+    enlaceWhatsApp;
 
 // =========================
 // REDES SOCIALES
