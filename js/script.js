@@ -13,7 +13,7 @@ const negocio = {
 
     slogan: "Todo para construir tus proyectos",
 
-    whatsapp: "50300000010",
+    whatsapp: "50300000000",
 
     telefono: "+503 0000-0000",
 
