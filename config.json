@@ -4,7 +4,7 @@
   "descripcion": "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
   "descripcionSEO": "Ferretería en San Salvador con herramientas, materiales de construcción y soluciones para el hogar.",
   "tipoNegocio": "HardwareStore",
-  "indexable": true,
+  "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
   "ciudad": "San Salvador",
