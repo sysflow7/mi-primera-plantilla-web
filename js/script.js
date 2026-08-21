@@ -28,7 +28,9 @@
         // DATOS GENERALES
         // =========================
 
-        document.title = negocio.nombre;
+        // El título SEO ya fue generado por worker.js desde config.json.
+        // No lo sobrescribimos aquí para mantener consistencia entre
+        // el HTML recibido por Google y el DOM después de ejecutar JS.
 
         const navLogo = document.getElementById("nav-logo");
         if (navLogo) navLogo.textContent = negocio.nombre;
