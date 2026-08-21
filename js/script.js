@@ -5,13 +5,24 @@
 // ⚠️ ESTA ES LA ÚNICA SECCIÓN QUE DEBES MODIFICAR
 // CUANDO CREES UNA PÁGINA PARA UN NUEVO CLIENTE.
 //
+// La configuración SEO, los datos estructurados y
+// los elementos visibles de la página se alimentan
+// desde este mismo objeto.
+//
 // ==================================================
 
 const negocio = {
 
+    // =========================
+    // DATOS PRINCIPALES
+    // =========================
+
     nombre: "Ferretería El Constructor",
 
     slogan: "Todo para construir tus proyectos",
+
+    descripcion:
+        "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
 
     whatsapp: "50300000000",
 
@@ -28,6 +39,72 @@ const negocio = {
     catalogo: "https://wa.me/c/50300000000",
 
     logo: "logo.png",
+
+    // =========================
+    // SEO Y GOOGLE
+    // =========================
+
+    seo: {
+
+        // Si se dejan vacíos, se generan automáticamente.
+        titulo: "",
+
+        descripcion: "",
+
+        // Imagen que se utilizará al compartir la página
+        // y como imagen principal del negocio.
+        imagenSocial: "foto1.jpg",
+
+        // Utilizar el tipo más específico posible cuando
+        // creemos un cliente. Ej.: Restaurant, Store, etc.
+        // Si no aplica uno específico, dejar LocalBusiness.
+        tipoNegocio: "LocalBusiness"
+
+    },
+
+    // =========================
+    // DIRECCIÓN DEL NEGOCIO
+    // =========================
+
+    direccion: {
+
+        calle: "",
+
+        ciudad: "San Salvador",
+
+        departamento: "San Salvador",
+
+        codigoPostal: "",
+
+        pais: "SV",
+
+        latitud: "",
+
+        longitud: ""
+
+    },
+
+    // =========================
+    // HORARIOS
+    // =========================
+    //
+    // Utilizar nombres de días en inglés porque así
+    // lo especifica Schema.org.
+    // Ejemplo:
+    // {
+    //     dias: ["Monday", "Tuesday"],
+    //     abre: "08:00",
+    //     cierra: "17:00"
+    // }
+
+    horarios: [],
+
+    // Rango de precios opcional: $, $$, $$$, etc.
+    rangoPrecios: "",
+
+    // =========================
+    // SERVICIOS
+    // =========================
 
     servicios: [
 
@@ -48,7 +125,11 @@ const negocio = {
 
     ],
 
-        productos: [
+    // =========================
+    // PRODUCTOS
+    // =========================
+
+    productos: [
 
         {
             nombre: "Taladro Profesional",
@@ -73,35 +154,43 @@ const negocio = {
 
     ],
 
+    // =========================
+    // GALERÍA
+    // =========================
+
     galeria: [
         "foto1.jpg",
         "foto2.jpg",
         "foto3.jpg"
-    ],    
+    ],
 
-beneficios: [
+    // =========================
+    // BENEFICIOS
+    // =========================
 
-    {
-        titulo: "Productos de calidad",
-        descripcion: "Seleccionamos productos confiables para nuestros clientes."
-    },
+    beneficios: [
 
-    {
-        titulo: "Atención personalizada",
-        descripcion: "Te ayudamos a encontrar lo que necesitas para tu proyecto."
-    },
+        {
+            titulo: "Productos de calidad",
+            descripcion: "Seleccionamos productos confiables para nuestros clientes."
+        },
 
-    {
-        titulo: "Amplia variedad",
-        descripcion: "Encuentra diferentes opciones de herramientas y materiales."
-    },
+        {
+            titulo: "Atención personalizada",
+            descripcion: "Te ayudamos a encontrar lo que necesitas para tu proyecto."
+        },
 
-    {
-        titulo: "Experiencia",
-        descripcion: "Estamos para ayudarte a encontrar la solución adecuada."
-    }
+        {
+            titulo: "Amplia variedad",
+            descripcion: "Encuentra diferentes opciones de herramientas y materiales."
+        },
 
-]    
+        {
+            titulo: "Experiencia",
+            descripcion: "Estamos para ayudarte a encontrar la solución adecuada."
+        }
+
+    ]
 
 };
 
@@ -112,21 +201,281 @@ beneficios: [
 // ⚠️ A PARTIR DE AQUÍ NO MODIFICAR
 // ==================================================
 
-// =========================
+// ==================================================
+// FUNCIONES DE SEO
+// ==================================================
+
+function obtenerUrlCanonica() {
+
+    const url = new URL(window.location.href);
+
+    url.search = "";
+    url.hash = "";
+
+    return url.toString();
+
+}
+
+
+function obtenerUrlImagen(nombreArchivo) {
+
+    return new URL(
+        "images/" + nombreArchivo,
+        window.location.origin + "/"
+    ).href;
+
+}
+
+
+function actualizarMeta(id, contenido) {
+
+    const elemento = document.getElementById(id);
+
+    if (elemento) {
+        elemento.setAttribute("content", contenido || "");
+    }
+
+}
+
+
+function configurarSEO() {
+
+    const urlCanonica = obtenerUrlCanonica();
+
+    const tituloSEO =
+        negocio.seo.titulo ||
+        negocio.nombre + " | " + negocio.ciudad;
+
+    const descripcionSEO =
+        negocio.seo.descripcion ||
+        negocio.descripcion ||
+        negocio.slogan;
+
+    const imagenSEO =
+        obtenerUrlImagen(negocio.seo.imagenSocial || negocio.logo);
+
+
+    // =========================
+    // TITLE Y META DESCRIPTION
+    // =========================
+
+    document.title = tituloSEO;
+
+    actualizarMeta(
+        "meta-description",
+        descripcionSEO
+    );
+
+
+    // =========================
+    // AUTOR
+    // =========================
+
+    actualizarMeta(
+        "meta-author",
+        negocio.nombre
+    );
+
+
+    // =========================
+    // CANONICAL
+    // =========================
+
+    const canonical =
+        document.getElementById("canonical-link");
+
+    if (canonical) {
+        canonical.href = urlCanonica;
+    }
+
+
+    // =========================
+    // OPEN GRAPH
+    // =========================
+
+    actualizarMeta("og-title", tituloSEO);
+    actualizarMeta("og-description", descripcionSEO);
+    actualizarMeta("og-url", urlCanonica);
+    actualizarMeta("og-image", imagenSEO);
+    actualizarMeta("og-site-name", negocio.nombre);
+
+
+    // =========================
+    // TWITTER / X
+    // =========================
+
+    actualizarMeta("twitter-title", tituloSEO);
+    actualizarMeta("twitter-description", descripcionSEO);
+    actualizarMeta("twitter-image", imagenSEO);
+
+
+    // =========================
+    // FAVICON
+    // =========================
+
+    const favicon =
+        document.getElementById("site-favicon");
+
+    if (favicon) {
+        favicon.href = obtenerUrlImagen(negocio.logo);
+    }
+
+
+    // =========================
+    // DATOS ESTRUCTURADOS
+    // =========================
+
+    const direccion = negocio.direccion || {};
+
+    const datosNegocio = {
+
+        "@context": "https://schema.org",
+
+        "@type": negocio.seo.tipoNegocio || "LocalBusiness",
+
+        "@id": urlCanonica + "#negocio",
+
+        "name": negocio.nombre,
+
+        "description": descripcionSEO,
+
+        "url": urlCanonica,
+
+        "logo": obtenerUrlImagen(negocio.logo),
+
+        "image": [imagenSEO],
+
+        "telephone": negocio.telefono,
+
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": direccion.calle || "",
+            "addressLocality": direccion.ciudad || negocio.ciudad,
+            "addressRegion": direccion.departamento || "",
+            "postalCode": direccion.codigoPostal || "",
+            "addressCountry": direccion.pais || "SV"
+        }
+
+    };
+
+
+    if (negocio.rangoPrecios) {
+        datosNegocio.priceRange = negocio.rangoPrecios;
+    }
+
+
+    if (negocio.maps && negocio.maps.startsWith("http")) {
+        datosNegocio.hasMap = negocio.maps;
+    }
+
+
+    if (negocio.facebook && negocio.facebook.startsWith("http")) {
+        datosNegocio.sameAs = [negocio.facebook];
+    }
+
+
+    if (negocio.instagram && negocio.instagram.startsWith("http")) {
+
+        if (!datosNegocio.sameAs) {
+            datosNegocio.sameAs = [];
+        }
+
+        datosNegocio.sameAs.push(negocio.instagram);
+
+    }
+
+
+    if (
+        direccion.latitud !== "" &&
+        direccion.longitud !== ""
+    ) {
+
+        datosNegocio.geo = {
+            "@type": "GeoCoordinates",
+            "latitude": Number(direccion.latitud),
+            "longitude": Number(direccion.longitud)
+        };
+
+    }
+
+
+    if (
+        Array.isArray(negocio.horarios) &&
+        negocio.horarios.length > 0
+    ) {
+
+        datosNegocio.openingHoursSpecification =
+            negocio.horarios.flatMap(function(horario) {
+
+                return horario.dias.map(function(dia) {
+
+                    return {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": dia,
+                        "opens": horario.abre,
+                        "closes": horario.cierra
+                    };
+
+                });
+
+            });
+
+    }
+
+
+    const datosEstructurados =
+        document.getElementById("datos-estructurados");
+
+    if (datosEstructurados) {
+        datosEstructurados.textContent =
+            JSON.stringify(datosNegocio);
+    }
+
+}
+
+
+// ==================================================
 // DATOS GENERALES
-// =========================
+// ==================================================
+
+configurarSEO();
+
 
 document.getElementById("nombre-negocio").textContent =
     negocio.nombre;
 
+
+document.getElementById("nav-logo").textContent =
+    negocio.nombre;
+
+
+document.getElementById("nombre-footer").textContent =
+    negocio.nombre;
+
+
+document.getElementById("anio-actual").textContent =
+    new Date().getFullYear();
+
+
+document.getElementById("descripcion-negocio").textContent =
+    negocio.descripcion;
+
+
 document.getElementById("logo-negocio").src =
     "images/" + negocio.logo;
+
+
+document.getElementById("logo-negocio").alt =
+    negocio.nombre + " - Logo";
+
 
 document.getElementById("slogan-negocio").textContent =
     negocio.slogan;
 
+
 document.getElementById("telefono-negocio").textContent =
     negocio.telefono;
+
 
 document.getElementById("ciudad-negocio").textContent =
     negocio.ciudad;
@@ -136,7 +485,7 @@ document.getElementById("ciudad-negocio").textContent =
 // WHATSAPP
 // =========================
 
-    const enlaceWhatsApp =
+const enlaceWhatsApp =
     "https://wa.me/" + negocio.whatsapp;
 
 
@@ -147,8 +496,10 @@ document.getElementById("whatsapp-principal").href =
 document.getElementById("whatsapp-final").href =
     enlaceWhatsApp;
 
+
 document.getElementById("whatsapp-flotante").href =
     enlaceWhatsApp;
+
 
 // =========================
 // REDES SOCIALES
@@ -161,6 +512,7 @@ document.getElementById("facebook-negocio").href =
 document.getElementById("instagram-negocio").href =
     negocio.instagram;
 
+
 // =========================
 // GOOGLE MAPS
 // =========================
@@ -168,12 +520,14 @@ document.getElementById("instagram-negocio").href =
 document.getElementById("maps-negocio").href =
     negocio.maps;
 
+
 // =========================
 // CATÁLOGO WHATSAPP
 // =========================
 
 document.getElementById("catalogo-negocio").href =
     negocio.catalogo;
+
 
 // =========================
 // SERVICIOS
@@ -205,6 +559,7 @@ negocio.servicios.forEach(function(servicio) {
 
 });
 
+
 // =========================
 // PRODUCTOS
 // =========================
@@ -228,7 +583,7 @@ negocio.productos.forEach(function(producto) {
         producto.precio;
 
 
-    const enlaceWhatsApp =
+    const enlaceWhatsAppProducto =
         "https://wa.me/" +
         negocio.whatsapp +
         "?text=" +
@@ -239,7 +594,8 @@ negocio.productos.forEach(function(producto) {
 
         <img
             src="images/${producto.imagen}"
-            alt="${producto.nombre}"
+            alt="${producto.nombre} - ${negocio.nombre}"
+            loading="lazy"
         >
 
         <div class="product-content">
@@ -258,8 +614,9 @@ negocio.productos.forEach(function(producto) {
 
             <a
                 class="product-whatsapp"
-                href="${enlaceWhatsApp}"
+                href="${enlaceWhatsAppProducto}"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 💬 Consultar por WhatsApp
             </a>
@@ -272,6 +629,7 @@ negocio.productos.forEach(function(producto) {
     listaProductos.appendChild(tarjeta);
 
 });
+
 
 // =========================
 // MENÚ MÓVIL
@@ -363,9 +721,12 @@ negocio.galeria.forEach(function(imagen, indice) {
     foto.alt =
         negocio.nombre + " - Foto " + (indice + 1);
 
+    foto.loading = "lazy";
+
     listaGaleria.appendChild(foto);
 
 });
+
 
 // =========================
 // GUARDAR CONTACTO
@@ -420,6 +781,7 @@ END:VCARD`;
     URL.revokeObjectURL(url);
 
 });
+
 
 // =========================
 // COMPARTIR NEGOCIO
@@ -491,4 +853,3 @@ botonCompartirNegocio.addEventListener("click", async function() {
     }
 
 });
-
