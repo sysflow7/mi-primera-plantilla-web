@@ -9,17 +9,23 @@
   "telefono": "+503 0000-0000",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
-  "direccion": "",
-  "codigoPostal": "",
-  "latitud": "",
-  "longitud": "",
+  "direccion": {
+    "calle": "",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
   "facebook": "#",
   "instagram": "#",
   "maps": "https://www.google.com/maps",
   "catalogo": "https://wa.me/c/50300000000",
   "logo": "logo.png",
   "imagenSocial": "logo.png",
-  "horario": [],
+  "horarios": [],
+  "rangoPrecios": "",
   "servicios": [
     {
       "nombre": "Herramientas",
