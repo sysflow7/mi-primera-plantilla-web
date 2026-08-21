@@ -8,10 +8,93 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="Página web oficial de Mi Negocio">
+    <!-- =========================
+         SEO BÁSICO
+    ========================= -->
 
     <title>Mi Negocio</title>
+
+    <meta id="meta-description"
+          name="description"
+          content="Página web oficial de Mi Negocio">
+
+    <meta name="robots"
+          content="index, follow">
+
+    <meta name="author"
+          content="Mi Negocio">
+
+    <link id="canonical-link"
+          rel="canonical"
+          href="">
+
+    <link id="site-favicon"
+          rel="icon"
+          type="image/png"
+          href="images/logo.png">
+
+    <!-- =========================
+         OPEN GRAPH
+    ========================= -->
+
+    <meta property="og:type"
+          content="website">
+
+    <meta id="og-title"
+          property="og:title"
+          content="Mi Negocio">
+
+    <meta id="og-description"
+          property="og:description"
+          content="Página web oficial de Mi Negocio">
+
+    <meta id="og-url"
+          property="og:url"
+          content="">
+
+    <meta id="og-image"
+          property="og:image"
+          content="">
+
+    <meta property="og:locale"
+          content="es_SV">
+
+    <meta id="og-site-name"
+          property="og:site_name"
+          content="Mi Negocio">
+
+    <!-- =========================
+         TWITTER / X
+    ========================= -->
+
+    <meta name="twitter:card"
+          content="summary_large_image">
+
+    <meta id="twitter-title"
+          name="twitter:title"
+          content="Mi Negocio">
+
+    <meta id="twitter-description"
+          name="twitter:description"
+          content="Página web oficial de Mi Negocio">
+
+    <meta id="twitter-image"
+          name="twitter:image"
+          content="">
+
+    <!-- =========================
+         DATOS ESTRUCTURADOS
+    ========================= -->
+
+    <script id="datos-estructurados"
+            type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Mi Negocio",
+        "url": ""
+    }
+    </script>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -29,7 +112,7 @@
 
     <div class="nav-container">
     
-        <a href="#inicio" class="nav-logo">
+        <a href="#inicio" class="nav-logo" id="nav-logo">
             MI NEGOCIO
         </a>
     
@@ -100,7 +183,8 @@
 
         <a id="whatsapp-principal"
            class="whatsapp"
-           target="_blank">
+           target="_blank"
+           rel="noopener noreferrer">
         
             💬 Contactar por WhatsApp
         
@@ -139,7 +223,7 @@
     <h2>¿Quiénes somos?</h2>
 
 
-    <p class="about">
+    <p class="about" id="descripcion-negocio">
 
         Somos un negocio dedicado a ofrecer productos
         y servicios de calidad, brindando atención
@@ -188,7 +272,8 @@
 <a
     id="catalogo-negocio"
     class="catalog-button"
-    target="_blank">
+    target="_blank"
+    rel="noopener noreferrer">
 
     📲 Ver catálogo completo
 
@@ -236,7 +321,8 @@
         <a
             id="maps-negocio"
             class="location-button"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             📍 Cómo llegar
 
@@ -267,7 +353,8 @@
 
         <a id="whatsapp-final"
            class="whatsapp"
-           target="_blank">
+           target="_blank"
+           rel="noopener noreferrer">
         
             💬 Escríbenos por WhatsApp
         
@@ -277,12 +364,14 @@
     <div class="social">
 
         <a id="facebook-negocio"
-           target="_blank">
+           target="_blank"
+           rel="noopener noreferrer">
             Facebook
         </a>
         
         <a id="instagram-negocio"
-           target="_blank">
+           target="_blank"
+           rel="noopener noreferrer">
             Instagram
         </a>
 
@@ -299,6 +388,7 @@
 <a id="whatsapp-flotante"
    class="whatsapp-float"
    target="_blank"
+   rel="noopener noreferrer"
    aria-label="Contactar por WhatsApp">
 
     💬
@@ -311,7 +401,8 @@
 
 <footer>
 
-    © 2026 Mi Negocio -
+    © <span id="anio-actual"></span>
+    <span id="nombre-footer">Mi Negocio</span> -
     Todos los derechos reservados
 
 </footer>
