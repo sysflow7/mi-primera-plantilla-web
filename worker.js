@@ -1,0 +1,283 @@
+export default {
+
+    async fetch(request, env) {
+
+        const url = new URL(request.url);
+
+        // ================================================
+        // ROBOTS.TXT
+        // ================================================
+
+        if (url.pathname === "/robots.txt") {
+
+            const contenido =
+                "User-agent: *\n" +
+                "Allow: /\n" +
+                "Sitemap: " + url.origin + "/sitemap.xml\n";
+
+            return new Response(contenido, {
+                headers: {
+                    "Content-Type": "text/plain; charset=UTF-8",
+                    "Cache-Control": "public, max-age=3600"
+                }
+            });
+
+        }
+
+        // ================================================
+        // SITEMAP.XML
+        // ================================================
+
+        if (url.pathname === "/sitemap.xml") {
+
+            const paginaPrincipal = url.origin + "/";
+
+            const contenido =
+                '<?xml version="1.0" encoding="UTF-8"?>' +
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
+                '<url>' +
+                '<loc>' + paginaPrincipal + '</loc>' +
+                '</url>' +
+                '</urlset>';
+
+            return new Response(contenido, {
+                headers: {
+                    "Content-Type": "application/xml; charset=UTF-8",
+                    "Cache-Control": "public, max-age=3600"
+                }
+            });
+
+        }
+
+        // ================================================
+        // HTML PRINCIPAL CON SEO GENERADO EN SERVIDOR
+        // ================================================
+
+        if (request.method === "GET" && url.pathname === "/") {
+
+            const respuestaConfig = await env.ASSETS.fetch(
+                new Request(new URL("/config.json", request.url))
+            );
+
+            if (!respuestaConfig.ok) {
+
+                return new Response(
+                    "No se pudo cargar la configuración del negocio.",
+                    {
+                        status: 500,
+                        headers: {
+                            "Content-Type": "text/plain; charset=UTF-8"
+                        }
+                    }
+                );
+
+            }
+
+            const negocio = await respuestaConfig.json();
+
+            const respuestaHTML = await env.ASSETS.fetch(request);
+
+            if (!respuestaHTML.ok) {
+                return respuestaHTML;
+            }
+
+            let html = await respuestaHTML.text();
+
+            const escHtml = function (valor) {
+
+                return String(valor ?? "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+
+            };
+
+            const escJson = function (valor) {
+
+                return JSON.stringify(valor)
+                    .replace(/</g, "\\u003c")
+                    .replace(/>/g, "\\u003e")
+                    .replace(/&/g, "\\u0026")
+                    .replace(/\u2028/g, "\\u2028")
+                    .replace(/\u2029/g, "\\u2029");
+
+            };
+
+            const tituloSEO =
+                negocio.tituloSEO ||
+                negocio.seo?.titulo ||
+                negocio.nombre + " | " + negocio.ciudad;
+
+            const descripcionSEO =
+                negocio.descripcionSEO ||
+                negocio.seo?.descripcion ||
+                negocio.descripcion ||
+                negocio.slogan ||
+                negocio.nombre;
+
+            const canonical = url.origin + "/";
+
+            const logoURL = new URL(
+                "images/" + negocio.logo,
+                url.origin + "/"
+            ).href;
+
+            const imagenSocialURL = new URL(
+                "images/" +
+                (negocio.imagenSocial || negocio.logo),
+                url.origin + "/"
+            ).href;
+
+            const indexable = negocio.indexable !== false;
+
+            const direccion = negocio.direccion || {};
+
+            const datosNegocio = {
+                "@context": "https://schema.org",
+                "@type": negocio.tipoNegocio || "LocalBusiness",
+                "@id": canonical + "#negocio",
+                "name": negocio.nombre,
+                "description": descripcionSEO,
+                "url": canonical,
+                "logo": logoURL,
+                "image": [imagenSocialURL],
+                "telephone": negocio.telefono
+            };
+
+            const postalAddress = {};
+
+            if (direccion.calle) {
+                postalAddress.streetAddress = direccion.calle;
+            }
+
+            if (direccion.ciudad || negocio.ciudad) {
+                postalAddress.addressLocality =
+                    direccion.ciudad || negocio.ciudad;
+            }
+
+            if (direccion.departamento) {
+                postalAddress.addressRegion = direccion.departamento;
+            }
+
+            if (direccion.codigoPostal) {
+                postalAddress.postalCode = direccion.codigoPostal;
+            }
+
+            if (direccion.pais) {
+                postalAddress.addressCountry = direccion.pais;
+            }
+
+            if (Object.keys(postalAddress).length > 0) {
+                datosNegocio.address = {
+                    "@type": "PostalAddress",
+                    ...postalAddress
+                };
+            }
+
+            if (negocio.rangoPrecios) {
+                datosNegocio.priceRange = negocio.rangoPrecios;
+            }
+
+            if (
+                negocio.maps &&
+                negocio.maps.startsWith("http")
+            ) {
+                datosNegocio.hasMap = negocio.maps;
+            }
+
+            const redes = [];
+
+            if (
+                negocio.facebook &&
+                negocio.facebook.startsWith("http")
+            ) {
+                redes.push(negocio.facebook);
+            }
+
+            if (
+                negocio.instagram &&
+                negocio.instagram.startsWith("http")
+            ) {
+                redes.push(negocio.instagram);
+            }
+
+            if (redes.length > 0) {
+                datosNegocio.sameAs = redes;
+            }
+
+            if (
+                direccion.latitud !== "" &&
+                direccion.latitud !== undefined &&
+                direccion.longitud !== "" &&
+                direccion.longitud !== undefined
+            ) {
+
+                datosNegocio.geo = {
+                    "@type": "GeoCoordinates",
+                    "latitude": Number(direccion.latitud),
+                    "longitude": Number(direccion.longitud)
+                };
+
+            }
+
+            if (
+                Array.isArray(negocio.horarios) &&
+                negocio.horarios.length > 0
+            ) {
+
+                datosNegocio.openingHoursSpecification =
+                    negocio.horarios.flatMap(function (horario) {
+
+                        return (horario.dias || []).map(function (dia) {
+
+                            return {
+                                "@type": "OpeningHoursSpecification",
+                                "dayOfWeek": dia,
+                                "opens": horario.abre,
+                                "closes": horario.cierra
+                            };
+
+                        });
+
+                    });
+
+            }
+
+            const reemplazos = {
+                "__SEO_TITLE__": escHtml(tituloSEO),
+                "__SEO_DESCRIPTION__": escHtml(descripcionSEO),
+                "__ROBOTS__": indexable
+                    ? "index, follow"
+                    : "noindex, nofollow",
+                "__BUSINESS_NAME__": escHtml(negocio.nombre),
+                "__CANONICAL_URL__": escHtml(canonical),
+                "__FAVICON_URL__": escHtml(logoURL),
+                "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL),
+                "__STRUCTURED_DATA__": escJson(datosNegocio)
+            };
+
+            Object.entries(reemplazos).forEach(function ([marcador, valor]) {
+                html = html.split(marcador).join(valor);
+            });
+
+            return new Response(html, {
+                status: respuestaHTML.status,
+                headers: {
+                    "Content-Type": "text/html; charset=UTF-8",
+                    "Cache-Control": "public, max-age=300"
+                }
+            });
+
+        }
+
+        // ================================================
+        // RESTO DE LOS RECURSOS
+        // ================================================
+
+        return env.ASSETS.fetch(request);
+
+    }
+
+};
