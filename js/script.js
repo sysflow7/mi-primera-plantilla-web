@@ -1,744 +1,258 @@
 // ==================================================
-// CONFIGURACIÓN DEL NEGOCIO
+// SIDEN - CONFIGURACIÓN DEL CLIENTE
 // ==================================================
 //
-// ⚠️ ESTA ES LA ÚNICA SECCIÓN QUE DEBES MODIFICAR
-// CUANDO CREES UNA PÁGINA PARA UN NUEVO CLIENTE.
-//
-// La configuración SEO, los datos estructurados y
-// los elementos visibles de la página se alimentan
-// desde este mismo objeto.
+// La información personalizada vive en /config.json.
+// Para crear un nuevo cliente, modifica solamente ese archivo.
+// A partir de aquí, este archivo NO debe modificarse por cliente.
 //
 // ==================================================
 
-const negocio = {
+(async function () {
 
-    // =========================
-    // DATOS PRINCIPALES
-    // =========================
+    "use strict";
 
-    nombre: "Ferretería El Constructor",
+    try {
 
-    slogan: "Todo para construir tus proyectos",
+        const respuesta = await fetch("config.json", {
+            cache: "no-cache"
+        });
 
-    descripcion:
-        "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
-
-    whatsapp: "50300000000",
-
-    telefono: "+503 0000-0000",
-
-    ciudad: "San Salvador, El Salvador",
-
-    facebook: "#",
-
-    instagram: "#",
-
-    maps: "https://www.google.com/maps",
-
-    catalogo: "https://wa.me/c/50300000000",
-
-    logo: "logo.png",
-
-    // =========================
-    // SEO Y GOOGLE
-    // =========================
-
-    seo: {
-
-        // Si se dejan vacíos, se generan automáticamente.
-        titulo: "",
-
-        descripcion: "",
-
-        // Imagen que se utilizará al compartir la página
-        // y como imagen principal del negocio.
-        imagenSocial: "foto1.jpg",
-
-        // Utilizar el tipo más específico posible cuando
-        // creemos un cliente. Ej.: Restaurant, Store, etc.
-        // Si no aplica uno específico, dejar LocalBusiness.
-        tipoNegocio: "LocalBusiness"
-
-    },
-
-    // =========================
-    // DIRECCIÓN DEL NEGOCIO
-    // =========================
-
-    direccion: {
-
-        calle: "",
-
-        ciudad: "San Salvador",
-
-        departamento: "San Salvador",
-
-        codigoPostal: "",
-
-        pais: "SV",
-
-        latitud: "",
-
-        longitud: ""
-
-    },
-
-    // =========================
-    // HORARIOS
-    // =========================
-    //
-    // Utilizar nombres de días en inglés porque así
-    // lo especifica Schema.org.
-    // Ejemplo:
-    // {
-    //     dias: ["Monday", "Tuesday"],
-    //     abre: "08:00",
-    //     cierra: "17:00"
-    // }
-
-    horarios: [],
-
-    // Rango de precios opcional: $, $$, $$$, etc.
-    rangoPrecios: "",
-
-    // =========================
-    // SERVICIOS
-    // =========================
-
-    servicios: [
-
-        {
-            nombre: "Herramientas",
-            descripcion: "Encuentra herramientas para tus proyectos de construcción y reparación."
-        },
-
-        {
-            nombre: "Materiales de construcción",
-            descripcion: "Productos y materiales para tus proyectos de construcción."
-        },
-
-        {
-            nombre: "Accesorios para el hogar",
-            descripcion: "Soluciones prácticas para mantenimiento y reparación del hogar."
+        if (!respuesta.ok) {
+            throw new Error("No se pudo cargar config.json");
         }
 
-    ],
+        const negocio = await respuesta.json();
 
-    // =========================
-    // PRODUCTOS
-    // =========================
+        // =========================
+        // DATOS GENERALES
+        // =========================
 
-    productos: [
+        document.title = negocio.nombre;
 
-        {
-            nombre: "Taladro Profesional",
-            precio: "$49.99",
-            descripcion: "Taladro profesional para trabajos del hogar y construcción.",
-            imagen: "producto1.jpg"
-        },
+        const navLogo = document.getElementById("nav-logo");
+        if (navLogo) navLogo.textContent = negocio.nombre;
 
-        {
-            nombre: "Juego de Herramientas",
-            precio: "$35.00",
-            descripcion: "Kit de herramientas para reparaciones y mantenimiento.",
-            imagen: "producto2.jpg"
-        },
-
-        {
-            nombre: "Lámpara LED",
-            precio: "$15.00",
-            descripcion: "Lámpara LED para iluminación del hogar y espacios de trabajo.",
-            imagen: "producto3.jpg"
+        const logo = document.getElementById("logo-negocio");
+        if (logo) {
+            logo.src = "images/" + negocio.logo;
+            logo.alt = "Logo de " + negocio.nombre;
         }
 
-    ],
+        const nombre = document.getElementById("nombre-negocio");
+        if (nombre) nombre.textContent = negocio.nombre;
 
-    // =========================
-    // GALERÍA
-    // =========================
+        const slogan = document.getElementById("slogan-negocio");
+        if (slogan) slogan.textContent = negocio.slogan;
 
-    galeria: [
-        "foto1.jpg",
-        "foto2.jpg",
-        "foto3.jpg"
-    ],
+        const descripcion = document.getElementById("descripcion-negocio");
+        if (descripcion) descripcion.textContent = negocio.descripcion;
 
-    // =========================
-    // BENEFICIOS
-    // =========================
+        const telefono = document.getElementById("telefono-negocio");
+        if (telefono) telefono.textContent = negocio.telefono;
 
-    beneficios: [
+        const ciudad = document.getElementById("ciudad-negocio");
+        if (ciudad) ciudad.textContent = negocio.ciudad;
 
-        {
-            titulo: "Productos de calidad",
-            descripcion: "Seleccionamos productos confiables para nuestros clientes."
-        },
+        const footer = document.getElementById("nombre-footer");
+        if (footer) footer.textContent = negocio.nombre;
 
-        {
-            titulo: "Atención personalizada",
-            descripcion: "Te ayudamos a encontrar lo que necesitas para tu proyecto."
-        },
+        const anio = document.getElementById("anio-actual");
+        if (anio) anio.textContent = new Date().getFullYear();
 
-        {
-            titulo: "Amplia variedad",
-            descripcion: "Encuentra diferentes opciones de herramientas y materiales."
-        },
+        // =========================
+        // WHATSAPP
+        // =========================
 
-        {
-            titulo: "Experiencia",
-            descripcion: "Estamos para ayudarte a encontrar la solución adecuada."
-        }
+        const enlaceWhatsApp =
+            "https://wa.me/" + negocio.whatsapp;
 
-    ]
+        const whatsappPrincipal =
+            document.getElementById("whatsapp-principal");
+        if (whatsappPrincipal) whatsappPrincipal.href = enlaceWhatsApp;
 
-};
+        const whatsappFinal =
+            document.getElementById("whatsapp-final");
+        if (whatsappFinal) whatsappFinal.href = enlaceWhatsApp;
 
-// ==================================================
-// FIN DE CONFIGURACIÓN DEL NEGOCIO
-// ==================================================
-//
-// ⚠️ A PARTIR DE AQUÍ NO MODIFICAR
-// ==================================================
+        const whatsappFlotante =
+            document.getElementById("whatsapp-flotante");
+        if (whatsappFlotante) whatsappFlotante.href = enlaceWhatsApp;
 
-// ==================================================
-// FUNCIONES DE SEO
-// ==================================================
+        // =========================
+        // REDES SOCIALES
+        // =========================
 
-function obtenerUrlCanonica() {
+        const facebook =
+            document.getElementById("facebook-negocio");
+        if (facebook) facebook.href = negocio.facebook;
 
-    const url = new URL(window.location.href);
+        const instagram =
+            document.getElementById("instagram-negocio");
+        if (instagram) instagram.href = negocio.instagram;
 
-    url.search = "";
-    url.hash = "";
+        // =========================
+        // GOOGLE MAPS
+        // =========================
 
-    return url.toString();
+        const maps =
+            document.getElementById("maps-negocio");
+        if (maps) maps.href = negocio.maps;
 
-}
+        // =========================
+        // CATÁLOGO WHATSAPP
+        // =========================
 
+        const catalogo =
+            document.getElementById("catalogo-negocio");
+        if (catalogo) catalogo.href = negocio.catalogo;
 
-function obtenerUrlImagen(nombreArchivo) {
+        // =========================
+        // SERVICIOS
+        // =========================
 
-    return new URL(
-        "images/" + nombreArchivo,
-        window.location.origin + "/"
-    ).href;
+        const listaServicios =
+            document.getElementById("lista-servicios");
 
-}
+        negocio.servicios.forEach(function (servicio) {
 
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "service";
 
-function actualizarMeta(id, contenido) {
+            tarjeta.innerHTML = `
+                <h3>${servicio.nombre}</h3>
+                <p>${servicio.descripcion}</p>
+            `;
 
-    const elemento = document.getElementById(id);
+            listaServicios.appendChild(tarjeta);
 
-    if (elemento) {
-        elemento.setAttribute("content", contenido || "");
-    }
+        });
 
-}
+        // =========================
+        // PRODUCTOS
+        // =========================
 
+        const listaProductos =
+            document.getElementById("lista-productos");
 
-function configurarSEO() {
+        negocio.productos.forEach(function (producto) {
 
-    const urlCanonica = obtenerUrlCanonica();
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "product";
 
-    const tituloSEO =
-        negocio.seo.titulo ||
-        negocio.nombre + " | " + negocio.ciudad;
-
-    const descripcionSEO =
-        negocio.seo.descripcion ||
-        negocio.descripcion ||
-        negocio.slogan;
-
-    const imagenSEO =
-        obtenerUrlImagen(negocio.seo.imagenSocial || negocio.logo);
-
-
-    // =========================
-    // TITLE Y META DESCRIPTION
-    // =========================
-
-    document.title = tituloSEO;
-
-    actualizarMeta(
-        "meta-description",
-        descripcionSEO
-    );
-
-
-    // =========================
-    // AUTOR
-    // =========================
-
-    actualizarMeta(
-        "meta-author",
-        negocio.nombre
-    );
-
-
-    // =========================
-    // CANONICAL
-    // =========================
-
-    const canonical =
-        document.getElementById("canonical-link");
-
-    if (canonical) {
-        canonical.href = urlCanonica;
-    }
-
-
-    // =========================
-    // OPEN GRAPH
-    // =========================
-
-    actualizarMeta("og-title", tituloSEO);
-    actualizarMeta("og-description", descripcionSEO);
-    actualizarMeta("og-url", urlCanonica);
-    actualizarMeta("og-image", imagenSEO);
-    actualizarMeta("og-site-name", negocio.nombre);
-
-
-    // =========================
-    // TWITTER / X
-    // =========================
-
-    actualizarMeta("twitter-title", tituloSEO);
-    actualizarMeta("twitter-description", descripcionSEO);
-    actualizarMeta("twitter-image", imagenSEO);
-
-
-    // =========================
-    // FAVICON
-    // =========================
-
-    const favicon =
-        document.getElementById("site-favicon");
-
-    if (favicon) {
-        favicon.href = obtenerUrlImagen(negocio.logo);
-    }
-
-
-    // =========================
-    // DATOS ESTRUCTURADOS
-    // =========================
-
-    const direccion = negocio.direccion || {};
-
-    const datosNegocio = {
-
-        "@context": "https://schema.org",
-
-        "@type": negocio.seo.tipoNegocio || "LocalBusiness",
-
-        "@id": urlCanonica + "#negocio",
-
-        "name": negocio.nombre,
-
-        "description": descripcionSEO,
-
-        "url": urlCanonica,
-
-        "logo": obtenerUrlImagen(negocio.logo),
-
-        "image": [imagenSEO],
-
-        "telephone": negocio.telefono,
-
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": direccion.calle || "",
-            "addressLocality": direccion.ciudad || negocio.ciudad,
-            "addressRegion": direccion.departamento || "",
-            "postalCode": direccion.codigoPostal || "",
-            "addressCountry": direccion.pais || "SV"
-        }
-
-    };
-
-
-    if (negocio.rangoPrecios) {
-        datosNegocio.priceRange = negocio.rangoPrecios;
-    }
-
-
-    if (negocio.maps && negocio.maps.startsWith("http")) {
-        datosNegocio.hasMap = negocio.maps;
-    }
-
-
-    if (negocio.facebook && negocio.facebook.startsWith("http")) {
-        datosNegocio.sameAs = [negocio.facebook];
-    }
-
-
-    if (negocio.instagram && negocio.instagram.startsWith("http")) {
-
-        if (!datosNegocio.sameAs) {
-            datosNegocio.sameAs = [];
-        }
-
-        datosNegocio.sameAs.push(negocio.instagram);
-
-    }
-
-
-    if (
-        direccion.latitud !== "" &&
-        direccion.longitud !== ""
-    ) {
-
-        datosNegocio.geo = {
-            "@type": "GeoCoordinates",
-            "latitude": Number(direccion.latitud),
-            "longitude": Number(direccion.longitud)
-        };
-
-    }
-
-
-    if (
-        Array.isArray(negocio.horarios) &&
-        negocio.horarios.length > 0
-    ) {
-
-        datosNegocio.openingHoursSpecification =
-            negocio.horarios.flatMap(function(horario) {
-
-                return horario.dias.map(function(dia) {
-
-                    return {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": dia,
-                        "opens": horario.abre,
-                        "closes": horario.cierra
-                    };
-
-                });
-
+            const mensaje =
+                "Hola, estoy interesado en " +
+                producto.nombre +
+                " de " +
+                producto.precio;
+
+            const enlaceProducto =
+                "https://wa.me/" +
+                negocio.whatsapp +
+                "?text=" +
+                encodeURIComponent(mensaje);
+
+            tarjeta.innerHTML = `
+                <img
+                    src="images/${producto.imagen}"
+                    alt="${producto.nombre} - ${negocio.nombre}"
+                    loading="lazy"
+                >
+
+                <div class="product-content">
+                    <h3>${producto.nombre}</h3>
+                    <p>${producto.descripcion}</p>
+                    <strong>${producto.precio}</strong>
+
+                    <a
+                        class="product-whatsapp"
+                        href="${enlaceProducto}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        💬 Consultar por WhatsApp
+                    </a>
+                </div>
+            `;
+
+            listaProductos.appendChild(tarjeta);
+
+        });
+
+        // =========================
+        // MENÚ MÓVIL
+        // =========================
+
+        const menuButton =
+            document.getElementById("menu-button");
+
+        const navLinks =
+            document.getElementById("nav-links");
+
+        menuButton.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+
+        const enlacesMenu =
+            navLinks.querySelectorAll("a");
+
+        enlacesMenu.forEach(function (enlace) {
+            enlace.addEventListener("click", function () {
+                navLinks.classList.remove("active");
             });
+        });
 
-    }
+        // =========================
+        // BENEFICIOS
+        // =========================
 
+        const listaBeneficios =
+            document.getElementById("lista-beneficios");
 
-    const datosEstructurados =
-        document.getElementById("datos-estructurados");
+        negocio.beneficios.forEach(function (beneficio) {
 
-    if (datosEstructurados) {
-        datosEstructurados.textContent =
-            JSON.stringify(datosNegocio);
-    }
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "benefit";
 
-}
+            tarjeta.innerHTML = `
+                <div class="benefit-icon">✓</div>
+                <h3>${beneficio.titulo}</h3>
+                <p>${beneficio.descripcion}</p>
+            `;
 
+            listaBeneficios.appendChild(tarjeta);
 
-// ==================================================
-// DATOS GENERALES
-// ==================================================
+        });
 
-configurarSEO();
+        // =========================
+        // GALERÍA
+        // =========================
 
+        const listaGaleria =
+            document.getElementById("lista-galeria");
 
-document.getElementById("nombre-negocio").textContent =
-    negocio.nombre;
+        negocio.galeria.forEach(function (imagen, indice) {
 
+            const foto = document.createElement("img");
 
-document.getElementById("nav-logo").textContent =
-    negocio.nombre;
+            foto.src = "images/" + imagen;
+            foto.alt = negocio.nombre + " - Foto " + (indice + 1);
+            foto.loading = "lazy";
 
+            listaGaleria.appendChild(foto);
 
-document.getElementById("nombre-footer").textContent =
-    negocio.nombre;
+        });
 
+        // =========================
+        // GUARDAR CONTACTO
+        // =========================
 
-document.getElementById("anio-actual").textContent =
-    new Date().getFullYear();
+        const botonGuardarContacto =
+            document.getElementById("guardar-contacto");
 
+        botonGuardarContacto.addEventListener("click", function () {
 
-document.getElementById("descripcion-negocio").textContent =
-    negocio.descripcion;
-
-
-document.getElementById("logo-negocio").src =
-    "images/" + negocio.logo;
-
-
-document.getElementById("logo-negocio").alt =
-    negocio.nombre + " - Logo";
-
-
-document.getElementById("slogan-negocio").textContent =
-    negocio.slogan;
-
-
-document.getElementById("telefono-negocio").textContent =
-    negocio.telefono;
-
-
-document.getElementById("ciudad-negocio").textContent =
-    negocio.ciudad;
-
-
-// =========================
-// WHATSAPP
-// =========================
-
-const enlaceWhatsApp =
-    "https://wa.me/" + negocio.whatsapp;
-
-
-document.getElementById("whatsapp-principal").href =
-    enlaceWhatsApp;
-
-
-document.getElementById("whatsapp-final").href =
-    enlaceWhatsApp;
-
-
-document.getElementById("whatsapp-flotante").href =
-    enlaceWhatsApp;
-
-
-// =========================
-// REDES SOCIALES
-// =========================
-
-document.getElementById("facebook-negocio").href =
-    negocio.facebook;
-
-
-document.getElementById("instagram-negocio").href =
-    negocio.instagram;
-
-
-// =========================
-// GOOGLE MAPS
-// =========================
-
-document.getElementById("maps-negocio").href =
-    negocio.maps;
-
-
-// =========================
-// CATÁLOGO WHATSAPP
-// =========================
-
-document.getElementById("catalogo-negocio").href =
-    negocio.catalogo;
-
-
-// =========================
-// SERVICIOS
-// =========================
-
-const listaServicios =
-    document.getElementById("lista-servicios");
-
-
-negocio.servicios.forEach(function(servicio) {
-
-    const tarjeta = document.createElement("div");
-
-    tarjeta.className = "service";
-
-
-    tarjeta.innerHTML = `
-
-        <h3>${servicio.nombre}</h3>
-
-        <p>
-            ${servicio.descripcion}
-        </p>
-
-    `;
-
-
-    listaServicios.appendChild(tarjeta);
-
-});
-
-
-// =========================
-// PRODUCTOS
-// =========================
-
-const listaProductos =
-    document.getElementById("lista-productos");
-
-
-negocio.productos.forEach(function(producto) {
-
-    const tarjeta =
-        document.createElement("div");
-
-    tarjeta.className = "product";
-
-
-    const mensaje =
-        "Hola, estoy interesado en " +
-        producto.nombre +
-        " de " +
-        producto.precio;
-
-
-    const enlaceWhatsAppProducto =
-        "https://wa.me/" +
-        negocio.whatsapp +
-        "?text=" +
-        encodeURIComponent(mensaje);
-
-
-    tarjeta.innerHTML = `
-
-        <img
-            src="images/${producto.imagen}"
-            alt="${producto.nombre} - ${negocio.nombre}"
-            loading="lazy"
-        >
-
-        <div class="product-content">
-
-            <h3>
-                ${producto.nombre}
-            </h3>
-
-            <p>
-                ${producto.descripcion}
-            </p>
-
-            <strong>
-                ${producto.precio}
-            </strong>
-
-            <a
-                class="product-whatsapp"
-                href="${enlaceWhatsAppProducto}"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                💬 Consultar por WhatsApp
-            </a>
-
-        </div>
-
-    `;
-
-
-    listaProductos.appendChild(tarjeta);
-
-});
-
-
-// =========================
-// MENÚ MÓVIL
-// =========================
-
-const menuButton =
-    document.getElementById("menu-button");
-
-const navLinks =
-    document.getElementById("nav-links");
-
-
-menuButton.addEventListener("click", function() {
-
-    navLinks.classList.toggle("active");
-
-});
-
-
-const enlacesMenu =
-    navLinks.querySelectorAll("a");
-
-
-enlacesMenu.forEach(function(enlace) {
-
-    enlace.addEventListener("click", function() {
-
-        navLinks.classList.remove("active");
-
-    });
-
-});
-
-
-// =========================
-// BENEFICIOS
-// =========================
-
-const listaBeneficios =
-    document.getElementById("lista-beneficios");
-
-
-negocio.beneficios.forEach(function(beneficio) {
-
-    const tarjeta =
-        document.createElement("div");
-
-    tarjeta.className = "benefit";
-
-
-    tarjeta.innerHTML = `
-
-        <div class="benefit-icon">
-            ✓
-        </div>
-
-        <h3>
-            ${beneficio.titulo}
-        </h3>
-
-        <p>
-            ${beneficio.descripcion}
-        </p>
-
-    `;
-
-
-    listaBeneficios.appendChild(tarjeta);
-
-});
-
-
-// =========================
-// GALERÍA
-// =========================
-
-const listaGaleria =
-    document.getElementById("lista-galeria");
-
-
-negocio.galeria.forEach(function(imagen, indice) {
-
-    const foto =
-        document.createElement("img");
-
-    foto.src =
-        "images/" + imagen;
-
-    foto.alt =
-        negocio.nombre + " - Foto " + (indice + 1);
-
-    foto.loading = "lazy";
-
-    listaGaleria.appendChild(foto);
-
-});
-
-
-// =========================
-// GUARDAR CONTACTO
-// =========================
-
-const botonGuardarContacto =
-    document.getElementById("guardar-contacto");
-
-
-botonGuardarContacto.addEventListener("click", function() {
-
-    const vcard =
+            const vcard =
 `BEGIN:VCARD
 VERSION:3.0
 FN:${negocio.nombre}
@@ -749,107 +263,85 @@ ADR;TYPE=WORK:;;${negocio.ciudad};;;
 URL:${window.location.href}
 END:VCARD`;
 
-
-    const archivo =
-        new Blob(
-            [vcard],
-            { type: "text/vcard;charset=utf-8" }
-        );
-
-
-    const url =
-        URL.createObjectURL(archivo);
-
-
-    const enlace =
-        document.createElement("a");
-
-
-    enlace.href = url;
-
-    enlace.download =
-        negocio.nombre + ".vcf";
-
-
-    document.body.appendChild(enlace);
-
-    enlace.click();
-
-    document.body.removeChild(enlace);
-
-
-    URL.revokeObjectURL(url);
-
-});
-
-
-// =========================
-// COMPARTIR NEGOCIO
-// =========================
-
-const botonCompartirNegocio =
-    document.getElementById("compartir-negocio");
-
-
-botonCompartirNegocio.addEventListener("click", async function() {
-
-    const datosCompartir = {
-
-        title: negocio.nombre,
-
-        text:
-            "Te comparto " +
-            negocio.nombre +
-            ". Puedes contactarlos por WhatsApp:",
-
-        url: window.location.href
-
-    };
-
-
-    if (navigator.share) {
-
-        try {
-
-            await navigator.share(datosCompartir);
-
-        } catch (error) {
-
-            // El usuario canceló el menú de compartir.
-            // No hacemos nada.
-
-        }
-
-    } else {
-
-        // Alternativa para navegadores
-        // que no soportan compartir de forma nativa.
-
-        const texto =
-            "Te comparto " +
-            negocio.nombre +
-            ": " +
-            window.location.href;
-
-
-        try {
-
-            await navigator.clipboard.writeText(texto);
-
-            alert(
-                "El enlace del negocio fue copiado. " +
-                "Ahora puedes pegarlo y compartirlo."
+            const archivo = new Blob(
+                [vcard],
+                { type: "text/vcard;charset=utf-8" }
             );
 
-        } catch (error) {
+            const url = URL.createObjectURL(archivo);
+            const enlace = document.createElement("a");
 
-            alert(
-                "Copia este enlace para compartir el negocio:\n\n" +
-                window.location.href
-            );
+            enlace.href = url;
+            enlace.download = negocio.nombre + ".vcf";
 
-        }
+            document.body.appendChild(enlace);
+            enlace.click();
+            document.body.removeChild(enlace);
+
+            URL.revokeObjectURL(url);
+
+        });
+
+        // =========================
+        // COMPARTIR NEGOCIO
+        // =========================
+
+        const botonCompartirNegocio =
+            document.getElementById("compartir-negocio");
+
+        botonCompartirNegocio.addEventListener("click", async function () {
+
+            const datosCompartir = {
+                title: negocio.nombre,
+                text:
+                    "Te comparto " +
+                    negocio.nombre +
+                    ". Puedes contactarlos por WhatsApp:",
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+
+                try {
+                    await navigator.share(datosCompartir);
+                } catch (error) {
+                    // El usuario canceló el menú de compartir.
+                }
+
+            } else {
+
+                const texto =
+                    "Te comparto " +
+                    negocio.nombre +
+                    ": " +
+                    window.location.href;
+
+                try {
+
+                    await navigator.clipboard.writeText(texto);
+
+                    alert(
+                        "El enlace del negocio fue copiado. " +
+                        "Ahora puedes pegarlo y compartirlo."
+                    );
+
+                } catch (error) {
+
+                    alert(
+                        "Copia este enlace para compartir el negocio:\n\n" +
+                        window.location.href
+                    );
+
+                }
+
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error("Error al inicializar la página SIDEN:", error);
 
     }
 
-});
+})();
