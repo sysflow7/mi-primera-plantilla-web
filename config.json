@@ -1,0 +1,80 @@
+{
+  "nombre": "Ferretería El Constructor",
+  "slogan": "Todo para construir tus proyectos",
+  "descripcion": "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
+  "descripcionSEO": "Ferretería en San Salvador con herramientas, materiales de construcción y soluciones para el hogar.",
+  "tipoNegocio": "HardwareStore",
+  "indexable": true,
+  "whatsapp": "50300000000",
+  "telefono": "+503 0000-0000",
+  "ciudad": "San Salvador",
+  "pais": "El Salvador",
+  "direccion": "",
+  "codigoPostal": "",
+  "latitud": "",
+  "longitud": "",
+  "facebook": "#",
+  "instagram": "#",
+  "maps": "https://www.google.com/maps",
+  "catalogo": "https://wa.me/c/50300000000",
+  "logo": "logo.png",
+  "imagenSocial": "logo.png",
+  "horario": [],
+  "servicios": [
+    {
+      "nombre": "Herramientas",
+      "descripcion": "Encuentra herramientas para tus proyectos de construcción y reparación."
+    },
+    {
+      "nombre": "Materiales de construcción",
+      "descripcion": "Productos y materiales para tus proyectos de construcción."
+    },
+    {
+      "nombre": "Accesorios para el hogar",
+      "descripcion": "Soluciones prácticas para mantenimiento y reparación del hogar."
+    }
+  ],
+  "productos": [
+    {
+      "nombre": "Taladro Profesional",
+      "precio": "$49.99",
+      "descripcion": "Taladro profesional para trabajos del hogar y construcción.",
+      "imagen": "producto1.jpg"
+    },
+    {
+      "nombre": "Juego de Herramientas",
+      "precio": "$35.00",
+      "descripcion": "Kit de herramientas para reparaciones y mantenimiento.",
+      "imagen": "producto2.jpg"
+    },
+    {
+      "nombre": "Lámpara LED",
+      "precio": "$15.00",
+      "descripcion": "Lámpara LED para iluminación del hogar y espacios de trabajo.",
+      "imagen": "producto3.jpg"
+    }
+  ],
+  "galeria": [
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg"
+  ],
+  "beneficios": [
+    {
+      "titulo": "Productos de calidad",
+      "descripcion": "Seleccionamos productos confiables para nuestros clientes."
+    },
+    {
+      "titulo": "Atención personalizada",
+      "descripcion": "Te ayudamos a encontrar lo que necesitas para tu proyecto."
+    },
+    {
+      "titulo": "Amplia variedad",
+      "descripcion": "Encuentra diferentes opciones de herramientas y materiales."
+    },
+    {
+      "titulo": "Experiencia",
+      "descripcion": "Estamos para ayudarte a encontrar la solución adecuada."
+    }
+  ]
+}
