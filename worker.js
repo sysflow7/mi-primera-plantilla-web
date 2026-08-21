@@ -106,10 +106,12 @@ export default {
             };
 
             const tituloSEO =
+                negocio.tituloSEO ||
                 negocio.seo?.titulo ||
                 negocio.nombre + " | " + negocio.ciudad;
 
             const descripcionSEO =
+                negocio.descripcionSEO ||
                 negocio.seo?.descripcion ||
                 negocio.descripcion ||
                 negocio.slogan ||
