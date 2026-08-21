@@ -9,30 +9,31 @@
           content="width=device-width, initial-scale=1.0">
 
     <!-- =========================
-         SEO BÁSICO
+         SEO TÉCNICO
+         Los valores se generan desde config.json
+         mediante worker.js antes de entregar el HTML.
     ========================= -->
 
-    <title>Mi Negocio</title>
+    <title>__SEO_TITLE__</title>
 
-    <meta id="meta-description"
-          name="description"
-          content="Página web oficial de Mi Negocio">
+    <meta name="description"
+          content="__SEO_DESCRIPTION__">
 
     <meta name="robots"
-          content="index, follow">
+          content="__ROBOTS__">
 
-    <meta id="meta-author"
-          name="author"
-          content="Mi Negocio">
+    <meta name="author"
+          content="__BUSINESS_NAME__">
 
-    <link id="canonical-link"
-          rel="canonical"
-          href="">
+    <link rel="canonical"
+          href="__CANONICAL_URL__">
 
-    <link id="site-favicon"
-          rel="icon"
+    <link rel="icon"
           type="image/png"
-          href="images/logo.png">
+          href="__FAVICON_URL__">
+
+    <meta name="theme-color"
+          content="#111827">
 
     <!-- =========================
          OPEN GRAPH
@@ -41,28 +42,26 @@
     <meta property="og:type"
           content="website">
 
-    <meta id="og-title"
-          property="og:title"
-          content="Mi Negocio">
+    <meta property="og:title"
+          content="__SEO_TITLE__">
 
-    <meta id="og-description"
-          property="og:description"
-          content="Página web oficial de Mi Negocio">
+    <meta property="og:description"
+          content="__SEO_DESCRIPTION__">
 
-    <meta id="og-url"
-          property="og:url"
-          content="">
+    <meta property="og:url"
+          content="__CANONICAL_URL__">
 
-    <meta id="og-image"
-          property="og:image"
-          content="">
+    <meta property="og:image"
+          content="__SOCIAL_IMAGE_URL__">
+
+    <meta property="og:image:alt"
+          content="__BUSINESS_NAME__">
 
     <meta property="og:locale"
           content="es_SV">
 
-    <meta id="og-site-name"
-          property="og:site_name"
-          content="Mi Negocio">
+    <meta property="og:site_name"
+          content="__BUSINESS_NAME__">
 
     <!-- =========================
          TWITTER / X
@@ -71,31 +70,20 @@
     <meta name="twitter:card"
           content="summary_large_image">
 
-    <meta id="twitter-title"
-          name="twitter:title"
-          content="Mi Negocio">
+    <meta name="twitter:title"
+          content="__SEO_TITLE__">
 
-    <meta id="twitter-description"
-          name="twitter:description"
-          content="Página web oficial de Mi Negocio">
+    <meta name="twitter:description"
+          content="__SEO_DESCRIPTION__">
 
-    <meta id="twitter-image"
-          name="twitter:image"
-          content="">
+    <meta name="twitter:image"
+          content="__SOCIAL_IMAGE_URL__">
 
     <!-- =========================
          DATOS ESTRUCTURADOS
     ========================= -->
 
-    <script id="datos-estructurados"
-            type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Mi Negocio",
-        "url": ""
-    }
-    </script>
+    <script type="application/ld+json">__STRUCTURED_DATA__</script>
 
     <link rel="stylesheet" href="css/style.css">
 
