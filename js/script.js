@@ -34,7 +34,6 @@
         const tipoNormalizado = aliases[tipo] || "comercio";
         const rutaActual = window.location.pathname.replace(/\/$/, "") || "/";
 
-        // En modo multi, cada ruta puede definir sus propios módulos y contenido.
         let negocio = { ...negocioBase };
         let paginaActual = null;
 
@@ -100,9 +99,26 @@
         }
 
         const hero = document.getElementById("inicio");
-        if (hero && (negocio.heroImagen || negocioBase.heroImagen)) {
-            hero.style.setProperty("--hero-image", `url("images/${negocio.heroImagen || negocioBase.heroImagen}")`);
-            hero.classList.add("hero-has-image");
+        const nombreHero = negocio.heroImagen || negocioBase.heroImagen;
+        if (hero && nombreHero) {
+            const rutaHero = "images/" + nombreHero;
+            const imagenHero = new Image();
+
+            imagenHero.onload = function () {
+                // Aplicamos la imagen directamente al Hero para que el sistema
+                // no dependa exclusivamente de un pseudo-elemento CSS.
+                hero.style.backgroundImage = `url("${rutaHero}")`;
+                hero.style.backgroundSize = "cover";
+                hero.style.backgroundPosition = "center";
+                hero.classList.add("hero-has-image");
+            };
+
+            imagenHero.onerror = function () {
+                console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
+                hero.classList.remove("hero-has-image");
+            };
+
+            imagenHero.src = rutaHero;
         }
 
         // =========================
