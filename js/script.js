@@ -13,8 +13,8 @@
         const respuesta = await fetch("config.json", { cache: "no-cache" });
         if (!respuesta.ok) throw new Error("No se pudo cargar config.json");
 
-        const negocio = await respuesta.json();
-        const tipo = String(negocio.tipoNegocio || "comercio").toLowerCase();
+        const negocioBase = await respuesta.json();
+        const tipo = String(negocioBase.tipoNegocio || "comercio").toLowerCase();
 
         const defaults = {
             comercio: ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
@@ -23,27 +23,37 @@
         };
 
         const aliases = {
-            hardwarestore: "comercio",
-            tienda: "comercio",
-            comercio: "comercio",
-            profesional: "profesional",
-            abogado: "profesional",
-            medico: "profesional",
-            médico: "profesional",
-            contador: "profesional",
-            arquitecto: "profesional",
-            electricista: "profesional",
-            fotografo: "profesional",
-            fotógrafo: "profesional",
-            consultor: "profesional",
-            psicologo: "profesional",
-            psicólogo: "profesional",
-            dentista: "profesional",
-            restaurante: "restaurante",
-            restaurant: "restaurante"
+            hardwarestore: "comercio", tienda: "comercio", comercio: "comercio",
+            profesional: "profesional", abogado: "profesional", medico: "profesional", médico: "profesional",
+            contador: "profesional", arquitecto: "profesional", electricista: "profesional",
+            fotografo: "profesional", fotógrafo: "profesional", consultor: "profesional",
+            psicologo: "profesional", psicólogo: "profesional", dentista: "profesional",
+            restaurante: "restaurante", restaurant: "restaurante"
         };
 
         const tipoNormalizado = aliases[tipo] || "comercio";
+        const rutaActual = window.location.pathname.replace(/\/$/, "") || "/";
+
+        // En modo multi, cada ruta puede definir sus propios módulos y contenido.
+        let negocio = { ...negocioBase };
+        let paginaActual = null;
+
+        if (negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas)) {
+            paginaActual = negocioBase.paginas.find(function (pagina) {
+                const ruta = String(pagina.ruta || "/").replace(/\/$/, "") || "/";
+                return ruta === rutaActual;
+            });
+
+            if (paginaActual) {
+                negocio = {
+                    ...negocioBase,
+                    ...paginaActual,
+                    etiquetas: { ...(negocioBase.etiquetas || {}), ...(paginaActual.etiquetas || {}) },
+                    textos: { ...(negocioBase.textos || {}), ...(paginaActual.textos || {}) }
+                };
+            }
+        }
+
         const modulos = Array.isArray(negocio.modulos)
             ? negocio.modulos
             : (defaults[tipoNormalizado] || defaults.comercio);
@@ -72,26 +82,26 @@
         // =========================
         // IDENTIDAD Y HERO
         // =========================
-        setText("nav-logo", negocio.nombre);
-        setText("nombre-negocio", negocio.nombre);
-        setText("slogan-negocio", negocio.slogan);
-        setText("tipo-negocio", negocio.etiquetaTipo || "");
+        setText("nav-logo", negocioBase.nombre);
+        setText("nombre-negocio", negocioBase.nombre);
+        setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
+        setText("tipo-negocio", negocioBase.etiquetaTipo || "");
         setText("descripcion-negocio", negocio.descripcion);
-        setText("nombre-footer", negocio.nombre);
+        setText("nombre-footer", negocioBase.nombre);
         setText("anio-actual", new Date().getFullYear());
-        setText("telefono-negocio", negocio.telefono);
-        setText("ciudad-negocio", negocio.ciudad);
-        setText("direccion-linea", negocio.direccionTexto || "");
+        setText("telefono-negocio", negocioBase.telefono);
+        setText("ciudad-negocio", negocioBase.ciudad);
+        setText("direccion-linea", negocioBase.direccionTexto || "");
 
         const logo = document.getElementById("logo-negocio");
-        if (logo && negocio.logo) {
-            logo.src = "images/" + negocio.logo;
-            logo.alt = "Logo de " + negocio.nombre;
+        if (logo && negocioBase.logo) {
+            logo.src = "images/" + negocioBase.logo;
+            logo.alt = "Logo de " + negocioBase.nombre;
         }
 
         const hero = document.getElementById("inicio");
-        if (hero && negocio.heroImagen) {
-            hero.style.setProperty("--hero-image", `url("images/${negocio.heroImagen}")`);
+        if (hero && (negocio.heroImagen || negocioBase.heroImagen)) {
+            hero.style.setProperty("--hero-image", `url("images/${negocio.heroImagen || negocioBase.heroImagen}")`);
             hero.classList.add("hero-has-image");
         }
 
@@ -121,6 +131,17 @@
         // NAVEGACIÓN DINÁMICA
         // =========================
         const navLinks = document.getElementById("nav-links");
+        const navTargets = {
+            presentacion: "nosotros",
+            perfil: "perfil",
+            beneficios: "beneficios",
+            servicios: "servicios",
+            productos: "productos",
+            menu: "menu",
+            galeria: "galeria",
+            ubicacion: "ubicacion",
+            contacto: "contacto"
+        };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros",
             perfil: etiquetas.perfilMenu || "Perfil",
@@ -134,20 +155,32 @@
         };
 
         if (navLinks) {
-            modulos.forEach(function (modulo) {
-                if (modulo === "contacto" || document.getElementById(modulo)) {
+            navLinks.innerHTML = "";
+            const esMulti = negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas);
+
+            if (esMulti && negocioBase.paginas.length > 0) {
+                negocioBase.paginas.forEach(function (pagina) {
                     const enlace = document.createElement("a");
-                    enlace.href = "#" + modulo;
+                    enlace.href = pagina.ruta || "/";
+                    enlace.textContent = pagina.nombre || "Página";
+                    navLinks.appendChild(enlace);
+                });
+            } else {
+                modulos.forEach(function (modulo) {
+                    const target = navTargets[modulo];
+                    if (!target) return;
+                    const enlace = document.createElement("a");
+                    enlace.href = "#" + target;
                     enlace.textContent = navLabels[modulo] || modulo;
                     navLinks.appendChild(enlace);
-                }
-            });
+                });
+            }
         }
 
         // =========================
         // WHATSAPP / REDES / MAPS
         // =========================
-        const enlaceWhatsApp = "https://wa.me/" + negocio.whatsapp;
+        const enlaceWhatsApp = "https://wa.me/" + negocioBase.whatsapp;
         ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante"].forEach(function (id) {
             const elemento = document.getElementById(id);
             if (elemento) elemento.href = enlaceWhatsApp;
@@ -155,26 +188,26 @@
 
         const facebook = document.getElementById("facebook-negocio");
         if (facebook) {
-            facebook.href = negocio.facebook || "#";
-            facebook.hidden = !(negocio.facebook && negocio.facebook.startsWith("http"));
+            facebook.href = negocioBase.facebook || "#";
+            facebook.hidden = !(negocioBase.facebook && negocioBase.facebook.startsWith("http"));
         }
 
         const instagram = document.getElementById("instagram-negocio");
         if (instagram) {
-            instagram.href = negocio.instagram || "#";
-            instagram.hidden = !(negocio.instagram && negocio.instagram.startsWith("http"));
+            instagram.href = negocioBase.instagram || "#";
+            instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http"));
         }
 
         const maps = document.getElementById("maps-negocio");
         if (maps) {
-            maps.href = negocio.maps || "#";
-            maps.hidden = !(negocio.maps && negocio.maps.startsWith("http"));
+            maps.href = negocioBase.maps || "#";
+            maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http"));
         }
 
         const catalogo = document.getElementById("catalogo-negocio");
         if (catalogo) {
-            catalogo.href = negocio.catalogo || "#";
-            catalogo.hidden = !(negocio.catalogo && negocio.catalogo.startsWith("http"));
+            catalogo.href = negocioBase.catalogo || "#";
+            catalogo.hidden = !(negocioBase.catalogo && negocioBase.catalogo.startsWith("http"));
         }
 
         // =========================
@@ -208,7 +241,7 @@
                 const mensaje = "Hola, estoy interesado en " + producto.nombre + (producto.precio ? " de " + producto.precio : "");
                 const enlaceProducto = enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje);
                 addCard(listaProductos, "product", `
-                    <img src="images/${producto.imagen}" alt="${producto.nombre || "Producto"} - ${negocio.nombre}" loading="lazy">
+                    <img src="images/${producto.imagen}" alt="${producto.nombre || "Producto"} - ${negocioBase.nombre}" loading="lazy">
                     <div class="product-content">
                         <h3>${producto.nombre || ""}</h3>
                         <p>${producto.descripcion || ""}</p>
@@ -248,7 +281,7 @@
             negocio.galeria.forEach(function (imagen, indice) {
                 const foto = document.createElement("img");
                 foto.src = "images/" + imagen;
-                foto.alt = negocio.nombre + " - Foto " + (indice + 1);
+                foto.alt = negocioBase.nombre + " - Foto " + (indice + 1);
                 foto.loading = "lazy";
                 listaGaleria.appendChild(foto);
             });
@@ -260,12 +293,12 @@
         const botonGuardarContacto = document.getElementById("guardar-contacto");
         if (botonGuardarContacto) {
             botonGuardarContacto.addEventListener("click", function () {
-                const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${negocio.nombre}\nORG:${negocio.nombre}\nTEL;TYPE=CELL:${negocio.whatsapp}\nTEL;TYPE=WORK:${negocio.telefono}\nADR;TYPE=WORK:;;${negocio.ciudad};;;\nURL:${window.location.href}\nEND:VCARD`;
+                const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${negocioBase.nombre}\nORG:${negocioBase.nombre}\nTEL;TYPE=CELL:${negocioBase.whatsapp}\nTEL;TYPE=WORK:${negocioBase.telefono}\nADR;TYPE=WORK:;;${negocioBase.ciudad};;;\nURL:${window.location.href}\nEND:VCARD`;
                 const archivo = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
                 const url = URL.createObjectURL(archivo);
                 const enlace = document.createElement("a");
                 enlace.href = url;
-                enlace.download = negocio.nombre + ".vcf";
+                enlace.download = negocioBase.nombre + ".vcf";
                 document.body.appendChild(enlace);
                 enlace.click();
                 document.body.removeChild(enlace);
@@ -276,12 +309,12 @@
         const botonCompartirNegocio = document.getElementById("compartir-negocio");
         if (botonCompartirNegocio) {
             botonCompartirNegocio.addEventListener("click", async function () {
-                const datosCompartir = { title: negocio.nombre, text: "Te comparto " + negocio.nombre + ".", url: window.location.href };
+                const datosCompartir = { title: negocioBase.nombre, text: "Te comparto " + negocioBase.nombre + ".", url: window.location.href };
                 if (navigator.share) {
                     try { await navigator.share(datosCompartir); } catch (error) { /* cancelado */ }
                 } else {
                     try {
-                        await navigator.clipboard.writeText("Te comparto " + negocio.nombre + ": " + window.location.href);
+                        await navigator.clipboard.writeText("Te comparto " + negocioBase.nombre + ": " + window.location.href);
                         alert("El enlace del negocio fue copiado.");
                     } catch (error) {
                         alert("Copia este enlace para compartir el negocio:\n\n" + window.location.href);
@@ -298,21 +331,6 @@
             menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
             navLinks.querySelectorAll("a").forEach(function (enlace) {
                 enlace.addEventListener("click", function () { navLinks.classList.remove("active"); });
-            });
-        }
-
-        // =========================
-        // PREPARACIÓN PARA MULTIPÁGINA
-        // =========================
-        // Si modoSitio === "multi", cada objeto de paginas puede definir
-        // nombre, ruta y módulos. El menú queda listo para enlazar esas rutas.
-        if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas) && navLinks) {
-            navLinks.innerHTML = "";
-            negocio.paginas.forEach(function (pagina) {
-                const enlace = document.createElement("a");
-                enlace.href = pagina.ruta || "#";
-                enlace.textContent = pagina.nombre || "Página";
-                navLinks.appendChild(enlace);
             });
         }
 
