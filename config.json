@@ -3,12 +3,25 @@
   "slogan": "Todo para construir tus proyectos",
   "descripcion": "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
   "descripcionSEO": "Ferretería en San Salvador con herramientas, materiales de construcción y soluciones para el hogar.",
-  "tipoNegocio": "HardwareStore",
+  "tipoNegocio": "comercio",
+  "etiquetaTipo": "Ferretería y comercio",
+  "modoSitio": "single",
+  "heroImagen": "ferreteria-constructor.jpg",
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "productos",
+    "galeria",
+    "ubicacion",
+    "contacto"
+  ],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
+  "direccionTexto": "San Salvador, El Salvador",
   "direccion": {
     "calle": "",
     "ciudad": "San Salvador",
@@ -26,6 +39,18 @@
   "imagenSocial": "logo.png",
   "horarios": [],
   "rangoPrecios": "",
+  "etiquetas": {
+    "presentacion": "¿Quiénes somos?",
+    "servicios": "Nuestros servicios",
+    "productos": "Productos destacados",
+    "galeria": "Galería",
+    "ubicacion": "Encuéntranos",
+    "contacto": "¿Tienes alguna pregunta?"
+  },
+  "textos": {
+    "contacto": "Estamos disponibles para atenderte."
+  },
+  "paginas": [],
   "servicios": [
     {
       "nombre": "Herramientas",
@@ -60,6 +85,11 @@
       "imagen": "producto3.jpg"
     }
   ],
+  "menu": [],
+  "perfil": {
+    "descripcion": "",
+    "datos": []
+  },
   "galeria": [
     "foto1.jpg",
     "foto2.jpg",
