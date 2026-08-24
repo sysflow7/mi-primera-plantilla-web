@@ -6,7 +6,7 @@
   "tipoNegocio": "comercio",
   "etiquetaTipo": "Ferretería y comercio",
   "modoSitio": "single",
-  "heroImagen": "ferreteria-constructor.jpg",
+  "heroImagen": "otra-imagen.jpg",
   "modulos": [
     "presentacion",
     "beneficios",
