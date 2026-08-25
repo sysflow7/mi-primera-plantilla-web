@@ -14,7 +14,14 @@ body { font-family: Arial, sans-serif; background: #f5f6f8; color: #222; line-he
 .hero p { font-size: 18px; color: #e5e7eb; }
 .business-type { font-size: 13px !important; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; opacity: .85; }
 
-.whatsapp { display: inline-block; margin-top: 25px; background: #25D366; color: white; text-decoration: none; padding: 14px 25px; border-radius: 8px; font-weight: bold; }
+/* ENCABEZADO DE PÁGINAS INTERNAS MULTI */
+.page-header { max-width: none; padding: 70px 20px 45px; text-align: center; background: #111827; color: white; }
+.page-header-type { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; opacity: .75; margin-bottom: 8px; }
+.page-header h1 { font-size: 38px; line-height: 1.2; margin-bottom: 10px; }
+.page-header p:last-child { max-width: 760px; margin: 0 auto; color: #d1d5db; }
+.multi-inner-page main > section:first-child { padding-top: 50px; }
+
+.whatsapp { display: inline-block; margin-top: 25px; background: #25D366; color: white; text-decoration: none; padding: 14px 25px; border-radius: 8px; }
 .contact-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 .contact-action { border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.08); color: white; padding: 11px 16px; border-radius: 8px; cursor: pointer; }
 
@@ -42,6 +49,7 @@ section h2 { text-align: center; margin-bottom: 30px; font-size: 30px; }
 .menu-item { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
 .menu-item img { height: 210px; aspect-ratio: 4 / 3; object-fit: cover; }
 .menu-item > div { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.menu-category { display: block; margin-bottom: 5px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; }
 .menu-item p { color: #555; }
 .menu-item strong { font-size: 20px; margin-top: auto; padding-top: 12px; }
 
@@ -73,6 +81,8 @@ footer { background: #0b1120; color: #aaa; text-align: center; padding: 20px; fo
     .hero { min-height: 470px; padding: 65px 15px; }
     .hero h1 { font-size: 30px; }
     .hero p { font-size: 16px; }
+    .page-header { padding: 50px 15px 35px; }
+    .page-header h1 { font-size: 30px; }
     section { padding: 40px 15px; }
     section h2 { font-size: 26px; }
     .menu-button { display: block; }
