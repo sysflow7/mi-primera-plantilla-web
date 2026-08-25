@@ -1,10 +1,6 @@
 // ==================================================
 // SIDEN - MOTOR DE CONFIGURACIÓN DEL CLIENTE
 // ==================================================
-// El cliente se configura desde config.json.
-// La plantilla decide qué módulos mostrar según tipoNegocio
-// y/o modulos. El mismo motor funciona para modo single o multi.
-// ==================================================
 
 (async function () {
     "use strict";
@@ -15,13 +11,11 @@
 
         const negocioBase = await respuesta.json();
         const tipo = String(negocioBase.tipoNegocio || "comercio").toLowerCase();
-
         const defaults = {
             comercio: ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
             profesional: ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto"],
             restaurante: ["presentacion", "beneficios", "servicios", "menu", "galeria", "ubicacion", "contacto"]
         };
-
         const aliases = {
             hardwarestore: "comercio", tienda: "comercio", comercio: "comercio",
             profesional: "profesional", abogado: "profesional", medico: "profesional", médico: "profesional",
@@ -33,17 +27,15 @@
 
         const tipoNormalizado = aliases[tipo] || "comercio";
         const rutaActual = window.location.pathname.replace(/\/$/, "") || "/";
-
+        const esMulti = negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas);
         let negocio = { ...negocioBase };
         let paginaActual = null;
-        const esMulti = negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas);
 
         if (esMulti) {
             paginaActual = negocioBase.paginas.find(function (pagina) {
                 const ruta = String(pagina.ruta || "/").replace(/\/$/, "") || "/";
                 return ruta === rutaActual;
             });
-
             if (paginaActual) {
                 negocio = {
                     ...negocioBase,
@@ -54,23 +46,17 @@
             }
         }
 
-        const modulos = Array.isArray(negocio.modulos)
-            ? negocio.modulos
-            : (defaults[tipoNormalizado] || defaults.comercio);
-
+        const modulos = Array.isArray(negocio.modulos) ? negocio.modulos : (defaults[tipoNormalizado] || defaults.comercio);
         const etiquetas = negocio.etiquetas || {};
         const texto = negocio.textos || {};
-
         const setText = function (id, value) {
             const elemento = document.getElementById(id);
             if (elemento && value !== undefined && value !== null) elemento.textContent = value;
         };
-
         const showModule = function (id, visible) {
             const elemento = document.querySelector(`[data-module="${id}"]`);
             if (elemento) elemento.hidden = !visible;
         };
-
         const addCard = function (container, className, html) {
             if (!container) return;
             const tarjeta = document.createElement("div");
@@ -79,9 +65,7 @@
             container.appendChild(tarjeta);
         };
 
-        // =========================
-        // IDENTIDAD Y HERO
-        // =========================
+        // IDENTIDAD
         setText("nav-logo", negocioBase.nombre);
         setText("nombre-negocio", negocioBase.nombre);
         setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
@@ -93,12 +77,16 @@
         setText("ciudad-negocio", negocioBase.ciudad);
         setText("direccion-linea", negocioBase.direccionTexto || "");
 
+        const navLogo = document.getElementById("nav-logo");
+        if (navLogo) navLogo.href = esMulti ? "/" : "#inicio";
+
         const logo = document.getElementById("logo-negocio");
         if (logo && negocioBase.logo) {
             logo.src = "images/" + negocioBase.logo;
             logo.alt = "Logo de " + negocioBase.nombre;
         }
 
+        // HERO / CABECERA INTERNA
         const hero = document.getElementById("inicio");
         const paginaCabecera = document.getElementById("pagina-cabecera");
         const nombreHero = negocio.heroImagen || negocioBase.heroImagen;
@@ -111,19 +99,16 @@
             } else if (nombreHero) {
                 const rutaHero = "images/" + nombreHero;
                 const imagenHero = new Image();
-
                 imagenHero.onload = function () {
                     hero.style.backgroundImage = `url("${rutaHero}")`;
                     hero.style.backgroundSize = "cover";
                     hero.style.backgroundPosition = "center";
                     hero.classList.add("hero-has-image");
                 };
-
                 imagenHero.onerror = function () {
                     console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
                     hero.classList.remove("hero-has-image");
                 };
-
                 imagenHero.src = rutaHero;
             }
         }
@@ -139,9 +124,7 @@
             }
         }
 
-        // =========================
-        // ETIQUETAS PERSONALIZABLES
-        // =========================
+        // ETIQUETAS
         setText("titulo-presentacion", etiquetas.presentacion || "¿Quiénes somos?");
         setText("titulo-perfil", etiquetas.perfil || "Perfil profesional");
         setText("titulo-beneficios", etiquetas.beneficios || "¿Por qué elegirnos?");
@@ -153,22 +136,14 @@
         setText("titulo-contacto", etiquetas.contacto || "¿Tienes alguna pregunta?");
         setText("texto-contacto", texto.contacto || "Estamos disponibles para atenderte.");
 
-        // =========================
-        // MOSTRAR / OCULTAR MÓDULOS
-        // =========================
-        ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto"]
-            .forEach(function (modulo) {
-                showModule(modulo, modulos.includes(modulo));
-            });
+        // MÓDULOS
+        ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
+            showModule(modulo, modulos.includes(modulo));
+        });
 
-        // =========================
-        // NAVEGACIÓN DINÁMICA
-        // =========================
+        // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
-        const navTargets = {
-            presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios",
-            productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto"
-        };
+        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto" };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
             beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
@@ -198,65 +173,37 @@
             }
         }
 
-        // =========================
-        // WHATSAPP / REDES / MAPS
-        // =========================
+        // CONTACTO Y ENLACES
         const enlaceWhatsApp = "https://wa.me/" + negocioBase.whatsapp;
         ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante"].forEach(function (id) {
             const elemento = document.getElementById(id);
             if (elemento) elemento.href = enlaceWhatsApp;
         });
-
         const facebook = document.getElementById("facebook-negocio");
-        if (facebook) {
-            facebook.href = negocioBase.facebook || "#";
-            facebook.hidden = !(negocioBase.facebook && negocioBase.facebook.startsWith("http"));
-        }
-
+        if (facebook) { facebook.href = negocioBase.facebook || "#"; facebook.hidden = !(negocioBase.facebook && negocioBase.facebook.startsWith("http")); }
         const instagram = document.getElementById("instagram-negocio");
-        if (instagram) {
-            instagram.href = negocioBase.instagram || "#";
-            instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http"));
-        }
-
+        if (instagram) { instagram.href = negocioBase.instagram || "#"; instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http")); }
         const maps = document.getElementById("maps-negocio");
-        if (maps) {
-            maps.href = negocioBase.maps || "#";
-            maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http"));
-        }
-
+        if (maps) { maps.href = negocioBase.maps || "#"; maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
         const catalogo = document.getElementById("catalogo-negocio");
-        if (catalogo) {
-            catalogo.href = negocioBase.catalogo || "#";
-            catalogo.hidden = !(negocioBase.catalogo && negocioBase.catalogo.startsWith("http"));
-        }
+        if (catalogo) { catalogo.href = negocioBase.catalogo || "#"; catalogo.hidden = !(negocioBase.catalogo && negocioBase.catalogo.startsWith("http")); }
 
-        // =========================
-        // PERFIL PROFESIONAL
-        // =========================
+        // PERFIL
         const perfil = negocio.perfil || {};
         setText("descripcion-perfil", perfil.descripcion || negocio.descripcion || "");
         const datosPerfil = document.getElementById("datos-perfil");
-        if (datosPerfil && Array.isArray(perfil.datos)) {
-            perfil.datos.forEach(function (dato) {
-                addCard(datosPerfil, "profile-item", `<strong>${dato.titulo || ""}</strong><span>${dato.valor || ""}</span>`);
-            });
-        }
+        if (datosPerfil && Array.isArray(perfil.datos)) perfil.datos.forEach(function (dato) {
+            addCard(datosPerfil, "profile-item", `<strong>${dato.titulo || ""}</strong><span>${dato.valor || ""}</span>`);
+        });
 
-        // =========================
         // SERVICIOS
-        // =========================
         const listaServicios = document.getElementById("lista-servicios");
         if (listaServicios && Array.isArray(negocio.servicios)) {
             listaServicios.innerHTML = "";
-            negocio.servicios.forEach(function (servicio) {
-                addCard(listaServicios, "service", `<h3>${servicio.nombre || ""}</h3><p>${servicio.descripcion || ""}</p>`);
-            });
+            negocio.servicios.forEach(function (servicio) { addCard(listaServicios, "service", `<h3>${servicio.nombre || ""}</h3><p>${servicio.descripcion || ""}</p>`); });
         }
 
-        // =========================
         // PRODUCTOS
-        // =========================
         const listaProductos = document.getElementById("lista-productos");
         if (listaProductos && Array.isArray(negocio.productos)) {
             listaProductos.innerHTML = "";
@@ -267,9 +214,7 @@
             });
         }
 
-        // =========================
-        // MENÚ DE RESTAURANTE
-        // =========================
+        // MENÚ
         const listaMenu = document.getElementById("lista-menu");
         if (listaMenu && Array.isArray(negocio.menu)) {
             listaMenu.innerHTML = "";
@@ -278,20 +223,14 @@
             });
         }
 
-        // =========================
         // BENEFICIOS
-        // =========================
         const listaBeneficios = document.getElementById("lista-beneficios");
         if (listaBeneficios && Array.isArray(negocio.beneficios)) {
             listaBeneficios.innerHTML = "";
-            negocio.beneficios.forEach(function (beneficio) {
-                addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${beneficio.titulo || ""}</h3><p>${beneficio.descripcion || ""}</p>`);
-            });
+            negocio.beneficios.forEach(function (beneficio) { addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${beneficio.titulo || ""}</h3><p>${beneficio.descripcion || ""}</p>`); });
         }
 
-        // =========================
         // GALERÍA
-        // =========================
         const listaGaleria = document.getElementById("lista-galeria");
         if (listaGaleria && Array.isArray(negocio.galeria)) {
             listaGaleria.innerHTML = "";
@@ -304,53 +243,39 @@
             });
         }
 
-        // =========================
-        // CONTACTO: SIEMPRE DISPONIBLE
-        // =========================
+        // GUARDAR CONTACTO
         const botonGuardarContacto = document.getElementById("guardar-contacto");
-        if (botonGuardarContacto) {
-            botonGuardarContacto.addEventListener("click", function () {
-                const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${negocioBase.nombre}\nORG:${negocioBase.nombre}\nTEL;TYPE=CELL:${negocioBase.whatsapp}\nTEL;TYPE=WORK:${negocioBase.telefono}\nADR;TYPE=WORK:;;${negocioBase.ciudad};;;\nURL:${window.location.href}\nEND:VCARD`;
-                const archivo = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
-                const url = URL.createObjectURL(archivo);
-                const enlace = document.createElement("a");
-                enlace.href = url;
-                enlace.download = negocioBase.nombre + ".vcf";
-                document.body.appendChild(enlace);
-                enlace.click();
-                document.body.removeChild(enlace);
-                URL.revokeObjectURL(url);
-            });
-        }
+        if (botonGuardarContacto) botonGuardarContacto.addEventListener("click", function () {
+            const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${negocioBase.nombre}\nORG:${negocioBase.nombre}\nTEL;TYPE=CELL:${negocioBase.whatsapp}\nTEL;TYPE=WORK:${negocioBase.telefono}\nADR;TYPE=WORK:;;${negocioBase.ciudad};;;\nURL:${window.location.href}\nEND:VCARD`;
+            const archivo = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+            const url = URL.createObjectURL(archivo);
+            const enlace = document.createElement("a");
+            enlace.href = url;
+            enlace.download = negocioBase.nombre + ".vcf";
+            document.body.appendChild(enlace);
+            enlace.click();
+            document.body.removeChild(enlace);
+            URL.revokeObjectURL(url);
+        });
 
+        // COMPARTIR
         const botonCompartirNegocio = document.getElementById("compartir-negocio");
-        if (botonCompartirNegocio) {
-            botonCompartirNegocio.addEventListener("click", async function () {
-                const datosCompartir = { title: negocioBase.nombre, text: "Te comparto " + negocioBase.nombre + ".", url: window.location.href };
-                if (navigator.share) {
-                    try { await navigator.share(datosCompartir); } catch (error) { /* cancelado */ }
-                } else {
-                    try {
-                        await navigator.clipboard.writeText("Te comparto " + negocioBase.nombre + ": " + window.location.href);
-                        alert("El enlace del negocio fue copiado.");
-                    } catch (error) {
-                        alert("Copia este enlace para compartir el negocio:\n\n" + window.location.href);
-                    }
-                }
-            });
-        }
+        if (botonCompartirNegocio) botonCompartirNegocio.addEventListener("click", async function () {
+            const datosCompartir = { title: negocioBase.nombre, text: "Te comparto " + negocioBase.nombre + ".", url: window.location.href };
+            if (navigator.share) {
+                try { await navigator.share(datosCompartir); } catch (error) { /* cancelado */ }
+            } else {
+                try { await navigator.clipboard.writeText("Te comparto " + negocioBase.nombre + ": " + window.location.href); alert("El enlace del negocio fue copiado."); }
+                catch (error) { alert("Copia este enlace para compartir el negocio:\n\n" + window.location.href); }
+            }
+        });
 
-        // =========================
         // MENÚ MÓVIL
-        // =========================
         const menuButton = document.getElementById("menu-button");
         if (menuButton && navLinks) {
             menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
-            navLinks.querySelectorAll("a").forEach(function (enlace) {
-                enlace.addEventListener("click", function () { navLinks.classList.remove("active"); });
-            });
+            navLinks.querySelectorAll("a").forEach(function (enlace) { enlace.addEventListener("click", function () { navLinks.classList.remove("active"); }); });
         }
-
     } catch (error) {
         console.error("Error al inicializar la página SIDEN:", error);
     }
