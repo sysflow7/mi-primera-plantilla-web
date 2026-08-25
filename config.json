@@ -5,7 +5,7 @@
   "descripcionSEO": "Ferretería y materiales para construcción en San Salvador.",
   "tipoNegocio": "comercio",
   "etiquetaTipo": "Ferretería y comercio",
-  "modoSitio": "multi",
+  "modoSitio": "single",
   "heroImagen": "ferreteria-constructor.jpg",
   "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
   "indexable": false,
