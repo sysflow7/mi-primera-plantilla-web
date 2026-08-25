@@ -5,7 +5,7 @@
   "descripcionSEO": "Restaurante de comida salvadoreña en San Salvador.",
   "tipoNegocio": "restaurante",
   "etiquetaTipo": "Restaurante",
-  "modoSitio": "single",
+  "modoSitio": "multi",
   "heroImagen": "ferreteria-constructor.jpg",
   "modulos": [
     "presentacion",
@@ -58,7 +58,28 @@
   "textos": {
     "contacto": "Estamos listos para atenderte y recibir tu pedido."
   },
-  "paginas": [],
+  "paginas": [
+    {
+      "nombre": "Inicio",
+      "ruta": "/",
+      "modulos": ["presentacion", "beneficios", "servicios", "contacto"]
+    },
+    {
+      "nombre": "Menú",
+      "ruta": "/menu",
+      "modulos": ["menu", "contacto"]
+    },
+    {
+      "nombre": "Galería",
+      "ruta": "/galeria",
+      "modulos": ["galeria", "contacto"]
+    },
+    {
+      "nombre": "Ubicación",
+      "ruta": "/ubicacion",
+      "modulos": ["ubicacion", "contacto"]
+    }
+  ],
   "servicios": [
     {
       "nombre": "Consumo en restaurante",
