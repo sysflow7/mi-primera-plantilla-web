@@ -6,7 +6,7 @@
   "tipoNegocio": "profesional",
   "etiquetaTipo": "Despacho jurídico",
   "modoSitio": "multi",
-  "heroImagen": "ferreteria-constructor.jpg",
+  "heroImagen": "despacho-juridico-hero.jpg",
   "modulos": ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto"],
   "indexable": false,
   "whatsapp": "50300000000",
