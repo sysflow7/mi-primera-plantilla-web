@@ -36,8 +36,9 @@
 
         let negocio = { ...negocioBase };
         let paginaActual = null;
+        const esMulti = negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas);
 
-        if (negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas)) {
+        if (esMulti) {
             paginaActual = negocioBase.paginas.find(function (pagina) {
                 const ruta = String(pagina.ruta || "/").replace(/\/$/, "") || "/";
                 return ruta === rutaActual;
@@ -99,26 +100,43 @@
         }
 
         const hero = document.getElementById("inicio");
+        const paginaCabecera = document.getElementById("pagina-cabecera");
         const nombreHero = negocio.heroImagen || negocioBase.heroImagen;
-        if (hero && nombreHero) {
-            const rutaHero = "images/" + nombreHero;
-            const imagenHero = new Image();
+        const esPaginaInterna = esMulti && rutaActual !== "/" && !!paginaActual;
 
-            imagenHero.onload = function () {
-                // Aplicamos la imagen directamente al Hero para que el sistema
-                // no dependa exclusivamente de un pseudo-elemento CSS.
-                hero.style.backgroundImage = `url("${rutaHero}")`;
-                hero.style.backgroundSize = "cover";
-                hero.style.backgroundPosition = "center";
-                hero.classList.add("hero-has-image");
-            };
+        if (hero) {
+            if (esPaginaInterna) {
+                hero.hidden = true;
+                document.body.classList.add("multi-inner-page");
+            } else if (nombreHero) {
+                const rutaHero = "images/" + nombreHero;
+                const imagenHero = new Image();
 
-            imagenHero.onerror = function () {
-                console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
-                hero.classList.remove("hero-has-image");
-            };
+                imagenHero.onload = function () {
+                    hero.style.backgroundImage = `url("${rutaHero}")`;
+                    hero.style.backgroundSize = "cover";
+                    hero.style.backgroundPosition = "center";
+                    hero.classList.add("hero-has-image");
+                };
 
-            imagenHero.src = rutaHero;
+                imagenHero.onerror = function () {
+                    console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
+                    hero.classList.remove("hero-has-image");
+                };
+
+                imagenHero.src = rutaHero;
+            }
+        }
+
+        if (paginaCabecera) {
+            if (esPaginaInterna) {
+                paginaCabecera.hidden = false;
+                setText("pagina-tipo", negocioBase.etiquetaTipo || "");
+                setText("pagina-titulo", paginaActual.nombre || "");
+                setText("pagina-descripcion", paginaActual.descripcion || paginaActual.descripcionSEO || "");
+            } else {
+                paginaCabecera.hidden = true;
+            }
         }
 
         // =========================
@@ -148,32 +166,19 @@
         // =========================
         const navLinks = document.getElementById("nav-links");
         const navTargets = {
-            presentacion: "nosotros",
-            perfil: "perfil",
-            beneficios: "beneficios",
-            servicios: "servicios",
-            productos: "productos",
-            menu: "menu",
-            galeria: "galeria",
-            ubicacion: "ubicacion",
-            contacto: "contacto"
+            presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios",
+            productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto"
         };
         const navLabels = {
-            presentacion: etiquetas.presentacionMenu || "Nosotros",
-            perfil: etiquetas.perfilMenu || "Perfil",
-            beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?",
-            servicios: etiquetas.serviciosMenu || "Servicios",
-            productos: etiquetas.productosMenu || "Productos",
-            menu: etiquetas.menuMenu || "Menú",
-            galeria: etiquetas.galeriaMenu || "Galería",
-            ubicacion: etiquetas.ubicacionMenu || "Ubicación",
+            presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
+            beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
+            productos: etiquetas.productosMenu || "Productos", menu: etiquetas.menuMenu || "Menú",
+            galeria: etiquetas.galeriaMenu || "Galería", ubicacion: etiquetas.ubicacionMenu || "Ubicación",
             contacto: etiquetas.contactoMenu || "Contacto"
         };
 
         if (navLinks) {
             navLinks.innerHTML = "";
-            const esMulti = negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas);
-
             if (esMulti && negocioBase.paginas.length > 0) {
                 negocioBase.paginas.forEach(function (pagina) {
                     const enlace = document.createElement("a");
@@ -243,6 +248,7 @@
         // =========================
         const listaServicios = document.getElementById("lista-servicios");
         if (listaServicios && Array.isArray(negocio.servicios)) {
+            listaServicios.innerHTML = "";
             negocio.servicios.forEach(function (servicio) {
                 addCard(listaServicios, "service", `<h3>${servicio.nombre || ""}</h3><p>${servicio.descripcion || ""}</p>`);
             });
@@ -253,17 +259,11 @@
         // =========================
         const listaProductos = document.getElementById("lista-productos");
         if (listaProductos && Array.isArray(negocio.productos)) {
+            listaProductos.innerHTML = "";
             negocio.productos.forEach(function (producto) {
                 const mensaje = "Hola, estoy interesado en " + producto.nombre + (producto.precio ? " de " + producto.precio : "");
                 const enlaceProducto = enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje);
-                addCard(listaProductos, "product", `
-                    <img src="images/${producto.imagen}" alt="${producto.nombre || "Producto"} - ${negocioBase.nombre}" loading="lazy">
-                    <div class="product-content">
-                        <h3>${producto.nombre || ""}</h3>
-                        <p>${producto.descripcion || ""}</p>
-                        ${producto.precio ? `<strong>${producto.precio}</strong>` : ""}
-                        <a class="product-whatsapp" href="${enlaceProducto}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a>
-                    </div>`);
+                addCard(listaProductos, "product", `<img src="images/${producto.imagen}" alt="${producto.nombre || "Producto"} - ${negocioBase.nombre}" loading="lazy"><div class="product-content"><h3>${producto.nombre || ""}</h3><p>${producto.descripcion || ""}</p>${producto.precio ? `<strong>${producto.precio}</strong>` : ""}<a class="product-whatsapp" href="${enlaceProducto}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
             });
         }
 
@@ -272,10 +272,9 @@
         // =========================
         const listaMenu = document.getElementById("lista-menu");
         if (listaMenu && Array.isArray(negocio.menu)) {
+            listaMenu.innerHTML = "";
             negocio.menu.forEach(function (item) {
-                addCard(listaMenu, "menu-item", `
-                    ${item.imagen ? `<img src="images/${item.imagen}" alt="${item.nombre || "Plato"}" loading="lazy">` : ""}
-                    <div><h3>${item.nombre || ""}</h3><p>${item.descripcion || ""}</p>${item.precio ? `<strong>${item.precio}</strong>` : ""}</div>`);
+                addCard(listaMenu, "menu-item", `${item.imagen ? `<img src="images/${item.imagen}" alt="${item.nombre || "Plato"}" loading="lazy">` : ""}<div><small class="menu-category">${item.categoria || ""}</small><h3>${item.nombre || ""}</h3><p>${item.descripcion || ""}</p>${item.precio ? `<strong>${item.precio}</strong>` : ""}</div>`);
             });
         }
 
@@ -284,6 +283,7 @@
         // =========================
         const listaBeneficios = document.getElementById("lista-beneficios");
         if (listaBeneficios && Array.isArray(negocio.beneficios)) {
+            listaBeneficios.innerHTML = "";
             negocio.beneficios.forEach(function (beneficio) {
                 addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${beneficio.titulo || ""}</h3><p>${beneficio.descripcion || ""}</p>`);
             });
@@ -294,6 +294,7 @@
         // =========================
         const listaGaleria = document.getElementById("lista-galeria");
         if (listaGaleria && Array.isArray(negocio.galeria)) {
+            listaGaleria.innerHTML = "";
             negocio.galeria.forEach(function (imagen, indice) {
                 const foto = document.createElement("img");
                 foto.src = "images/" + imagen;
