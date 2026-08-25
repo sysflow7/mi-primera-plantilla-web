@@ -45,7 +45,8 @@
     {"nombre": "Perfil profesional", "ruta": "/perfil", "modulos": ["perfil", "contacto"]},
     {"nombre": "Servicios", "ruta": "/servicios", "modulos": ["servicios", "contacto"]},
     {"nombre": "Galería", "ruta": "/galeria", "modulos": ["galeria", "contacto"]},
-    {"nombre": "Ubicación", "ruta": "/ubicacion", "modulos": ["ubicacion", "contacto"]}
+    {"nombre": "Ubicación", "ruta": "/ubicacion", "modulos": ["ubicacion", "contacto"]},
+    {"nombre": "Contacto", "ruta": "/contacto", "modulos": ["contacto"]}
   ],
   "servicios": [
     {"nombre": "Derecho civil", "descripcion": "Asesoría y representación en asuntos civiles."},
