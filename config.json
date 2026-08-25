@@ -1,17 +1,17 @@
 {
-  "nombre": "Ferretería El Constructor",
-  "slogan": "Todo para construir tus proyectos",
-  "descripcion": "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
-  "descripcionSEO": "Ferretería en San Salvador con herramientas, materiales de construcción y soluciones para el hogar.",
-  "tipoNegocio": "comercio",
-  "etiquetaTipo": "Ferretería y comercio",
+  "nombre": "Despacho Jurídico Benítez Gutiérrez",
+  "slogan": "Asesoría jurídica con experiencia y confianza",
+  "descripcion": "Brindamos asesoría y representación legal con atención personalizada y un enfoque profesional para cada caso.",
+  "descripcionSEO": "Despacho jurídico en San Salvador especializado en asesoría y servicios legales.",
+  "tipoNegocio": "profesional",
+  "etiquetaTipo": "Despacho jurídico",
   "modoSitio": "single",
   "heroImagen": "otra-imagen.jpg",
   "modulos": [
     "presentacion",
+    "perfil",
     "beneficios",
     "servicios",
-    "productos",
     "galeria",
     "ubicacion",
     "contacto"
@@ -34,83 +34,77 @@
   "facebook": "#",
   "instagram": "#",
   "maps": "https://www.google.com/maps",
-  "catalogo": "https://wa.me/c/50300000000",
+  "catalogo": "",
   "logo": "logo.png",
   "imagenSocial": "logo.png",
   "horarios": [],
   "rangoPrecios": "",
   "etiquetas": {
-    "presentacion": "¿Quiénes somos?",
-    "servicios": "Nuestros servicios",
-    "productos": "Productos destacados",
-    "galeria": "Galería",
-    "ubicacion": "Encuéntranos",
-    "contacto": "¿Tienes alguna pregunta?"
+    "presentacion": "Sobre el despacho",
+    "perfil": "Perfil profesional",
+    "beneficios": "¿Por qué elegirnos?",
+    "servicios": "Áreas de práctica",
+    "galeria": "Nuestro despacho",
+    "ubicacion": "Dónde encontrarnos",
+    "contacto": "Hablemos de su caso",
+    "presentacionMenu": "Nosotros",
+    "perfilMenu": "Perfil profesional",
+    "beneficiosMenu": "¿Por qué elegirnos?",
+    "serviciosMenu": "Servicios",
+    "galeriaMenu": "Galería",
+    "ubicacionMenu": "Ubicación",
+    "contactoMenu": "Contacto"
   },
   "textos": {
-    "contacto": "Estamos disponibles para atenderte."
+    "contacto": "Estamos disponibles para escuchar su consulta y orientarle sobre los próximos pasos."
   },
   "paginas": [],
   "servicios": [
     {
-      "nombre": "Herramientas",
-      "descripcion": "Encuentra herramientas para tus proyectos de construcción y reparación."
+      "nombre": "Derecho civil",
+      "descripcion": "Asesoría y representación en asuntos civiles y contractuales."
     },
     {
-      "nombre": "Materiales de construcción",
-      "descripcion": "Productos y materiales para tus proyectos de construcción."
+      "nombre": "Derecho de familia",
+      "descripcion": "Orientación legal en asuntos familiares y procesos relacionados."
     },
     {
-      "nombre": "Accesorios para el hogar",
-      "descripcion": "Soluciones prácticas para mantenimiento y reparación del hogar."
+      "nombre": "Derecho mercantil",
+      "descripcion": "Asesoría para empresas, comerciantes y operaciones mercantiles."
     }
   ],
-  "productos": [
-    {
-      "nombre": "Taladro Profesional",
-      "precio": "$49.99",
-      "descripcion": "Taladro profesional para trabajos del hogar y construcción.",
-      "imagen": "producto1.jpg"
-    },
-    {
-      "nombre": "Juego de Herramientas",
-      "precio": "$35.00",
-      "descripcion": "Kit de herramientas para reparaciones y mantenimiento.",
-      "imagen": "producto2.jpg"
-    },
-    {
-      "nombre": "Lámpara LED",
-      "precio": "$15.00",
-      "descripcion": "Lámpara LED para iluminación del hogar y espacios de trabajo.",
-      "imagen": "producto3.jpg"
-    }
-  ],
+  "productos": [],
   "menu": [],
   "perfil": {
-    "descripcion": "",
-    "datos": []
+    "descripcion": "Profesionales comprometidos con brindar asesoría jurídica clara, responsable y personalizada.",
+    "datos": [
+      {
+        "titulo": "Especialidad",
+        "valor": "Asesoría y representación legal"
+      },
+      {
+        "titulo": "Ubicación",
+        "valor": "San Salvador, El Salvador"
+      },
+      {
+        "titulo": "Atención",
+        "valor": "Con cita previa"
+      }
+    ]
   },
-  "galeria": [
-    "foto1.jpg",
-    "foto2.jpg",
-    "foto3.jpg"
-  ],
+  "galeria": [],
   "beneficios": [
     {
-      "titulo": "Productos de calidad",
-      "descripcion": "Seleccionamos productos confiables para nuestros clientes."
-    },
-    {
       "titulo": "Atención personalizada",
-      "descripcion": "Te ayudamos a encontrar lo que necesitas para tu proyecto."
+      "descripcion": "Cada consulta recibe una atención adaptada a sus necesidades."
     },
     {
-      "titulo": "Amplia variedad",
-      "descripcion": "Encuentra diferentes opciones de herramientas y materiales."
+      "titulo": "Experiencia profesional",
+      "descripcion": "Enfoque responsable para analizar cada situación jurídica."
     },
     {
-      "titulo": "Experiencia",
-      "descripcion": "Estamos para ayudarte a encontrar la solución adecuada."
+      "titulo": "Comunicación clara",
+      "descripcion": "Explicamos las alternativas legales de forma comprensible."
     }
   ]
 }
