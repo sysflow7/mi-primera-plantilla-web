@@ -76,19 +76,25 @@
   "productos": [],
   "menu": [
     {
+      "categoria": "Pupusas",
       "nombre": "Pupusas revueltas",
       "descripcion": "Pupusas de queso, chicharrón y frijol.",
-      "precio": "$1.50"
+      "precio": "$1.50",
+      "imagen": "pupusas-revueltas.jpg"
     },
     {
+      "categoria": "Desayunos",
       "nombre": "Desayuno típico",
       "descripcion": "Huevos, frijoles, plátano, queso y crema.",
-      "precio": "$5.00"
+      "precio": "$5.00",
+      "imagen": "desayuno-tipico.jpg"
     },
     {
+      "categoria": "Sopas",
       "nombre": "Sopa de gallina india",
       "descripcion": "Sopa tradicional servida con verduras y arroz.",
-      "precio": "$7.50"
+      "precio": "$7.50",
+      "imagen": "sopa-gallina.jpg"
     }
   ],
   "perfil": {},
