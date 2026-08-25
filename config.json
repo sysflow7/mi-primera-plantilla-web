@@ -92,7 +92,7 @@
       }
     ]
   },
-  "galeria": [],
+  "galeria": ["ferreteria-constructor.jpg"],
   "beneficios": [
     {
       "titulo": "Atención personalizada",
