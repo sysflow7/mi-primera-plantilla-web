@@ -1,403 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <!-- =========================
-         SEO TÉCNICO
-         Los valores se generan desde config.json
-         mediante worker.js antes de entregar el HTML.
-    ========================= -->
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>__SEO_TITLE__</title>
-
-    <meta name="description"
-          content="__SEO_DESCRIPTION__">
-
-    <meta name="robots"
-          content="__ROBOTS__">
-
-    <meta name="author"
-          content="__BUSINESS_NAME__">
-
-    <link rel="canonical"
-          href="__CANONICAL_URL__">
-
-    <link rel="icon"
-          type="image/png"
-          href="__FAVICON_URL__">
-
-    <meta name="theme-color"
-          content="#111827">
-
-    <!-- =========================
-         OPEN GRAPH
-    ========================= -->
-
-    <meta property="og:type"
-          content="website">
-
-    <meta property="og:title"
-          content="__SEO_TITLE__">
-
-    <meta property="og:description"
-          content="__SEO_DESCRIPTION__">
-
-    <meta property="og:url"
-          content="__CANONICAL_URL__">
-
-    <meta property="og:image"
-          content="__SOCIAL_IMAGE_URL__">
-
-    <meta property="og:image:alt"
-          content="__BUSINESS_NAME__">
-
-    <meta property="og:locale"
-          content="es_SV">
-
-    <meta property="og:site_name"
-          content="__BUSINESS_NAME__">
-
-    <!-- =========================
-         TWITTER / X
-    ========================= -->
-
-    <meta name="twitter:card"
-          content="summary_large_image">
-
-    <meta name="twitter:title"
-          content="__SEO_TITLE__">
-
-    <meta name="twitter:description"
-          content="__SEO_DESCRIPTION__">
-
-    <meta name="twitter:image"
-          content="__SOCIAL_IMAGE_URL__">
-
-    <!-- =========================
-         DATOS ESTRUCTURADOS
-    ========================= -->
-
+    <meta name="description" content="__SEO_DESCRIPTION__">
+    <meta name="robots" content="__ROBOTS__">
+    <meta name="author" content="__BUSINESS_NAME__">
+    <link rel="canonical" href="__CANONICAL_URL__">
+    <link rel="icon" type="image/png" href="__FAVICON_URL__">
+    <meta name="theme-color" content="#111827">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="__SEO_TITLE__">
+    <meta property="og:description" content="__SEO_DESCRIPTION__">
+    <meta property="og:url" content="__CANONICAL_URL__">
+    <meta property="og:image" content="__SOCIAL_IMAGE_URL__">
+    <meta property="og:image:alt" content="__BUSINESS_NAME__">
+    <meta property="og:locale" content="es_SV">
+    <meta property="og:site_name" content="__BUSINESS_NAME__">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="__SEO_TITLE__">
+    <meta name="twitter:description" content="__SEO_DESCRIPTION__">
+    <meta name="twitter:image" content="__SOCIAL_IMAGE_URL__">
     <script type="application/ld+json">__STRUCTURED_DATA__</script>
-
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
-
 <body>
 
-
-<!-- =========================
-     MENÚ DE NAVEGACIÓN
-========================= -->
-
 <nav class="navbar">
-
     <div class="nav-container">
-    
-        <a href="#inicio" class="nav-logo" id="nav-logo">
-            MI NEGOCIO
-        </a>
-    
-    
-        <button
-            class="menu-button"
-            id="menu-button"
-            aria-label="Abrir menú">
-    
-            ☰
-    
-        </button>
-    
-    
-        <div
-            class="nav-links"
-            id="nav-links">
-    
-            <a href="#nosotros">
-                Nosotros
-            </a>
-            
-            <a href="#beneficios">
-                ¿Por qué elegirnos?
-            </a>
-    
-            <a href="#servicios">
-                Servicios
-            </a>
-    
-            <a href="#productos">
-                Productos
-            </a>
-    
-            <a href="#galeria">
-                Galería
-            </a>
-    
-            <a href="#ubicacion">
-                Ubicación
-            </a>
-    
-            <a href="#contacto">
-                Contacto
-            </a>
-    
-        </div>
-    
+        <a href="#inicio" class="nav-logo" id="nav-logo">MI NEGOCIO</a>
+        <button class="menu-button" id="menu-button" aria-label="Abrir menú">☰</button>
+        <div class="nav-links" id="nav-links"></div>
     </div>
-
 </nav>
 
-
-<!-- =========================
-     INICIO
-========================= -->
-
-<header id="inicio">
-
-    <img id="logo-negocio"
-     alt="Logo del negocio"
-     class="logo">
-
+<header id="inicio" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <img id="logo-negocio" alt="Logo del negocio" class="logo">
+        <p id="tipo-negocio" class="business-type"></p>
         <h1 id="nombre-negocio"></h1>
-
         <p id="slogan-negocio"></p>
-
-
-        <a id="whatsapp-principal"
-           class="whatsapp"
-           target="_blank"
-           rel="noopener noreferrer">
-        
-            💬 Contactar por WhatsApp
-        
-        </a>
-
+        <a id="whatsapp-principal" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Contactar por WhatsApp</a>
         <div class="contact-actions">
-
-            <button
-                id="guardar-contacto"
-                class="contact-action">
-                
-                📱 Guardar contacto
-                
-            </button>
-
-            <button
-                id="compartir-negocio"
-                class="contact-action">
-                
-                📤 Compartir negocio
-                
-            </button>
-
+            <button id="guardar-contacto" class="contact-action">📱 Guardar contacto</button>
+            <button id="compartir-negocio" class="contact-action">📤 Compartir negocio</button>
         </div>
-  
-    
+    </div>
 </header>
 
-
-<!-- =========================
-     NOSOTROS
-========================= -->
-
-<section id="nosotros">
-
-    <h2>¿Quiénes somos?</h2>
-
-
-    <p class="about" id="descripcion-negocio">
-
-        Somos un negocio dedicado a ofrecer productos
-        y servicios de calidad, brindando atención
-        personalizada y soluciones para nuestros clientes.
-
-    </p>
-
-</section>
-
-<!-- =========================
-     POR QUÉ ELEGIRNOS
-========================= -->
-
-<section id="beneficios">
-
-    <h2>¿Por qué elegirnos?</h2>
-
-    <div id="lista-beneficios" class="benefits">
-
+<section id="pagina-cabecera" class="page-header" hidden>
+    <p id="pagina-tipo" class="page-header-type"></p>
+    <h1 id="pagina-titulo"></h1>
+    <p id="pagina-descripcion"></p>
+    <div class="page-actions">
+        <a id="pagina-whatsapp" class="page-action page-action-whatsapp" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+        <button id="pagina-guardar-contacto" class="page-action">📱 Guardar contacto</button>
+        <button id="pagina-compartir-negocio" class="page-action">📤 Compartir</button>
+        <a id="pagina-ubicacion" class="page-action" target="_blank" rel="noopener noreferrer">📍 Ubicación</a>
     </div>
-
 </section>
-    
-<!-- =========================
-     SERVICIOS
-========================= -->
 
-<section id="servicios">
+<main>
+<section id="nosotros" data-module="presentacion">
+    <h2 id="titulo-presentacion">¿Quiénes somos?</h2>
+    <p class="about" id="descripcion-negocio"></p>
+</section>
 
-    <h2>Nuestros servicios</h2>
-
-    <div id="lista-servicios" class="services">
-
+<section id="perfil" data-module="perfil" hidden>
+    <h2 id="titulo-perfil">Perfil profesional</h2>
+    <div class="profile-card">
+        <p id="descripcion-perfil"></p>
+        <div id="datos-perfil" class="profile-data"></div>
     </div>
-
 </section>
 
-<!-- =========================
-     PRODUCTOS
-========================= -->
-
-<section id="productos">
-
-    <h2>Productos destacados</h2>
-
-<a
-    id="catalogo-negocio"
-    class="catalog-button"
-    target="_blank"
-    rel="noopener noreferrer">
-
-    📲 Ver catálogo completo
-
-</a>
-
-    <div id="lista-productos" class="products">
-
-    </div>
-
-</section>
-    
-<!-- =========================
-     GALERÍA
-========================= -->
-
-<section id="galeria">
-
-    <h2>Galería</h2>
-
-    <div id="lista-galeria" class="gallery">
-
-    </div>
-
+<section id="beneficios" data-module="beneficios">
+    <h2 id="titulo-beneficios">¿Por qué elegirnos?</h2>
+    <div id="lista-beneficios" class="benefits"></div>
 </section>
 
-<!-- =========================
-     UBICACIÓN
-========================= -->
+<section id="servicios" data-module="servicios">
+    <h2 id="titulo-servicios">Nuestros servicios</h2>
+    <div id="lista-servicios" class="services"></div>
+</section>
 
-<section id="ubicacion">
+<section id="productos" data-module="productos">
+    <h2 id="titulo-productos">Productos destacados</h2>
+    <a id="catalogo-negocio" class="catalog-button" target="_blank" rel="noopener noreferrer">📲 Ver catálogo completo</a>
+    <div id="lista-productos" class="products"></div>
+</section>
 
-    <h2>Encuéntranos</h2>
+<section id="menu" data-module="menu">
+    <h2 id="titulo-menu">Nuestro menú</h2>
+    <div id="lista-menu" class="menu-grid"></div>
+</section>
 
+<section id="galeria" data-module="galeria">
+    <h2 id="titulo-galeria">Galería</h2>
+    <div id="lista-galeria" class="gallery"></div>
+</section>
+
+<section id="ubicacion" data-module="ubicacion">
+    <h2 id="titulo-ubicacion">Encuéntranos</h2>
     <div class="location">
-
-        <p>
-            📍 <span id="ciudad-negocio"></span>
-        </p>
-
-        <p>
-            📞 <span id="telefono-negocio"></span>
-        </p>
-
-
-        <a
-            id="maps-negocio"
-            class="location-button"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            📍 Cómo llegar
-
-        </a>
-
+        <p>📍 <span id="ciudad-negocio"></span></p>
+        <p id="direccion-linea"></p>
+        <p>📞 <span id="telefono-negocio"></span></p>
+        <a id="maps-negocio" class="location-button" target="_blank" rel="noopener noreferrer">📍 Cómo llegar</a>
     </div>
-
 </section>
 
-
-<!-- =========================
-     CONTACTO
-========================= -->
-
-<section id="contacto"
-         class="contact">
-
-
-    <h2>
-        ¿Tienes alguna pregunta?
-    </h2>
-
-
-    <p>
-        Estamos disponibles para atenderte.
-    </p>
-
-
-        <a id="whatsapp-final"
-           class="whatsapp"
-           target="_blank"
-           rel="noopener noreferrer">
-        
-            💬 Escríbenos por WhatsApp
-        
-        </a>
-
-
+<section id="contacto" class="contact" data-module="contacto">
+    <h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2>
+    <p id="texto-contacto">Estamos disponibles para atenderte.</p>
+    <a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a>
     <div class="social">
-
-        <a id="facebook-negocio"
-           target="_blank"
-           rel="noopener noreferrer">
-            Facebook
-        </a>
-        
-        <a id="instagram-negocio"
-           target="_blank"
-           rel="noopener noreferrer">
-            Instagram
-        </a>
-
+        <a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
-
-
 </section>
+</main>
 
+<a id="whatsapp-flotante" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
 
-<!-- =========================
-     BOTÓN FLOTANTE WHATSAPP
-========================= -->
-
-<a id="whatsapp-flotante"
-   class="whatsapp-float"
-   target="_blank"
-   rel="noopener noreferrer"
-   aria-label="Contactar por WhatsApp">
-
-    💬
-
-</a>
-
-<!-- =========================
-     PIE DE PÁGINA
-========================= -->
-
-<footer>
-
-    © <span id="anio-actual"></span>
-    <span id="nombre-footer">Mi Negocio</span> -
-    Todos los derechos reservados
-
-</footer>
-
+<footer>© <span id="anio-actual"></span> <span id="nombre-footer">Mi Negocio</span> - Todos los derechos reservados</footer>
 <script src="js/script.js"></script>
-    
 </body>
-
 </html>

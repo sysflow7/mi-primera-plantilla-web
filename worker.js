@@ -5,11 +5,47 @@ export default {
         const url = new URL(request.url);
 
         // ================================================
+        // CONFIGURACIÓN DEL NEGOCIO
+        // ================================================
+
+        const respuestaConfig = await env.ASSETS.fetch(
+            new Request(new URL("/config.json", request.url))
+        );
+
+        if (!respuestaConfig.ok) {
+            return new Response("No se pudo cargar la configuración del negocio.", {
+                status: 500,
+                headers: { "Content-Type": "text/plain; charset=UTF-8" }
+            });
+        }
+
+        const negocio = await respuestaConfig.json();
+
+        // ================================================
+        // HELPERS
+        // ================================================
+
+        const rutaNormalizada = function (ruta) {
+            const valor = String(ruta || "/");
+            if (valor === "/") return "/";
+            return "/" + valor.replace(/^\/+|\/+$/g, "");
+        };
+
+        const rutasMultipagina =
+            negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
+                ? negocio.paginas.map(function (pagina) {
+                    return rutaNormalizada(pagina.ruta);
+                })
+                : [];
+
+        const esRutaPagina =
+            url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
+
+        // ================================================
         // ROBOTS.TXT
         // ================================================
 
         if (url.pathname === "/robots.txt") {
-
             const contenido =
                 "User-agent: *\n" +
                 "Allow: /\n" +
@@ -21,7 +57,6 @@ export default {
                     "Cache-Control": "public, max-age=3600"
                 }
             });
-
         }
 
         // ================================================
@@ -29,15 +64,21 @@ export default {
         // ================================================
 
         if (url.pathname === "/sitemap.xml") {
+            const rutas = ["/"];
 
-            const paginaPrincipal = url.origin + "/";
+            if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)) {
+                negocio.paginas.forEach(function (pagina) {
+                    const ruta = rutaNormalizada(pagina.ruta);
+                    if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
+                });
+            }
 
             const contenido =
                 '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
-                '<url>' +
-                '<loc>' + paginaPrincipal + '</loc>' +
-                '</url>' +
+                rutas.map(function (ruta) {
+                    return '<url><loc>' + url.origin + ruta + '</loc></url>';
+                }).join("") +
                 '</urlset>';
 
             return new Response(contenido, {
@@ -46,78 +87,45 @@ export default {
                     "Cache-Control": "public, max-age=3600"
                 }
             });
-
         }
 
         // ================================================
-        // HTML PRINCIPAL CON SEO GENERADO EN SERVIDOR
+        // PÁGINA PRINCIPAL Y RUTAS MULTIPÁGINA
         // ================================================
 
-        if (request.method === "GET" && url.pathname === "/") {
+        if (request.method === "GET" && esRutaPagina) {
 
-            const respuestaConfig = await env.ASSETS.fetch(
-                new Request(new URL("/config.json", request.url))
+            const respuestaHTML = await env.ASSETS.fetch(
+                new Request(new URL("/index.html", request.url))
             );
 
-            if (!respuestaConfig.ok) {
-
-                return new Response(
-                    "No se pudo cargar la configuración del negocio.",
-                    {
-                        status: 500,
-                        headers: {
-                            "Content-Type": "text/plain; charset=UTF-8"
-                        }
-                    }
-                );
-
-            }
-
-            const negocio = await respuestaConfig.json();
-
-            const respuestaHTML = await env.ASSETS.fetch(request);
-
-            if (!respuestaHTML.ok) {
-                return respuestaHTML;
-            }
+            if (!respuestaHTML.ok) return respuestaHTML;
 
             let html = await respuestaHTML.text();
 
-            const escHtml = function (valor) {
-
-                return String(valor ?? "")
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#39;");
-
-            };
-
-            const escJson = function (valor) {
-
-                return JSON.stringify(valor)
-                    .replace(/</g, "\\u003c")
-                    .replace(/>/g, "\\u003e")
-                    .replace(/&/g, "\\u0026")
-                    .replace(/\u2028/g, "\\u2028")
-                    .replace(/\u2029/g, "\\u2029");
-
-            };
+            const paginaActual =
+                negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
+                    ? negocio.paginas.find(function (pagina) {
+                        return rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname);
+                    })
+                    : null;
 
             const tituloSEO =
+                paginaActual?.tituloSEO ||
                 negocio.tituloSEO ||
                 negocio.seo?.titulo ||
-                negocio.nombre + " | " + negocio.ciudad;
+                (paginaActual?.nombre ? paginaActual.nombre + " | " + negocio.nombre : negocio.nombre + " | " + negocio.ciudad);
 
             const descripcionSEO =
+                paginaActual?.descripcionSEO ||
                 negocio.descripcionSEO ||
                 negocio.seo?.descripcion ||
+                paginaActual?.descripcion ||
                 negocio.descripcion ||
                 negocio.slogan ||
                 negocio.nombre;
 
-            const canonical = url.origin + "/";
+            const canonical = url.origin + rutaNormalizada(url.pathname);
 
             const logoURL = new URL(
                 "images/" + negocio.logo,
@@ -125,18 +133,44 @@ export default {
             ).href;
 
             const imagenSocialURL = new URL(
-                "images/" +
-                (negocio.imagenSocial || negocio.logo),
+                "images/" + (negocio.imagenSocial || negocio.logo),
                 url.origin + "/"
             ).href;
 
             const indexable = negocio.indexable !== false;
-
             const direccion = negocio.direccion || {};
+
+            // Mapea los nombres comerciales de SIDEN a tipos válidos de Schema.org.
+            const schemaTypes = {
+                comercio: "Store",
+                hardwarestore: "HardwareStore",
+                tienda: "Store",
+                profesional: "ProfessionalService",
+                abogado: "LegalService",
+                medico: "Physician",
+                médico: "Physician",
+                contador: "ProfessionalService",
+                arquitecto: "ProfessionalService",
+                electricista: "Electrician",
+                fotografo: "ProfessionalService",
+                fotógrafo: "ProfessionalService",
+                consultor: "ProfessionalService",
+                psicologo: "Psychologist",
+                psicólogo: "Psychologist",
+                dentista: "Dentist",
+                restaurante: "Restaurant",
+                restaurant: "Restaurant"
+            };
+
+            const tipoClave = String(
+                paginaActual?.tipoNegocio || negocio.tipoNegocio || "LocalBusiness"
+            ).toLowerCase();
+
+            const tipoSchema = schemaTypes[tipoClave] || "LocalBusiness";
 
             const datosNegocio = {
                 "@context": "https://schema.org",
-                "@type": negocio.tipoNegocio || "LocalBusiness",
+                "@type": tipoSchema,
                 "@id": canonical + "#negocio",
                 "name": negocio.nombre,
                 "description": descripcionSEO,
@@ -148,26 +182,13 @@ export default {
 
             const postalAddress = {};
 
-            if (direccion.calle) {
-                postalAddress.streetAddress = direccion.calle;
-            }
-
+            if (direccion.calle) postalAddress.streetAddress = direccion.calle;
             if (direccion.ciudad || negocio.ciudad) {
-                postalAddress.addressLocality =
-                    direccion.ciudad || negocio.ciudad;
+                postalAddress.addressLocality = direccion.ciudad || negocio.ciudad;
             }
-
-            if (direccion.departamento) {
-                postalAddress.addressRegion = direccion.departamento;
-            }
-
-            if (direccion.codigoPostal) {
-                postalAddress.postalCode = direccion.codigoPostal;
-            }
-
-            if (direccion.pais) {
-                postalAddress.addressCountry = direccion.pais;
-            }
+            if (direccion.departamento) postalAddress.addressRegion = direccion.departamento;
+            if (direccion.codigoPostal) postalAddress.postalCode = direccion.codigoPostal;
+            if (direccion.pais) postalAddress.addressCountry = direccion.pais;
 
             if (Object.keys(postalAddress).length > 0) {
                 datosNegocio.address = {
@@ -176,81 +197,63 @@ export default {
                 };
             }
 
-            if (negocio.rangoPrecios) {
-                datosNegocio.priceRange = negocio.rangoPrecios;
-            }
+            if (negocio.rangoPrecios) datosNegocio.priceRange = negocio.rangoPrecios;
 
-            if (
-                negocio.maps &&
-                negocio.maps.startsWith("http")
-            ) {
+            if (negocio.maps && negocio.maps.startsWith("http")) {
                 datosNegocio.hasMap = negocio.maps;
             }
 
             const redes = [];
+            if (negocio.facebook && negocio.facebook.startsWith("http")) redes.push(negocio.facebook);
+            if (negocio.instagram && negocio.instagram.startsWith("http")) redes.push(negocio.instagram);
+            if (redes.length > 0) datosNegocio.sameAs = redes;
 
             if (
-                negocio.facebook &&
-                negocio.facebook.startsWith("http")
+                direccion.latitud !== "" && direccion.latitud !== undefined &&
+                direccion.longitud !== "" && direccion.longitud !== undefined
             ) {
-                redes.push(negocio.facebook);
-            }
-
-            if (
-                negocio.instagram &&
-                negocio.instagram.startsWith("http")
-            ) {
-                redes.push(negocio.instagram);
-            }
-
-            if (redes.length > 0) {
-                datosNegocio.sameAs = redes;
-            }
-
-            if (
-                direccion.latitud !== "" &&
-                direccion.latitud !== undefined &&
-                direccion.longitud !== "" &&
-                direccion.longitud !== undefined
-            ) {
-
                 datosNegocio.geo = {
                     "@type": "GeoCoordinates",
                     "latitude": Number(direccion.latitud),
                     "longitude": Number(direccion.longitud)
                 };
-
             }
 
-            if (
-                Array.isArray(negocio.horarios) &&
-                negocio.horarios.length > 0
-            ) {
-
-                datosNegocio.openingHoursSpecification =
-                    negocio.horarios.flatMap(function (horario) {
-
-                        return (horario.dias || []).map(function (dia) {
-
-                            return {
-                                "@type": "OpeningHoursSpecification",
-                                "dayOfWeek": dia,
-                                "opens": horario.abre,
-                                "closes": horario.cierra
-                            };
-
-                        });
-
+            if (Array.isArray(negocio.horarios) && negocio.horarios.length > 0) {
+                datosNegocio.openingHoursSpecification = negocio.horarios.flatMap(function (horario) {
+                    return (horario.dias || []).map(function (dia) {
+                        return {
+                            "@type": "OpeningHoursSpecification",
+                            "dayOfWeek": dia,
+                            "opens": horario.abre,
+                            "closes": horario.cierra
+                        };
                     });
-
+                });
             }
+
+            const escHtml = function (valor) {
+                return String(valor ?? "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+            };
+
+            const escJson = function (valor) {
+                return JSON.stringify(valor)
+                    .replace(/</g, "\\u003c")
+                    .replace(/>/g, "\\u003e")
+                    .replace(/&/g, "\\u0026")
+                    .replace(/\u2028/g, "\\u2028")
+                    .replace(/\u2029/g, "\\u2029");
+            };
 
             const reemplazos = {
                 "__SEO_TITLE__": escHtml(tituloSEO),
                 "__SEO_DESCRIPTION__": escHtml(descripcionSEO),
-                "__ROBOTS__": indexable
-                    ? "index, follow"
-                    : "noindex, nofollow",
+                "__ROBOTS__": indexable ? "index, follow" : "noindex, nofollow",
                 "__BUSINESS_NAME__": escHtml(negocio.nombre),
                 "__CANONICAL_URL__": escHtml(canonical),
                 "__FAVICON_URL__": escHtml(logoURL),
@@ -269,7 +272,6 @@ export default {
                     "Cache-Control": "public, max-age=300"
                 }
             });
-
         }
 
         // ================================================
@@ -277,7 +279,5 @@ export default {
         // ================================================
 
         return env.ASSETS.fetch(request);
-
     }
-
 };

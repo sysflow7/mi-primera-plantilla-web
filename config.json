@@ -1,86 +1,69 @@
 {
   "nombre": "Ferretería El Constructor",
   "slogan": "Todo para construir tus proyectos",
-  "descripcion": "Somos un negocio dedicado a ofrecer productos y servicios de calidad, brindando atención personalizada y soluciones para nuestros clientes.",
-  "descripcionSEO": "Ferretería en San Salvador con herramientas, materiales de construcción y soluciones para el hogar.",
-  "tipoNegocio": "HardwareStore",
+  "descripcion": "Encuentra herramientas, materiales y soluciones para construcción, reparación y mantenimiento.",
+  "descripcionSEO": "Ferretería y materiales para construcción en San Salvador.",
+  "tipoNegocio": "comercio",
+  "etiquetaTipo": "Ferretería y comercio",
+  "modoSitio": "single",
+  "heroImagen": "ferreteria-constructor.jpg",
+  "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
-  "direccion": {
-    "calle": "",
-    "ciudad": "San Salvador",
-    "departamento": "San Salvador",
-    "codigoPostal": "",
-    "pais": "SV",
-    "latitud": "",
-    "longitud": ""
-  },
+  "direccionTexto": "San Salvador, El Salvador",
+  "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
   "facebook": "#",
   "instagram": "#",
   "maps": "https://www.google.com/maps",
-  "catalogo": "https://wa.me/c/50300000000",
+  "catalogo": "",
   "logo": "logo.png",
   "imagenSocial": "logo.png",
   "horarios": [],
   "rangoPrecios": "",
+  "etiquetas": {
+    "presentacion": "Sobre nosotros",
+    "beneficios": "¿Por qué elegirnos?",
+    "servicios": "Nuestros servicios",
+    "productos": "Productos destacados",
+    "galeria": "Galería",
+    "ubicacion": "Dónde encontrarnos",
+    "contacto": "Contáctanos",
+    "presentacionMenu": "Nosotros",
+    "beneficiosMenu": "¿Por qué elegirnos?",
+    "serviciosMenu": "Servicios",
+    "productosMenu": "Productos",
+    "galeriaMenu": "Galería",
+    "ubicacionMenu": "Ubicación",
+    "contactoMenu": "Contacto"
+  },
+  "textos": {"contacto": "Estamos listos para ayudarte a encontrar lo que necesitas para tu proyecto."},
+  "paginas": [
+    {"nombre": "Inicio", "ruta": "/", "modulos": ["presentacion", "beneficios", "servicios", "contacto"]},
+    {"nombre": "Productos", "ruta": "/productos", "modulos": ["productos", "contacto"]},
+    {"nombre": "Servicios", "ruta": "/servicios", "modulos": ["servicios", "contacto"]},
+    {"nombre": "Galería", "ruta": "/galeria", "modulos": ["galeria", "contacto"]},
+    {"nombre": "Ubicación", "ruta": "/ubicacion", "modulos": ["ubicacion", "contacto"]},
+    {"nombre": "Contacto", "ruta": "/contacto", "modulos": ["contacto"]}
+  ],
   "servicios": [
-    {
-      "nombre": "Herramientas",
-      "descripcion": "Encuentra herramientas para tus proyectos de construcción y reparación."
-    },
-    {
-      "nombre": "Materiales de construcción",
-      "descripcion": "Productos y materiales para tus proyectos de construcción."
-    },
-    {
-      "nombre": "Accesorios para el hogar",
-      "descripcion": "Soluciones prácticas para mantenimiento y reparación del hogar."
-    }
+    {"nombre": "Asesoría en herramientas", "descripcion": "Te ayudamos a elegir la herramienta adecuada para tu proyecto."},
+    {"nombre": "Materiales para construcción", "descripcion": "Soluciones para construcción, reparación y mantenimiento."},
+    {"nombre": "Atención para proyectos", "descripcion": "Orientación para encontrar los productos que necesitas."}
   ],
   "productos": [
-    {
-      "nombre": "Taladro Profesional",
-      "precio": "$49.99",
-      "descripcion": "Taladro profesional para trabajos del hogar y construcción.",
-      "imagen": "producto1.jpg"
-    },
-    {
-      "nombre": "Juego de Herramientas",
-      "precio": "$35.00",
-      "descripcion": "Kit de herramientas para reparaciones y mantenimiento.",
-      "imagen": "producto2.jpg"
-    },
-    {
-      "nombre": "Lámpara LED",
-      "precio": "$15.00",
-      "descripcion": "Lámpara LED para iluminación del hogar y espacios de trabajo.",
-      "imagen": "producto3.jpg"
-    }
+    {"nombre": "Producto de ferretería 1", "descripcion": "Producto de prueba para validar el catálogo multipágina.", "precio": "$15.00", "imagen": "producto1.jpg"},
+    {"nombre": "Producto de ferretería 2", "descripcion": "Producto de prueba para validar el catálogo multipágina.", "precio": "$25.00", "imagen": "producto2.jpg"},
+    {"nombre": "Producto de ferretería 3", "descripcion": "Producto de prueba para validar el catálogo multipágina.", "precio": "$35.00", "imagen": "producto3.jpg"}
   ],
-  "galeria": [
-    "foto1.jpg",
-    "foto2.jpg",
-    "foto3.jpg"
-  ],
+  "menu": [],
+  "perfil": {},
+  "galeria": ["foto1.jpg", "foto2.jpg", "foto3.jpg"],
   "beneficios": [
-    {
-      "titulo": "Productos de calidad",
-      "descripcion": "Seleccionamos productos confiables para nuestros clientes."
-    },
-    {
-      "titulo": "Atención personalizada",
-      "descripcion": "Te ayudamos a encontrar lo que necesitas para tu proyecto."
-    },
-    {
-      "titulo": "Amplia variedad",
-      "descripcion": "Encuentra diferentes opciones de herramientas y materiales."
-    },
-    {
-      "titulo": "Experiencia",
-      "descripcion": "Estamos para ayudarte a encontrar la solución adecuada."
-    }
+    {"titulo": "Variedad", "descripcion": "Encuentra diferentes opciones para tus proyectos."},
+    {"titulo": "Asesoría", "descripcion": "Te orientamos para elegir la solución adecuada."},
+    {"titulo": "Atención cercana", "descripcion": "Estamos disponibles para ayudarte."}
   ]
 }
