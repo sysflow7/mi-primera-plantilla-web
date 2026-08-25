@@ -1,13 +1,13 @@
 {
-  "nombre": "Despacho Jurídico Benítez Gutiérrez",
-  "slogan": "Experiencia y compromiso en la defensa de sus derechos",
-  "descripcion": "Despacho jurídico dedicado a brindar asesoría y representación legal con atención profesional y cercana.",
-  "descripcionSEO": "Despacho jurídico en San Salvador especializado en asesoría y representación legal.",
-  "tipoNegocio": "profesional",
-  "etiquetaTipo": "Despacho jurídico",
+  "nombre": "Ferretería El Constructor",
+  "slogan": "Todo para construir tus proyectos",
+  "descripcion": "Encuentra herramientas, materiales y soluciones para construcción, reparación y mantenimiento.",
+  "descripcionSEO": "Ferretería y materiales para construcción en San Salvador.",
+  "tipoNegocio": "comercio",
+  "etiquetaTipo": "Ferretería y comercio",
   "modoSitio": "multi",
-  "heroImagen": "despacho-juridico-hero.jpg",
-  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto"],
+  "heroImagen": "ferreteria-constructor.jpg",
+  "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
@@ -24,49 +24,46 @@
   "horarios": [],
   "rangoPrecios": "",
   "etiquetas": {
-    "presentacion": "Sobre el despacho",
-    "perfil": "Perfil profesional",
+    "presentacion": "Sobre nosotros",
     "beneficios": "¿Por qué elegirnos?",
-    "servicios": "Áreas de práctica",
-    "galeria": "Nuestro despacho",
+    "servicios": "Nuestros servicios",
+    "productos": "Productos destacados",
+    "galeria": "Galería",
     "ubicacion": "Dónde encontrarnos",
-    "contacto": "Hablemos de su caso",
+    "contacto": "Contáctanos",
     "presentacionMenu": "Nosotros",
-    "perfilMenu": "Perfil profesional",
     "beneficiosMenu": "¿Por qué elegirnos?",
     "serviciosMenu": "Servicios",
+    "productosMenu": "Productos",
     "galeriaMenu": "Galería",
     "ubicacionMenu": "Ubicación",
     "contactoMenu": "Contacto"
   },
-  "textos": {"contacto": "Estamos disponibles para escuchar su caso y orientarle sobre los siguientes pasos."},
+  "textos": {"contacto": "Estamos listos para ayudarte a encontrar lo que necesitas para tu proyecto."},
   "paginas": [
-    {"nombre": "Inicio", "ruta": "/", "modulos": ["presentacion", "beneficios", "contacto"]},
-    {"nombre": "Perfil profesional", "ruta": "/perfil", "modulos": ["perfil", "contacto"]},
+    {"nombre": "Inicio", "ruta": "/", "modulos": ["presentacion", "beneficios", "servicios", "contacto"]},
+    {"nombre": "Productos", "ruta": "/productos", "modulos": ["productos", "contacto"]},
     {"nombre": "Servicios", "ruta": "/servicios", "modulos": ["servicios", "contacto"]},
     {"nombre": "Galería", "ruta": "/galeria", "modulos": ["galeria", "contacto"]},
     {"nombre": "Ubicación", "ruta": "/ubicacion", "modulos": ["ubicacion", "contacto"]},
     {"nombre": "Contacto", "ruta": "/contacto", "modulos": ["contacto"]}
   ],
   "servicios": [
-    {"nombre": "Derecho civil", "descripcion": "Asesoría y representación en asuntos civiles."},
-    {"nombre": "Derecho de familia", "descripcion": "Orientación legal en procesos y asuntos familiares."},
-    {"nombre": "Derecho mercantil", "descripcion": "Asesoría para empresas, contratos y operaciones comerciales."}
+    {"nombre": "Asesoría en herramientas", "descripcion": "Te ayudamos a elegir la herramienta adecuada para tu proyecto."},
+    {"nombre": "Materiales para construcción", "descripcion": "Soluciones para construcción, reparación y mantenimiento."},
+    {"nombre": "Atención para proyectos", "descripcion": "Orientación para encontrar los productos que necesitas."}
   ],
-  "productos": [],
+  "productos": [
+    {"nombre": "Producto de ferretería 1", "descripcion": "Producto de prueba para validar el catálogo multipágina.", "precio": "$15.00", "imagen": "producto1.jpg"},
+    {"nombre": "Producto de ferretería 2", "descripcion": "Producto de prueba para validar el catálogo multipágina.", "precio": "$25.00", "imagen": "producto2.jpg"},
+    {"nombre": "Producto de ferretería 3", "descripcion": "Producto de prueba para validar el catálogo multipágina.", "precio": "$35.00", "imagen": "producto3.jpg"}
+  ],
   "menu": [],
-  "perfil": {
-    "descripcion": "Atención jurídica basada en experiencia, análisis del caso y comunicación clara con cada cliente.",
-    "datos": [
-      {"titulo": "Experiencia", "valor": "Más de 10 años"},
-      {"titulo": "Atención", "valor": "Personalizada"},
-      {"titulo": "Modalidad", "valor": "Presencial y virtual"}
-    ]
-  },
-  "galeria": ["ferreteria-constructor.jpg"],
+  "perfil": {},
+  "galeria": ["foto1.jpg", "foto2.jpg", "foto3.jpg"],
   "beneficios": [
-    {"titulo": "Atención personalizada", "descripcion": "Cada caso recibe análisis y seguimiento individual."},
-    {"titulo": "Comunicación clara", "descripcion": "Explicamos las opciones legales de forma comprensible."},
-    {"titulo": "Compromiso profesional", "descripcion": "Trabajamos con seriedad y confidencialidad."}
+    {"titulo": "Variedad", "descripcion": "Encuentra diferentes opciones para tus proyectos."},
+    {"titulo": "Asesoría", "descripcion": "Te orientamos para elegir la solución adecuada."},
+    {"titulo": "Atención cercana", "descripcion": "Estamos disponibles para ayudarte."}
   ]
 }
