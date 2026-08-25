@@ -175,7 +175,7 @@
 
         // CONTACTO Y ENLACES
         const enlaceWhatsApp = "https://wa.me/" + negocioBase.whatsapp;
-        ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante"].forEach(function (id) {
+        ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante", "pagina-whatsapp"].forEach(function (id) {
             const elemento = document.getElementById(id);
             if (elemento) elemento.href = enlaceWhatsApp;
         });
@@ -185,6 +185,8 @@
         if (instagram) { instagram.href = negocioBase.instagram || "#"; instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http")); }
         const maps = document.getElementById("maps-negocio");
         if (maps) { maps.href = negocioBase.maps || "#"; maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
+        const paginaUbicacion = document.getElementById("pagina-ubicacion");
+        if (paginaUbicacion) { paginaUbicacion.href = negocioBase.maps || "#"; paginaUbicacion.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
         const catalogo = document.getElementById("catalogo-negocio");
         if (catalogo) { catalogo.href = negocioBase.catalogo || "#"; catalogo.hidden = !(negocioBase.catalogo && negocioBase.catalogo.startsWith("http")); }
 
@@ -243,9 +245,8 @@
             });
         }
 
-        // GUARDAR CONTACTO
-        const botonGuardarContacto = document.getElementById("guardar-contacto");
-        if (botonGuardarContacto) botonGuardarContacto.addEventListener("click", function () {
+        // ACCIONES COMUNES
+        const crearVCard = function () {
             const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${negocioBase.nombre}\nORG:${negocioBase.nombre}\nTEL;TYPE=CELL:${negocioBase.whatsapp}\nTEL;TYPE=WORK:${negocioBase.telefono}\nADR;TYPE=WORK:;;${negocioBase.ciudad};;;\nURL:${window.location.href}\nEND:VCARD`;
             const archivo = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
             const url = URL.createObjectURL(archivo);
@@ -256,11 +257,9 @@
             enlace.click();
             document.body.removeChild(enlace);
             URL.revokeObjectURL(url);
-        });
+        };
 
-        // COMPARTIR
-        const botonCompartirNegocio = document.getElementById("compartir-negocio");
-        if (botonCompartirNegocio) botonCompartirNegocio.addEventListener("click", async function () {
+        const compartirNegocio = async function () {
             const datosCompartir = { title: negocioBase.nombre, text: "Te comparto " + negocioBase.nombre + ".", url: window.location.href };
             if (navigator.share) {
                 try { await navigator.share(datosCompartir); } catch (error) { /* cancelado */ }
@@ -268,6 +267,15 @@
                 try { await navigator.clipboard.writeText("Te comparto " + negocioBase.nombre + ": " + window.location.href); alert("El enlace del negocio fue copiado."); }
                 catch (error) { alert("Copia este enlace para compartir el negocio:\n\n" + window.location.href); }
             }
+        };
+
+        ["guardar-contacto", "pagina-guardar-contacto"].forEach(function (id) {
+            const boton = document.getElementById(id);
+            if (boton) boton.addEventListener("click", crearVCard);
+        });
+        ["compartir-negocio", "pagina-compartir-negocio"].forEach(function (id) {
+            const boton = document.getElementById(id);
+            if (boton) boton.addEventListener("click", compartirNegocio);
         });
 
         // MENÚ MÓVIL
