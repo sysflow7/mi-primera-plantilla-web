@@ -49,6 +49,14 @@
         const modulos = Array.isArray(negocio.modulos) ? negocio.modulos : (defaults[tipoNormalizado] || defaults.comercio);
         const etiquetas = negocio.etiquetas || {};
         const texto = negocio.textos || {};
+        const escapeHtml = function (value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        };
         const setText = function (id, value) {
             const elemento = document.getElementById(id);
             if (elemento && value !== undefined && value !== null) elemento.textContent = value;
@@ -195,14 +203,16 @@
         setText("descripcion-perfil", perfil.descripcion || negocio.descripcion || "");
         const datosPerfil = document.getElementById("datos-perfil");
         if (datosPerfil && Array.isArray(perfil.datos)) perfil.datos.forEach(function (dato) {
-            addCard(datosPerfil, "profile-item", `<strong>${dato.titulo || ""}</strong><span>${dato.valor || ""}</span>`);
+            addCard(datosPerfil, "profile-item", `<strong>${escapeHtml(dato.titulo)}</strong><span>${escapeHtml(dato.valor)}</span>`);
         });
 
         // SERVICIOS
         const listaServicios = document.getElementById("lista-servicios");
         if (listaServicios && Array.isArray(negocio.servicios)) {
             listaServicios.innerHTML = "";
-            negocio.servicios.forEach(function (servicio) { addCard(listaServicios, "service", `<h3>${servicio.nombre || ""}</h3><p>${servicio.descripcion || ""}</p>`); });
+            negocio.servicios.forEach(function (servicio) {
+                addCard(listaServicios, "service", `<h3>${escapeHtml(servicio.nombre)}</h3><p>${escapeHtml(servicio.descripcion)}</p>`);
+            });
         }
 
         // PRODUCTOS
@@ -210,9 +220,9 @@
         if (listaProductos && Array.isArray(negocio.productos)) {
             listaProductos.innerHTML = "";
             negocio.productos.forEach(function (producto) {
-                const mensaje = "Hola, estoy interesado en " + producto.nombre + (producto.precio ? " de " + producto.precio : "");
+                const mensaje = "Hola, estoy interesado en " + String(producto.nombre || "") + (producto.precio ? " de " + String(producto.precio) : "");
                 const enlaceProducto = enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje);
-                addCard(listaProductos, "product", `<img src="images/${producto.imagen}" alt="${producto.nombre || "Producto"} - ${negocioBase.nombre}" loading="lazy"><div class="product-content"><h3>${producto.nombre || ""}</h3><p>${producto.descripcion || ""}</p>${producto.precio ? `<strong>${producto.precio}</strong>` : ""}<a class="product-whatsapp" href="${enlaceProducto}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
+                addCard(listaProductos, "product", `<img src="images/${escapeHtml(producto.imagen)}" alt="${escapeHtml(producto.nombre || "Producto")} - ${escapeHtml(negocioBase.nombre)}" loading="lazy"><div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
             });
         }
 
@@ -221,7 +231,7 @@
         if (listaMenu && Array.isArray(negocio.menu)) {
             listaMenu.innerHTML = "";
             negocio.menu.forEach(function (item) {
-                addCard(listaMenu, "menu-item", `${item.imagen ? `<img src="images/${item.imagen}" alt="${item.nombre || "Plato"}" loading="lazy">` : ""}<div><small class="menu-category">${item.categoria || ""}</small><h3>${item.nombre || ""}</h3><p>${item.descripcion || ""}</p>${item.precio ? `<strong>${item.precio}</strong>` : ""}</div>`);
+                addCard(listaMenu, "menu-item", `${item.imagen ? `<img src="images/${escapeHtml(item.imagen)}" alt="${escapeHtml(item.nombre || "Plato")}" loading="lazy">` : ""}<div><small class="menu-category">${escapeHtml(item.categoria)}</small><h3>${escapeHtml(item.nombre)}</h3><p>${escapeHtml(item.descripcion)}</p>${item.precio ? `<strong>${escapeHtml(item.precio)}</strong>` : ""}</div>`);
             });
         }
 
@@ -229,7 +239,9 @@
         const listaBeneficios = document.getElementById("lista-beneficios");
         if (listaBeneficios && Array.isArray(negocio.beneficios)) {
             listaBeneficios.innerHTML = "";
-            negocio.beneficios.forEach(function (beneficio) { addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${beneficio.titulo || ""}</h3><p>${beneficio.descripcion || ""}</p>`); });
+            negocio.beneficios.forEach(function (beneficio) {
+                addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
+            });
         }
 
         // GALERÍA
