@@ -1,17 +1,17 @@
 {
-  "nombre": "Despacho Jurídico Benítez Gutiérrez",
-  "slogan": "Asesoría jurídica con experiencia y confianza",
-  "descripcion": "Brindamos asesoría y representación legal con atención personalizada y un enfoque profesional para cada caso.",
-  "descripcionSEO": "Despacho jurídico en San Salvador especializado en asesoría y servicios legales.",
-  "tipoNegocio": "profesional",
-  "etiquetaTipo": "Despacho jurídico",
+  "nombre": "Restaurante Sabores de El Salvador",
+  "slogan": "Tradición y sabor en cada plato",
+  "descripcion": "Disfruta de auténtica comida salvadoreña preparada con ingredientes frescos y el sabor de nuestra tradición.",
+  "descripcionSEO": "Restaurante de comida salvadoreña en San Salvador.",
+  "tipoNegocio": "restaurante",
+  "etiquetaTipo": "Restaurante",
   "modoSitio": "single",
-  "heroImagen": "otra-imagen.jpg",
+  "heroImagen": "ferreteria-constructor.jpg",
   "modulos": [
     "presentacion",
-    "perfil",
     "beneficios",
     "servicios",
+    "menu",
     "galeria",
     "ubicacion",
     "contacto"
@@ -40,71 +40,71 @@
   "horarios": [],
   "rangoPrecios": "",
   "etiquetas": {
-    "presentacion": "Sobre el despacho",
-    "perfil": "Perfil profesional",
-    "beneficios": "¿Por qué elegirnos?",
-    "servicios": "Áreas de práctica",
-    "galeria": "Nuestro despacho",
+    "presentacion": "Sobre nosotros",
+    "beneficios": "¿Por qué visitarnos?",
+    "servicios": "Nuestros servicios",
+    "menu": "Nuestro menú",
+    "galeria": "Conoce nuestro restaurante",
     "ubicacion": "Dónde encontrarnos",
-    "contacto": "Hablemos de su caso",
+    "contacto": "Haz tu pedido",
     "presentacionMenu": "Nosotros",
-    "perfilMenu": "Perfil profesional",
     "beneficiosMenu": "¿Por qué elegirnos?",
     "serviciosMenu": "Servicios",
+    "menuMenu": "Menú",
     "galeriaMenu": "Galería",
     "ubicacionMenu": "Ubicación",
     "contactoMenu": "Contacto"
   },
   "textos": {
-    "contacto": "Estamos disponibles para escuchar su consulta y orientarle sobre los próximos pasos."
+    "contacto": "Estamos listos para atenderte y recibir tu pedido."
   },
   "paginas": [],
   "servicios": [
     {
-      "nombre": "Derecho civil",
-      "descripcion": "Asesoría y representación en asuntos civiles y contractuales."
+      "nombre": "Consumo en restaurante",
+      "descripcion": "Disfruta nuestros platillos en un ambiente agradable y familiar."
     },
     {
-      "nombre": "Derecho de familia",
-      "descripcion": "Orientación legal en asuntos familiares y procesos relacionados."
+      "nombre": "Pedidos para llevar",
+      "descripcion": "Realiza tu pedido y recógelo listo para disfrutar."
     },
     {
-      "nombre": "Derecho mercantil",
-      "descripcion": "Asesoría para empresas, comerciantes y operaciones mercantiles."
+      "nombre": "Eventos y celebraciones",
+      "descripcion": "Espacio y atención para reuniones y celebraciones especiales."
     }
   ],
   "productos": [],
-  "menu": [],
-  "perfil": {
-    "descripcion": "Profesionales comprometidos con brindar asesoría jurídica clara, responsable y personalizada.",
-    "datos": [
-      {
-        "titulo": "Especialidad",
-        "valor": "Asesoría y representación legal"
-      },
-      {
-        "titulo": "Ubicación",
-        "valor": "San Salvador, El Salvador"
-      },
-      {
-        "titulo": "Atención",
-        "valor": "Con cita previa"
-      }
-    ]
-  },
+  "menu": [
+    {
+      "nombre": "Pupusas revueltas",
+      "descripcion": "Pupusas de queso, chicharrón y frijol.",
+      "precio": "$1.50"
+    },
+    {
+      "nombre": "Desayuno típico",
+      "descripcion": "Huevos, frijoles, plátano, queso y crema.",
+      "precio": "$5.00"
+    },
+    {
+      "nombre": "Sopa de gallina india",
+      "descripcion": "Sopa tradicional servida con verduras y arroz.",
+      "precio": "$7.50"
+    }
+  ],
+  "perfil": {},
   "galeria": ["ferreteria-constructor.jpg"],
   "beneficios": [
     {
-      "titulo": "Atención personalizada",
-      "descripcion": "Cada consulta recibe una atención adaptada a sus necesidades."
+      "titulo": "Ingredientes frescos",
+      "descripcion": "Seleccionamos ingredientes para ofrecer sabor y calidad en cada plato."
     },
     {
-      "titulo": "Experiencia profesional",
-      "descripcion": "Enfoque responsable para analizar cada situación jurídica."
+      "titulo": "Sabor tradicional",
+      "descripcion": "Recetas inspiradas en la cocina salvadoreña."
     },
     {
-      "titulo": "Comunicación clara",
-      "descripcion": "Explicamos las alternativas legales de forma comprensible."
+      "titulo": "Atención cercana",
+      "descripcion": "Queremos que cada visita sea una experiencia agradable."
     }
   ]
 }
