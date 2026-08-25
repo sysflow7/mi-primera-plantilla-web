@@ -37,9 +37,13 @@ section h2 { text-align: center; margin-bottom: 30px; font-size: 30px; }
 .product-content strong, .menu-item strong { display: block; margin: 10px 0; }
 .product-whatsapp { display: inline-block; text-decoration: none; color: #111827; font-weight: bold; }
 
-.menu-item { padding: 0; overflow: hidden; }
-.menu-item > div { padding: 20px; }
-.menu-item img { height: 180px; }
+/* MENÚ DE RESTAURANTE */
+.menu-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.menu-item { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
+.menu-item img { height: 210px; aspect-ratio: 4 / 3; object-fit: cover; }
+.menu-item > div { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.menu-item p { color: #555; }
+.menu-item strong { font-size: 20px; margin-top: auto; padding-top: 12px; }
 
 .profile-card { max-width: 800px; margin: auto; }
 .profile-data { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 20px; }
@@ -75,4 +79,6 @@ footer { background: #0b1120; color: #aaa; text-align: center; padding: 20px; fo
     .nav-links { display: none; width: 100%; flex-direction: column; gap: 10px; padding-top: 10px; }
     .nav-links.active { display: flex; }
     .nav-container { flex-wrap: wrap; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-item img { height: 220px; }
 }
