@@ -128,23 +128,5 @@
 
 <footer>© <span id="anio-actual"></span> <span id="nombre-footer">Mi Negocio</span> - Todos los derechos reservados</footer>
 <script src="js/script.js"></script>
-<script>
-(async function () {
-    try {
-        const respuesta = await fetch("config.json", { cache: "no-cache" });
-        if (!respuesta.ok) return;
-        const negocio = await respuesta.json();
-        const email = String(negocio.email || "").trim();
-        const elemento = document.getElementById("email-negocio");
-        if (elemento && email) {
-            elemento.textContent = "✉️ " + email;
-            elemento.href = "mailto:" + email;
-            elemento.hidden = false;
-        }
-    } catch (error) {
-        console.error("SIDEN: no se pudo cargar el correo electrónico.", error);
-    }
-})();
-</script>
 </body>
 </html>
