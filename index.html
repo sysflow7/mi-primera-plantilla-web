@@ -116,7 +116,7 @@
     <h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2>
     <p id="texto-contacto">Estamos disponibles para atenderte.</p>
     <a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a>
-    <a id="email-negocio" class="contact-email" href="mailto:__EMAIL__">✉️ __EMAIL__</a>
+    <a id="email-negocio" class="contact-email" hidden></a>
     <div class="social">
         <a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a>
         <a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -128,5 +128,23 @@
 
 <footer>© <span id="anio-actual"></span> <span id="nombre-footer">Mi Negocio</span> - Todos los derechos reservados</footer>
 <script src="js/script.js"></script>
+<script>
+(async function () {
+    try {
+        const respuesta = await fetch("config.json", { cache: "no-cache" });
+        if (!respuesta.ok) return;
+        const negocio = await respuesta.json();
+        const email = String(negocio.email || "").trim();
+        const elemento = document.getElementById("email-negocio");
+        if (elemento && email) {
+            elemento.textContent = "✉️ " + email;
+            elemento.href = "mailto:" + email;
+            elemento.hidden = false;
+        }
+    } catch (error) {
+        console.error("SIDEN: no se pudo cargar el correo electrónico.", error);
+    }
+})();
+</script>
 </body>
 </html>
