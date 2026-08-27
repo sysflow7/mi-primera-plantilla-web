@@ -187,6 +187,19 @@
             const elemento = document.getElementById(id);
             if (elemento) elemento.href = enlaceWhatsApp;
         });
+        const email = String(negocioBase.email || "").trim();
+        const emailElemento = document.getElementById("email-negocio");
+        if (emailElemento) {
+            if (email) {
+                emailElemento.textContent = "✉️ " + email;
+                emailElemento.href = "mailto:" + email;
+                emailElemento.hidden = false;
+            } else {
+                emailElemento.textContent = "";
+                emailElemento.removeAttribute("href");
+                emailElemento.hidden = true;
+            }
+        }
         const facebook = document.getElementById("facebook-negocio");
         if (facebook) { facebook.href = negocioBase.facebook || "#"; facebook.hidden = !(negocioBase.facebook && negocioBase.facebook.startsWith("http")); }
         const instagram = document.getElementById("instagram-negocio");
@@ -259,8 +272,19 @@
 
         // ACCIONES COMUNES
         const crearVCard = function () {
-            const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${negocioBase.nombre}\nORG:${negocioBase.nombre}\nTEL;TYPE=CELL:${negocioBase.whatsapp}\nTEL;TYPE=WORK:${negocioBase.telefono}\nADR;TYPE=WORK:;;${negocioBase.ciudad};;;\nURL:${window.location.href}\nEND:VCARD`;
-            const archivo = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+            const lineasVcard = [
+                "BEGIN:VCARD",
+                "VERSION:3.0",
+                "FN:" + negocioBase.nombre,
+                "ORG:" + negocioBase.nombre,
+                "TEL;TYPE=CELL:" + negocioBase.whatsapp,
+                "TEL;TYPE=WORK:" + negocioBase.telefono,
+                "ADR;TYPE=WORK:;;" + negocioBase.ciudad + ";;;",
+                email ? "EMAIL;TYPE=INTERNET:" + email : "",
+                "URL:" + window.location.href,
+                "END:VCARD"
+            ].filter(Boolean);
+            const archivo = new Blob([lineasVcard.join("\n")], { type: "text/vcard;charset=utf-8" });
             const url = URL.createObjectURL(archivo);
             const enlace = document.createElement("a");
             enlace.href = url;
