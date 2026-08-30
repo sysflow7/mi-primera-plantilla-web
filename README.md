@@ -4,7 +4,7 @@ Esta es la plantilla maestra de SIDEN para crear sitios web de pequeños negocio
 
 ## Arquitectura
 
-- Esta rama (`siden-master-v1.1`) es la referencia maestra de SIDEN v1.1.
+- Esta rama (`siden-template-v1.1`) es la referencia maestra de SIDEN v1.1.
 - Los datos reales, imágenes y configuraciones de cada cliente deben vivir en una instancia independiente.
 - No colocar datos reales de clientes en esta rama.
 
@@ -42,4 +42,4 @@ El correo electrónico se almacena en `config.json` mediante el campo `email` y 
 
 ## Regla de operación
 
-SIDEN es el sitio/servicio corporativo. La plantilla maestra es el motor reutilizable. Cada cliente se publica como una instancia independiente, inicialmente bajo `cliente.sidenred.com`; un dominio propio del cliente puede conectarse posteriormente sin reconstruir el sitio.
+SIDeN es el sitio/servicio corporativo. La plantilla maestra es el motor reutilizable. Cada cliente se publica como una instancia independiente, inicialmente bajo `cliente.sidenred.com`; un dominio propio del cliente puede conectarse posteriormente sin reconstruir el sitio.
