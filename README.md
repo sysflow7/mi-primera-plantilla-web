@@ -43,3 +43,7 @@ El correo electrónico se almacena en `config.json` mediante el campo `email` y 
 ## Regla de operación
 
 SIDEN es el sitio/servicio corporativo. La plantilla maestra es el motor reutilizable. Cada cliente se publica como una instancia independiente, inicialmente bajo `cliente.sidenred.com`; un dominio propio del cliente puede conectarse posteriormente sin reconstruir el sitio.
+
+## Prueba controlada de build
+
+Esta modificación se realizó únicamente para validar que la rama `cliente-tecnico-giovanni-bautista` está correctamente conectada al Worker `siden-tecnico-giobautista`.
