@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "siden-master-v1-1",
+  "name": "siden-tecnico-giobautista",
   "compatibility_date": "2026-08-20",
   "main": "worker.js",
   "assets": {
