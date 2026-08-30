@@ -1,10 +1,12 @@
-# SIDEN Template v1.1
+# SIDEN — Plantilla Maestra v1.1
 
-Plantilla maestra de SIDEN para crear sitios web de pequeños negocios.
+Esta es la plantilla maestra de SIDEN para crear sitios web de pequeños negocios.
 
-## Principio de uso
+## Arquitectura
 
-Esta rama contiene el motor y estructura base de SIDEN. La información, imágenes y datos reales de cada negocio deben vivir en una instancia independiente del cliente.
+- Esta rama (`siden-master-v1.1`) es la referencia maestra de SIDEN v1.1.
+- Los datos reales, imágenes y configuraciones de cada cliente deben vivir en una instancia independiente.
+- No colocar datos reales de clientes en esta rama.
 
 ## Identidad de instancia
 
@@ -16,7 +18,7 @@ Cada instancia puede identificarse mediante `config.json`:
 
 ## Datos de contacto
 
-La configuración contempla los principales canales de contacto del negocio:
+La configuración contempla:
 
 - WhatsApp
 - Teléfono
@@ -25,7 +27,7 @@ La configuración contempla los principales canales de contacto del negocio:
 - Instagram
 - Ubicación / Google Maps
 
-El correo electrónico se almacena en `config.json` mediante el campo `email` y se muestra como enlace de correo en la sección de contacto cuando está configurado.
+El correo electrónico se almacena en `config.json` mediante el campo `email` y se muestra como enlace de correo cuando está configurado.
 
 ## Tipos soportados
 
@@ -38,6 +40,6 @@ El correo electrónico se almacena en `config.json` mediante el campo `email` y 
 - Sitio de una página (`single`)
 - Sitio multipágina (`multi`)
 
-## Regla
+## Regla de operación
 
-No colocar datos reales de clientes en esta plantilla maestra.
+SIDEN es el sitio/servicio corporativo. La plantilla maestra es el motor reutilizable. Cada cliente se publica como una instancia independiente, inicialmente bajo `cliente.sidenred.com`; un dominio propio del cliente puede conectarse posteriormente sin reconstruir el sitio.
