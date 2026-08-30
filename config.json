@@ -1,21 +1,21 @@
 {
   "siden": {
-    "instanceId": "",
+    "instanceId": "siden-corporativo",
     "template": "siden-template-v1.1",
     "version": "1.1"
   },
-  "nombre": "Mi Negocio",
-  "slogan": "Tu negocio, tu identidad digital",
-  "descripcion": "Describe aquí el negocio y la propuesta de valor del cliente.",
-  "descripcionSEO": "Sitio web oficial del negocio.",
-  "tipoNegocio": "comercio",
-  "etiquetaTipo": "Comercio",
+  "nombre": "SIDeN",
+  "slogan": "Más visibilidad. Más reconocimiento. Más clientes.",
+  "descripcion": "SIDeN ayuda a pequeños negocios a construir una presencia digital profesional, clara y fácil de encontrar, para que más personas conozcan sus servicios y puedan contactarlos.",
+  "descripcionSEO": "SIDeN: soluciones de presencia digital para pequeños negocios. Más visibilidad, más reconocimiento y más clientes.",
+  "tipoNegocio": "servicio",
+  "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
   "heroImagen": "",
-  "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
-  "indexable": false,
-  "whatsapp": "50300000000",
-  "telefono": "+503 0000-0000",
+  "modulos": ["presentacion", "beneficios", "servicios", "contacto"],
+  "indexable": true,
+  "whatsapp": "",
+  "telefono": "",
   "email": "",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
@@ -30,12 +30,20 @@
   "horarios": [],
   "rangoPrecios": "",
   "etiquetas": {},
-  "textos": {"contacto": "Estamos disponibles para atenderte."},
+  "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio sea más visible, reconocido y fácil de contactar."},
   "paginas": [],
-  "servicios": [],
+  "servicios": [
+    {"nombre": "Presencia digital profesional", "descripcion": "Creamos una página web clara y adaptada a la identidad de cada negocio."},
+    {"nombre": "Presencia local", "descripcion": "Ayudamos a que los negocios tengan una presencia digital orientada a clientes de su zona."},
+    {"nombre": "Contacto directo por WhatsApp", "descripcion": "Facilitamos que los clientes puedan pasar de conocer el negocio a contactarlo rápidamente."}
+  ],
   "productos": [],
   "menu": [],
   "perfil": {},
   "galeria": [],
-  "beneficios": []
+  "beneficios": [
+    {"titulo": "Más visibilidad", "descripcion": "Haz que más personas puedan encontrar y conocer tu negocio en internet."},
+    {"titulo": "Más reconocimiento", "descripcion": "Presenta tu negocio de forma profesional y transmite confianza."},
+    {"titulo": "Más clientes", "descripcion": "Facilita el contacto para convertir el interés de las personas en oportunidades reales."}
+  ]
 }
