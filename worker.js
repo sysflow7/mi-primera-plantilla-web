@@ -136,15 +136,14 @@ export default {
 
             const canonical = url.origin + rutaNormalizada(url.pathname);
 
-            const logoURL = new URL(
-                "images/" + (negocio.logo || ""),
-                url.origin + "/"
-            ).href;
+            // Las imágenes son opcionales. No generar /images/ cuando no existe archivo.
+            const construirImagenURL = function (archivo) {
+                if (!archivo) return "";
+                return new URL("images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href;
+            };
 
-            const imagenSocialURL = new URL(
-                "images/" + (negocio.imagenSocial || negocio.logo || ""),
-                url.origin + "/"
-            ).href;
+            const logoURL = construirImagenURL(negocio.logo);
+            const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
 
             const indexable = negocio.indexable !== false;
             const direccion = negocio.direccion || {};
@@ -186,11 +185,11 @@ export default {
                 "name": negocio.nombre,
                 "description": descripcionSEO,
                 "url": canonical,
-                "logo": logoURL,
-                "image": [imagenSocialURL],
                 "telephone": negocio.telefono
             };
 
+            if (logoURL) datosNegocio.logo = logoURL;
+            if (imagenSocialURL) datosNegocio.image = [imagenSocialURL];
             if (negocio.email) datosNegocio.email = negocio.email;
 
             const postalAddress = {};
