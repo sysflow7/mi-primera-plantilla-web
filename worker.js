@@ -135,6 +135,8 @@ export default {
                 negocio.nombre;
 
             const canonical = url.origin + rutaNormalizada(url.pathname);
+            // Identificador estable de la entidad: todas las páginas describen al mismo negocio.
+            const negocioId = url.origin + "/#negocio";
 
             // Las imágenes son opcionales. No generar /images/ cuando no existe archivo.
             const construirImagenURL = function (archivo) {
@@ -181,7 +183,7 @@ export default {
             const datosNegocio = {
                 "@context": "https://schema.org",
                 "@type": tipoSchema,
-                "@id": canonical + "#negocio",
+                "@id": negocioId,
                 "name": negocio.nombre,
                 "description": descripcionSEO,
                 "url": canonical,
@@ -296,6 +298,15 @@ export default {
             Object.entries(reemplazos).forEach(function ([marcador, valor]) {
                 html = html.split(marcador).join(valor);
             });
+
+            // En páginas internas multi, el H1 de la cabecera interna es el encabezado principal.
+            // El hero queda oculto por JS; convertir su H1 en H2 evita dos H1 en el documento.
+            if (paginaActual && rutaNormalizada(url.pathname) !== "/") {
+                html = html.replace(
+                    '<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>',
+                    '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>'
+                );
+            }
 
             return new Response(html, {
                 status: respuestaHTML.status,
