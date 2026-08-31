@@ -1,21 +1,17 @@
 {
-  "siden": {
-    "instanceId": "",
-    "template": "siden-template-v1.2-seo-local",
-    "version": "1.2"
-  },
-  "nombre": "Mi Negocio",
-  "slogan": "Tu negocio, tu identidad digital",
-  "descripcion": "Describe aquí el negocio y la propuesta de valor del cliente.",
-  "descripcionSEO": "Sitio web oficial del negocio.",
+  "siden": {"instanceId": "demo-multi", "template": "siden-template-v1.2-seo-local", "version": "1.2"},
+  "nombre": "SIDeN Demo Local",
+  "slogan": "Presencia local digital para negocios de San Salvador",
+  "descripcion": "Demo temporal para comprobar el funcionamiento multipágina y el SEO local de la plantilla SIDeN.",
+  "descripcionSEO": "SIDeN Demo Local en San Salvador | Prueba de SEO local y sitio web multipágina.",
   "tipoNegocio": "comercio",
   "etiquetaTipo": "Comercio",
-  "modoSitio": "single",
+  "modoSitio": "multi",
   "modeloAtencion": "local",
   "areasServicio": [],
   "heroImagen": "",
   "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
-  "indexable": true,
+  "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
   "email": "",
@@ -33,12 +29,10 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {},
-  "textos": {"contacto": "Estamos disponibles para atenderte."},
-  "paginas": [],
-  "servicios": [],
-  "productos": [],
-  "menu": [],
-  "perfil": {},
-  "galeria": [],
-  "beneficios": []
+  "textos": {"contacto": "Esta es una demo temporal de SIDeN."},
+  "paginas": [
+    {"ruta": "/servicios", "nombre": "Servicios", "tituloSEO": "Servicios | SIDeN Demo Local", "descripcionSEO": "Servicios de SIDeN Demo Local en San Salvador.", "descripcion": "Conoce los servicios de nuestra demo local en San Salvador."},
+    {"ruta": "/contacto", "nombre": "Contacto", "tituloSEO": "Contacto | SIDeN Demo Local", "descripcionSEO": "Contacto de SIDeN Demo Local en San Salvador.", "descripcion": "Encuentra los datos de contacto de nuestra demo local."}
+  ],
+  "servicios": [], "productos": [], "menu": [], "perfil": {}, "galeria": [], "beneficios": []
 }
