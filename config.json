@@ -1,8 +1,8 @@
 {
   "siden": {
     "instanceId": "",
-    "template": "siden-template-v1.1",
-    "version": "1.1"
+    "template": "siden-template-v1.2-seo-local",
+    "version": "1.2"
   },
   "nombre": "Mi Negocio",
   "slogan": "Tu negocio, tu identidad digital",
@@ -11,9 +11,11 @@
   "tipoNegocio": "comercio",
   "etiquetaTipo": "Comercio",
   "modoSitio": "single",
+  "modeloAtencion": "local",
+  "areasServicio": [],
   "heroImagen": "",
   "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
-  "indexable": false,
+  "indexable": true,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
   "email": "",
