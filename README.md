@@ -1,45 +1,39 @@
-# SIDEN — Plantilla Maestra v1.1
+# SIDEN — Plantilla Maestra v1.2 SEO Local
 
-Esta es la plantilla maestra de SIDEN para crear sitios web de pequeños negocios.
+Esta rama es la versión de trabajo de la plantilla maestra de SIDEN para sitios web de pequeños negocios con base técnica para SEO local.
 
-## Arquitectura
+## Qué incluye v1.2
 
-- Esta rama (`siden-template-v1.1`) es la referencia maestra de SIDEN v1.1.
-- Los datos reales, imágenes y configuraciones de cada cliente deben vivir en una instancia independiente.
-- No colocar datos reales de clientes en esta rama.
-
-## Identidad de instancia
-
-Cada instancia puede identificarse mediante `config.json`:
-
-- `siden.instanceId`: identificador único del cliente.
-- `siden.template`: versión de la plantilla SIDEN utilizada.
-- `siden.version`: versión de la configuración/motor.
-
-## Datos de contacto
-
-La configuración contempla:
-
-- WhatsApp
-- Teléfono
-- Correo electrónico
-- Facebook
-- Instagram
-- Ubicación / Google Maps
-
-El correo electrónico se almacena en `config.json` mediante el campo `email` y se muestra como enlace de correo cuando está configurado.
-
-## Tipos soportados
-
-- Comercio
-- Profesional
-- Restaurante
-
-## Modos soportados
-
-- Sitio de una página (`single`)
-- Sitio multipágina (`multi`)
+- Title y meta description configurables por negocio/página.
+- Canonical dinámico.
+- robots.txt dinámico.
+- sitemap.xml dinámico.
+- JSON-LD para LocalBusiness y subtipos soportados.
+- Nombre, teléfono, correo, dirección, ciudad, país, mapa y redes sociales en los datos estructurados cuando corresponda.
+- Coordenadas geográficas para negocios con ubicación física.
+- Horarios estructurados.
+- Soporte para negocio con ubicación física, área de servicio o ambos mediante `modeloAtencion` y `areasServicio`.
+- Contenido SEO esencial renderizado desde el Worker: H1, descripción, ciudad, dirección y teléfono.
+- Configuración `indexable` activada por defecto para una instancia publicable.
 
 ## Regla de operación
 
-SIDeN es el sitio/servicio corporativo. La plantilla maestra es el motor reutilizable. Cada cliente se publica como una instancia independiente, inicialmente bajo `cliente.sidenred.com`; un dominio propio del cliente puede conectarse posteriormente sin reconstruir el sitio.
+La plantilla maestra contiene el motor reutilizable. Los datos reales, imágenes y configuración de cada cliente viven en una instancia independiente.
+
+## Configuración de atención local
+
+`modeloAtencion` acepta conceptualmente:
+
+- `local`: negocio con ubicación física.
+- `areaServicio`: negocio que presta servicios en zonas determinadas y no publica dirección física.
+- `ambos`: tiene ubicación física y además atiende una zona de servicio.
+
+`areasServicio` puede contener nombres de zonas, por ejemplo:
+
+```json
+["San Salvador", "Santa Tecla", "Antiguo Cuscatlán"]
+```
+
+## Importante
+
+La plantilla proporciona la base técnica del sitio web para SEO local. La optimización de Google Business Profile, Search Console, indexación, contenido específico del cliente, reseñas y seguimiento de resultados forman parte del procedimiento de servicio de SIDEN y no se automatizan dentro de esta plantilla.
