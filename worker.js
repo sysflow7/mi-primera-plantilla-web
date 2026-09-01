@@ -299,6 +299,18 @@ export default {
                 html = html.split(marcador).join(valor);
             });
 
+            // Si no hay logo, no publicar un favicon con href vacío.
+            if (!logoURL) {
+                html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
+            }
+
+            // Si no hay imagen social, no publicar metadatos OG/Twitter con URL vacía.
+            if (!imagenSocialURL) {
+                html = html.replace(/\s*<meta property="og:image" content="">/i, "");
+                html = html.replace(/\s*<meta property="og:image:alt" content="[^"]*">/i, "");
+                html = html.replace(/\s*<meta name="twitter:image" content="">/i, "");
+            }
+
             // En páginas internas multi, el H1 de la cabecera interna es el encabezado principal.
             // El hero queda oculto por JS; convertir su H1 en H2 evita dos H1 en el documento.
             if (paginaActual && rutaNormalizada(url.pathname) !== "/") {
