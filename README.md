@@ -10,14 +10,6 @@ Esta es la plantilla maestra de SIDEN para crear sitios web de pequeños negocio
 - SIDEN es el sitio/servicio corporativo. La plantilla maestra es el motor reutilizable.
 - Cada cliente se publica como una instancia independiente; inicialmente bajo `cliente.sidenred.com`. Un dominio propio del cliente puede conectarse posteriormente sin reconstruir el sitio.
 
-## Identidad de instancia
-
-Cada instancia puede identificarse mediante `config.json`:
-
-- `siden.instanceId`: identificador único del cliente.
-- `siden.template`: versión de la plantilla SIDEN utilizada.
-- `siden.version`: versión de la configuración/motor.
-
 ## SEO local incluido
 
 - Title y meta description configurables por negocio/página.
@@ -30,8 +22,39 @@ Cada instancia puede identificarse mediante `config.json`:
 - Horarios estructurados.
 - Soporte para negocio con ubicación física, área de servicio o ambos mediante `modeloAtencion` y `areasServicio`.
 - Contenido SEO esencial renderizado desde el Worker: H1, descripción, ciudad, dirección y teléfono.
-- `indexable` activado por defecto para una instancia publicable.
 - ALT personalizados opcionales para la galería mediante `galeriaAlt`.
+
+## Indexación — regla obligatoria para clientes
+
+La **plantilla maestra siempre debe permanecer con `indexable: false`**. Esto evita que la plantilla, que contiene datos ficticios como “Mi Negocio”, pueda ser indexada accidentalmente por Google.
+
+Cuando se crea una nueva instancia para un cliente, este campo debe revisarse y cambiarse a:
+
+```json
+"indexable": true
+```
+
+Esto debe hacerse **después de sustituir los datos ficticios por los datos reales del cliente y antes de poner el sitio en producción/indexación**.
+
+### Checklist de cada nueva instancia
+
+1. Copiar/crear la instancia a partir de la plantilla maestra.
+2. Cambiar `instanceId` por el identificador del cliente.
+3. Sustituir todos los datos ficticios por los datos reales del cliente.
+4. Configurar las imágenes reales del cliente.
+5. Revisar `modeloAtencion`, `areasServicio`, horarios y demás configuración SEO.
+6. Verificar que `indexable` esté en `true` para la instancia del cliente.
+7. Probar `robots.txt`, `sitemap.xml`, canonical, meta robots y JSON-LD antes de publicar.
+
+**Importante:** no se debe cambiar `indexable` a `true` en la plantilla maestra. El cambio a `true` se realiza únicamente en la instancia independiente del cliente.
+
+## Identidad de instancia
+
+Cada instancia puede identificarse mediante `config.json`:
+
+- `siden.instanceId`: identificador único del cliente.
+- `siden.template`: versión de la plantilla SIDEN utilizada.
+- `siden.version`: versión de la configuración/motor.
 
 ## Datos de contacto
 
