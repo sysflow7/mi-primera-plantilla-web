@@ -1,8 +1,8 @@
 {
   "siden": {
     "instanceId": "siden-corporativo",
-    "template": "siden-template-v1.1",
-    "version": "1.1"
+    "template": "siden-template-v1.2-seo-local",
+    "version": "1.2"
   },
   "nombre": "SIDeN",
   "slogan": "Más visibilidad. Más reconocimiento. Más clientes.",
@@ -11,6 +11,8 @@
   "tipoNegocio": "servicio",
   "etiquetaTipo": "Sistema de Identificacion Digital para negocios",
   "modoSitio": "single",
+  "modeloAtencion": "local",
+  "areasServicio": [],
   "heroImagen": "",
   "modulos": ["presentacion", "beneficios", "servicios", "contacto"],
   "indexable": true,
@@ -29,6 +31,7 @@
   "imagenSocial": "",
   "horarios": [],
   "rangoPrecios": "",
+  "galeriaAlt": [],
   "etiquetas": {},
   "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio sea más visible, reconocido y fácil de contactar."},
   "paginas": [],
