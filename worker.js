@@ -4,10 +4,6 @@ export default {
 
         const url = new URL(request.url);
 
-        // ================================================
-        // CONFIGURACIÓN DEL NEGOCIO
-        // ================================================
-
         const respuestaConfig = await env.ASSETS.fetch(
             new Request(new URL("/config.json", request.url))
         );
@@ -20,10 +16,6 @@ export default {
         }
 
         const negocio = await respuestaConfig.json();
-
-        // ================================================
-        // HELPERS
-        // ================================================
 
         const rutaNormalizada = function (ruta) {
             const valor = String(ruta || "/");
@@ -41,10 +33,6 @@ export default {
         const esRutaPagina =
             url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
-        // ================================================
-        // ROBOTS.TXT
-        // ================================================
-
         if (url.pathname === "/robots.txt") {
             const contenido =
                 "User-agent: *\n" +
@@ -58,10 +46,6 @@ export default {
                 }
             });
         }
-
-        // ================================================
-        // SITEMAP.XML
-        // ================================================
 
         if (url.pathname === "/sitemap.xml") {
             const rutas = ["/"];
@@ -88,10 +72,6 @@ export default {
                 }
             });
         }
-
-        // ================================================
-        // PÁGINA PRINCIPAL Y RUTAS MULTIPÁGINA
-        // ================================================
 
         if (request.method === "GET" && esRutaPagina) {
 
@@ -125,22 +105,30 @@ export default {
                 negocio.slogan ||
                 negocio.nombre;
 
+            const h1Title = paginaActual?.nombre || negocio.nombre;
+            const h1Description =
+                paginaActual?.descripcion ||
+                paginaActual?.descripcionSEO ||
+                negocio.descripcion ||
+                negocio.slogan ||
+                negocio.nombre;
+
             const canonical = url.origin + rutaNormalizada(url.pathname);
+            const negocioId = url.origin + "/#negocio";
 
-            const logoURL = new URL(
-                "images/" + negocio.logo,
-                url.origin + "/"
-            ).href;
+            const construirImagenURL = function (archivo) {
+                if (!archivo) return "";
+                return new URL("images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href;
+            };
 
-            const imagenSocialURL = new URL(
-                "images/" + (negocio.imagenSocial || negocio.logo),
-                url.origin + "/"
-            ).href;
+            const logoURL = construirImagenURL(negocio.logo);
+            const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
 
             const indexable = negocio.indexable !== false;
             const direccion = negocio.direccion || {};
+            const modeloAtencion = String(negocio.modeloAtencion || "local").toLowerCase();
+            const esAreaServicio = modeloAtencion === "areaservicio" || modeloAtencion === "area-servicio";
 
-            // Mapea los nombres comerciales de SIDEN a tipos válidos de Schema.org.
             const schemaTypes = {
                 comercio: "Store",
                 hardwarestore: "HardwareStore",
@@ -171,14 +159,16 @@ export default {
             const datosNegocio = {
                 "@context": "https://schema.org",
                 "@type": tipoSchema,
-                "@id": canonical + "#negocio",
+                "@id": negocioId,
                 "name": negocio.nombre,
                 "description": descripcionSEO,
                 "url": canonical,
-                "logo": logoURL,
-                "image": [imagenSocialURL],
                 "telephone": negocio.telefono
             };
+
+            if (logoURL) datosNegocio.logo = logoURL;
+            if (imagenSocialURL) datosNegocio.image = [imagenSocialURL];
+            if (negocio.email) datosNegocio.email = negocio.email;
 
             const postalAddress = {};
 
@@ -190,7 +180,7 @@ export default {
             if (direccion.codigoPostal) postalAddress.postalCode = direccion.codigoPostal;
             if (direccion.pais) postalAddress.addressCountry = direccion.pais;
 
-            if (Object.keys(postalAddress).length > 0) {
+            if (Object.keys(postalAddress).length > 0 && !esAreaServicio) {
                 datosNegocio.address = {
                     "@type": "PostalAddress",
                     ...postalAddress
@@ -209,6 +199,7 @@ export default {
             if (redes.length > 0) datosNegocio.sameAs = redes;
 
             if (
+                !esAreaServicio &&
                 direccion.latitud !== "" && direccion.latitud !== undefined &&
                 direccion.longitud !== "" && direccion.longitud !== undefined
             ) {
@@ -217,6 +208,14 @@ export default {
                     "latitude": Number(direccion.latitud),
                     "longitude": Number(direccion.longitud)
                 };
+            }
+
+            if (Array.isArray(negocio.areasServicio) && negocio.areasServicio.length > 0) {
+                const areas = negocio.areasServicio.map(function (area) {
+                    const nombreArea = typeof area === "string" ? area : area?.nombre;
+                    return nombreArea ? { "@type": "Place", "name": nombreArea } : null;
+                }).filter(Boolean);
+                if (areas.length > 0) datosNegocio.areaServed = areas;
             }
 
             if (Array.isArray(negocio.horarios) && negocio.horarios.length > 0) {
@@ -250,11 +249,21 @@ export default {
                     .replace(/\u2029/g, "\\u2029");
             };
 
+            const ciudad = direccion.ciudad || negocio.ciudad || "";
+            const direccionTexto = negocio.direccionTexto || direccion.calle || ciudad || "";
+
             const reemplazos = {
                 "__SEO_TITLE__": escHtml(tituloSEO),
                 "__SEO_DESCRIPTION__": escHtml(descripcionSEO),
                 "__ROBOTS__": indexable ? "index, follow" : "noindex, nofollow",
                 "__BUSINESS_NAME__": escHtml(negocio.nombre),
+                "__BUSINESS_TYPE__": escHtml(negocio.etiquetaTipo || ""),
+                "__H1_TITLE__": escHtml(h1Title),
+                "__H1_DESCRIPTION__": escHtml(h1Description),
+                "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO),
+                "__CITY__": escHtml(ciudad),
+                "__ADDRESS__": escHtml(direccionTexto),
+                "__PHONE__": escHtml(negocio.telefono || ""),
                 "__CANONICAL_URL__": escHtml(canonical),
                 "__FAVICON_URL__": escHtml(logoURL),
                 "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL),
@@ -265,6 +274,23 @@ export default {
                 html = html.split(marcador).join(valor);
             });
 
+            if (!logoURL) {
+                html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
+            }
+
+            if (!imagenSocialURL) {
+                html = html.replace(/\s*<meta property="og:image" content="">/i, "");
+                html = html.replace(/\s*<meta property="og:image:alt" content="[^"]*">/i, "");
+                html = html.replace(/\s*<meta name="twitter:image" content="">/i, "");
+            }
+
+            if (paginaActual && rutaNormalizada(url.pathname) !== "/") {
+                html = html.replace(
+                    '<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>',
+                    '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>'
+                );
+            }
+
             return new Response(html, {
                 status: respuestaHTML.status,
                 headers: {
@@ -273,10 +299,6 @@ export default {
                 }
             });
         }
-
-        // ================================================
-        // RESTO DE LOS RECURSOS
-        // ================================================
 
         return env.ASSETS.fetch(request);
     }
