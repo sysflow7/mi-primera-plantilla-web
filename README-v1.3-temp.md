@@ -1,1 +1,0 @@
-Preparación temporal de rama v1.3.
