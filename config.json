@@ -5,23 +5,23 @@
     "version": "1.2"
   },
   "nombre": "SIDeN",
-  "slogan": "Más visibilidad. Más reconocimiento. Más clientes.",
-  "descripcion": "SIDeN ayuda a pequeños negocios a construir una presencia digital profesional, clara y fácil de encontrar, para que más personas conozcan sus servicios y puedan contactarlos.",
-  "descripcionSEO": "SIDeN: soluciones de presencia digital para pequeños negocios. Más visibilidad, más reconocimiento y más clientes.",
-  "tipoNegocio": "servicio",
-  "etiquetaTipo": "Sistema de Identificacion Digital para negocios",
+  "slogan": "Presencia digital clara, profesional y conectada.",
+  "descripcion": "SIDeN es un proyecto independiente de servicios digitales que ayuda a pequeños negocios a construir una presencia digital profesional, clara y fácil de encontrar. Desarrollamos páginas web, optimizamos la presencia local y facilitamos canales de contacto para que los negocios puedan ser encontrados y contactados con mayor facilidad.",
+  "descripcionSEO": "SIDeN ayuda a pequeños negocios de El Salvador a construir y mejorar su presencia digital mediante páginas web, SEO local y optimización del Perfil de Empresa de Google.",
+  "tipoNegocio": "organizacion",
+  "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
-  "modeloAtencion": "local",
-  "areasServicio": [],
+  "modeloAtencion": "areaServicio",
+  "areasServicio": ["El Salvador"],
   "heroImagen": "fondo-heroImagen.png",
-  "modulos": ["presentacion", "beneficios", "servicios", "contacto"],
+  "modulos": ["presentacion", "beneficios", "servicios", "proceso", "identidad", "contacto"],
   "indexable": true,
   "whatsapp": "50371887451",
   "telefono": "503 7188 7451",
-  "email": "",
+  "email": "admin@sidenred.com",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
-  "direccionTexto": "San Salvador, El Salvador",
+  "direccionTexto": "",
   "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
   "facebook": "",
   "instagram": "",
@@ -33,20 +33,27 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {},
-  "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio sea más visible, reconocido y fácil de contactar."},
+  "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio tenga una presencia digital profesional, visible y fácil de contactar."},
   "paginas": [],
   "servicios": [
-    {"nombre": "Presencia digital profesional", "descripcion": "Creamos una página web clara y adaptada a la identidad de cada negocio."},
-    {"nombre": "Presencia local", "descripcion": "Ayudamos a que los negocios tengan una presencia digital orientada a clientes de su zona."},
-    {"nombre": "Contacto directo por WhatsApp", "descripcion": "Facilitamos que los clientes puedan pasar de conocer el negocio a contactarlo rápidamente."}
+    {"nombre": "Páginas web para negocios", "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio."},
+    {"nombre": "SEO local", "descripcion": "Optimizamos los elementos de la presencia digital de un negocio para facilitar su visibilidad en búsquedas locales."},
+    {"nombre": "Perfil de Empresa de Google", "descripcion": "Ayudamos a configurar, organizar y optimizar la presencia del negocio en Google Search y Google Maps, respetando las políticas de Google."},
+    {"nombre": "Presencia digital", "descripcion": "Conectamos página web, canales de contacto y otros activos digitales para ofrecer una experiencia coherente al cliente."}
   ],
   "productos": [],
   "menu": [],
   "perfil": {},
   "galeria": [],
   "beneficios": [
-    {"titulo": "Más visibilidad", "descripcion": "Haz que más personas puedan encontrar y conocer tu negocio en internet."},
-    {"titulo": "Más reconocimiento", "descripcion": "Presenta tu negocio de forma profesional y transmite confianza."},
-    {"titulo": "Más clientes", "descripcion": "Facilita el contacto para convertir el interés de las personas en oportunidades reales."}
+    {"titulo": "Más visibilidad", "descripcion": "Ayudamos a que las personas puedan encontrar información clara sobre tu negocio en internet."},
+    {"titulo": "Más confianza", "descripcion": "Presentamos tu negocio de forma profesional y coherente en sus principales puntos de contacto digitales."},
+    {"titulo": "Más oportunidades", "descripcion": "Facilitamos que una persona interesada pueda pasar de conocer tu negocio a contactarlo."}
+  ],
+  "proceso": [
+    {"titulo": "1. Conocemos tu negocio", "descripcion": "Entendemos qué haces, a quién atiendes y qué información necesitan encontrar tus clientes."},
+    {"titulo": "2. Definimos tu presencia", "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."},
+    {"titulo": "3. Construimos y optimizamos", "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia local."},
+    {"titulo": "4. Conectamos y mejoramos", "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."}
   ]
 }
