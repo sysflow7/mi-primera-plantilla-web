@@ -133,6 +133,8 @@ export default {
                 comercio: "Store",
                 hardwarestore: "HardwareStore",
                 tienda: "Store",
+                organizacion: "Organization",
+                organization: "Organization",
                 profesional: "ProfessionalService",
                 abogado: "LegalService",
                 medico: "Physician",
