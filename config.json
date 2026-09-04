@@ -1,8 +1,8 @@
 {
   "siden": {
     "instanceId": "siden-corporativo",
-    "template": "siden-template-v1.2-seo-local",
-    "version": "1.2"
+    "template": "siden-template-v1.3",
+    "version": "1.3"
   },
   "nombre": "SIDeN",
   "slogan": "Presencia digital clara, profesional y conectada.",
@@ -55,5 +55,12 @@
     {"titulo": "2. Definimos tu presencia", "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."},
     {"titulo": "3. Construimos y optimizamos", "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia local."},
     {"titulo": "4. Conectamos y mejoramos", "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."}
-  ]
+  ],
+  "identidad": {
+    "descripcion": "SIDeN es un proyecto independiente de servicios digitales, desarrollado para ayudar a pequeños negocios a construir una presencia digital profesional y conectada.",
+    "detalles": [
+      "Actualmente, SIDeN es operado directamente por su fundador. Trabajamos de forma cercana con cada negocio, priorizando soluciones claras, prácticas y adaptadas a sus necesidades reales.",
+      "SIDeN se presenta de forma transparente como un proyecto independiente en etapa de crecimiento, sin atribuirse una estructura empresarial, certificaciones o resultados que todavía no corresponden a su realidad."
+    ]
+  }
 }
