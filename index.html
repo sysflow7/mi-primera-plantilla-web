@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <nav class="navbar">
     <div class="nav-container">
         <a href="#inicio" class="nav-logo" id="nav-logo">__BUSINESS_NAME__</a>
@@ -34,7 +33,6 @@
         <div class="nav-links" id="nav-links"></div>
     </div>
 </nav>
-
 <header id="inicio" class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -49,7 +47,6 @@
         </div>
     </div>
 </header>
-
 <section id="pagina-cabecera" class="page-header" hidden>
     <p id="pagina-tipo" class="page-header-type">__BUSINESS_TYPE__</p>
     <h1 id="pagina-titulo">__H1_TITLE__</h1>
@@ -61,13 +58,11 @@
         <a id="pagina-ubicacion" class="page-action" target="_blank" rel="noopener noreferrer">📍 Ubicación</a>
     </div>
 </section>
-
 <main>
 <section id="nosotros" data-module="presentacion">
     <h2 id="titulo-presentacion">¿Quiénes somos?</h2>
     <p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p>
 </section>
-
 <section id="perfil" data-module="perfil" hidden>
     <h2 id="titulo-perfil">Perfil profesional</h2>
     <div class="profile-card">
@@ -75,33 +70,35 @@
         <div id="datos-perfil" class="profile-data"></div>
     </div>
 </section>
-
 <section id="beneficios" data-module="beneficios">
     <h2 id="titulo-beneficios">¿Por qué elegirnos?</h2>
     <div id="lista-beneficios" class="benefits"></div>
 </section>
-
 <section id="servicios" data-module="servicios">
     <h2 id="titulo-servicios">Nuestros servicios</h2>
     <div id="lista-servicios" class="services"></div>
 </section>
-
+<section id="proceso" data-module="proceso" hidden>
+    <h2 id="titulo-proceso">Cómo trabajamos</h2>
+    <div id="lista-proceso" class="services"></div>
+</section>
+<section id="identidad" data-module="identidad" hidden>
+    <h2 id="titulo-identidad">Quiénes somos</h2>
+    <div id="contenido-identidad" class="profile-card"></div>
+</section>
 <section id="productos" data-module="productos">
     <h2 id="titulo-productos">Productos destacados</h2>
     <a id="catalogo-negocio" class="catalog-button" target="_blank" rel="noopener noreferrer">📲 Ver catálogo completo</a>
     <div id="lista-productos" class="products"></div>
 </section>
-
 <section id="menu" data-module="menu">
     <h2 id="titulo-menu">Nuestro menú</h2>
     <div id="lista-menu" class="menu-grid"></div>
 </section>
-
 <section id="galeria" data-module="galeria">
     <h2 id="titulo-galeria">Galería</h2>
     <div id="lista-galeria" class="gallery"></div>
 </section>
-
 <section id="ubicacion" data-module="ubicacion">
     <h2 id="titulo-ubicacion">Encuéntranos</h2>
     <div class="location">
@@ -111,7 +108,6 @@
         <a id="maps-negocio" class="location-button" target="_blank" rel="noopener noreferrer">📍 Cómo llegar</a>
     </div>
 </section>
-
 <section id="contacto" class="contact" data-module="contacto">
     <h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2>
     <p id="texto-contacto">Estamos disponibles para atenderte.</p>
@@ -123,11 +119,10 @@
     </div>
 </section>
 </main>
-
 <a id="whatsapp-flotante" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
-
 <footer>© <span id="anio-actual"></span> <span id="nombre-footer">__BUSINESS_NAME__</span> - Todos los derechos reservados</footer>
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
+<script src="js/modules-v1.3.js"></script>
 </body>
 </html>

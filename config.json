@@ -1,8 +1,8 @@
 {
   "siden": {
     "instanceId": "",
-    "template": "siden-template-v1.2-seo-local",
-    "version": "1.2"
+    "template": "siden-template-v1.3",
+    "version": "1.3"
   },
   "nombre": "Mi Negocio",
   "slogan": "Tu negocio, tu identidad digital",
@@ -40,5 +40,7 @@
   "menu": [],
   "perfil": {},
   "galeria": [],
-  "beneficios": []
+  "beneficios": [],
+  "proceso": [],
+  "identidad": {}
 }
