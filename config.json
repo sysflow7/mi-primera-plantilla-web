@@ -1,13 +1,15 @@
 {
   "siden": {
     "instanceId": "siden-corporativo",
-    "template": "siden-template-v1.2-seo-local",
-    "version": "1.2"
+    "template": "siden-template-v1.3",
+    "version": "1.3"
   },
   "nombre": "SIDeN",
+  "h1": "Páginas web y presencia digital para negocios en El Salvador",
   "slogan": "Presencia digital clara, profesional y conectada.",
-  "descripcion": "SIDeN es un proyecto independiente de servicios digitales que ayuda a pequeños negocios a construir una presencia digital profesional, clara y fácil de encontrar. Desarrollamos páginas web, optimizamos la presencia local y facilitamos canales de contacto para que los negocios puedan ser encontrados y contactados con mayor facilidad.",
-  "descripcionSEO": "SIDeN ayuda a pequeños negocios de El Salvador a construir y mejorar su presencia digital mediante páginas web, SEO local y optimización del Perfil de Empresa de Google.",
+  "tituloSEO": "Páginas Web y SEO Local para Negocios en El Salvador | SIDeN",
+  "descripcion": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional, clara y fácil de encontrar. Integramos página web, SEO local y Perfil de Empresa de Google para que tu negocio tenga una presencia coherente y facilite el contacto con sus clientes.",
+  "descripcionSEO": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional con páginas web, SEO local y optimización de su Perfil de Empresa de Google.",
   "tipoNegocio": "organizacion",
   "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
@@ -32,14 +34,13 @@
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
-  "etiquetas": {},
+  "etiquetas": {"ubicacion": "Área de servicio"},
   "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio tenga una presencia digital profesional, visible y fácil de contactar."},
   "paginas": [],
   "servicios": [
-    {"nombre": "Páginas web para negocios", "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio."},
-    {"nombre": "SEO local", "descripcion": "Optimizamos los elementos de la presencia digital de un negocio para facilitar su visibilidad en búsquedas locales."},
-    {"nombre": "Perfil de Empresa de Google", "descripcion": "Ayudamos a configurar, organizar y optimizar la presencia del negocio en Google Search y Google Maps, respetando las políticas de Google."},
-    {"nombre": "Presencia digital", "descripcion": "Conectamos página web, canales de contacto y otros activos digitales para ofrecer una experiencia coherente al cliente."}
+    {"nombre": "Páginas web para negocios", "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes."},
+    {"nombre": "SEO local", "descripcion": "Optimizamos la presencia digital de tu negocio para facilitar que las personas encuentren información relevante sobre tus servicios cuando realizan búsquedas locales."},
+    {"nombre": "Perfil de Empresa de Google", "descripcion": "Configuramos y optimizamos la presencia de tu negocio en Google Search y Google Maps para facilitar que tus clientes encuentren información, conozcan tus servicios y puedan contactarte."}
   ],
   "productos": [],
   "menu": [],
@@ -55,5 +56,12 @@
     {"titulo": "2. Definimos tu presencia", "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."},
     {"titulo": "3. Construimos y optimizamos", "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia local."},
     {"titulo": "4. Conectamos y mejoramos", "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."}
-  ]
+  ],
+  "identidad": {
+    "descripcion": "SIDeN es un proyecto independiente de servicios digitales, desarrollado para ayudar a pequeños negocios a construir una presencia digital profesional y conectada.",
+    "detalles": [
+      "Actualmente, SIDeN es operado directamente por su fundador. Trabajamos de forma cercana con cada negocio, priorizando soluciones claras, prácticas y adaptadas a sus necesidades reales.",
+      "SIDeN se presenta de forma transparente como un proyecto independiente en etapa de crecimiento, sin atribuirse una estructura empresarial, certificaciones o resultados que todavía no corresponden a su realidad."
+    ]
+  }
 }

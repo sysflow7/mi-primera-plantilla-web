@@ -105,12 +105,13 @@ export default {
                 negocio.slogan ||
                 negocio.nombre;
 
-            const h1Title = paginaActual?.nombre || negocio.nombre;
+            const h1Title = paginaActual?.h1 || paginaActual?.nombre || negocio.h1 || negocio.nombre;
             const h1Description =
+                paginaActual?.slogan ||
+                negocio.slogan ||
                 paginaActual?.descripcion ||
                 paginaActual?.descripcionSEO ||
                 negocio.descripcion ||
-                negocio.slogan ||
                 negocio.nombre;
 
             const canonical = url.origin + rutaNormalizada(url.pathname);
@@ -252,7 +253,19 @@ export default {
             };
 
             const ciudad = direccion.ciudad || negocio.ciudad || "";
-            const direccionTexto = negocio.direccionTexto || direccion.calle || ciudad || "";
+            const ciudadVisible = esAreaServicio
+                ? (Array.isArray(negocio.areasServicio) && negocio.areasServicio.length > 0
+                    ? negocio.areasServicio.map(function (area) {
+                        return typeof area === "string" ? area : area?.nombre;
+                    }).filter(Boolean).join(", ")
+                    : negocio.pais || "Área de servicio")
+                : ciudad;
+            const direccionTexto = esAreaServicio
+                ? ""
+                : (negocio.direccionTexto || direccion.calle || ciudad || "");
+            const tituloUbicacion =
+                (negocio.etiquetas && negocio.etiquetas.ubicacion) ||
+                (esAreaServicio ? "Área de servicio" : "Encuéntranos");
 
             const reemplazos = {
                 "__SEO_TITLE__": escHtml(tituloSEO),
@@ -263,7 +276,8 @@ export default {
                 "__H1_TITLE__": escHtml(h1Title),
                 "__H1_DESCRIPTION__": escHtml(h1Description),
                 "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO),
-                "__CITY__": escHtml(ciudad),
+                "__LOCATION_TITLE__": escHtml(tituloUbicacion),
+                "__CITY__": escHtml(ciudadVisible),
                 "__ADDRESS__": escHtml(direccionTexto),
                 "__PHONE__": escHtml(negocio.telefono || ""),
                 "__CANONICAL_URL__": escHtml(canonical),
