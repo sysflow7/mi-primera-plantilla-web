@@ -14,11 +14,11 @@
   "descripcionSEO": "Sitio web oficial del negocio.",
   "tipoNegocio": "comercio",
   "etiquetaTipo": "Comercio",
-  "modoSitio": "single",
+  "modoSitio": "multi",
   "modeloAtencion": "local",
   "areasServicio": [],
   "heroImagen": "",
-  "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
+  "modulos": ["presentacion", "beneficios", "servicios", "ubicacion", "contacto"],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
@@ -38,7 +38,11 @@
   "galeriaAlt": [],
   "etiquetas": {},
   "textos": {"contacto": "Estamos disponibles para atenderte."},
-  "paginas": [],
+  "paginas": [
+    {"ruta":"/servicios","nombre":"Servicios","tituloSEO":"Servicios | Mi Negocio","descripcionSEO":"Conoce los servicios de Mi Negocio en San Salvador.","h1":"Nuestros servicios","slogan":"Soluciones para tu negocio","descripcion":"Conoce nuestras soluciones y servicios."},
+    {"ruta":"/contacto","nombre":"Contacto","tituloSEO":"Contacto | Mi Negocio","descripcionSEO":"Contacta a Mi Negocio en San Salvador.","h1":"Contáctanos","slogan":"Estamos para ayudarte","descripcion":"Encuentra nuestros canales de contacto."
+    }
+  ],
   "servicios": [],
   "productos": [],
   "menu": [],
