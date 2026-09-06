@@ -5,7 +5,8 @@
     "version": "1.3"
   },
   "nombre": "SIDeN",
-  "slogan": "Páginas web y presencia digital para negocios en El Salvador",
+  "h1": "Páginas web y presencia digital para negocios en El Salvador",
+  "slogan": "Presencia digital clara, profesional y conectada.",
   "tituloSEO": "Páginas Web y SEO Local para Negocios en El Salvador | SIDeN",
   "descripcion": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional, clara y fácil de encontrar. Integramos página web, SEO local y Perfil de Empresa de Google para que tu negocio tenga una presencia coherente y facilite el contacto con sus clientes.",
   "descripcionSEO": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional con páginas web, SEO local y optimización de su Perfil de Empresa de Google.",
@@ -33,7 +34,7 @@
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
-  "etiquetas": {},
+  "etiquetas": {"ubicacion": "Área de servicio"},
   "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio tenga una presencia digital profesional, visible y fácil de contactar."},
   "paginas": [],
   "servicios": [
