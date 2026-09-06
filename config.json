@@ -5,6 +5,7 @@
     "version": "1.3"
   },
   "nombre": "Mi Negocio",
+  "h1": "",
   "slogan": "Tu negocio, tu identidad digital",
   "descripcion": "Describe aquí el negocio y la propuesta de valor del cliente.",
   "descripcionSEO": "Sitio web oficial del negocio.",
