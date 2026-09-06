@@ -1,16 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "siden-corporativo",
-  "compatibility_date": "2026-08-20",
+  "compatibility_date": "2026-09-06",
   "main": "worker.js",
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
     "html_handling": "none",
-    "run_worker_first": [
-      "/",
-      "/robots.txt",
-      "/sitemap.xml"
-    ]
+    "run_worker_first": true
   }
 }
