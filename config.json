@@ -1,8 +1,11 @@
 {
   "siden": {
-    "instanceId": "",
-    "template": "siden-template-v1.3",
-    "version": "1.3"
+    "instanceId": "corporativo",
+    "template": "siden-template-v1.4",
+    "version": "1.4",
+    "baseDomain": "sidenred.com",
+    "architecture": "multisite",
+    "domainMode": "subdomain"
   },
   "nombre": "Mi Negocio",
   "h1": "",
