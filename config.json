@@ -14,7 +14,7 @@
   "descripcionSEO": "Sitio web oficial del negocio.",
   "tipoNegocio": "comercio",
   "etiquetaTipo": "Comercio",
-  "modoSitio": "multi",
+  "modoSitio": "single",
   "modeloAtencion": "local",
   "areasServicio": [],
   "heroImagen": "",
@@ -38,11 +38,7 @@
   "galeriaAlt": [],
   "etiquetas": {},
   "textos": {"contacto": "Estamos disponibles para atenderte."},
-  "paginas": [
-    {"ruta":"/servicios","nombre":"Servicios","tituloSEO":"Servicios | Mi Negocio","descripcionSEO":"Conoce los servicios de Mi Negocio en San Salvador.","h1":"Nuestros servicios","slogan":"Soluciones para tu negocio","descripcion":"Conoce nuestras soluciones y servicios."},
-    {"ruta":"/contacto","nombre":"Contacto","tituloSEO":"Contacto | Mi Negocio","descripcionSEO":"Contacta a Mi Negocio en San Salvador.","h1":"Contáctanos","slogan":"Estamos para ayudarte","descripcion":"Encuentra nuestros canales de contacto."
-    }
-  ],
+  "paginas": [],
   "servicios": [],
   "productos": [],
   "menu": [],
