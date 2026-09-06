@@ -44,8 +44,8 @@ export default {
 
         const negocio = await respuestaConfig.json();
 
-        // En subdominios/dominios propios, config.json siempre representa
-        // únicamente a la instancia asociada al Host actual.
+        // En subdominios/dominios propios, config.json representa únicamente
+        // a la instancia asociada al Host actual.
         if (url.pathname === "/config.json" && !isCorporate) {
             return new Response(JSON.stringify(negocio), {
                 headers: {
@@ -69,8 +69,7 @@ export default {
 
         // Aislamiento de recursos: las imágenes del sitio se resuelven dentro de su instancia.
         if (request.method === "GET" && url.pathname.startsWith("/images/") && !isCorporate) {
-            const respuestaImagen = await loadAsset(`${sitePrefix}${url.pathname}`);
-            return respuestaImagen.ok ? respuestaImagen : loadAsset(url.pathname);
+            return loadAsset(`${sitePrefix}${url.pathname}`);
         }
 
         if (url.pathname === "/robots.txt") {
