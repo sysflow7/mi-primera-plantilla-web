@@ -57,7 +57,7 @@ export default {
 
     const rutaNormalizada = (ruta) => {
       const valor = String(ruta || "/");
-      return valor === "/" ? "/" : "/" + valor.replace(/^\\/+|\\/+$/g, "");
+      return valor === "/" ? "/" : "/" + valor.replace(/^\/+|\/+$/g, "");
     };
 
     const rutasMultipagina = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
