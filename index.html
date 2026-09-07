@@ -34,10 +34,10 @@
         <div class="nav-links" id="nav-links"></div>
     </div>
 </nav>
-<header id="inicio" class="hero">
+<header id="inicio" class="hero" style="--hero-image: url('__HERO_IMAGE_URL__');">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <img id="logo-negocio" alt="Logo de __BUSINESS_NAME__" class="logo">
+        <img id="logo-negocio" src="__LOGO_IMAGE_URL__" alt="Logo de __BUSINESS_NAME__" class="logo">
         <p id="tipo-negocio" class="business-type">__BUSINESS_TYPE__</p>
         <h1 id="nombre-negocio">__H1_TITLE__</h1>
         <p id="slogan-negocio">__H1_DESCRIPTION__</p>
@@ -66,92 +66,22 @@
 </section>
 <section id="perfil" data-module="perfil" hidden>
     <h2 id="titulo-perfil">Perfil profesional</h2>
-    <div class="profile-card">
-        <p id="descripcion-perfil"></p>
-        <div id="datos-perfil" class="profile-data"></div>
-    </div>
+    <div class="profile-card"><p id="descripcion-perfil"></p><div id="datos-perfil" class="profile-data"></div></div>
 </section>
-<section id="beneficios" data-module="beneficios">
-    <h2 id="titulo-beneficios">¿Por qué elegirnos?</h2>
-    <div id="lista-beneficios" class="benefits"></div>
-</section>
-<section id="servicios" data-module="servicios">
-    <h2 id="titulo-servicios">Nuestros servicios</h2>
-    <div id="lista-servicios" class="services"></div>
-</section>
-<section id="proceso" data-module="proceso" hidden>
-    <h2 id="titulo-proceso">Cómo trabajamos</h2>
-    <div id="lista-proceso" class="services"></div>
-</section>
-<section id="identidad" data-module="identidad" hidden>
-    <h2 id="titulo-identidad">Quiénes somos</h2>
-    <div id="contenido-identidad" class="profile-card"></div>
-</section>
-<section id="productos" data-module="productos">
-    <h2 id="titulo-productos">Productos destacados</h2>
-    <a id="catalogo-negocio" class="catalog-button" target="_blank" rel="noopener noreferrer">📲 Ver catálogo completo</a>
-    <div id="lista-productos" class="products"></div>
-</section>
-<section id="menu" data-module="menu">
-    <h2 id="titulo-menu">Nuestro menú</h2>
-    <div id="lista-menu" class="menu-grid"></div>
-</section>
-<section id="galeria" data-module="galeria">
-    <h2 id="titulo-galeria">Galería</h2>
-    <div id="lista-galeria" class="gallery"></div>
-</section>
-<section id="ubicacion" data-module="ubicacion">
-    <h2 id="titulo-ubicacion">__LOCATION_TITLE__</h2>
-    <div class="location">
-        <p>📍 <span id="ciudad-negocio">__CITY__</span></p>
-        <p id="direccion-linea">__ADDRESS__</p>
-        <p>📞 <span id="telefono-negocio">__PHONE__</span></p>
-        <a id="maps-negocio" class="location-button" target="_blank" rel="noopener noreferrer">📍 Cómo llegar</a>
-    </div>
-</section>
-<section id="contacto" class="contact" data-module="contacto">
-    <h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2>
-    <p id="texto-contacto">Estamos disponibles para atenderte.</p>
-    <a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a>
-    <a id="email-negocio" class="contact-email" hidden></a>
-    <div class="social">
-        <a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a>
-    </div>
-</section>
+<section id="beneficios" data-module="beneficios"><h2 id="titulo-beneficios">¿Por qué elegirnos?</h2><div id="lista-beneficios" class="benefits"></div></section>
+<section id="servicios" data-module="servicios"><h2 id="titulo-servicios">Nuestros servicios</h2><div id="lista-servicios" class="services"></div></section>
+<section id="proceso" data-module="proceso" hidden><h2 id="titulo-proceso">Cómo trabajamos</h2><div id="lista-proceso" class="services"></div></section>
+<section id="identidad" data-module="identidad" hidden><h2 id="titulo-identidad">Quiénes somos</h2><div id="contenido-identidad" class="profile-card"></div></section>
+<section id="productos" data-module="productos"><h2 id="titulo-productos">Productos destacados</h2><a id="catalogo-negocio" class="catalog-button" target="_blank" rel="noopener noreferrer">📲 Ver catálogo completo</a><div id="lista-productos" class="products"></div></section>
+<section id="menu" data-module="menu"><h2 id="titulo-menu">Nuestro menú</h2><div id="lista-menu" class="menu-grid"></div></section>
+<section id="galeria" data-module="galeria"><h2 id="titulo-galeria">Galería</h2><div id="lista-galeria" class="gallery"></div></section>
+<section id="ubicacion" data-module="ubicacion"><h2 id="titulo-ubicacion">__LOCATION_TITLE__</h2><div class="location"><p>📍 <span id="ciudad-negocio">__CITY__</span></p><p id="direccion-linea">__ADDRESS__</p><p>📞 <span id="telefono-negocio">__PHONE__</span></p><a id="maps-negocio" class="location-button" target="_blank" rel="noopener noreferrer">📍 Cómo llegar</a></div></section>
+<section id="contacto" class="contact" data-module="contacto"><h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2><p id="texto-contacto">Estamos disponibles para atenderte.</p><a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a><a id="email-negocio" class="contact-email" hidden></a><div class="social"><a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a><a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a></div></section>
 </main>
 <a id="whatsapp-flotante" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
 <footer>© <span id="anio-actual"></span> <span id="nombre-footer">__BUSINESS_NAME__</span> - Todos los derechos reservados</footer>
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
 <script src="js/modules-v1.3.js"></script>
-<script>
-(function () {
-    "use strict";
-    const config = window.__SIDEN_CONFIG__ || {};
-    const siden = config.siden || {};
-    const prefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
-    const assetUrl = function (path) {
-        const cleanPath = String(path || "").replace(/^\/+/, "");
-        return new URL((prefix ? prefix + "/" : "/") + cleanPath, window.location.origin).href;
-    };
-    const aplicarAssets = function () {
-        document.querySelectorAll('img[src^="images/"]').forEach(function (imagen) {
-            const src = imagen.getAttribute("src");
-            if (src) imagen.src = assetUrl("images/" + src.replace(/^images\/+/, ""));
-        });
-        const logo = document.getElementById("logo-negocio");
-        if (logo && config.logo) logo.src = assetUrl("images/" + config.logo);
-        const hero = document.getElementById("inicio");
-        if (hero && config.heroImagen && !document.body.classList.contains("multi-inner-page")) {
-            hero.style.backgroundImage = 'url("' + assetUrl("images/" + config.heroImagen) + '")';
-            hero.style.backgroundSize = "cover";
-            hero.style.backgroundPosition = "center";
-            hero.classList.add("hero-has-image");
-        }
-    };
-    aplicarAssets();
-})();
-</script>
 </body>
 </html>
