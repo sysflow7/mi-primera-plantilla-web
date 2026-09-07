@@ -83,8 +83,10 @@ export default {
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         // Aislamiento estricto de imágenes por instancia.
-        if (request.method === "GET" && url.pathname.startsWith("/images/") && !isCorporate) {
-            return loadAsset(`${sitePrefix}${url.pathname}`);
+        // Tanto el corporativo como los clientes pasan por loadAsset() para
+        // evitar que el hostname público interfiera con la resolución del asset.
+        if (request.method === "GET" && url.pathname.startsWith("/images/")) {
+            return loadAsset(isCorporate ? url.pathname : `${sitePrefix}${url.pathname}`);
         }
 
         if (url.pathname === "/robots.txt") {
