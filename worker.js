@@ -11,11 +11,30 @@ export default {
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
+        const loadAsset = async (pathname) => env.ASSETS.fetch(
+            new Request(new URL(pathname, request.url), request)
+        );
+
         let instanceId = "";
         if (isCorporateHost) {
+            // Se conserva la instancia interna actual del sitio corporativo.
             instanceId = "corporativo";
         } else if (isSidenSubdomain) {
-            instanceId = slugify(hostParts[0]);
+            const hostSlug = slugify(hostParts[0]);
+            instanceId = hostSlug;
+
+            // El hostname público puede ser distinto del instanceId interno.
+            // El registro versionado permite mantener esa separación sin
+            // introducir fallback entre sitios.
+            const respuestaRegistry = await loadAsset("/sites/registry.json");
+            if (respuestaRegistry.ok) {
+                try {
+                    const registry = await respuestaRegistry.json();
+                    instanceId = slugify(registry[hostSlug] || hostSlug);
+                } catch {
+                    instanceId = hostSlug;
+                }
+            }
         } else if (env.SIDEN_REGISTRY) {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
@@ -26,10 +45,6 @@ export default {
         const sitePrefix = isCorporate ? "" : `/sites/${instanceId}`;
         const configPath = isCorporate ? "/config.json" : `${sitePrefix}/config.json`;
 
-        const loadAsset = async (pathname) => env.ASSETS.fetch(
-            new Request(new URL(pathname, request.url), request)
-        );
-
         const respuestaConfig = await loadAsset(configPath);
         if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404 });
 
@@ -38,7 +53,13 @@ export default {
 
         // Evita que una configuración perteneciente a otra instancia pueda
         // ser servida accidentalmente para este hostname.
-        if (configuredInstance !== instanceId) {
+        // Para el corporativo se conserva la excepción histórica: el hostname
+        // usa la clave técnica "corporativo" y su config usa "siden-corporativo".
+        if (isCorporate) {
+            if (configuredInstance !== "siden-corporativo") {
+                return new Response("Configuración de sitio no válida.", { status: 500 });
+            }
+        } else if (configuredInstance !== instanceId) {
             return new Response("Configuración de sitio no válida.", { status: 500 });
         }
 
