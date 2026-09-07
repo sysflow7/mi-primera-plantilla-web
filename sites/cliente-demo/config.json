@@ -17,6 +17,7 @@
   "modoSitio": "single",
   "modeloAtencion": "local",
   "areasServicio": [],
+  "heroImagen": "",
   "modulos": ["presentacion", "beneficios", "servicios", "ubicacion", "contacto"],
   "indexable": false,
   "whatsapp": "50300000000",

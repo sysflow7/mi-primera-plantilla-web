@@ -5,11 +5,25 @@ export default {
         const baseDomain = "sidenred.com";
         const normalizedHost = host.replace(/^www\./, "");
         const isCorporateHost = normalizedHost === baseDomain;
+        const isWorkersPreview = host.endsWith(".workers.dev");
         const hostParts = host.split(".");
         const isSidenSubdomain = host.endsWith("." + baseDomain) && hostParts.length === 3 && hostParts[0] !== "www";
 
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+
+        const securityHeaders = {
+            "X-Frame-Options": "DENY",
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()"
+        };
+
+        const withSecurityHeaders = (headers) => {
+            const resultado = new Headers(headers);
+            Object.entries(securityHeaders).forEach(([nombre, valor]) => resultado.set(nombre, valor));
+            return resultado;
+        };
 
         const loadAsset = async (pathname) => {
             const assetUrl = new URL(pathname, "https://siden-assets.internal");
@@ -37,47 +51,62 @@ export default {
                     instanceId = hostSlug;
                 }
             }
+        } else if (isWorkersPreview) {
+            instanceId = slugify(url.searchParams.get("site")) || "corporativo";
         } else if (env.SIDEN_REGISTRY) {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
 
-        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404 });
+        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const isCorporate = instanceId === "corporativo";
         const sitePrefix = isCorporate ? "" : `/sites/${instanceId}`;
         const configPath = isCorporate ? "/config.json" : `${sitePrefix}/config.json`;
 
         const respuestaConfig = await loadAsset(configPath);
-        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404 });
+        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const negocio = await respuestaConfig.json();
         const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
 
         if (isCorporate) {
             if (configuredInstance !== "siden-corporativo") {
-                return new Response("Configuración de sitio no válida.", { status: 500 });
+                return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
             }
         } else if (configuredInstance !== instanceId) {
-            return new Response("Configuración de sitio no válida.", { status: 500 });
+            return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
         }
 
         if (url.pathname === "/config.json" && !isCorporate) {
             return new Response(JSON.stringify(negocio), {
-                headers: {
+                headers: withSecurityHeaders({
                     "Content-Type": "application/json; charset=UTF-8",
                     "Cache-Control": "public, max-age=300",
                     "Vary": "Host"
-                }
+                })
             });
         }
+
+        const rutaInternaValida = (ruta) => {
+            const valor = String(ruta || "").trim();
+            if (!valor || !valor.startsWith("/") || valor.startsWith("//")) return false;
+            if (valor.includes("\\") || /[\r\n]/.test(valor)) return false;
+            try {
+                const destino = new URL(valor, "https://siden.internal");
+                return destino.origin === "https://siden.internal" && destino.protocol === "https:";
+            } catch {
+                return false;
+            }
+        };
 
         const rutaNormalizada = (ruta) => {
             const valor = String(ruta || "/");
             return valor === "/" ? "/" : "/" + valor.replace(/^\/+|\/+$/g, "");
         };
 
-        const rutasMultipagina = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
-            ? negocio.paginas.map(pagina => rutaNormalizada(pagina.ruta)) : [];
+        const paginasValidas = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
+            ? negocio.paginas.filter(pagina => rutaInternaValida(pagina?.ruta)) : [];
+        const rutasMultipagina = paginasValidas.map(pagina => rutaNormalizada(pagina.ruta));
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
@@ -85,22 +114,23 @@ export default {
         }
 
         if (url.pathname === "/robots.txt") {
-            const contenido = "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n";
-            return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
+            const indexable = negocio.indexable !== false;
+            const contenido = indexable
+                ? "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n"
+                : "User-agent: *\nDisallow: /\n";
+            return new Response(contenido, { headers: withSecurityHeaders({ "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" }) });
         }
 
         if (url.pathname === "/sitemap.xml") {
             const rutas = ["/"];
-            if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)) {
-                negocio.paginas.forEach(pagina => {
-                    const ruta = rutaNormalizada(pagina.ruta);
-                    if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
-                });
-            }
+            paginasValidas.forEach(pagina => {
+                const ruta = rutaNormalizada(pagina.ruta);
+                if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
+            });
             const contenido = '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                 rutas.map(ruta => `<url><loc>${url.origin}${ruta}</loc></url>`).join("") + '</urlset>';
-            return new Response(contenido, { headers: { "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
+            return new Response(contenido, { headers: withSecurityHeaders({ "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" }) });
         }
 
         if (request.method !== "GET" || !esRutaPagina) return env.ASSETS.fetch(request);
@@ -109,8 +139,8 @@ export default {
         if (!respuestaHTML.ok) return respuestaHTML;
         let html = await respuestaHTML.text();
 
-        const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
-            ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
+        const paginaActual = negocio.modoSitio === "multi"
+            ? paginasValidas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
 
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre} | ${negocio.ciudad}`);
@@ -122,7 +152,8 @@ export default {
         const canonical = url.origin + rutaNormalizada(url.pathname);
         const negocioId = url.origin + "/#negocio";
         const construirImagenURL = (archivo) => archivo
-            ? new URL(sitePrefix + "/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href : "";
+            ? new URL(sitePrefix + "/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
+            : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
         const heroURL = construirImagenURL(negocio.heroImagen);
@@ -138,8 +169,16 @@ export default {
             consultor: "ProfessionalService", psicologo: "Psychologist", psicólogo: "Psychologist", dentista: "Dentist", restaurante: "Restaurant", restaurant: "Restaurant"
         };
         const tipoClave = String(paginaActual?.tipoNegocio || negocio.tipoNegocio || "LocalBusiness").toLowerCase();
-        const datosNegocio = { "@context": "https://schema.org", "@type": schemaTypes[tipoClave] || "LocalBusiness", "@id": negocioId,
-            name: negocio.nombre, description: descripcionSEO, url: canonical, telephone: negocio.telefono };
+        const datosNegocio = {
+            "@context": "https://schema.org",
+            "@type": schemaTypes[tipoClave] || "LocalBusiness",
+            "@id": negocioId,
+            name: negocio.nombre,
+            description: descripcionSEO,
+            url: canonical,
+            telephone: negocio.telefono,
+            mainEntityOfPage: { "@type": "WebPage", "@id": canonical, url: canonical, name: tituloSEO }
+        };
         if (logoURL) datosNegocio.logo = logoURL;
         if (imagenSocialURL) datosNegocio.image = [imagenSocialURL];
         if (negocio.email) datosNegocio.email = negocio.email;
@@ -166,7 +205,7 @@ export default {
             datosNegocio.openingHoursSpecification = negocio.horarios.flatMap(horario => (horario.dias || []).map(dia => ({ "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra })));
         }
 
-        const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
         const escJson = valor => JSON.stringify(valor).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
         const ciudad = direccion.ciudad || negocio.ciudad || "";
         const ciudadVisible = esAreaServicio ? (Array.isArray(negocio.areasServicio) && negocio.areasServicio.length ? negocio.areasServicio.map(area => typeof area === "string" ? area : area?.nombre).filter(Boolean).join(", ") : negocio.pais || "Área de servicio") : ciudad;
@@ -183,7 +222,11 @@ export default {
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
-        const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
+        const runtimeConfig = {
+            ...negocio,
+            ...(negocio.modoSitio === "multi" ? { paginas: paginasValidas } : {}),
+            siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix }
+        };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
         if (!imagenSocialURL) {
@@ -195,6 +238,13 @@ export default {
             html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>');
         }
 
-        return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store, no-cache, must-revalidate", "Vary": "Host" } });
+        return new Response(html, {
+            status: respuestaHTML.status,
+            headers: withSecurityHeaders({
+                "Content-Type": "text/html; charset=UTF-8",
+                "Cache-Control": "no-store, no-cache, must-revalidate",
+                "Vary": "Host"
+            })
+        });
     }
 };
