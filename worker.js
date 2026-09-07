@@ -16,15 +16,19 @@ export default {
     };
 
     // Preview selector: only workers.dev previews may select an instance.
-    // Production hosts continue to resolve exclusively from their hostname/registry.
+    // Use a normal Response for the redirect so the Set-Cookie header is mutable.
     if (isPreviewHost) {
       let previewInstance = slugify(url.searchParams.get("siden_instance"));
       const previewPath = url.pathname.match(/^\/__siden_preview\/([^/]+)\/?$/i);
       if (!previewInstance && previewPath) previewInstance = slugify(previewPath[1]);
       if (previewInstance) {
-        const response = Response.redirect(new URL("/", url), 302);
-        response.headers.append("Set-Cookie", `SIDEN_PREVIEW_INSTANCE=${encodeURIComponent(previewInstance)}; Path=/; Max-Age=3600; SameSite=Lax; Secure`);
-        return response;
+        return new Response(null, {
+          status: 302,
+          headers: {
+            "Location": new URL("/", url).href,
+            "Set-Cookie": `SIDEN_PREVIEW_INSTANCE=${encodeURIComponent(previewInstance)}; Path=/; Max-Age=3600; SameSite=Lax; Secure`
+          }
+        });
       }
     }
 
