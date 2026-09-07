@@ -5,6 +5,7 @@ export default {
         const baseDomain = "sidenred.com";
         const normalizedHost = host.replace(/^www\./, "");
         const isCorporateHost = normalizedHost === baseDomain;
+        const isWorkersPreview = host.endsWith(".workers.dev");
         const hostParts = host.split(".");
         const isSidenSubdomain = host.endsWith("." + baseDomain) && hostParts.length === 3 && hostParts[0] !== "www";
 
@@ -37,6 +38,8 @@ export default {
                     instanceId = hostSlug;
                 }
             }
+        } else if (isWorkersPreview) {
+            instanceId = slugify(url.searchParams.get("site")) || "corporativo";
         } else if (env.SIDEN_REGISTRY) {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
@@ -170,7 +173,7 @@ export default {
             datosNegocio.openingHoursSpecification = negocio.horarios.flatMap(horario => (horario.dias || []).map(dia => ({ "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra })));
         }
 
-        const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
         const escJson = valor => JSON.stringify(valor).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
         const ciudad = direccion.ciudad || negocio.ciudad || "";
         const ciudadVisible = esAreaServicio ? (Array.isArray(negocio.areasServicio) && negocio.areasServicio.length ? negocio.areasServicio.map(area => typeof area === "string" ? area : area?.nombre).filter(Boolean).join(", ") : negocio.pais || "Área de servicio") : ciudad;
