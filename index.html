@@ -60,8 +60,14 @@
     </div>
 </section>
 <main>
-<section id="nosotros" data-module="presentacion"><h2 id="titulo-presentacion">¿Quiénes somos?</h2><p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p></section>
-<section id="perfil" data-module="perfil" hidden><h2 id="titulo-perfil">Perfil profesional</h2><div class="profile-card"><p id="descripcion-perfil"></p><div id="datos-perfil" class="profile-data"></div></div></section>
+<section id="nosotros" data-module="presentacion">
+    <h2 id="titulo-presentacion">¿Quiénes somos?</h2>
+    <p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p>
+</section>
+<section id="perfil" data-module="perfil" hidden>
+    <h2 id="titulo-perfil">Perfil profesional</h2>
+    <div class="profile-card"><p id="descripcion-perfil"></p><div id="datos-perfil" class="profile-data"></div></div>
+</section>
 <section id="beneficios" data-module="beneficios"><h2 id="titulo-beneficios">¿Por qué elegirnos?</h2><div id="lista-beneficios" class="benefits"></div></section>
 <section id="servicios" data-module="servicios"><h2 id="titulo-servicios">Nuestros servicios</h2><div id="lista-servicios" class="services"></div></section>
 <section id="proceso" data-module="proceso" hidden><h2 id="titulo-proceso">Cómo trabajamos</h2><div id="lista-proceso" class="services"></div></section>
@@ -77,85 +83,5 @@
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
 <script src="js/modules-v1.3.js"></script>
-<script>
-(function () {
-    "use strict";
-    const config = window.__SIDEN_CONFIG__ || {};
-    const modules = Array.isArray(config.modulos) ? config.modulos : [];
-    const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
-    const show = id => { const el = document.querySelector(`[data-module="${id}"]`); if (el) el.hidden = !modules.includes(id); };
-
-    ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto", "proceso", "identidad"].forEach(show);
-
-    const hero = document.getElementById("inicio");
-    if (hero && config.heroImagen) {
-        hero.classList.add("hero-has-image");
-        const heroPath = String(config.heroImagen).replace(/^\/+/, "");
-        hero.style.setProperty("--hero-image", `url("/images/${heroPath}")`);
-        hero.style.backgroundImage = `url("/images/${heroPath}")`;
-        hero.style.backgroundSize = "cover";
-        hero.style.backgroundPosition = "center";
-    }
-
-    const servicios = document.getElementById("lista-servicios");
-    if (servicios && servicios.children.length === 0 && Array.isArray(config.servicios)) {
-        servicios.innerHTML = config.servicios.map(item => `<div class="service"><h3>${esc(item.nombre)}</h3><p>${esc(item.descripcion)}</p></div>`).join("");
-    }
-
-    const beneficios = document.getElementById("lista-beneficios");
-    if (beneficios && beneficios.children.length === 0 && Array.isArray(config.beneficios)) {
-        beneficios.innerHTML = config.beneficios.map(item => `<div class="benefit"><div class="benefit-icon">✓</div><h3>${esc(item.titulo)}</h3><p>${esc(item.descripcion)}</p></div>`).join("");
-    }
-
-    const whatsapp = String(config.whatsapp || "").replace(/\D/g, "");
-    const whatsappURL = whatsapp ? "https://wa.me/" + whatsapp : "";
-    ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante", "pagina-whatsapp"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && whatsappURL) el.href = whatsappURL;
-    });
-
-    const email = String(config.email || "").trim();
-    const emailEl = document.getElementById("email-negocio");
-    if (emailEl && email) {
-        emailEl.textContent = "✉️ " + email;
-        emailEl.href = "mailto:" + email;
-        emailEl.hidden = false;
-    }
-
-    const crearVCard = () => {
-        const lineas = ["BEGIN:VCARD", "VERSION:3.0", "FN:" + (config.nombre || ""), "ORG:" + (config.nombre || ""), "TEL;TYPE=CELL:" + (config.whatsapp || ""), "TEL;TYPE=WORK:" + (config.telefono || ""), "ADR;TYPE=WORK:;;" + (config.ciudad || "") + ";;;", email ? "EMAIL;TYPE=INTERNET:" + email : "", "URL:" + window.location.href, "END:VCARD"].filter(Boolean);
-        const blob = new Blob([lineas.join("\n")], { type: "text/vcard;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url; a.download = (config.nombre || "contacto") + ".vcf"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    };
-
-    const compartir = async () => {
-        const datos = { title: config.nombre || "", text: config.slogan || "", url: window.location.href };
-        if (navigator.share) {
-            try { await navigator.share(datos); return; } catch (error) { if (error?.name === "AbortError") return; }
-        }
-        try { await navigator.clipboard.writeText(window.location.href); alert("Enlace copiado al portapapeles."); }
-        catch { window.prompt("Copia este enlace:", window.location.href); }
-    };
-
-    ["guardar-contacto", "pagina-guardar-contacto"].forEach(id => { const el = document.getElementById(id); if (el) el.onclick = crearVCard; });
-    ["compartir-negocio", "pagina-compartir-negocio"].forEach(id => { const el = document.getElementById(id); if (el) el.onclick = compartir; });
-
-    const nav = document.getElementById("nav-links");
-    if (nav && modules.length) {
-        const targets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", proceso: "proceso", identidad: "identidad" };
-        const labels = { presentacion: "Quiénes somos", perfil: "Perfil", beneficios: "Beneficios", servicios: "Servicios", productos: "Productos", menu: "Menú", galeria: "Galería", ubicacion: "Ubicación", contacto: "Contacto", proceso: "Cómo trabajamos", identidad: "Quiénes somos" };
-        const existentes = Array.from(nav.querySelectorAll("a")).map(a => a.getAttribute("href"));
-        if (existentes.length < modules.length) {
-            nav.innerHTML = "";
-            modules.forEach(modulo => {
-                if (!targets[modulo]) return;
-                const a = document.createElement("a"); a.href = "#" + targets[modulo]; a.textContent = labels[modulo] || modulo; nav.appendChild(a);
-            });
-        }
-    }
-})();
-</script>
 </body>
 </html>
