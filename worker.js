@@ -12,6 +12,19 @@ export default {
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
+        const securityHeaders = {
+            "X-Frame-Options": "DENY",
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()"
+        };
+
+        const withSecurityHeaders = (headers) => {
+            const resultado = new Headers(headers);
+            Object.entries(securityHeaders).forEach(([nombre, valor]) => resultado.set(nombre, valor));
+            return resultado;
+        };
+
         const loadAsset = async (pathname) => {
             const assetUrl = new URL(pathname, "https://siden-assets.internal");
             const headers = new Headers(request.headers);
@@ -44,43 +57,56 @@ export default {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
 
-        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404 });
+        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const isCorporate = instanceId === "corporativo";
         const sitePrefix = isCorporate ? "" : `/sites/${instanceId}`;
         const configPath = isCorporate ? "/config.json" : `${sitePrefix}/config.json`;
 
         const respuestaConfig = await loadAsset(configPath);
-        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404 });
+        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const negocio = await respuestaConfig.json();
         const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
 
         if (isCorporate) {
             if (configuredInstance !== "siden-corporativo") {
-                return new Response("Configuración de sitio no válida.", { status: 500 });
+                return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
             }
         } else if (configuredInstance !== instanceId) {
-            return new Response("Configuración de sitio no válida.", { status: 500 });
+            return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
         }
 
         if (url.pathname === "/config.json" && !isCorporate) {
             return new Response(JSON.stringify(negocio), {
-                headers: {
+                headers: withSecurityHeaders({
                     "Content-Type": "application/json; charset=UTF-8",
                     "Cache-Control": "public, max-age=300",
                     "Vary": "Host"
-                }
+                })
             });
         }
+
+        const rutaInternaValida = (ruta) => {
+            const valor = String(ruta || "").trim();
+            if (!valor || !valor.startsWith("/") || valor.startsWith("//")) return false;
+            if (valor.includes("\\") || /[\r\n]/.test(valor)) return false;
+            try {
+                const destino = new URL(valor, "https://siden.internal");
+                return destino.origin === "https://siden.internal" && destino.protocol === "https:";
+            } catch {
+                return false;
+            }
+        };
 
         const rutaNormalizada = (ruta) => {
             const valor = String(ruta || "/");
             return valor === "/" ? "/" : "/" + valor.replace(/^\/+|\/+$/g, "");
         };
 
-        const rutasMultipagina = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
-            ? negocio.paginas.map(pagina => rutaNormalizada(pagina.ruta)) : [];
+        const paginasValidas = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
+            ? negocio.paginas.filter(pagina => rutaInternaValida(pagina?.ruta)) : [];
+        const rutasMultipagina = paginasValidas.map(pagina => rutaNormalizada(pagina.ruta));
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
@@ -92,21 +118,19 @@ export default {
             const contenido = indexable
                 ? "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n"
                 : "User-agent: *\nDisallow: /\n";
-            return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
+            return new Response(contenido, { headers: withSecurityHeaders({ "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" }) });
         }
 
         if (url.pathname === "/sitemap.xml") {
             const rutas = ["/"];
-            if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)) {
-                negocio.paginas.forEach(pagina => {
-                    const ruta = rutaNormalizada(pagina.ruta);
-                    if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
-                });
-            }
+            paginasValidas.forEach(pagina => {
+                const ruta = rutaNormalizada(pagina.ruta);
+                if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
+            });
             const contenido = '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                 rutas.map(ruta => `<url><loc>${url.origin}${ruta}</loc></url>`).join("") + '</urlset>';
-            return new Response(contenido, { headers: { "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
+            return new Response(contenido, { headers: withSecurityHeaders({ "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" }) });
         }
 
         if (request.method !== "GET" || !esRutaPagina) return env.ASSETS.fetch(request);
@@ -115,8 +139,8 @@ export default {
         if (!respuestaHTML.ok) return respuestaHTML;
         let html = await respuestaHTML.text();
 
-        const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
-            ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
+        const paginaActual = negocio.modoSitio === "multi"
+            ? paginasValidas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
 
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre} | ${negocio.ciudad}`);
@@ -145,8 +169,16 @@ export default {
             consultor: "ProfessionalService", psicologo: "Psychologist", psicólogo: "Psychologist", dentista: "Dentist", restaurante: "Restaurant", restaurant: "Restaurant"
         };
         const tipoClave = String(paginaActual?.tipoNegocio || negocio.tipoNegocio || "LocalBusiness").toLowerCase();
-        const datosNegocio = { "@context": "https://schema.org", "@type": schemaTypes[tipoClave] || "LocalBusiness", "@id": negocioId,
-            name: negocio.nombre, description: descripcionSEO, url: canonical, telephone: negocio.telefono };
+        const datosNegocio = {
+            "@context": "https://schema.org",
+            "@type": schemaTypes[tipoClave] || "LocalBusiness",
+            "@id": negocioId,
+            name: negocio.nombre,
+            description: descripcionSEO,
+            url: canonical,
+            telephone: negocio.telefono,
+            mainEntityOfPage: { "@type": "WebPage", "@id": canonical, url: canonical, name: tituloSEO }
+        };
         if (logoURL) datosNegocio.logo = logoURL;
         if (imagenSocialURL) datosNegocio.image = [imagenSocialURL];
         if (negocio.email) datosNegocio.email = negocio.email;
@@ -202,6 +234,13 @@ export default {
             html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>');
         }
 
-        return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store, no-cache, must-revalidate", "Vary": "Host" } });
+        return new Response(html, {
+            status: respuestaHTML.status,
+            headers: withSecurityHeaders({
+                "Content-Type": "text/html; charset=UTF-8",
+                "Cache-Control": "no-store, no-cache, must-revalidate",
+                "Vary": "Host"
+            })
+        });
     }
 };
