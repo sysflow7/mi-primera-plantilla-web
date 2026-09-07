@@ -34,7 +34,7 @@
         <div class="nav-links" id="nav-links"></div>
     </div>
 </nav>
-<header id="inicio" class="hero" style="--hero-image: url('__HERO_IMAGE_URL__');">
+<header id="inicio" class="hero hero-has-image" style="--hero-image: url('__HERO_IMAGE_URL__');">
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <img id="logo-negocio" src="__LOGO_IMAGE_URL__" alt="Logo de __BUSINESS_NAME__" class="logo">
@@ -83,5 +83,49 @@
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
 <script src="js/modules-v1.3.js"></script>
+<script>
+(function () {
+    "use strict";
+    const config = window.__SIDEN_CONFIG__ || {};
+    const modules = Array.isArray(config.modulos) ? config.modulos : [];
+    const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+    const show = id => { const el = document.querySelector(`[data-module="${id}"]`); if (el) el.hidden = !modules.includes(id); };
+
+    ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto", "proceso", "identidad"].forEach(show);
+
+    const hero = document.getElementById("inicio");
+    if (hero && config.heroImagen) {
+        hero.classList.add("hero-has-image");
+        hero.style.setProperty("--hero-image", `url("images/${String(config.heroImagen).replace(/^\/+/, "")}")`);
+    }
+
+    const servicios = document.getElementById("lista-servicios");
+    if (servicios && servicios.children.length === 0 && Array.isArray(config.servicios)) {
+        servicios.innerHTML = config.servicios.map(item => `<div class="service"><h3>${esc(item.nombre)}</h3><p>${esc(item.descripcion)}</p></div>`).join("");
+    }
+
+    const beneficios = document.getElementById("lista-beneficios");
+    if (beneficios && beneficios.children.length === 0 && Array.isArray(config.beneficios)) {
+        beneficios.innerHTML = config.beneficios.map(item => `<div class="benefit"><div class="benefit-icon">✓</div><h3>${esc(item.titulo)}</h3><p>${esc(item.descripcion)}</p></div>`).join("");
+    }
+
+    const nav = document.getElementById("nav-links");
+    if (nav && modules.length) {
+        const targets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", proceso: "proceso", identidad: "identidad" };
+        const labels = { presentacion: "Quiénes somos", perfil: "Perfil", beneficios: "Beneficios", servicios: "Servicios", productos: "Productos", menu: "Menú", galeria: "Galería", ubicacion: "Ubicación", contacto: "Contacto", proceso: "Cómo trabajamos", identidad: "Quiénes somos" };
+        const existentes = Array.from(nav.querySelectorAll("a")).map(a => a.getAttribute("href"));
+        if (existentes.length < modules.length) {
+            nav.innerHTML = "";
+            modules.forEach(modulo => {
+                if (!targets[modulo]) return;
+                const a = document.createElement("a");
+                a.href = "#" + targets[modulo];
+                a.textContent = labels[modulo] || modulo;
+                nav.appendChild(a);
+            });
+        }
+    }
+})();
+</script>
 </body>
 </html>
