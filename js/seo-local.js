@@ -13,6 +13,33 @@
         return await respuesta.json();
     };
 
+    const preservarSelectorPreview = function () {
+        const site = new URLSearchParams(window.location.search).get("site");
+        if (!site) return;
+        const aplicar = function () {
+            document.querySelectorAll("#nav-links a").forEach(function (enlace) {
+                const href = enlace.getAttribute("href") || "";
+                if (!href || href.includes("site=")) return;
+                if (href.startsWith("#")) {
+                    enlace.setAttribute("href", "?site=" + encodeURIComponent(site) + href);
+                } else if (href.startsWith("/")) {
+                    enlace.setAttribute("href", href + (href.includes("?") ? "&" : "?") + "site=" + encodeURIComponent(site));
+                }
+            });
+            const navLogo = document.getElementById("nav-logo");
+            if (navLogo) {
+                const href = navLogo.getAttribute("href") || "";
+                if (href && !href.includes("site=")) {
+                    navLogo.setAttribute("href", href.startsWith("#")
+                        ? "?site=" + encodeURIComponent(site) + href
+                        : href + (href.includes("?") ? "&" : "?") + "site=" + encodeURIComponent(site));
+                }
+            }
+        };
+        aplicar();
+        window.setTimeout(aplicar, 100);
+    };
+
     const aplicarConfiguracionSEO = async function () {
         try {
             const config = await cargarConfig();
@@ -69,9 +96,14 @@
         }
     };
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", aplicarConfiguracionSEO);
-    } else {
+    const iniciar = function () {
+        preservarSelectorPreview();
         aplicarConfiguracionSEO();
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", iniciar);
+    } else {
+        iniciar();
     }
 })();
