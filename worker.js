@@ -85,7 +85,10 @@ export default {
         }
 
         if (url.pathname === "/robots.txt") {
-            const contenido = "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n";
+            const indexable = negocio.indexable !== false;
+            const contenido = indexable
+                ? "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n"
+                : "User-agent: *\nDisallow: /\n";
             return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
         }
 
