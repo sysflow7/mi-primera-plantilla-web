@@ -1,6 +1,6 @@
 {
   "siden": {
-    "instanceId": "corporativo",
+    "instanceId": "siden-corporativo",
     "template": "siden-template-v1.4",
     "version": "1.4",
     "baseDomain": "sidenred.com",
