@@ -184,7 +184,7 @@ export default {
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
-        const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
+        const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
         if (!imagenSocialURL) {
