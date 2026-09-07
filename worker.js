@@ -11,8 +11,6 @@ export default {
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
-        // Las peticiones al binding ASSETS se construyen con una URL interna
-        // para no arrastrar el Host del dominio público.
         const loadAsset = async (pathname) => {
             const assetUrl = new URL(pathname, "https://siden-assets.internal");
             const headers = new Headers(request.headers);
@@ -127,6 +125,7 @@ export default {
             ? new URL(sitePrefix + "/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
+        const heroURL = construirImagenURL(negocio.heroImagen);
         const indexable = negocio.indexable !== false;
         const direccion = negocio.direccion || {};
         const modeloAtencion = String(negocio.modeloAtencion || "local").toLowerCase();
@@ -179,7 +178,8 @@ export default {
             "__BUSINESS_NAME__": escHtml(negocio.nombre), "__BUSINESS_TYPE__": escHtml(negocio.etiquetaTipo || ""), "__H1_TITLE__": escHtml(h1Title),
             "__H1_DESCRIPTION__": escHtml(h1Description), "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO), "__LOCATION_TITLE__": escHtml(tituloUbicacion),
             "__CITY__": escHtml(ciudadVisible), "__ADDRESS__": escHtml(direccionTexto), "__PHONE__": escHtml(negocio.telefono || ""), "__CANONICAL_URL__": escHtml(canonical),
-            "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__STRUCTURED_DATA__": escJson(datosNegocio)
+            "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__LOGO_IMAGE_URL__": escHtml(logoURL),
+            "__HERO_IMAGE_URL__": escHtml(heroURL), "__STRUCTURED_DATA__": escJson(datosNegocio)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
