@@ -125,5 +125,33 @@
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
 <script src="js/modules-v1.3.js"></script>
+<script>
+(function () {
+    "use strict";
+    const config = window.__SIDEN_CONFIG__ || {};
+    const siden = config.siden || {};
+    const prefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
+    const assetUrl = function (path) {
+        const cleanPath = String(path || "").replace(/^\/+/, "");
+        return new URL((prefix ? prefix + "/" : "/") + cleanPath, window.location.origin).href;
+    };
+    const aplicarAssets = function () {
+        document.querySelectorAll('img[src^="images/"]').forEach(function (imagen) {
+            const src = imagen.getAttribute("src");
+            if (src) imagen.src = assetUrl("images/" + src.replace(/^images\/+/, ""));
+        });
+        const logo = document.getElementById("logo-negocio");
+        if (logo && config.logo) logo.src = assetUrl("images/" + config.logo);
+        const hero = document.getElementById("inicio");
+        if (hero && config.heroImagen && !document.body.classList.contains("multi-inner-page")) {
+            hero.style.backgroundImage = 'url("' + assetUrl("images/" + config.heroImagen) + '")';
+            hero.style.backgroundSize = "cover";
+            hero.style.backgroundPosition = "center";
+            hero.classList.add("hero-has-image");
+        }
+    };
+    aplicarAssets();
+})();
+</script>
 </body>
 </html>
