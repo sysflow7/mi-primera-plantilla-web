@@ -11,21 +11,25 @@ export default {
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
-        const loadAsset = async (pathname) => env.ASSETS.fetch(
-            new Request(new URL(pathname, request.url), request)
-        );
+        // Las peticiones al binding ASSETS se construyen con una URL interna
+        // para no arrastrar el Host del dominio público.
+        const loadAsset = async (pathname) => {
+            const assetUrl = new URL(pathname, "https://siden-assets.internal");
+            const headers = new Headers(request.headers);
+            headers.delete("host");
+            headers.delete("content-length");
+            return env.ASSETS.fetch(new Request(assetUrl, {
+                method: request.method,
+                headers
+            }));
+        };
 
         let instanceId = "";
         if (isCorporateHost) {
-            // Se conserva la instancia interna actual del sitio corporativo.
             instanceId = "corporativo";
         } else if (isSidenSubdomain) {
             const hostSlug = slugify(hostParts[0]);
             instanceId = hostSlug;
-
-            // El hostname público puede ser distinto del instanceId interno.
-            // El registro versionado permite mantener esa separación sin
-            // introducir fallback entre sitios.
             const respuestaRegistry = await loadAsset("/sites/registry.json");
             if (respuestaRegistry.ok) {
                 try {
@@ -51,10 +55,6 @@ export default {
         const negocio = await respuestaConfig.json();
         const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
 
-        // Evita que una configuración perteneciente a otra instancia pueda
-        // ser servida accidentalmente para este hostname.
-        // Para el corporativo se conserva la excepción histórica: el hostname
-        // usa la clave técnica "corporativo" y su config usa "siden-corporativo".
         if (isCorporate) {
             if (configuredInstance !== "siden-corporativo") {
                 return new Response("Configuración de sitio no válida.", { status: 500 });
@@ -82,9 +82,6 @@ export default {
             ? negocio.paginas.map(pagina => rutaNormalizada(pagina.ruta)) : [];
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
-        // Aislamiento estricto de imágenes por instancia.
-        // Tanto el corporativo como los clientes pasan por loadAsset() para
-        // evitar que el hostname público interfiera con la resolución del asset.
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
             return loadAsset(isCorporate ? url.pathname : `${sitePrefix}${url.pathname}`);
         }
