@@ -3,3 +3,5 @@
 **/.wrangler
 **/.wrangler/**
 worker.js
+README.md
+wrangler.jsonc

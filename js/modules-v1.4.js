@@ -1,10 +1,11 @@
-// SIDEN v1.3 - módulos opcionales de proceso e identidad
+// SIDEN v1.4 - módulos opcionales de proceso e identidad
 (async function () {
     "use strict";
     try {
-        const respuesta = await fetch("config.json", { cache: "no-cache" });
-        if (!respuesta.ok) return;
-        const config = await respuesta.json();
+        const runtime = window.__SIDEN_CONFIG__;
+        const respuesta = runtime && runtime.siden ? null : await fetch("config.json", { cache: "no-cache" });
+        if (respuesta && !respuesta.ok) return;
+        const config = runtime && runtime.siden ? runtime : await respuesta.json();
         const modulos = Array.isArray(config.modulos) ? config.modulos : [];
         const etiquetas = config.etiquetas || {};
         const proceso = Array.isArray(config.proceso) ? config.proceso : [];
@@ -23,6 +24,7 @@
         mostrar("identidad", identidadActiva);
         titulo("titulo-proceso", etiquetas.proceso || "Cómo trabajamos");
         titulo("titulo-identidad", etiquetas.identidad || "Quiénes somos");
+
         const listaProceso = document.getElementById("lista-proceso");
         if (listaProceso && procesoActivo) {
             listaProceso.innerHTML = "";
@@ -37,6 +39,7 @@
                 listaProceso.appendChild(tarjeta);
             });
         }
+
         const contenidoIdentidad = document.getElementById("contenido-identidad");
         if (contenidoIdentidad && identidadActiva) {
             contenidoIdentidad.innerHTML = "";
@@ -54,6 +57,7 @@
                 });
             }
         }
+
         const navLinks = document.getElementById("nav-links");
         if (navLinks && !document.body.classList.contains("multi-inner-page")) {
             const existentes = Array.from(navLinks.querySelectorAll("a")).map(function (enlace) { return enlace.getAttribute("href"); });
@@ -66,6 +70,6 @@
             });
         }
     } catch (error) {
-        console.error("SIDEN v1.3: error en módulos opcionales", error);
+        console.error("SIDEN v1.4: error en módulos opcionales", error);
     }
 })();
