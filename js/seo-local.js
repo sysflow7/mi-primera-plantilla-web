@@ -5,12 +5,17 @@
 (async function () {
     "use strict";
 
+    const cargarConfig = async function () {
+        const runtime = window.__SIDEN_CONFIG__;
+        if (runtime && runtime.siden) return runtime;
+        const respuesta = await fetch("config.json", { cache: "no-cache" });
+        if (!respuesta.ok) throw new Error("No se pudo cargar config.json");
+        return await respuesta.json();
+    };
+
     const aplicarConfiguracionSEO = async function () {
         try {
-            const respuesta = await fetch("config.json", { cache: "no-cache" });
-            if (!respuesta.ok) return;
-
-            const config = await respuesta.json();
+            const config = await cargarConfig();
             const rutaActual = window.location.pathname.replace(/\/$/, "") || "/";
             const esMulti = config.modoSitio === "multi" && Array.isArray(config.paginas);
             const paginaActual = esMulti
@@ -20,12 +25,10 @@
                 })
                 : null;
 
-            // El H1 es configurable y se mantiene separado del nombre de la marca.
             const h1 = paginaActual?.h1 || config.h1 || paginaActual?.nombre || config.nombre || "";
             const h1Elemento = document.getElementById("nombre-negocio");
             if (h1Elemento) h1Elemento.textContent = h1;
 
-            // Negocios por área de servicio: no mostrar una ubicación física inexistente.
             const modelo = String(config.modeloAtencion || "local").toLowerCase();
             const esAreaServicio = modelo === "areaservicio" || modelo === "area-servicio";
             const ciudadElemento = document.getElementById("ciudad-negocio");
@@ -38,38 +41,28 @@
                         return typeof area === "string" ? area : area?.nombre;
                     }).filter(Boolean)
                     : [];
-
-                if (ciudadElemento) {
-                    ciudadElemento.textContent = areas.join(", ") || config.pais || "Área de servicio";
-                }
+                if (ciudadElemento) ciudadElemento.textContent = areas.join(", ") || config.pais || "Área de servicio";
                 if (direccionElemento) {
                     direccionElemento.textContent = "";
                     direccionElemento.hidden = true;
                 }
-                if (tituloUbicacion) {
-                    tituloUbicacion.textContent =
-                        (config.etiquetas && config.etiquetas.ubicacion) || "Área de servicio";
-                }
+                if (tituloUbicacion) tituloUbicacion.textContent =
+                    (config.etiquetas && config.etiquetas.ubicacion) || "Área de servicio";
             }
 
-            // ALT personalizados de la galería.
             const alts = Array.isArray(config.galeriaAlt) ? config.galeriaAlt : [];
-            if (alts.length) {
-                const galeria = document.getElementById("lista-galeria");
-                if (galeria) {
-                    const aplicar = function () {
-                        galeria.querySelectorAll("img").forEach(function (imagen, indice) {
-                            const alt = String(alts[indice] || "").trim();
-                            if (alt) imagen.alt = alt;
-                        });
-                    };
-                    aplicar();
-                    const observador = new MutationObserver(aplicar);
-                    observador.observe(galeria, { childList: true });
-                    window.setTimeout(function () {
-                        observador.disconnect();
-                    }, 10000);
-                }
+            const galeria = document.getElementById("lista-galeria");
+            if (galeria && alts.length) {
+                const aplicarAlt = function () {
+                    galeria.querySelectorAll("img").forEach(function (imagen, indice) {
+                        const alt = String(alts[indice] || "").trim();
+                        if (alt) imagen.alt = alt;
+                    });
+                };
+                aplicarAlt();
+                const observador = new MutationObserver(aplicarAlt);
+                observador.observe(galeria, { childList: true });
+                window.setTimeout(function () { observador.disconnect(); }, 10000);
             }
         } catch (error) {
             console.warn("SIDEN SEO local: no se pudieron aplicar los ajustes configurables.", error);
