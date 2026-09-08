@@ -10,7 +10,7 @@
     <meta name="author" content="__BUSINESS_NAME__">
     <link rel="canonical" href="__CANONICAL_URL__">
     <link rel="icon" type="image/png" href="__FAVICON_URL__">
-    <meta name="theme-color" content="#111827">
+    <meta name="theme-color" content="#0b1220">
     <meta property="og:type" content="website">
     <meta property="og:title" content="__SEO_TITLE__">
     <meta property="og:description" content="__SEO_DESCRIPTION__">
@@ -30,24 +30,67 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="#inicio" class="nav-logo" id="nav-logo">__BUSINESS_NAME__</a>
-        <button class="menu-button" id="menu-button" aria-label="Abrir menú">☰</button>
+        <button class="menu-button" id="menu-button" aria-label="Abrir menú" aria-expanded="false">☰</button>
         <div class="nav-links" id="nav-links"></div>
+        <a href="#contacto" class="nav-cta">Cotizar mi página</a>
     </div>
 </nav>
+
 <header id="inicio" class="hero hero-has-image" style="--hero-image: url('__HERO_IMAGE_URL__');">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <img id="logo-negocio" src="__LOGO_IMAGE_URL__" alt="Logo de __BUSINESS_NAME__" class="logo">
-        <p id="tipo-negocio" class="business-type">__BUSINESS_TYPE__</p>
-        <h1 id="nombre-negocio">__H1_TITLE__</h1>
-        <p id="slogan-negocio">__H1_DESCRIPTION__</p>
-        <a id="whatsapp-principal" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Contactar por WhatsApp</a>
-        <div class="contact-actions">
-            <button id="guardar-contacto" class="contact-action">📱 Guardar contacto</button>
-            <button id="compartir-negocio" class="contact-action">📤 Compartir negocio</button>
+        <div class="hero-copy">
+            <span class="hero-eyebrow">Presencia digital para negocios</span>
+            <h1 id="nombre-negocio">__H1_TITLE__</h1>
+            <p id="slogan-negocio" class="hero-subtitle">__H1_DESCRIPTION__</p>
+            <p class="hero-description">Creamos páginas web profesionales que ayudan a tus clientes a encontrarte, conocer tus servicios y contactarte fácilmente.</p>
+            <div class="hero-actions">
+                <a id="whatsapp-principal" class="hero-primary" target="_blank" rel="noopener noreferrer">Quiero mi página web <span>→</span></a>
+                <a href="#proyectos" class="hero-secondary">Ver ejemplos <span>↘</span></a>
+            </div>
+            <div class="hero-trust">
+                <span>✓ Diseño profesional</span>
+                <span>✓ SEO local</span>
+                <span>✓ Google + WhatsApp</span>
+            </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Ejemplo visual de una presencia digital">
+            <div class="browser-window">
+                <div class="browser-top"><span></span><span></span><span></span><small>tu-negocio.com</small></div>
+                <div class="browser-body">
+                    <div class="mock-nav"><b>Tu negocio</b><i></i><i></i><i></i><em></em></div>
+                    <div class="mock-hero">
+                        <div><small>BIENVENIDO</small><strong>Haz que tu negocio<br>se vea profesional.</strong><label></label></div>
+                        <div class="mock-photo"></div>
+                    </div>
+                    <div class="mock-cards"><span>Servicios</span><span>Ubicación</span><span>WhatsApp</span></div>
+                </div>
+            </div>
+            <div class="float-card float-google"><b>Google</b><span>✓ Presencia local</span></div>
+            <div class="float-card float-whatsapp"><b>WhatsApp</b><span>● Contacto directo</span></div>
         </div>
     </div>
 </header>
+
+<div class="value-strip">
+    <div><strong>Tu negocio</strong><span>merece una presencia digital a la altura de lo que ofrece.</span></div>
+    <div><b>WEB</b><span>+ SEO LOCAL</span><span>+ GOOGLE</span><span>+ WHATSAPP</span></div>
+</div>
+
+<section id="proyectos" class="showcase-section">
+    <div class="section-heading">
+        <span class="section-kicker">Así puede verse tu negocio</span>
+        <h2>Una página web pensada para causar una buena primera impresión.</h2>
+        <p>No importa si tienes una tienda, un restaurante, un servicio profesional o un negocio local: construimos una presencia que se adapta a tu identidad.</p>
+    </div>
+    <div class="showcase-grid">
+        <article class="showcase-card showcase-commerce"><div class="showcase-preview"><span>COMERCIO</span><strong>Todo lo que tus clientes necesitan<br>antes de visitarte.</strong><i>Ver servicios →</i></div><h3>Negocios y comercios</h3><p>Información clara, productos, ubicación y contacto.</p></article>
+        <article class="showcase-card showcase-professional"><div class="showcase-preview"><span>SERVICIOS PROFESIONALES</span><strong>Presenta tu experiencia<br>con confianza.</strong><i>Conocer servicios →</i></div><h3>Profesionales</h3><p>Servicios, perfil, especialidades y formas de contacto.</p></article>
+        <article class="showcase-card showcase-local"><div class="showcase-preview"><span>NEGOCIO LOCAL</span><strong>Haz que sea fácil<br>encontrarte en Google.</strong><i>Cómo llegar →</i></div><h3>Presencia local</h3><p>Web, SEO local, Google Maps y WhatsApp conectados.</p></article>
+    </div>
+</section>
+
 <section id="pagina-cabecera" class="page-header" hidden>
     <p id="pagina-tipo" class="page-header-type">__BUSINESS_TYPE__</p>
     <h1 id="pagina-titulo">__H1_TITLE__</h1>
@@ -59,6 +102,7 @@
         <a id="pagina-ubicacion" class="page-action" target="_blank" rel="noopener noreferrer">📍 Ubicación</a>
     </div>
 </section>
+
 <main>
 <section id="nosotros" data-module="presentacion"><h2 id="titulo-presentacion">¿Quiénes somos?</h2><p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p></section>
 <section id="perfil" data-module="perfil" hidden><h2 id="titulo-perfil">Perfil profesional</h2><div class="profile-card"><p id="descripcion-perfil"></p><div id="datos-perfil" class="profile-data"></div></div></section>
@@ -73,9 +117,26 @@
 <section id="contacto" class="contact" data-module="contacto"><h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2><p id="texto-contacto">Estamos disponibles para atenderte.</p><a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a><a id="email-negocio" class="contact-email" hidden></a><div class="social"><a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a><a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a></div></section>
 </main>
 <a id="whatsapp-flotante" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
-<footer>© <span id="anio-actual"></span> <span id="nombre-footer">__BUSINESS_NAME__</span> - Todos los derechos reservados</footer>
+<footer><div class="footer-inner"><div><strong>SIDeN</strong><p>La presencia digital de tu negocio, en un solo lugar.</p></div><span>© <span id="anio-actual"></span> <span id="nombre-footer">__BUSINESS_NAME__</span> · Todos los derechos reservados</span></div></footer>
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
 <script src="js/modules-v1.4.js"></script>
+<script>
+(function () {
+    const button = document.getElementById("menu-button");
+    const links = document.getElementById("nav-links");
+    if (!button || !links) return;
+    button.addEventListener("click", function () {
+        const active = links.classList.toggle("active");
+        button.setAttribute("aria-expanded", active ? "true" : "false");
+    });
+    links.addEventListener("click", function (event) {
+        if (event.target.closest("a")) {
+            links.classList.remove("active");
+            button.setAttribute("aria-expanded", "false");
+        }
+    });
+})();
+</script>
 </body>
 </html>
