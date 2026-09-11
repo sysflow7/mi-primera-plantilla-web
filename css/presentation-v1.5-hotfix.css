@@ -1,0 +1,66 @@
+/* SIDeN TEMPLATE v1.5 — hotfix visual
+   Hero con imagen directa, carga robusta y ciclo más ágil.
+*/
+.hero{
+  background-image:var(--hero-image);
+  background-size:cover;
+  background-position:center;
+}
+.hero::before{display:none!important}
+.hero.hero-has-image{background-image:var(--hero-image)}
+
+.hero-copy{animation:sidenHeroTextCycleFast 5.5s cubic-bezier(.22,.75,.18,1) infinite}
+.hero-visual{animation:sidenHeroVisualCycleFast 5.5s cubic-bezier(.22,.75,.18,1) infinite}
+.browser-window{animation:sidenBrowserCycleFast 5.5s cubic-bezier(.2,.8,.2,1) infinite}
+.mock-photo{animation:sidenMockPhotoCycleFast 5.5s ease-in-out infinite}
+.hero-visual::before,.hero-visual::after{animation-duration:5.5s}
+.hero-visual::before{animation-name:sidenHeroPhotoOneFast}
+.hero-visual::after{animation-name:sidenHeroPhotoTwoFast}
+
+@keyframes sidenHeroTextCycleFast{
+  0%,5%{opacity:0;transform:translateX(-42px) scale(.98)}
+  13%{opacity:1;transform:translateX(0) scale(1)}
+  76%{opacity:1;transform:translateX(0) scale(1)}
+  86%{opacity:.08;transform:translateX(28px) scale(.98)}
+  92%,100%{opacity:0;transform:translateX(42px) scale(.97)}
+}
+@keyframes sidenHeroVisualCycleFast{
+  0%,9%{opacity:0;transform:translateX(42px) scale(.90) rotate(1deg)}
+  20%{opacity:1;transform:translateX(0) scale(1) rotate(0)}
+  76%{opacity:1;transform:translateX(0) scale(1) rotate(0)}
+  86%{opacity:.12;transform:translateX(-18px) scale(.97) rotate(-.7deg)}
+  92%,100%{opacity:0;transform:translateX(-36px) scale(.92) rotate(-1deg)}
+}
+@keyframes sidenBrowserCycleFast{
+  0%,14%{opacity:0;transform:translateY(30px) scale(.92)}
+  24%{opacity:1;transform:translateY(0) scale(1)}
+  76%{opacity:1;transform:translateY(0) scale(1)}
+  86%{opacity:.10;transform:translateY(-14px) scale(.98)}
+  92%,100%{opacity:0;transform:translateY(-22px) scale(.95)}
+}
+@keyframes sidenMockPhotoCycleFast{
+  0%,30%{transform:scale(1)}
+  31%,48%{transform:scale(1.035)}
+  49%,65%{transform:scale(1)}
+  66%,82%{transform:scale(1.035)}
+  83%,100%{transform:scale(1)}
+}
+@keyframes sidenHeroPhotoOneFast{
+  0%,15%{opacity:0;transform:translate(-20px,20px) rotate(-8deg) scale(.72)}
+  23%{opacity:1;transform:translate(0,0) rotate(-5deg) scale(1)}
+  68%{opacity:1;transform:translate(7px,-10px) rotate(-2deg) scale(1.04)}
+  82%{opacity:.15;transform:translate(-14px,-22px) rotate(4deg) scale(.84)}
+  90%,100%{opacity:0;transform:translate(-22px,-28px) rotate(6deg) scale(.76)}
+}
+@keyframes sidenHeroPhotoTwoFast{
+  0%,25%{opacity:0;transform:translate(24px,20px) rotate(8deg) scale(.72)}
+  33%{opacity:1;transform:translate(0,0) rotate(5deg) scale(1)}
+  70%{opacity:1;transform:translate(-8px,-10px) rotate(2deg) scale(1.04)}
+  84%{opacity:.15;transform:translate(18px,-24px) rotate(-4deg) scale(.84)}
+  92%,100%{opacity:0;transform:translate(24px,-30px) rotate(-6deg) scale(.76)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-copy,.hero-visual,.browser-window,.mock-photo,
+  .hero-visual::before,.hero-visual::after{animation:none!important}
+}
