@@ -69,6 +69,26 @@
                 navLinks.appendChild(enlace);
             });
         }
+
+        // NAVEGACIÓN INTERNA SEGURA PARA ARQUITECTURA MULTISITE
+        // Evita que un ancla interna pueda provocar una navegación fuera de la instancia actual.
+        document.addEventListener("click", function (evento) {
+            const enlace = evento.target.closest("a[href^='#']");
+            if (!enlace) return;
+            const hash = enlace.getAttribute("href");
+            if (!hash || hash === "#") return;
+            const objetivo = document.getElementById(hash.substring(1));
+            if (!objetivo) return;
+            evento.preventDefault();
+            const urlActual = new URL(window.location.href);
+            urlActual.hash = hash.substring(1);
+            window.history.pushState({}, "", urlActual.href);
+            const offset = 80;
+            const posicion = objetivo.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top: Math.max(0, posicion), behavior: "smooth" });
+            const menuMovil = document.getElementById("nav-links");
+            if (menuMovil) menuMovil.classList.remove("active");
+        });
     } catch (error) {
         console.error("SIDEN v1.4: error en módulos opcionales", error);
     }
