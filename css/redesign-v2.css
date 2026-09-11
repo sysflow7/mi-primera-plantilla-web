@@ -1,4 +1,5 @@
 @import url("redesign-v3.css");
+@import url("hero-speed.css");
 /* SIDeN REDESIGN V2 — capas visuales de conversión */
 .conversion-section,.solution-section,.plans-section,.faq-section{max-width:1180px;margin:auto;padding:88px 24px}
 .conversion-section{background:#fff}
