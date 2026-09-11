@@ -13,7 +13,6 @@
 #beneficios{background:#f8fafc}
 #beneficios>h2{max-width:700px;margin-left:auto;margin-right:auto}
 #beneficios .benefit{min-height:225px;display:flex;flex-direction:column;justify-content:flex-start}
-/* PROCESO */
 #proceso{background:#f8fafc}
 #proceso>h2{max-width:700px;margin:0 auto 38px;font-size:clamp(30px,4vw,43px);letter-spacing:-1.5px}
 #proceso .services{grid-template-columns:repeat(4,1fr);gap:0;position:relative}
@@ -22,10 +21,39 @@
 #proceso .service::before{content:"";display:block;width:40px;height:40px;margin:0 auto 18px;border:6px solid #f8fafc;border-radius:50%;background:var(--blue);box-shadow:0 0 0 1px #bcd0f7}
 #proceso .service h3{font-size:16px;line-height:1.35;margin-bottom:9px}
 #proceso .service p{font-size:13px;line-height:1.65;color:var(--muted)}
-/* IDENTIDAD */
 #identidad{background:#fff}
 #identidad>h2{max-width:700px;margin:0 auto 30px;font-size:clamp(30px,4vw,43px)}
 #identidad .profile-card{max-width:900px;padding:38px 42px;border-radius:22px;background:#f8fafc;box-shadow:none;border-color:#e1e7f0}
 #identidad .profile-card p{color:#596579;font-size:15px;line-height:1.8}
+
+/* CAPA VISUAL — menos texto corrido, más impacto visual */
+.showcase-card{overflow:hidden;border-radius:20px!important;border:1px solid var(--border);background:#fff;box-shadow:0 12px 32px rgba(15,23,42,.07);transition:transform .25s ease,box-shadow .25s ease}
+.showcase-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(15,23,42,.11)}
+.showcase-preview{min-height:220px!important;position:relative!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important;padding:28px!important;background-size:cover!important;background-position:center!important;isolation:isolate!important;overflow:hidden}
+.showcase-preview::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.08) 10%,rgba(11,18,32,.82) 100%);z-index:-1}
+.showcase-commerce .showcase-preview{background-image:url('../images/ferreteria-constructor.jpg')}
+.showcase-professional .showcase-preview{background-image:url('../images/foto1.jpg')}
+.showcase-local .showcase-preview{background-image:url('../images/foto2.jpg')}
+.showcase-preview span,.showcase-preview strong,.showcase-preview i{position:relative;z-index:1;color:#fff!important}
+.showcase-preview span{font-size:10px!important;font-weight:900!important;letter-spacing:1.2px!important;margin-bottom:10px!important}
+.showcase-preview strong{font-size:21px!important;line-height:1.22!important}
+.showcase-preview i{font-style:normal;font-size:12px!important;margin-top:16px!important;opacity:.9}
+.showcase-card>h3{padding:22px 24px 5px;margin:0!important;font-size:18px}
+.showcase-card>p{padding:0 24px 23px;margin:0!important;color:var(--muted)}
+
+/* Planes: jerarquía visual más marcada */
+.plan-card{overflow:hidden}
+.plan-card::before{content:"";display:block;height:5px;position:absolute;left:0;right:0;top:0;background:linear-gradient(90deg,#dbeafe,#eef2ff)}
+.plan-card.featured::before{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+
+/* Solución Google: visible como complemento, no como parte implícita de los planes WEB */
+.solution-grid article:nth-child(3){background:linear-gradient(145deg,#f7faff,#fff)}
+.solution-grid article:nth-child(3)::after{content:"Servicio adicional";position:absolute;top:14px;right:-28px;transform:rotate(35deg);background:#eaf1ff;color:var(--blue);font-size:8px;font-weight:900;letter-spacing:.5px;padding:4px 30px}
+
+.cta-panel{position:relative;overflow:hidden}
+.cta-panel::before,.cta-panel::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.cta-panel::before{width:240px;height:240px;right:-90px;top:-100px;background:rgba(96,165,250,.13)}
+.cta-panel::after{width:180px;height:180px;left:-80px;bottom:-90px;background:rgba(37,99,235,.14)}
+
 @media(max-width:900px){#servicios .services{grid-template-columns:1fr 1fr}#proceso .services{grid-template-columns:1fr 1fr;gap:35px}#proceso .services::before{display:none}}
-@media(max-width:640px){#servicios .services{grid-template-columns:1fr}#servicios .service{min-height:250px}#proceso .services{grid-template-columns:1fr;gap:28px}#proceso .service{padding:0 5px}#identidad .profile-card{padding:28px 22px}}
+@media(max-width:640px){#servicios .services{grid-template-columns:1fr}#servicios .service{min-height:250px}#proceso .services{grid-template-columns:1fr;gap:28px}#proceso .service{padding:0 5px}#identidad .profile-card{padding:28px 22px}.showcase-preview{min-height:200px!important}}
