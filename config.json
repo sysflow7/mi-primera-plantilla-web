@@ -7,9 +7,9 @@
   "nombre": "SIDeN",
   "h1": "Páginas web y presencia digital para negocios en El Salvador",
   "slogan": "Presencia digital clara, profesional y conectada.",
-  "tituloSEO": "Páginas Web y SEO Local para Negocios en El Salvador | SIDeN",
-  "descripcion": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional, clara y fácil de encontrar. Integramos página web, SEO local y Perfil de Empresa de Google para que tu negocio tenga una presencia coherente y facilite el contacto con sus clientes.",
-  "descripcionSEO": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional con páginas web, SEO local y optimización de su Perfil de Empresa de Google.",
+  "tituloSEO": "Páginas Web para Negocios en El Salvador | SIDeN",
+  "descripcion": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional, clara y fácil de encontrar. Creamos páginas web conectadas con WhatsApp y dejamos una base preparada para crecer con soluciones de presencia local.",
+  "descripcionSEO": "Páginas web profesionales para pequeños negocios en El Salvador, con SEO básico, WhatsApp y QR SIDeN. Soluciones adicionales de presencia local disponibles.",
   "tipoNegocio": "organizacion",
   "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
@@ -35,12 +35,12 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {"ubicacion": "Área de servicio"},
-  "textos": {"contacto": "Conoce cómo SIDeN puede ayudar a que tu negocio tenga una presencia digital profesional, visible y fácil de contactar."},
+  "textos": {"contacto": "Conoce cómo SIDeN puede ayudarte a construir una presencia digital profesional, clara y fácil de contactar. Si después necesitas trabajar tu presencia local, podemos ampliar la solución."},
   "paginas": [],
   "servicios": [
     {"nombre": "Páginas web para negocios", "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes."},
-    {"nombre": "SEO local", "descripcion": "Optimizamos la presencia digital de tu negocio para facilitar que las personas encuentren información relevante sobre tus servicios cuando realizan búsquedas locales."},
-    {"nombre": "Perfil de Empresa de Google", "descripcion": "Configuramos y optimizamos la presencia de tu negocio en Google Search y Google Maps para facilitar que tus clientes encuentren información, conozcan tus servicios y puedan contactarte."}
+    {"nombre": "SEO local", "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales."},
+    {"nombre": "Perfil de Empresa de Google", "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado."}
   ],
   "productos": [],
   "menu": [],
@@ -54,7 +54,7 @@
   "proceso": [
     {"titulo": "1. Conocemos tu negocio", "descripcion": "Entendemos qué haces, a quién atiendes y qué información necesitan encontrar tus clientes."},
     {"titulo": "2. Definimos tu presencia", "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."},
-    {"titulo": "3. Construimos y optimizamos", "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia local."},
+    {"titulo": "3. Construimos y optimizamos", "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia digital."},
     {"titulo": "4. Conectamos y mejoramos", "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."}
   ],
   "identidad": {
