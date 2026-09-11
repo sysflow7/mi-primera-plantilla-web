@@ -10,7 +10,7 @@
     <meta name="author" content="__BUSINESS_NAME__">
     <link rel="canonical" href="__CANONICAL_URL__">
     <link rel="icon" type="image/png" href="__FAVICON_URL__">
-    <meta name="theme-color" content="#111827">
+    <meta name="theme-color" content="#0b1220">
     <meta property="og:type" content="website">
     <meta property="og:title" content="__SEO_TITLE__">
     <meta property="og:description" content="__SEO_DESCRIPTION__">
@@ -25,29 +25,63 @@
     <meta name="twitter:image" content="__SOCIAL_IMAGE_URL__">
     <script type="application/ld+json">__STRUCTURED_DATA__</script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/presentation-v1.5.css">
 </head>
 <body>
 <nav class="navbar">
     <div class="nav-container">
         <a href="#inicio" class="nav-logo" id="nav-logo">__BUSINESS_NAME__</a>
-        <button class="menu-button" id="menu-button" aria-label="Abrir menú">☰</button>
+        <button class="menu-button" id="menu-button" aria-label="Abrir menú" aria-expanded="false">☰</button>
         <div class="nav-links" id="nav-links"></div>
+        <a href="#contacto" class="nav-cta">Contactar</a>
     </div>
 </nav>
-<header id="inicio" class="hero hero-has-image" style="--hero-image: url('__HERO_IMAGE_URL__');">
+
+<header id="inicio" class="hero hero-has-image" style="--hero-image:url('__HERO_IMAGE_URL__');">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <img id="logo-negocio" src="__LOGO_IMAGE_URL__" alt="Logo de __BUSINESS_NAME__" class="logo">
-        <p id="tipo-negocio" class="business-type">__BUSINESS_TYPE__</p>
-        <h1 id="nombre-negocio">__H1_TITLE__</h1>
-        <p id="slogan-negocio">__H1_DESCRIPTION__</p>
-        <a id="whatsapp-principal" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Contactar por WhatsApp</a>
-        <div class="contact-actions">
-            <button id="guardar-contacto" class="contact-action">📱 Guardar contacto</button>
-            <button id="compartir-negocio" class="contact-action">📤 Compartir negocio</button>
+        <div class="hero-copy">
+            <div class="hero-brand">
+                <img id="logo-negocio" src="__LOGO_IMAGE_URL__" alt="Logo de __BUSINESS_NAME__">
+                <span id="hero-business-name">__BUSINESS_NAME__</span>
+            </div>
+            <span id="tipo-negocio" class="hero-eyebrow">__BUSINESS_TYPE__</span>
+            <h1 id="nombre-negocio">__H1_TITLE__</h1>
+            <p id="slogan-negocio" class="hero-subtitle">__H1_DESCRIPTION__</p>
+            <p class="hero-description">Conoce nuestros productos, servicios, información y formas de contacto en un solo lugar.</p>
+            <div class="hero-actions">
+                <a id="whatsapp-principal" class="hero-primary" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp <span>→</span></a>
+                <a href="#nosotros" class="hero-secondary">Conocer el negocio <span>↘</span></a>
+            </div>
+            <div class="hero-trust">
+                <span>✓ Información clara</span>
+                <span>✓ Contacto directo</span>
+                <span>✓ Presencia profesional</span>
+            </div>
+        </div>
+        <div class="hero-visual" aria-label="Presentación visual del negocio">
+            <div class="browser-window">
+                <div class="browser-top"><span></span><span></span><span></span><small id="hero-domain">sitio-web.com</small></div>
+                <div class="browser-body">
+                    <div class="mock-nav"><b id="mock-business-name">Tu negocio</b><i></i><i></i><i></i><em></em></div>
+                    <div class="mock-hero">
+                        <div><small>BIENVENIDO</small><strong>Una presencia<br>profesional.</strong><label></label></div>
+                        <div class="mock-photo"></div>
+                    </div>
+                    <div class="mock-cards"><span>Servicios</span><span>Ubicación</span><span>Contacto</span></div>
+                </div>
+            </div>
+            <div class="float-card float-google"><b>Presencia local</b><span>✓ Información visible</span></div>
+            <div class="float-card float-whatsapp"><b>WhatsApp</b><span>● Contacto directo</span></div>
         </div>
     </div>
 </header>
+
+<div class="value-strip">
+    <div><strong>Tu negocio</strong><span>merece una presencia digital clara, profesional y fácil de contactar.</span></div>
+    <div><b>WEB</b><span>+ INFORMACIÓN</span><span>+ WHATSAPP</span><span>+ UBICACIÓN</span></div>
+</div>
+
 <section id="pagina-cabecera" class="page-header" hidden>
     <p id="pagina-tipo" class="page-header-type">__BUSINESS_TYPE__</p>
     <h1 id="pagina-titulo">__H1_TITLE__</h1>
@@ -59,23 +93,26 @@
         <a id="pagina-ubicacion" class="page-action" target="_blank" rel="noopener noreferrer">📍 Ubicación</a>
     </div>
 </section>
+
 <main>
-<section id="nosotros" data-module="presentacion"><h2 id="titulo-presentacion">¿Quiénes somos?</h2><p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p></section>
-<section id="perfil" data-module="perfil" hidden><h2 id="titulo-perfil">Perfil profesional</h2><div class="profile-card"><p id="descripcion-perfil"></p><div id="datos-perfil" class="profile-data"></div></div></section>
-<section id="beneficios" data-module="beneficios"><h2 id="titulo-beneficios">¿Por qué elegirnos?</h2><div id="lista-beneficios" class="benefits"></div></section>
-<section id="servicios" data-module="servicios"><h2 id="titulo-servicios">Nuestros servicios</h2><div id="lista-servicios" class="services"></div></section>
-<section id="proceso" data-module="proceso" hidden><h2 id="titulo-proceso">Cómo trabajamos</h2><div id="lista-proceso" class="services"></div></section>
-<section id="identidad" data-module="identidad" hidden><h2 id="titulo-identidad">Quiénes somos</h2><div id="contenido-identidad" class="profile-card"></div></section>
-<section id="productos" data-module="productos"><h2 id="titulo-productos">Productos destacados</h2><a id="catalogo-negocio" class="catalog-button" target="_blank" rel="noopener noreferrer">📲 Ver catálogo completo</a><div id="lista-productos" class="products"></div></section>
-<section id="menu" data-module="menu"><h2 id="titulo-menu">Nuestro menú</h2><div id="lista-menu" class="menu-grid"></div></section>
-<section id="galeria" data-module="galeria"><h2 id="titulo-galeria">Galería</h2><div id="lista-galeria" class="gallery"></div></section>
-<section id="ubicacion" data-module="ubicacion"><h2 id="titulo-ubicacion">__LOCATION_TITLE__</h2><div class="location"><p>📍 <span id="ciudad-negocio">__CITY__</span></p><p id="direccion-linea">__ADDRESS__</p><p>📞 <span id="telefono-negocio">__PHONE__</span></p><a id="maps-negocio" class="location-button" target="_blank" rel="noopener noreferrer">📍 Cómo llegar</a></div></section>
-<section id="contacto" class="contact" data-module="contacto"><h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2><p id="texto-contacto">Estamos disponibles para atenderte.</p><a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a><a id="email-negocio" class="contact-email" hidden></a><div class="social"><a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a><a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a></div></section>
+<section id="nosotros" data-module="presentacion"><div class="section-heading"><span class="section-kicker">Conoce el negocio</span><h2 id="titulo-presentacion">¿Quiénes somos?</h2><p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p></div></section>
+<section id="perfil" data-module="perfil" hidden><div class="section-heading"><span class="section-kicker">Información profesional</span><h2 id="titulo-perfil">Perfil profesional</h2></div><div class="profile-card"><p id="descripcion-perfil"></p><div id="datos-perfil" class="profile-data"></div></div></section>
+<section id="beneficios" data-module="beneficios"><div class="section-heading"><span class="section-kicker">Lo que nos diferencia</span><h2 id="titulo-beneficios">¿Por qué elegirnos?</h2></div><div id="lista-beneficios" class="benefits"></div></section>
+<section id="servicios" data-module="servicios"><div class="section-heading"><span class="section-kicker">Lo que ofrecemos</span><h2 id="titulo-servicios">Nuestros servicios</h2><p>Conoce las soluciones y servicios disponibles para nuestros clientes.</p></div><div id="lista-servicios" class="services"></div></section>
+<section id="proceso" data-module="proceso" hidden><div class="section-heading"><span class="section-kicker">Nuestra forma de trabajar</span><h2 id="titulo-proceso">Cómo trabajamos</h2></div><div id="lista-proceso" class="services"></div></section>
+<section id="identidad" data-module="identidad" hidden><div class="section-heading"><span class="section-kicker">Nuestra identidad</span><h2 id="titulo-identidad">Quiénes somos</h2></div><div id="contenido-identidad" class="profile-card"></div></section>
+<section id="productos" data-module="productos"><div class="section-heading"><span class="section-kicker">Productos</span><h2 id="titulo-productos">Productos destacados</h2></div><a id="catalogo-negocio" class="catalog-button" target="_blank" rel="noopener noreferrer">📲 Ver catálogo completo</a><div id="lista-productos" class="products"></div></section>
+<section id="menu" data-module="menu"><div class="section-heading"><span class="section-kicker">Nuestra propuesta</span><h2 id="titulo-menu">Nuestro menú</h2></div><div id="lista-menu" class="menu-grid"></div></section>
+<section id="galeria" data-module="galeria"><div class="section-heading"><span class="section-kicker">Conoce nuestro espacio</span><h2 id="titulo-galeria">Galería</h2></div><div id="lista-galeria" class="gallery"></div></section>
+<section id="ubicacion" data-module="ubicacion"><div class="section-heading"><span class="section-kicker">Encuéntranos</span><h2 id="titulo-ubicacion">__LOCATION_TITLE__</h2></div><div class="location"><p>📍 <span id="ciudad-negocio">__CITY__</span></p><p id="direccion-linea">__ADDRESS__</p><p>📞 <span id="telefono-negocio">__PHONE__</span></p><a id="maps-negocio" class="location-button" target="_blank" rel="noopener noreferrer">📍 Cómo llegar</a></div></section>
+<section id="contacto" class="contact" data-module="contacto"><div class="cta-panel"><span class="section-kicker">Estamos para ayudarte</span><h2 id="titulo-contacto">¿Tienes alguna pregunta?</h2><p id="texto-contacto">Estamos disponibles para atenderte.</p><a id="whatsapp-final" class="whatsapp" target="_blank" rel="noopener noreferrer">💬 Escríbenos por WhatsApp</a><div class="contact-actions-siden"><button id="guardar-contacto" type="button" class="contact-action-siden">📇 Guardar contacto</button><button id="compartir-negocio" type="button" class="contact-action-siden">↗ Compartir negocio</button></div><a id="email-negocio" class="contact-email" hidden></a><div class="social"><a id="facebook-negocio" target="_blank" rel="noopener noreferrer">Facebook</a><a id="instagram-negocio" target="_blank" rel="noopener noreferrer">Instagram</a></div></div></section>
 </main>
+
 <a id="whatsapp-flotante" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
-<footer>© <span id="anio-actual"></span> <span id="nombre-footer">__BUSINESS_NAME__</span> - Todos los derechos reservados</footer>
+<footer><div class="footer-inner"><div><strong id="footer-brand">__BUSINESS_NAME__</strong><p>Información, servicios y contacto en un solo lugar.</p></div><span>© <span id="anio-actual"></span> <span id="nombre-footer">__BUSINESS_NAME__</span> · Todos los derechos reservados</span></div></footer>
 <script src="js/script.js"></script>
 <script src="js/seo-local.js"></script>
 <script src="js/modules-v1.4.js"></script>
+<script>(function(){const button=document.getElementById("menu-button"),links=document.getElementById("nav-links");if(!button||!links)return;button.addEventListener("click",function(){const active=links.classList.toggle("active");button.setAttribute("aria-expanded",active?"true":"false")});links.addEventListener("click",function(event){if(event.target.closest("a")){links.classList.remove("active");button.setAttribute("aria-expanded","false")}})})();</script>
 </body>
 </html>
