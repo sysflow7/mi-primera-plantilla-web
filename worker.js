@@ -52,7 +52,31 @@ export default {
                 }
             }
         } else if (isWorkersPreview) {
-            instanceId = slugify(url.searchParams.get("site")) || "corporativo";
+            const requestedPreviewSite = slugify(url.searchParams.get("site"));
+            if (requestedPreviewSite) {
+                instanceId = requestedPreviewSite;
+            } else {
+                const previewHostLabel = hostParts[0] || "";
+                const workerSuffix = "-siden-corporativo";
+                const previewAlias = previewHostLabel.endsWith(workerSuffix)
+                    ? previewHostLabel.slice(0, -workerSuffix.length)
+                    : "";
+                const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
+                const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
+                instanceId = previewSlug;
+
+                if (previewSlug) {
+                    const respuestaRegistry = await loadAsset("/sites/registry.json");
+                    if (respuestaRegistry.ok) {
+                        try {
+                            const registry = await respuestaRegistry.json();
+                            instanceId = slugify(registry[previewSlug] || previewSlug);
+                        } catch {
+                            instanceId = previewSlug;
+                        }
+                    }
+                }
+            }
         } else if (env.SIDEN_REGISTRY) {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
