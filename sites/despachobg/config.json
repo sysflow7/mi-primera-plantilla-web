@@ -1,0 +1,97 @@
+{
+  "siden": {
+    "instanceId": "despachobg",
+    "template": "siden-template-v1.4",
+    "version": "1.4",
+    "baseDomain": "sidenred.com",
+    "architecture": "multisite",
+    "domainMode": "subdomain"
+  },
+  "activo": true,
+  "nombre": "Despacho Jurídico Benítez Gutiérrez",
+  "h1": "Despacho Jurídico Benítez Gutiérrez | Abogacía y Notariado en Perquín",
+  "slogan": "Abogacía y Notariado en Perquín, Morazán",
+  "descripcion": "Brindamos servicios de abogacía y notariado con atención profesional y cercana en Perquín, Morazán.",
+  "descripcionSEO": "Despacho Jurídico Benítez Gutiérrez, servicios de abogacía y notariado en Perquín, Morazán, El Salvador.",
+  "tipoNegocio": "abogado",
+  "etiquetaTipo": "Abogacía y Notariado",
+  "modoSitio": "single",
+  "modeloAtencion": "local",
+  "areasServicio": ["Perquín", "Morazán", "El Salvador"],
+  "heroImagen": "despachobg-hero.jpg",
+  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "proceso", "ubicacion", "contacto"],
+  "indexable": false,
+  "whatsapp": "50372334990",
+  "telefono": "+503 7233-4990",
+  "email": "edenilsonbenitez01@gmail.com",
+  "ciudad": "Perquín",
+  "pais": "El Salvador",
+  "direccionTexto": "Barrio El Centro, atrás de la Alcaldía Municipal, Perquín, Morazán, El Salvador",
+  "direccion": {
+    "calle": "Barrio El Centro, atrás de la Alcaldía Municipal",
+    "ciudad": "Perquín",
+    "departamento": "Morazán",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
+  "facebook": "",
+  "instagram": "",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Barrio%20El%20Centro%2C%20atr%C3%A1s%20de%20la%20Alcald%C3%ADa%20Municipal%2C%20Perqu%C3%ADn%2C%20Moraz%C3%A1n%2C%20El%20Salvador",
+  "catalogo": "",
+  "logo": "despachobg-logo.svg",
+  "imagenSocial": "despachobg-hero.jpg",
+  "horarios": [],
+  "rangoPrecios": "",
+  "galeriaAlt": [],
+  "etiquetas": {
+    "presentacion": "Sobre el despacho",
+    "presentacionMenu": "Nosotros",
+    "perfil": "Nuestro despacho",
+    "perfilMenu": "Perfil",
+    "beneficios": "¿Por qué elegirnos?",
+    "beneficiosMenu": "Ventajas",
+    "servicios": "Servicios jurídicos",
+    "serviciosMenu": "Servicios",
+    "proceso": "Nuestra forma de trabajar",
+    "procesoMenu": "Proceso",
+    "ubicacion": "Dónde encontrarnos",
+    "ubicacionMenu": "Ubicación",
+    "contacto": "Contáctanos",
+    "contactoMenu": "Contacto"
+  },
+  "textos": {
+    "contacto": "Estamos disponibles para atender sus consultas y orientarle sobre nuestros servicios jurídicos."
+  },
+  "paginas": [],
+  "servicios": [
+    {"nombre": "Servicios de abogacía", "descripcion": "Orientación y representación jurídica de acuerdo con las necesidades de cada cliente."},
+    {"nombre": "Servicios de notariado", "descripcion": "Atención de trámites y actos notariales con acompañamiento profesional."},
+    {"nombre": "Asesoría jurídica", "descripcion": "Análisis de situaciones legales y orientación sobre las alternativas disponibles."},
+    {"nombre": "Atención personalizada", "descripcion": "Atención directa para conocer su caso y brindarle una orientación clara."}
+  ],
+  "productos": [],
+  "menu": [],
+  "perfil": {
+    "descripcion": "Despacho Jurídico Benítez Gutiérrez — Abogacía y Notariado, ubicado en Perquín, Morazán, El Salvador.",
+    "datos": [
+      {"titulo": "Especialidad", "valor": "Abogacía y Notariado"},
+      {"titulo": "Ubicación", "valor": "Perquín, Morazán"},
+      {"titulo": "Atención", "valor": "Personalizada"}
+    ]
+  },
+  "galeria": [],
+  "beneficios": [
+    {"titulo": "Atención profesional", "descripcion": "Orientación jurídica con un trato serio, cercano y profesional."},
+    {"titulo": "Información clara", "descripcion": "Explicamos cada situación de forma comprensible para facilitar la toma de decisiones."},
+    {"titulo": "Atención personalizada", "descripcion": "Cada consulta es atendida considerando las circunstancias particulares del cliente."}
+  ],
+  "proceso": [
+    {"titulo": "Conocemos su caso", "descripcion": "Escuchamos su situación y necesidades."},
+    {"titulo": "Analizamos", "descripcion": "Revisamos la información y las alternativas jurídicas."},
+    {"titulo": "Orientamos", "descripcion": "Explicamos las opciones disponibles de manera clara."},
+    {"titulo": "Acompañamos", "descripcion": "Brindamos seguimiento según el servicio requerido."}
+  ],
+  "identidad": {}
+}
