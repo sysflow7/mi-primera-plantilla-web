@@ -29,13 +29,10 @@
   };
   const setupMedia=async()=>{
     const cfg=await getConfig(); if(!cfg) return;
-    /* Replace the business text in the top navigation with the business logo. */
     const navLogo=document.getElementById('nav-logo');
     if(navLogo&&cfg.logo){navLogo.innerHTML='';const img=document.createElement('img');img.src=asset(cfg,'images/'+cfg.logo);img.alt='Logo de '+(cfg.nombre||'negocio');navLogo.appendChild(img)}
-    /* Remove duplicate business logo/name from the hero copy. */
     const heroBrand=document.querySelector('.hero-brand');
     if(heroBrand) heroBrand.remove();
-    /* Service images are optional: when config.servicios include imagen, render them. */
     const services=document.getElementById('lista-servicios');
     if(services&&Array.isArray(cfg.servicios)){
       services.innerHTML='';
@@ -46,10 +43,10 @@
         const h=document.createElement('h3');h.textContent=s.nombre||'';const p=document.createElement('p');p.textContent=s.descripcion||'';content.append(h,p);card.appendChild(content);services.appendChild(card);
       });
     }
-    /* Click-to-enlarge for service/product/gallery/menu images. */
     document.querySelectorAll('#lista-servicios img.service-image,#lista-productos .product img,.gallery img,#lista-menu .menu-item img').forEach(img=>{
       if(img.dataset.sidenLightbox==='1') return;img.dataset.sidenLightbox='1';img.addEventListener('click',()=>openLightbox(img.src,img.alt));
     });
   };
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>{setupMenu();setupMedia()}); else {setupMenu();setupMedia()}
+  const start=()=>{setupMenu();window.addEventListener('load',()=>setTimeout(setupMedia,150),{once:true});setTimeout(setupMedia,900)};
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
 })();
