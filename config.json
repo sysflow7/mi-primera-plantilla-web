@@ -15,7 +15,7 @@
   "modoSitio": "single",
   "modeloAtencion": "areaServicio",
   "areasServicio": ["El Salvador"],
-  "heroImagen": "fondo-heroImagen.png",
+  "heroImagen": "Presenta01.png",
   "modulos": ["presentacion", "beneficios", "servicios", "proceso", "identidad", "contacto"],
   "indexable": true,
   "whatsapp": "50371887451",
