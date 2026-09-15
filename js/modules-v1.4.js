@@ -104,6 +104,16 @@
       @media(min-width:901px){
         body.siden-corporate-hero .hero-overlay{background:linear-gradient(90deg,rgba(3,28,92,.97) 0%,rgba(7,54,135,.92) 42%,rgba(25,99,205,.68) 67%,rgba(37,99,235,.20) 100%)!important}
       }
+      /* SIDeN CORPORATE VISUAL FIXES */
+      body.siden-corporate-hero .hero-brand{display:none!important}
+      body.siden-corporate-hero .siden-nav-logo-image{display:block!important;width:150px!important;height:44px!important;min-height:44px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;font-size:0!important;line-height:0!important}
+      body.siden-corporate-hero .siden-nav-logo-image img{display:none!important}
+      body.siden-corporate-hero .conversion-contact{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}
+      body.siden-corporate-hero .conversion-contact .cta-panel{margin-left:auto!important;margin-right:auto!important}
+      @media(max-width:700px){
+        body.siden-corporate-hero .siden-nav-logo-image{width:128px!important;height:40px!important;min-height:40px!important}
+        body.siden-corporate-hero .hero{background-color:#0b1220!important}
+      }
     `;
     document.head.appendChild(css);
 
@@ -172,7 +182,16 @@
     const start = async function () {
         setupMenu();
         const cfg = await getConfig();
-        if (cfg?.nombre === "SIDeN") document.body.classList.add("siden-corporate-hero");
+        if (cfg?.nombre === "SIDeN") {
+            document.body.classList.add("siden-corporate-hero");
+            const navLogo = document.getElementById("nav-logo");
+            if (navLogo && cfg.logo) {
+                navLogo.textContent = "";
+                navLogo.classList.add("siden-nav-logo-image");
+                navLogo.style.backgroundImage = `url("${asset(cfg, "images/" + cfg.logo)}")`;
+                navLogo.setAttribute("aria-label", "SIDeN");
+            }
+        }
         await enhanceServices();
         setTimeout(enhanceServices, 900);
         setTimeout(bindImages, 1400);
