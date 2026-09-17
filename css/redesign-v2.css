@@ -33,3 +33,10 @@
 .problem-grid article:nth-child(1)::before{background-image:url('../images/Lupa.svg')}
 .problem-grid article:nth-child(2)::before{background-image:url('../images/seguridad.svg')}
 .problem-grid article:nth-child(3)::before{background-image:url('../images/Ubicacion.svg')}
+
+/* SIDeN corporativo — prueba visual de iconos de la sección "La solución SIDeN". 76px actuales -> 152px. */
+.solution-grid article::before{width:152px;height:152px;margin:0 auto 22px;background-color:transparent;background-repeat:no-repeat;background-position:center;background-size:contain;box-shadow:none;border-radius:0;color:transparent;font-size:0;content:"";display:flex;align-items:center;justify-content:center}
+.solution-grid article:nth-child(1)::before{background-image:url('../images/pagina.svg')}
+.solution-grid article:nth-child(2)::before{background-image:url('../images/seo.svg')}
+.solution-grid article:nth-child(3)::before{background-image:url('../images/googlemaps.svg')}
+.solution-grid article:nth-child(4)::before{background-image:url('../images/WhatsApp.svg')}
