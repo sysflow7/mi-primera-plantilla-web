@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <style>
+      .window-bg { fill: #F0F7FF; stroke: #1E3A8A; stroke-width: 3; rx: 8; }
+      .window-header { fill: #2563EB; }
+      .search-bar { fill: #DBEAFE; rx: 4; }
+      .serp-item { fill: #93C5FD; opacity: 0.6; }
+      .serp-top { fill: #1D4ED8; opacity: 0.2; animation: pulseTop 2s infinite ease-in-out; }
+      .badge-1 { fill: #2563EB; animation: floatBadge 2s infinite ease-in-out; }
+      .badge-text { fill: #FFFFFF; font-family: system-ui, sans-serif; font-weight: bold; font-size: 8px; }
+      .magnifier { stroke: #1E40AF; stroke-width: 3; fill: none; }
+      .glass { fill: #EFF6FF; fill-opacity: 0.7; stroke: #2563EB; stroke-width: 2.5; }
+
+      @keyframes pulseTop {
+        0%, 100% { opacity: 0.2; transform: scaleX(1); }
+        50% { opacity: 0.5; fill: #3B82F6; }
+      }
+      @keyframes floatBadge {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-3px); }
+      }
+    </style>
+  </defs>
+
+  <!-- Ventana de Navegador -->
+  <rect x="10" y="12" width="80" height="76" class="window-bg" />
+  <path d="M 10 20 A 8 8 0 0 1 18 12 L 82 12 A 8 8 0 0 1 90 20 L 90 26 L 10 26 Z" class="window-header" />
+  
+  <!-- Barra de Búsqueda -->
+  <rect x="18" y="32" width="64" height="10" class="search-bar" />
+  <circle cx="23" cy="37" r="2" fill="#3B82F6" />
+  <line x1="28" y1="37" x2="55" y2="37" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Resultados de Búsqueda (SERP) -->
+  <!-- Resultado #1 destacado -->
+  <rect x="18" y="47" width="64" height="11" rx="3" class="serp-top" />
+  <line x1="22" y1="51" x2="50" y2="51" stroke="#1E40AF" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="22" y1="55" x2="65" y2="55" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round" />
+
+  <!-- Resultados inferiores -->
+  <rect x="18" y="62" width="48" height="6" rx="2" class="serp-item" />
+  <rect x="18" y="72" width="56" height="6" rx="2" class="serp-item" />
+
+  <!-- Insignia #1 Animada -->
+  <g class="badge-1">
+    <circle cx="74" cy="52.5" r="7" />
+    <text x="74" y="55" text-anchor="middle" class="badge-text">#1</text>
+  </g>
+
+  <!-- Lupa de Inspección SEO -->
+  <circle cx="62" cy="37" r="5" class="glass" />
+  <line x1="66" y1="41" x2="72" y2="47" class="magnifier" stroke-linecap="round" />
+</svg>
