@@ -1,0 +1,7 @@
+/* SIDeN HERO — velocidad de transición */
+/* Ciclo más corto para que la salida y reaparición se perciban ágiles. */
+.hero-copy{animation-duration:6s!important}
+.hero-visual{animation-duration:6s!important}
+.browser-window{animation-duration:6s!important}
+.mock-photo{animation-duration:6s!important}
+.hero-visual::before,.hero-visual::after{animation-duration:6s!important}

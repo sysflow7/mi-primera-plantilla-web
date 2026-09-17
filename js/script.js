@@ -6,10 +6,22 @@
     "use strict";
 
     try {
-        const respuesta = await fetch("config.json", { cache: "no-cache" });
-        if (!respuesta.ok) throw new Error("No se pudo cargar config.json");
+        const runtime = window.__SIDEN_CONFIG__;
+        const respuesta = runtime && runtime.siden
+            ? null
+            : await fetch("config.json", { cache: "no-cache" });
+        if (respuesta && !respuesta.ok) throw new Error("No se pudo cargar config.json");
 
-        const negocioBase = await respuesta.json();
+        const negocioBase = runtime && runtime.siden
+            ? runtime
+            : await respuesta.json();
+        const siden = negocioBase.siden || {};
+        const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
+        const assetUrl = function (archivo) {
+            const limpio = String(archivo || "").replace(/^\/+/, "");
+            return new URL((assetPrefix ? assetPrefix + "/" : "/") + limpio, window.location.origin).href;
+        };
+
         const tipo = String(negocioBase.tipoNegocio || "comercio").toLowerCase();
         const defaults = {
             comercio: ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
@@ -90,7 +102,7 @@
 
         const logo = document.getElementById("logo-negocio");
         if (logo && negocioBase.logo) {
-            logo.src = "images/" + negocioBase.logo;
+            logo.src = assetUrl("images/" + negocioBase.logo);
             logo.alt = "Logo de " + negocioBase.nombre;
         }
 
@@ -105,9 +117,10 @@
                 hero.hidden = true;
                 document.body.classList.add("multi-inner-page");
             } else if (nombreHero) {
-                const rutaHero = "images/" + nombreHero;
+                const rutaHero = assetUrl("images/" + nombreHero);
                 const imagenHero = new Image();
                 imagenHero.onload = function () {
+                    hero.style.setProperty("--hero-image", `url("${rutaHero}")`);
                     hero.style.backgroundImage = `url("${rutaHero}")`;
                     hero.style.backgroundSize = "cover";
                     hero.style.backgroundPosition = "center";
@@ -182,7 +195,8 @@
         }
 
         // CONTACTO Y ENLACES
-        const enlaceWhatsApp = "https://wa.me/" + negocioBase.whatsapp;
+        const whatsapp = String(negocioBase.whatsapp || "").replace(/\D/g, "");
+        const enlaceWhatsApp = whatsapp ? "https://wa.me/" + whatsapp : "#";
         ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante", "pagina-whatsapp"].forEach(function (id) {
             const elemento = document.getElementById(id);
             if (elemento) elemento.href = enlaceWhatsApp;
@@ -235,7 +249,8 @@
             negocio.productos.forEach(function (producto) {
                 const mensaje = "Hola, estoy interesado en " + String(producto.nombre || "") + (producto.precio ? " de " + String(producto.precio) : "");
                 const enlaceProducto = enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje);
-                addCard(listaProductos, "product", `<img src="images/${escapeHtml(producto.imagen)}" alt="${escapeHtml(producto.nombre || "Producto")} - ${escapeHtml(negocioBase.nombre)}" loading="lazy"><div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
+                const imagen = producto.imagen ? assetUrl("images/" + producto.imagen) : "";
+                addCard(listaProductos, "product", `<img src="${escapeHtml(imagen)}" alt="${escapeHtml(producto.nombre || "Producto")} - ${escapeHtml(negocioBase.nombre)}" loading="lazy"><div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
             });
         }
 
@@ -244,7 +259,8 @@
         if (listaMenu && Array.isArray(negocio.menu)) {
             listaMenu.innerHTML = "";
             negocio.menu.forEach(function (item) {
-                addCard(listaMenu, "menu-item", `${item.imagen ? `<img src="images/${escapeHtml(item.imagen)}" alt="${escapeHtml(item.nombre || "Plato")}" loading="lazy">` : ""}<div><small class="menu-category">${escapeHtml(item.categoria)}</small><h3>${escapeHtml(item.nombre)}</h3><p>${escapeHtml(item.descripcion)}</p>${item.precio ? `<strong>${escapeHtml(item.precio)}</strong>` : ""}</div>`);
+                const imagen = item.imagen ? assetUrl("images/" + item.imagen) : "";
+                addCard(listaMenu, "menu-item", `${imagen ? `<img src="${escapeHtml(imagen)}" alt="${escapeHtml(item.nombre || "Plato")}" loading="lazy">` : ""}<div><small class="menu-category">${escapeHtml(item.categoria)}</small><h3>${escapeHtml(item.nombre)}</h3><p>${escapeHtml(item.descripcion)}</p>${item.precio ? `<strong>${escapeHtml(item.precio)}</strong>` : ""}</div>`);
             });
         }
 
@@ -263,7 +279,7 @@
             listaGaleria.innerHTML = "";
             negocio.galeria.forEach(function (imagen, indice) {
                 const foto = document.createElement("img");
-                foto.src = "images/" + imagen;
+                foto.src = assetUrl("images/" + imagen);
                 foto.alt = negocioBase.nombre + " - Foto " + (indice + 1);
                 foto.loading = "lazy";
                 listaGaleria.appendChild(foto);
@@ -277,9 +293,9 @@
                 "VERSION:3.0",
                 "FN:" + negocioBase.nombre,
                 "ORG:" + negocioBase.nombre,
-                "TEL;TYPE=CELL:" + negocioBase.whatsapp,
-                "TEL;TYPE=WORK:" + negocioBase.telefono,
-                "ADR;TYPE=WORK:;;" + negocioBase.ciudad + ";;;",
+                whatsapp ? "TEL;TYPE=CELL:" + whatsapp : "",
+                negocioBase.telefono ? "TEL;TYPE=WORK:" + negocioBase.telefono : "",
+                "ADR;TYPE=WORK:;;" + (negocioBase.ciudad || "") + ";;;",
                 email ? "EMAIL;TYPE=INTERNET:" + email : "",
                 "URL:" + window.location.href,
                 "END:VCARD"
@@ -288,7 +304,7 @@
             const url = URL.createObjectURL(archivo);
             const enlace = document.createElement("a");
             enlace.href = url;
-            enlace.download = negocioBase.nombre + ".vcf";
+            enlace.download = (negocioBase.nombre || "contacto") + ".vcf";
             document.body.appendChild(enlace);
             enlace.click();
             document.body.removeChild(enlace);
@@ -296,12 +312,12 @@
         };
 
         const compartirNegocio = async function () {
-            const datosCompartir = { title: negocioBase.nombre, text: "Te comparto " + negocioBase.nombre + ".", url: window.location.href };
+            const datosCompartir = { title: negocioBase.nombre || "", text: "Te comparto " + (negocioBase.nombre || "este negocio") + ".", url: window.location.href };
             if (navigator.share) {
-                try { await navigator.share(datosCompartir); } catch (error) { /* cancelado */ }
+                try { await navigator.share(datosCompartir); } catch (error) { if (error?.name === "AbortError") return; }
             } else {
-                try { await navigator.clipboard.writeText("Te comparto " + negocioBase.nombre + ": " + window.location.href); alert("El enlace del negocio fue copiado."); }
-                catch (error) { alert("Copia este enlace para compartir el negocio:\n\n" + window.location.href); }
+                try { await navigator.clipboard.writeText(window.location.href); alert("El enlace del negocio fue copiado."); }
+                catch (error) { window.prompt("Copia este enlace:", window.location.href); }
             }
         };
 

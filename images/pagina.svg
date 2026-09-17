@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <!-- Estilos de animación -->
+    <style>
+      .bg-window { fill: #F4F8FA; stroke: #1E3A8A; stroke-width: 3; rx: 8; }
+      .header { fill: #2563EB; }
+      .dot { fill: #FFFFFF; opacity: 0.8; }
+      .address-bar { fill: #DBEAFE; rx: 3; }
+      .address-line {
+        stroke: #3B82F6;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 20;
+        stroke-dashoffset: 20;
+        animation: loadingBar 2.5s infinite ease-in-out;
+      }
+      .content-block {
+        fill: #93C5FD;
+        opacity: 0;
+        animation: fadeIn 2.5s infinite ease-in-out;
+      }
+      .content-delay { animation-delay: 0.4s; }
+
+      @keyframes loadingBar {
+        0% { stroke-dashoffset: 20; }
+        50%, 100% { stroke-dashoffset: 0; }
+      }
+      @keyframes fadeIn {
+        0%, 20% { opacity: 0; transform: translateY(2px); }
+        50%, 90% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; }
+      }
+    </style>
+  </defs>
+
+  <!-- Ventana principal -->
+  <rect x="10" y="15" width="80" height="70" class="bg-window" />
+  
+  <!-- Encabezado de la ventana -->
+  <path d="M 10 23 A 8 8 0 0 1 18 15 L 82 15 A 8 8 0 0 1 90 23 L 90 30 L 10 30 Z" class="header" />
+  <circle cx="18" cy="22.5" r="2" class="dot" />
+  <circle cx="24" cy="22.5" r="2" class="dot" />
+  <circle cx="30" cy="22.5" r="2" class="dot" />
+  
+  <!-- Barra de direcciones -->
+  <rect x="38" y="19" width="44" height="7" class="address-bar" />
+  <line x1="41" y1="22.5" x2="61" y2="22.5" class="address-line" />
+
+  <!-- Bloques de contenido -->
+  <rect x="18" y="38" width="28" height="20" rx="3" class="content-block" />
+  <rect x="50" y="38" width="32" height="6" rx="2" class="content-block content-delay" />
+  <rect x="50" y="48" width="24" height="5" rx="2" class="content-block content-delay" />
+  <rect x="18" y="64" width="64" height="12" rx="3" class="content-block content-delay" />
+</svg>

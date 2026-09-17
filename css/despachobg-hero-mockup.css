@@ -1,0 +1,10 @@
+/* HOTFIX EXCLUSIVO: despachobg
+   Muestra una imagen real en el mockup visual del Hero.
+   No modifica la plantilla maestra.
+*/
+.mock-photo{
+  background-image:url("/sites/despachobg/images/despachobg-hero.jpg") !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+}

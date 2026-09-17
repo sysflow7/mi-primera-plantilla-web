@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <style>
+      .map-bg { fill: #EFF6FF; stroke: #BFDBFE; stroke-width: 2; rx: 12; }
+      .map-road { stroke: #93C5FD; stroke-width: 4; fill: none; stroke-linecap: round; }
+      .route-path {
+        stroke: #2563EB;
+        stroke-width: 3;
+        fill: none;
+        stroke-linecap: round;
+        stroke-dasharray: 40;
+        stroke-dashoffset: 40;
+        animation: drawRoute 2.5s infinite ease-in-out;
+      }
+      .pin-group {
+        animation: pinBounce 2s infinite ease-in-out;
+        transform-origin: 50px 58px;
+      }
+      .pin-shadow {
+        fill: #1E3A8A;
+        opacity: 0.2;
+        animation: shadowPulse 2s infinite ease-in-out;
+        transform-origin: 50px 65px;
+      }
+      .pin-body { fill: #1D4ED8; stroke: #FFFFFF; stroke-width: 2; }
+      .pin-inner { fill: #FFFFFF; }
+
+      @keyframes pinBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-7px); }
+      }
+      @keyframes shadowPulse {
+        0%, 100% { transform: scale(1); opacity: 0.2; }
+        50% { transform: scale(0.6); opacity: 0.08; }
+      }
+      @keyframes drawRoute {
+        0% { stroke-dashoffset: 40; }
+        50%, 90% { stroke-dashoffset: 0; }
+        100% { stroke-dashoffset: 40; }
+      }
+    </style>
+  </defs>
+
+  <!-- Tarjeta de Mapa Base -->
+  <rect x="12" y="12" width="76" height="76" class="map-bg" />
+  
+  <!-- Rutas / Calles del Mapa -->
+  <path d="M 20 35 L 80 35" class="map-road" />
+  <path d="M 35 20 L 35 80" class="map-road" />
+  <path d="M 35 65 L 80 65" class="map-road" />
+  
+  <!-- Trazado de ruta activa -->
+  <path d="M 35 35 L 50 35 L 50 58" class="route-path" />
+
+  <!-- Sombra del Pin -->
+  <ellipse cx="50" cy="65" rx="9" ry="3" class="pin-shadow" />
+
+  <!-- Pin de Google Maps Animado -->
+  <g class="pin-group">
+    <path d="M 50 24 C 42 24 36 30 36 38 C 36 48 50 60 50 60 C 50 60 64 48 64 38 C 64 30 58 24 50 24 Z" class="pin-body" />
+    <circle cx="50" cy="36" r="4.5" class="pin-inner" />
+  </g>
+</svg>
