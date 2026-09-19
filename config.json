@@ -14,9 +14,18 @@
   "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
   "modeloAtencion": "areaServicio",
-  "areasServicio": ["El Salvador"],
+  "areasServicio": [
+    "El Salvador"
+  ],
   "heroImagen": "Presenta01.png",
-  "modulos": ["presentacion", "beneficios", "servicios", "proceso", "identidad", "contacto"],
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "proceso",
+    "identidad",
+    "contacto"
+  ],
   "indexable": true,
   "whatsapp": "50371887451",
   "telefono": "503 7188 7451",
@@ -24,7 +33,15 @@
   "ciudad": "San Salvador",
   "pais": "El Salvador",
   "direccionTexto": "",
-  "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
+  "direccion": {
+    "calle": "",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
   "facebook": "",
   "instagram": "",
   "maps": "",
@@ -35,33 +52,69 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "cintaInformativa": {
-    "mostrar": false,
-    "items": ["Responsabilidad", "Respeto", "Lealtad"],
-    "separador": "✦",
+    "mostrar": true,
+    "items": [
+      "Perfil de Negocios Google - Paginas Web - Automatizaciones"
+    ],
+    "separador": " ",
     "velocidad": 28
   },
-  "etiquetas": {"ubicacion": "Área de servicio"},
-  "textos": {"contacto": "Conoce cómo SIDeN puede ayudarte a construir una presencia digital profesional, clara y fácil de contactar. Si después necesitas trabajar tu presencia local, podemos ampliar la solución."},
+  "etiquetas": {
+    "ubicacion": "Área de servicio"
+  },
+  "textos": {
+    "contacto": "Conoce cómo SIDeN puede ayudarte a construir una presencia digital profesional, clara y fácil de contactar. Si después necesitas trabajar tu presencia local, podemos ampliar la solución."
+  },
   "paginas": [],
   "servicios": [
-    {"nombre": "Páginas web para negocios", "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes."},
-    {"nombre": "SEO local", "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales."},
-    {"nombre": "Perfil de Empresa de Google", "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado."}
+    {
+      "nombre": "Páginas web para negocios",
+      "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes."
+    },
+    {
+      "nombre": "SEO local",
+      "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales."
+    },
+    {
+      "nombre": "Perfil de Empresa de Google",
+      "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado."
+    }
   ],
   "productos": [],
   "menu": [],
   "perfil": {},
   "galeria": [],
   "beneficios": [
-    {"titulo": "Más visibilidad", "descripcion": "Ayudamos a que las personas puedan encontrar información clara sobre tu negocio en internet."},
-    {"titulo": "Más confianza", "descripcion": "Presentamos tu negocio de forma profesional y coherente en sus principales puntos de contacto digitales."},
-    {"titulo": "Más oportunidades", "descripcion": "Facilitamos que una persona interesada pueda pasar de conocer tu negocio a contactarlo."}
+    {
+      "titulo": "Más visibilidad",
+      "descripcion": "Ayudamos a que las personas puedan encontrar información clara sobre tu negocio en internet."
+    },
+    {
+      "titulo": "Más confianza",
+      "descripcion": "Presentamos tu negocio de forma profesional y coherente en sus principales puntos de contacto digitales."
+    },
+    {
+      "titulo": "Más oportunidades",
+      "descripcion": "Facilitamos que una persona interesada pueda pasar de conocer tu negocio a contactarlo."
+    }
   ],
   "proceso": [
-    {"titulo": "1. Conocemos tu negocio", "descripcion": "Entendemos qué haces, a quién atiendes y qué información necesitan encontrar tus clientes."},
-    {"titulo": "2. Definimos tu presencia", "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."},
-    {"titulo": "3. Construimos y optimizamos", "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia digital."},
-    {"titulo": "4. Conectamos y mejoramos", "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."}
+    {
+      "titulo": "1. Conocemos tu negocio",
+      "descripcion": "Entendemos qué haces, a quién atiendes y qué información necesitan encontrar tus clientes."
+    },
+    {
+      "titulo": "2. Definimos tu presencia",
+      "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."
+    },
+    {
+      "titulo": "3. Construimos y optimizamos",
+      "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia digital."
+    },
+    {
+      "titulo": "4. Conectamos y mejoramos",
+      "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."
+    }
   ],
   "identidad": {
     "descripcion": "SIDeN es un proyecto independiente de servicios digitales, desarrollado para ayudar a pequeños negocios a construir una presencia digital profesional y conectada.",
