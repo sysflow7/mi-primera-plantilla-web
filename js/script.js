@@ -86,7 +86,6 @@
         };
 
         // IDENTIDAD
-        setText("nav-logo", negocioBase.nombre);
         setText("nombre-negocio", negocioBase.nombre);
         setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
         setText("tipo-negocio", negocioBase.etiquetaTipo || "");
@@ -98,19 +97,87 @@
         setText("direccion-linea", negocioBase.direccionTexto || "");
 
         const navLogo = document.getElementById("nav-logo");
+        const navLogoImage = document.getElementById("nav-logo-image");
+        const navLogoText = document.getElementById("nav-logo-text");
         if (navLogo) navLogo.href = esMulti ? "/" : "#inicio";
-
-        const logo = document.getElementById("logo-negocio");
-        if (logo && negocioBase.logo) {
-            logo.src = assetUrl("images/" + negocioBase.logo);
-            logo.alt = "Logo de " + negocioBase.nombre;
+        if (navLogoImage && negocioBase.logo) {
+            navLogoImage.src = assetUrl("images/" + negocioBase.logo);
+            navLogoImage.alt = "Logo de " + negocioBase.nombre;
+            navLogoImage.hidden = false;
+            if (navLogoText) navLogoText.hidden = true;
+        } else if (navLogoText) {
+            navLogoText.textContent = negocioBase.nombre || "";
+            navLogoText.hidden = false;
+            if (navLogoImage) navLogoImage.hidden = true;
         }
 
         // HERO / CABECERA INTERNA
         const hero = document.getElementById("inicio");
-        const paginaCabecera = document.getElementById("pagina-cabecera");
+        const heroVisual = document.getElementById("hero-visual");
+        const heroMockupImage = document.getElementById("hero-mockup-image");
+        const heroValueStrip = document.getElementById("hero-value-strip");
+        const heroConfig = negocio.hero || {};
+        const mockupConfig = heroConfig.mockup || negocio.mockup || {};
+        const mockupImagen = String(mockupConfig.imagen || negocio.mockupImagen || "").trim();
+        const mockupEnabled = mockupConfig.enabled === true && !!mockupImagen;
+        const mostrarBotones = heroConfig.mostrarBotones === true;
+        const mostrarBeneficios = heroConfig.mostrarBeneficios === true;
+        const mostrarFranja = heroConfig.mostrarFranja === true;
         const nombreHero = negocio.heroImagen || negocioBase.heroImagen;
         const esPaginaInterna = esMulti && rutaActual !== "/" && !!paginaActual;
+
+        if (hero) {
+            hero.classList.toggle("hero-show-actions", mostrarBotones);
+            hero.classList.toggle("hero-show-trust", mostrarBeneficios);
+            hero.classList.toggle("hero-show-value-strip", mostrarFranja);
+            hero.classList.toggle("hero-has-mockup", mockupEnabled);
+            hero.classList.toggle("hero-no-mockup", !mockupEnabled);
+
+            if (heroVisual) {
+                heroVisual.hidden = !mockupEnabled;
+            }
+            if (heroMockupImage) {
+                if (mockupEnabled) {
+                    const rutaMockup = assetUrl("images/" + mockupImagen);
+                    heroMockupImage.src = rutaMockup;
+                    heroMockupImage.alt = "Vista previa del sitio web de " + negocioBase.nombre;
+                    heroMockupImage.hidden = false;
+                    heroMockupImage.onerror = function () {
+                        console.error("SIDEN: no se pudo cargar el mockup:", rutaMockup);
+                        heroMockupImage.hidden = true;
+                        if (heroVisual) heroVisual.hidden = true;
+                        hero.classList.remove("hero-has-mockup");
+                        hero.classList.add("hero-no-mockup");
+                    };
+                } else {
+                    heroMockupImage.removeAttribute("src");
+                    heroMockupImage.hidden = true;
+                }
+            }
+            if (heroValueStrip) {
+                heroValueStrip.hidden = !mostrarFranja;
+            }
+
+            if (esPaginaInterna) {
+                hero.hidden = true;
+                document.body.classList.add("multi-inner-page");
+            } else if (nombreHero) {
+                const rutaHero = assetUrl("images/" + nombreHero);
+                const imagenHero = new Image();
+                imagenHero.onload = function () {
+                    hero.style.setProperty("--hero-image", `url("${rutaHero}")`);
+                    hero.style.backgroundImage = `url("${rutaHero}")`;
+                    hero.style.backgroundSize = "cover";
+                    hero.style.backgroundPosition = "center";
+                    hero.classList.add("hero-has-image");
+                };
+                imagenHero.onerror = function () {
+                    console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
+                    hero.classList.remove("hero-has-image");
+                };
+                imagenHero.src = rutaHero;
+            }
+        }
 
         if (hero) {
             if (esPaginaInterna) {
