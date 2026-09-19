@@ -219,7 +219,43 @@
         const instagram = document.getElementById("instagram-negocio");
         if (instagram) { instagram.href = negocioBase.instagram || "#"; instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http")); }
         const maps = document.getElementById("maps-negocio");
-        if (maps) { maps.href = negocioBase.maps || "#"; maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
+        if (maps) {
+            const mapsUrl = String(negocioBase.maps || "").trim();
+            maps.href = mapsUrl || "#";
+            maps.hidden = !(mapsUrl && /^https?:\\/\\//i.test(mapsUrl));
+        }
+
+        // UBICACIÓN / GOOGLE MAPS EMBED
+        const mapaWrap = document.getElementById("mapa-google");
+        const mapaIframe = document.getElementById("mapa-google-iframe");
+        const mapEmbedUrl = String(negocioBase.mapEmbedUrl || "").trim();
+        if (mapaWrap && mapaIframe) {
+            if (mapEmbedUrl && /^https:\\/\\/([a-z0-9-]+\\.)?google\\.com\\/maps\\/embed(?:[/?]|$)/i.test(mapEmbedUrl)) {
+                mapaIframe.src = mapEmbedUrl;
+                mapaWrap.hidden = false;
+            } else {
+                mapaIframe.removeAttribute("src");
+                mapaWrap.hidden = true;
+            }
+        }
+        const horarioUbicacion = document.getElementById("horario-ubicacion");
+        if (horarioUbicacion) {
+            const horarios = Array.isArray(negocioBase.horarios) ? negocioBase.horarios : [];
+            if (horarios.length) {
+                const dias = {Monday:"Lunes",Tuesday:"Martes",Wednesday:"Miércoles",Thursday:"Jueves",Friday:"Viernes",Saturday:"Sábado",Sunday:"Domingo"};
+                const bloques = horarios.map(function(h) {
+                    const nombres = Array.isArray(h.dias) ? h.dias.map(function(d){ return dias[d] || d; }).join(", ") : "";
+                    return [nombres, h.abre && h.cierra ? h.abre + "–" + h.cierra : ""].filter(Boolean).join(": ");
+                }).filter(Boolean);
+                horarioUbicacion.textContent = bloques.join(" · ");
+                horarioUbicacion.hidden = !bloques.length;
+            } else {
+                horarioUbicacion.textContent = "";
+                horarioUbicacion.hidden = true;
+            }
+        }
+        const telefonoUbicacion = document.getElementById("telefono-ubicacion");
+        if (telefonoUbicacion) telefonoUbicacion.hidden = !String(negocioBase.telefono || "").trim();
         const paginaUbicacion = document.getElementById("pagina-ubicacion");
         if (paginaUbicacion) { paginaUbicacion.href = negocioBase.maps || "#"; paginaUbicacion.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
         const catalogo = document.getElementById("catalogo-negocio");
