@@ -34,6 +34,12 @@
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
+  "cintaInformativa": {
+    "mostrar": false,
+    "items": ["Responsabilidad", "Respeto", "Lealtad"],
+    "separador": "✦",
+    "velocidad": 28
+  },
   "etiquetas": {"ubicacion": "Área de servicio"},
   "textos": {"contacto": "Conoce cómo SIDeN puede ayudarte a construir una presencia digital profesional, clara y fácil de contactar. Si después necesitas trabajar tu presencia local, podemos ampliar la solución."},
   "paginas": [],
