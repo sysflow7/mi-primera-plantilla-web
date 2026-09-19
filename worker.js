@@ -63,9 +63,15 @@ export default {
                     : "";
                 const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
                 const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
-                instanceId = previewSlug;
+                const corporatePreviewAliases = [
+                    "siden-template-v1.4",
+                    "siden-template-v1-4",
+                    "siden-corporativo-v1.3",
+                    "siden-corporativo-v1-3"
+                ];
+                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
-                if (previewSlug) {
+                if (previewSlug && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {
@@ -77,6 +83,7 @@ export default {
                     }
                 }
             }
+        } else if (env.SIDEN_REGISTRY)            }
         } else if (env.SIDEN_REGISTRY) {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
