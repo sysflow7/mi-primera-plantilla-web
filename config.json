@@ -37,6 +37,12 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {},
+  "cintaInformativa": {
+    "mostrar": false,
+    "items": ["Responsabilidad", "Respeto", "Lealtad"],
+    "separador": "✦",
+    "velocidad": 28
+  },
   "textos": {"contacto": "Estamos disponibles para atenderte."},
   "paginas": [],
   "servicios": [],
