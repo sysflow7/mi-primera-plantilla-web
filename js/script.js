@@ -96,6 +96,7 @@
         setText("telefono-negocio", negocioBase.telefono);
         setText("ciudad-negocio", negocioBase.ciudad);
         setText("direccion-linea", negocioBase.direccionTexto || "");
+        setText("texto-ubicacion", texto.ubicacion || "Encuentra nuestro establecimiento y consulta cómo llegar.");
 
         const navLogo = document.getElementById("nav-logo");
         if (navLogo) navLogo.href = esMulti ? "/" : "#inicio";
@@ -230,7 +231,7 @@
         const mapaIframe = document.getElementById("mapa-google-iframe");
         const mapEmbedUrl = String(negocioBase.mapEmbedUrl || "").trim();
         if (mapaWrap && mapaIframe) {
-            if (mapEmbedUrl && /^https:\/\/([a-z0-9-]+\.)?google\.com\/maps\/embed(?:[/?]|$)/i.test(mapEmbedUrl)) {
+            if (mapEmbedUrl && /^https:\/\/([a-z0-9-]+\.)?google\.com\/maps\/(?:embed(?:[/?]|$)|\?q=.+&output=embed(?:&.*)?$)/i.test(mapEmbedUrl)) {
                 mapaIframe.src = mapEmbedUrl;
                 mapaWrap.hidden = false;
             } else {
