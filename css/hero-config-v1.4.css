@@ -1,0 +1,38 @@
+/* SIDeN TEMPLATE v1.4 — configurable header and hero presentation
+   Changes:
+   - Header logo is a configurable image, approximately 2x the previous size.
+   - Hero mockup is a complete configurable image.
+   - Mockup can be disabled without leaving an empty column.
+   - Client sites hide corporate-only Hero actions, trust row and value strip by default.
+*/
+.nav-container{min-height:80px;align-items:center}
+.nav-logo{display:flex;align-items:center;justify-content:flex-start;height:72px;min-width:72px;text-decoration:none}
+.nav-logo img{display:block!important;height:72px!important;width:auto!important;max-width:190px!important;max-height:72px!important;object-fit:contain}
+.nav-logo span{font-size:19px;color:var(--navy);font-weight:800}
+
+.hero-actions,.hero-trust,#hero-value-strip{display:none}
+.hero.hero-show-actions .hero-actions{display:flex}
+.hero.hero-show-trust .hero-trust{display:flex}
+#hero-value-strip.hero-show-value-strip{display:flex}
+.hero-show-value-strip #hero-value-strip{display:flex}
+
+.hero-no-mockup .hero-content{grid-template-columns:minmax(0,1fr)}
+.hero-no-mockup .hero-copy{max-width:820px}
+.hero-no-mockup .hero-visual{display:none!important}
+
+.hero-visual{min-height:0!important}
+.hero-mockup-image{display:block;width:min(620px,100%);height:auto;max-height:470px;object-fit:contain;border-radius:18px;box-shadow:0 28px 70px rgba(0,0,0,.35)}
+.hero-visual::before,.hero-visual::after{display:none!important}
+.browser-window,.float-card{display:none!important}
+
+@media(max-width:900px){
+  .nav-container{min-height:72px}
+  .nav-logo{height:62px}
+  .nav-logo img{height:62px!important;max-height:62px!important;max-width:170px!important}
+  .hero-has-mockup .hero-visual{min-height:0}
+  .hero-mockup-image{max-height:400px}
+}
+@media(max-width:700px){
+  .nav-logo{height:58px}
+  .nav-logo img{height:58px!important;max-height:58px!important;max-width:150px!important}
+}
