@@ -149,5 +149,5 @@
     }
   ],
   "identidad": {},
-  "mapEmbedUrl": "https://maps.google.com/maps?ll=13.95847,-88.16177&z=17&t=m&hl=es&output=embed"
+  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-88.1645%2C13.9568%2C-88.1590%2C13.9602&layer=mapnik&marker=13.95847%2C-88.16177"
 }
