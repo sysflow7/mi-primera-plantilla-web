@@ -248,3 +248,22 @@ footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13p
     .footer-inner { flex-direction: column; align-items: flex-start; }
     .whatsapp-float { width: 54px; height: 54px; right: 15px; bottom: 15px; }
 }
+
+
+/* SIDeN LOCATION — Google Maps opcional */
+.location-section-heading{max-width:780px;margin:0 auto 30px;text-align:center}
+.location-section-heading h2{margin-bottom:12px}
+.location-section-heading p{color:var(--muted);font-size:15px}
+.location{max-width:980px!important;padding:0!important;display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:0;overflow:hidden;text-align:left}
+.location-info{padding:34px 32px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.location-address{font-size:18px;font-weight:800;margin-bottom:5px}
+.location-info>p:not(.location-address){color:var(--muted);font-size:14px;margin-bottom:8px}
+.location-phone{margin-top:2px}
+.google-map-wrap{min-height:360px;background:#eef2f7}
+.google-map-wrap iframe{display:block;width:100%;height:100%;min-height:360px;border:0}
+.location-button{margin:18px 0 0}
+@media(max-width:700px){
+  .location{grid-template-columns:1fr}
+  .location-info{padding:27px 22px}
+  .google-map-wrap,.google-map-wrap iframe{min-height:300px}
+}
