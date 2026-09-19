@@ -35,6 +35,49 @@ La plantilla mantiene el sitio corporativo en la raíz y las instancias de clien
 
 Las imágenes de una instancia se resuelven mediante el Worker en `/sites/{instanceId}/images/`, evitando que un sitio utilice accidentalmente recursos de otra instancia.
 
+## Presentación configurable del encabezado y Hero
+
+La plantilla maestra mantiene una sola estructura reutilizable y permite configurar por instancia los elementos visuales que cambian entre SIDeN y los clientes.
+
+### Logo del encabezado
+
+El encabezado utiliza el campo `logo` de `config.json` y carga el recurso desde `images/`. El logo se muestra aproximadamente al doble de tamaño respecto a la versión anterior.
+
+### Mockup del Hero
+
+El mockup derecho del Hero se maneja como una imagen completa configurable:
+
+```json
+"mockup": {
+  "enabled": true,
+  "imagen": "mockup.jpg"
+}
+```
+
+El archivo debe existir en:
+
+```text
+sites/{instanceId}/images/mockup.jpg
+```
+
+Si `enabled` es `false`, el mockup se elimina visualmente y el Hero reorganiza su contenido sin dejar una columna vacía.
+
+### Elementos corporativos opcionales del Hero
+
+Los siguientes elementos no se muestran por defecto en sitios de clientes:
+
+```json
+"hero": {
+  "mostrarBotones": false,
+  "mostrarBeneficios": false,
+  "mostrarFranja": false
+}
+```
+
+SIDeN puede activarlos en su propia configuración estableciendo los valores en `true`.
+
+La plantilla no debe duplicarse para resolver estas diferencias: el comportamiento pertenece al motor común y la configuración determina qué se muestra en cada instancia.
+
 ## Flujo de creación de un cliente
 
 ```text
