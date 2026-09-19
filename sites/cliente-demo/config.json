@@ -71,5 +71,15 @@
     "mostrarBotones": false,
     "mostrarBeneficios": false,
     "mostrarFranja": false
+  },
+  "cintaInformativa": {
+    "mostrar": true,
+    "items": [
+      "Responsabilidad",
+      "Respeto",
+      "Lealtad"
+    ],
+    "separador": "✦",
+    "velocidad": 28
   }
 }
