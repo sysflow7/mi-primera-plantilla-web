@@ -29,10 +29,6 @@
   };
   const setupMedia=async()=>{
     const cfg=await getConfig(); if(!cfg) return;
-    const navLogo=document.getElementById('nav-logo');
-    if(navLogo&&cfg.logo){navLogo.innerHTML='';const img=document.createElement('img');img.src=asset(cfg,'images/'+cfg.logo);img.alt='Logo de '+(cfg.nombre||'negocio');navLogo.appendChild(img)}
-    const heroBrand=document.querySelector('.hero-brand');
-    if(heroBrand) heroBrand.remove();
     const services=document.getElementById('lista-servicios');
     if(services&&Array.isArray(cfg.servicios)){
       services.innerHTML='';
