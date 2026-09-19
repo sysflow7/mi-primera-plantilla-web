@@ -116,6 +116,7 @@
         const heroVisual = document.getElementById("hero-visual");
         const heroMockupImage = document.getElementById("hero-mockup-image");
         const heroValueStrip = document.getElementById("hero-value-strip");
+        const paginaCabecera = document.getElementById("pagina-cabecera");
         const heroConfig = negocio.hero || {};
         const mockupConfig = heroConfig.mockup || negocio.mockup || {};
         const mockupImagen = String(mockupConfig.imagen || negocio.mockupImagen || "").trim();
@@ -158,28 +159,6 @@
                 heroValueStrip.hidden = !mostrarFranja;
             }
 
-            if (esPaginaInterna) {
-                hero.hidden = true;
-                document.body.classList.add("multi-inner-page");
-            } else if (nombreHero) {
-                const rutaHero = assetUrl("images/" + nombreHero);
-                const imagenHero = new Image();
-                imagenHero.onload = function () {
-                    hero.style.setProperty("--hero-image", `url("${rutaHero}")`);
-                    hero.style.backgroundImage = `url("${rutaHero}")`;
-                    hero.style.backgroundSize = "cover";
-                    hero.style.backgroundPosition = "center";
-                    hero.classList.add("hero-has-image");
-                };
-                imagenHero.onerror = function () {
-                    console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
-                    hero.classList.remove("hero-has-image");
-                };
-                imagenHero.src = rutaHero;
-            }
-        }
-
-        if (hero) {
             if (esPaginaInterna) {
                 hero.hidden = true;
                 document.body.classList.add("multi-inner-page");
