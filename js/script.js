@@ -219,7 +219,44 @@
         const instagram = document.getElementById("instagram-negocio");
         if (instagram) { instagram.href = negocioBase.instagram || "#"; instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http")); }
         const maps = document.getElementById("maps-negocio");
-        if (maps) { maps.href = negocioBase.maps || "#"; maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
+        if (maps) {
+            const mapsUrl = String(negocioBase.maps || "").trim();
+            const direccion = negocioBase.direccion || {};
+            const lat = String(direccion.latitud ?? "").trim();
+            const lng = String(direccion.longitud ?? "").trim();
+            const destino = lat && lng ? lat + "," + lng : String(negocioBase.direccionTexto || negocioBase.ciudad || "").trim();
+            const directionsUrl = destino ? "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(destino) : mapsUrl;
+            maps.href = directionsUrl || "#";
+            maps.target = "_blank";
+            maps.rel = "noopener noreferrer";
+            maps.hidden = !(directionsUrl && /^https?:\/\//i.test(directionsUrl));
+        }
+        const mapaWrap = document.getElementById("mapa-google");
+        const mapaIframe = document.getElementById("mapa-google-iframe");
+        const mapEmbedUrl = String(negocioBase.mapEmbedUrl || "").trim();
+        let mapaValido = false;
+        if (mapEmbedUrl) {
+            try {
+                const urlMapa = new URL(mapEmbedUrl);
+                const hostMapa = urlMapa.hostname.toLowerCase();
+                const esGoogleMaps = hostMapa === "google.com" || hostMapa === "www.google.com" || hostMapa === "maps.google.com";
+                const esOpenStreetMap = hostMapa === "openstreetmap.org" || hostMapa === "www.openstreetmap.org";
+                const esRutaGoogle = /^\/maps(?:\/|$)/i.test(urlMapa.pathname);
+                const esRutaOsm = /^\/export\/embed\\.html$/i.test(urlMapa.pathname);
+                mapaValido = urlMapa.protocol === "https:" && ((esGoogleMaps && esRutaGoogle) || (esOpenStreetMap && esRutaOsm));
+            } catch (error) { mapaValido = false; }
+        }
+        if (mapaWrap && mapaIframe) {
+            if (mapaValido) {
+                mapaIframe.src = mapEmbedUrl;
+                mapaWrap.hidden = false;
+                mapaWrap.style.display = "block";
+            } else {
+                mapaIframe.removeAttribute("src");
+                mapaWrap.hidden = true;
+                mapaWrap.style.display = "none";
+            }
+        }
         const paginaUbicacion = document.getElementById("pagina-ubicacion");
         if (paginaUbicacion) { paginaUbicacion.href = negocioBase.maps || "#"; paginaUbicacion.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
         const catalogo = document.getElementById("catalogo-negocio");
