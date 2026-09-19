@@ -83,7 +83,6 @@ export default {
                     }
                 }
             }
-        } else if (env.SIDEN_REGISTRY)            }
         } else if (env.SIDEN_REGISTRY) {
             instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
         }
@@ -243,14 +242,13 @@ export default {
         const direccionTexto = esAreaServicio ? "" : (negocio.direccionTexto || direccion.calle || ciudad || "");
         const tituloUbicacion = negocio.etiquetas?.ubicacion || (esAreaServicio ? "Área de servicio" : "Encuéntranos");
 
-        const mapEmbedURL = typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : "";
         const reemplazos = {
             "__SEO_TITLE__": escHtml(tituloSEO), "__SEO_DESCRIPTION__": escHtml(descripcionSEO), "__ROBOTS__": indexable ? "index, follow" : "noindex, nofollow",
             "__BUSINESS_NAME__": escHtml(negocio.nombre), "__BUSINESS_TYPE__": escHtml(negocio.etiquetaTipo || ""), "__H1_TITLE__": escHtml(h1Title),
             "__H1_DESCRIPTION__": escHtml(h1Description), "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO), "__LOCATION_TITLE__": escHtml(tituloUbicacion),
             "__CITY__": escHtml(ciudadVisible), "__ADDRESS__": escHtml(direccionTexto), "__PHONE__": escHtml(negocio.telefono || ""), "__CANONICAL_URL__": escHtml(canonical),
             "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__LOGO_IMAGE_URL__": escHtml(logoURL),
-            "__HERO_IMAGE_URL__": escHtml(heroURL), "__MAP_EMBED_URL__": escHtml(mapEmbedURL), "__STRUCTURED_DATA__": escJson(datosNegocio)
+            "__HERO_IMAGE_URL__": escHtml(heroURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
