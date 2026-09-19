@@ -67,7 +67,8 @@ export default {
                     "siden-template-v1.4",
                     "siden-template-v1-4",
                     "siden-corporativo-v1.3",
-                    "siden-corporativo-v1-3"
+                    "siden-corporativo-v1-3",
+                    "ajuste-sidenred-inicio-2026-09-19"
                 ];
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
