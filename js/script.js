@@ -222,8 +222,20 @@
         const maps = document.getElementById("maps-negocio");
         if (maps) {
             const mapsUrl = String(negocioBase.maps || "").trim();
-            maps.href = mapsUrl || "#";
-            maps.hidden = !(mapsUrl && /^https?:\\/\\//i.test(mapsUrl));
+            const direccion = negocioBase.direccion || {};
+            const lat = String(direccion.latitud ?? "").trim();
+            const lng = String(direccion.longitud ?? "").trim();
+            const destino = lat && lng
+                ? lat + "," + lng
+                : String(negocioBase.direccionTexto || negocioBase.ciudad || "").trim();
+            const directionsUrl = destino
+                ? "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(destino)
+                : mapsUrl;
+
+            maps.href = directionsUrl || "#";
+            maps.target = "_blank";
+            maps.rel = "noopener noreferrer";
+            maps.hidden = !(directionsUrl && /^https?:\/\//i.test(directionsUrl));
         }
 
         // UBICACIÓN / MAPA EMBEBIDO
