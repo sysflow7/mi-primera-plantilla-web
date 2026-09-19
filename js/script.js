@@ -230,7 +230,7 @@
         const mapaIframe = document.getElementById("mapa-google-iframe");
         const mapEmbedUrl = String(negocioBase.mapEmbedUrl || "").trim();
         if (mapaWrap && mapaIframe) {
-            if (mapEmbedUrl && /^https:\\/\\/([a-z0-9-]+\\.)?google\\.com\\/maps\\/embed(?:[/?]|$)/i.test(mapEmbedUrl)) {
+            if (mapEmbedUrl && /^https:\/\/([a-z0-9-]+\.)?google\.com\/maps\/embed(?:[/?]|$)/i.test(mapEmbedUrl)) {
                 mapaIframe.src = mapEmbedUrl;
                 mapaWrap.hidden = false;
             } else {
