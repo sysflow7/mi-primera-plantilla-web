@@ -28,12 +28,13 @@
     <link rel="stylesheet" href="css/presentation-v1.5.css">
     <link rel="stylesheet" href="css/presentation-v1.5-hotfix.css">
     <link rel="stylesheet" href="css/siden-ui-fixes-v1.4.css">
+    <link rel="stylesheet" href="css/hero-config-v1.4.css">
     <style>.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;background:#0b1220;color:#fff;text-decoration:none;font-size:12px;font-weight:800}.nav-cta:hover{background:#2563eb}@media(max-width:700px){.nav-cta{margin-left:auto}}</style>
 </head>
 <body>
 <nav class="navbar">
     <div class="nav-container">
-        <a href="#inicio" class="nav-logo" id="nav-logo">__BUSINESS_NAME__</a>
+        <a href="#inicio" class="nav-logo" id="nav-logo" aria-label="__BUSINESS_NAME__"><img id="nav-logo-image" src="" alt="Logo de __BUSINESS_NAME__" hidden><span id="nav-logo-text" hidden>__BUSINESS_NAME__</span></a>
         <button class="menu-button" id="menu-button" aria-label="Abrir menú" aria-expanded="false">☰</button>
         <div class="nav-links" id="nav-links"></div>
         <a href="#contacto" class="nav-cta">Contactar</a>
@@ -51,13 +52,10 @@
             <div class="hero-actions"><a id="whatsapp-principal" class="hero-primary" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp <span>→</span></a><a href="#nosotros" class="hero-secondary">Conocer el negocio <span>↘</span></a></div>
             <div class="hero-trust"><span>✓ Información clara</span><span>✓ Contacto directo</span><span>✓ Presencia profesional</span></div>
         </div>
-        <div class="hero-visual" aria-label="Presentación visual del negocio">
-            <div class="browser-window"><div class="browser-top"><span></span><span></span><span></span><small>sitio-web.com</small></div><div class="browser-body"><div class="mock-nav"><b>Tu negocio</b><i></i><i></i><i></i><em></em></div><div class="mock-hero"><div><small>BIENVENIDO</small><strong>Una presencia<br>profesional.</strong><label></label></div><div class="mock-photo"></div></div><div class="mock-cards"><span>Servicios</span><span>Ubicación</span><span>Contacto</span></div></div></div>
-            <div class="float-card float-google"><b>Presencia local</b><span>✓ Información visible</span></div><div class="float-card float-whatsapp"><b>WhatsApp</b><span>● Contacto directo</span></div>
-        </div>
+        <div class="hero-visual" id="hero-visual" aria-label="Presentación visual del negocio"><img id="hero-mockup-image" class="hero-mockup-image" src="" alt="" hidden></div>
     </div>
 </header>
-<div class="value-strip"><div><strong>Tu negocio</strong><span>merece una presencia digital clara, profesional y fácil de contactar.</span></div><div><b>WEB</b><span>+ INFORMACIÓN</span><span>+ WHATSAPP</span><span>+ UBICACIÓN</span></div></div>
+<div class="value-strip" id="hero-value-strip"><div><strong>Tu negocio</strong><span>merece una presencia digital clara, profesional y fácil de contactar.</span></div><div><b>WEB</b><span>+ INFORMACIÓN</span><span>+ WHATSAPP</span><span>+ UBICACIÓN</span></div></div>
 <section id="pagina-cabecera" class="page-header" hidden><p id="pagina-tipo" class="page-header-type">__BUSINESS_TYPE__</p><h1 id="pagina-titulo">__H1_TITLE__</h1><p id="pagina-descripcion">__H1_DESCRIPTION__</p><div class="page-actions"><a id="pagina-whatsapp" class="page-action page-action-whatsapp" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a><button id="pagina-guardar-contacto" class="page-action">📱 Guardar contacto</button><button id="pagina-compartir-negocio" class="page-action">📤 Compartir</button><a id="pagina-ubicacion" class="page-action" target="_blank" rel="noopener noreferrer">📍 Ubicación</a></div></section>
 <main>
 <section id="nosotros" data-module="presentacion"><div class="section-heading"><span class="section-kicker">Conoce el negocio</span><h2 id="titulo-presentacion">¿Quiénes somos?</h2><p class="about" id="descripcion-negocio">__BUSINESS_DESCRIPTION__</p></div></section>
