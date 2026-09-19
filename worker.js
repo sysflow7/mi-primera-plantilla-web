@@ -61,6 +61,8 @@ export default {
                 const previewAlias = previewHostLabel.endsWith(workerSuffix)
                     ? previewHostLabel.slice(0, -workerSuffix.length)
                     : "";
+                const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
+                const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
                 const corporatePreviewAliases = [
                     "siden-template-v1.4",
                     "siden-template-v1-4",
