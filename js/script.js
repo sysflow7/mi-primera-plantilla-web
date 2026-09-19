@@ -191,6 +191,43 @@
             }
         }
 
+        // CINTA INFORMATIVA CONFIGURABLE
+        const cintaConfig = negocioBase.cintaInformativa || negocioBase.cinta || {};
+        const cinta = document.getElementById("cinta-informativa");
+        const cintaTrack = document.getElementById("cinta-informativa-track");
+        const cintaVisible = cintaConfig.mostrar === true || cintaConfig.enabled === true;
+        const cintaItems = Array.isArray(cintaConfig.items)
+            ? cintaConfig.items.map(function (item) { return String(item || "").trim(); }).filter(Boolean)
+            : (cintaConfig.texto ? [String(cintaConfig.texto).trim()] : []);
+        const cintaSeparador = String(cintaConfig.separador || "✦").trim() || "✦";
+        const cintaVelocidad = Number(cintaConfig.velocidad);
+        if (cinta && cintaTrack && cintaVisible && cintaItems.length) {
+            const grupo = cintaItems.map(function (item) {
+                const itemEl = document.createElement("span");
+                itemEl.className = "siden-marquee-item";
+                itemEl.textContent = item;
+                const separadorEl = document.createElement("span");
+                separadorEl.className = "siden-marquee-separator";
+                separadorEl.setAttribute("aria-hidden", "true");
+                separadorEl.textContent = cintaSeparador;
+                const fragmento = document.createDocumentFragment();
+                fragmento.appendChild(itemEl);
+                fragmento.appendChild(separadorEl);
+                return fragmento;
+            });
+            [0, 1].forEach(function () {
+                grupo.forEach(function (fragmento) {
+                    cintaTrack.appendChild(fragmento.cloneNode(true));
+                });
+            });
+            if (cintaVelocidad > 0) {
+                cintaTrack.style.setProperty("--siden-marquee-duration", Math.max(8, cintaVelocidad) + "s");
+            }
+            cinta.hidden = false;
+        } else if (cinta) {
+            cinta.hidden = true;
+        }
+
         // ETIQUETAS
         setText("titulo-presentacion", etiquetas.presentacion || "¿Quiénes somos?");
         setText("titulo-perfil", etiquetas.perfil || "Perfil profesional");
