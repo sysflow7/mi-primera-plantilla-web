@@ -7,7 +7,7 @@
     "architecture": "multisite",
     "domainMode": "subdomain"
   },
-  "nombre": "Mi Negocio",
+  "nombre": "Cliente Demo",
   "h1": "",
   "slogan": "Tu negocio, tu identidad digital",
   "descripcion": "Describe aquí el negocio y la propuesta de valor del cliente.",
@@ -47,7 +47,7 @@
   "instagram": "",
   "maps": "",
   "catalogo": "",
-  "logo": "",
+  "logo": "logo-demo.svg",
   "imagenSocial": "",
   "horarios": [],
   "rangoPrecios": "",
@@ -66,8 +66,8 @@
   "proceso": [],
   "identidad": {},
   "mockup": {
-    "enabled": false,
-    "imagen": ""
+    "enabled": true,
+    "imagen": "mockup-demo.svg"
   },
   "hero": {
     "mostrarBotones": false,
