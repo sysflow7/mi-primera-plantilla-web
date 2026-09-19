@@ -267,3 +267,78 @@ footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13p
   .location-info{padding:27px 22px}
   .google-map-wrap,.google-map-wrap iframe{min-height:300px}
 }
+
+/* ================================
+   CINTA INFORMATIVA CONFIGURABLE
+================================ */
+.siden-marquee {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    border-top: 1px solid #e6eaf0;
+    border-bottom: 1px solid #e6eaf0;
+    color: #9a9a9a;
+}
+.siden-marquee-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    min-height: 104px;
+    animation: siden-marquee-scroll 28s linear infinite;
+    will-change: transform;
+}
+.siden-marquee-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.siden-marquee-item {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0 34px;
+    font-size: clamp(32px, 4.2vw, 58px);
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -.8px;
+}
+.siden-marquee-separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border: 2px solid #e5cf91;
+    border-radius: 50%;
+    color: #c9aa55;
+    font-size: 22px;
+    font-weight: 700;
+}
+.siden-marquee:hover .siden-marquee-track {
+    animation-play-state: paused;
+}
+@keyframes siden-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@media (max-width: 700px) {
+    .siden-marquee-track { min-height: 78px; }
+    .siden-marquee-item {
+        padding: 0 20px;
+        font-size: clamp(27px, 8vw, 40px);
+    }
+    .siden-marquee-separator {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        font-size: 17px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .siden-marquee-track {
+        animation: none;
+        transform: none;
+    }
+}
+
