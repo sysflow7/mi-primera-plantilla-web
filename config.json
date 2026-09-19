@@ -18,7 +18,15 @@
   "modeloAtencion": "local",
   "areasServicio": [],
   "heroImagen": "",
-  "modulos": ["presentacion", "beneficios", "servicios", "productos", "galeria", "ubicacion", "contacto"],
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "productos",
+    "galeria",
+    "ubicacion",
+    "contacto"
+  ],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
@@ -26,7 +34,15 @@
   "ciudad": "San Salvador",
   "pais": "El Salvador",
   "direccionTexto": "San Salvador, El Salvador",
-  "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
+  "direccion": {
+    "calle": "",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
   "facebook": "",
   "instagram": "",
   "maps": "",
@@ -37,7 +53,9 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {},
-  "textos": {"contacto": "Estamos disponibles para atenderte."},
+  "textos": {
+    "contacto": "Estamos disponibles para atenderte."
+  },
   "paginas": [],
   "servicios": [],
   "productos": [],
@@ -46,5 +64,14 @@
   "galeria": [],
   "beneficios": [],
   "proceso": [],
-  "identidad": {}
+  "identidad": {},
+  "mockup": {
+    "enabled": false,
+    "imagen": ""
+  },
+  "hero": {
+    "mostrarBotones": false,
+    "mostrarBeneficios": false,
+    "mostrarFranja": false
+  }
 }
