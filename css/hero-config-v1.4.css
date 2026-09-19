@@ -5,9 +5,9 @@
    - Mockup can be disabled without leaving an empty column.
    - Client sites hide corporate-only Hero actions, trust row and value strip by default.
 */
-.nav-container{min-height:80px;align-items:center}
-.nav-logo{display:flex;align-items:center;justify-content:flex-start;height:72px;min-width:72px;text-decoration:none}
-.nav-logo img{display:block!important;height:72px!important;width:auto!important;max-width:190px!important;max-height:72px!important;object-fit:contain}
+.nav-container{min-height:72px;align-items:center}
+.nav-logo{display:flex;align-items:center;justify-content:flex-start;height:46px;min-width:46px;text-decoration:none}
+.nav-logo img{display:block!important;height:46px!important;width:auto!important;max-width:160px!important;max-height:46px!important;object-fit:contain}
 .nav-logo span{font-size:19px;color:var(--navy);font-weight:800}
 
 .hero-actions,.hero-trust,#hero-value-strip{display:none}
@@ -27,12 +27,12 @@
 
 @media(max-width:900px){
   .nav-container{min-height:72px}
-  .nav-logo{height:62px}
-  .nav-logo img{height:62px!important;max-height:62px!important;max-width:170px!important}
+  .nav-logo{height:44px}
+  .nav-logo img{height:44px!important;max-height:44px!important;max-width:150px!important}
   .hero-has-mockup .hero-visual{min-height:0}
   .hero-mockup-image{max-height:400px}
 }
 @media(max-width:700px){
-  .nav-logo{height:58px}
-  .nav-logo img{height:58px!important;max-height:58px!important;max-width:150px!important}
+  .nav-logo{height:42px}
+  .nav-logo img{height:42px!important;max-height:42px!important;max-width:145px!important}
 }
