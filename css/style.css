@@ -70,7 +70,10 @@ section h2 { text-align: center; margin-bottom: 30px; font-size: 30px; }
 .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
 .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
 
-.location { text-align: center; font-size: 18px; }
+.location { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 25px; align-items: stretch; font-size: 18px; }
+.location-info { display: flex; flex-direction: column; justify-content: center; }
+.google-map-wrap { min-height: 360px; border-radius: 12px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,.08); background: #f5f6f8; }
+.google-map-wrap iframe { width: 100%; height: 100%; min-height: 360px; border: 0; display: block; }
 .social { text-align: center; margin-top: 25px; }
 .social a { color: white; margin: 0 10px; text-decoration: none; }
 .contact { background: #111827; color: white; max-width: none; text-align: center; }
@@ -99,6 +102,7 @@ footer { background: #0b1120; color: #aaa; text-align: center; padding: 20px; fo
     .menu-button { display: block; }
     .nav-links { display: none; width: 100%; flex-direction: column; gap: 10px; padding-top: 10px; }
     .nav-links.active { display: flex; }
+@media (max-width: 800px) { .location { grid-template-columns: 1fr; } .google-map-wrap, .google-map-wrap iframe { min-height: 320px; } }
     .nav-container { flex-wrap: wrap; }
     .menu-grid { grid-template-columns: 1fr; }
     .menu-item img { height: 220px; }
