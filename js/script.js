@@ -227,11 +227,35 @@
         }
 
         // UBICACIÓN / GOOGLE MAPS EMBED
+        // Acepta tanto la URL oficial de embed como la URL clásica
+        // de Google Maps con ?q=...&output=embed.
         const mapaWrap = document.getElementById("mapa-google");
         const mapaIframe = document.getElementById("mapa-google-iframe");
         const mapEmbedUrl = String(negocioBase.mapEmbedUrl || "").trim();
+        let mapaValido = false;
+
+        if (mapEmbedUrl) {
+            try {
+                const urlMapa = new URL(mapEmbedUrl);
+                const hostMapa = urlMapa.hostname.toLowerCase();
+                const esGoogleMaps = hostMapa === "google.com" ||
+                    hostMapa === "www.google.com" ||
+                    hostMapa === "maps.google.com";
+                const esRutaMaps = /^\/maps(?:\/|$)/i.test(urlMapa.pathname);
+                const esEmbedOficial = /^\/maps\/embed(?:\/|$)/i.test(urlMapa.pathname);
+                const esEmbedClasico = urlMapa.searchParams.get("output") === "embed";
+
+                mapaValido = urlMapa.protocol === "https:" &&
+                    esGoogleMaps &&
+                    esRutaMaps &&
+                    (esEmbedOficial || esEmbedClasico);
+            } catch (error) {
+                mapaValido = false;
+            }
+        }
+
         if (mapaWrap && mapaIframe) {
-            if (mapEmbedUrl && /^https:\/\/([a-z0-9-]+\.)?google\.com\/maps\/(?:embed(?:[/?]|$)|\?q=.+&output=embed(?:&.*)?$)/i.test(mapEmbedUrl)) {
+            if (mapaValido) {
                 mapaIframe.src = mapEmbedUrl;
                 mapaWrap.hidden = false;
             } else {
