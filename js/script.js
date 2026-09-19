@@ -145,6 +145,46 @@
             }
         }
 
+        // CINTA INFORMATIVA
+        const cintaConfig = negocioBase.cintaInformativa || negocioBase.cinta || {};
+        const cinta = document.getElementById("cinta-informativa");
+        const cintaTrack = document.getElementById("cinta-informativa-track");
+        const cintaVisible = cintaConfig.mostrar === true || cintaConfig.enabled === true;
+        const cintaItems = Array.isArray(cintaConfig.items)
+            ? cintaConfig.items.map(function (item) { return String(item || "").trim(); }).filter(Boolean)
+            : (cintaConfig.texto ? [String(cintaConfig.texto).trim()] : []);
+        const cintaSeparador = String(cintaConfig.separador || "✦").trim() || "✦";
+        const cintaVelocidad = Number(cintaConfig.velocidad);
+        if (cinta && cintaTrack) {
+            cinta.hidden = !(cintaVisible && cintaItems.length);
+            if (!cinta.hidden) {
+                const crearGrupoCinta = function () {
+                    const grupo = document.createElement("div");
+                    grupo.className = "siden-marquee-group";
+                    cintaItems.forEach(function (item, indice) {
+                        const textoItem = document.createElement("span");
+                        textoItem.className = "siden-marquee-item";
+                        textoItem.textContent = item;
+                        grupo.appendChild(textoItem);
+                        if (indice < cintaItems.length - 1 || cintaItems.length > 0) {
+                            const separador = document.createElement("span");
+                            separador.className = "siden-marquee-separator";
+                            separador.setAttribute("aria-hidden", "true");
+                            separador.textContent = cintaSeparador;
+                            grupo.appendChild(separador);
+                        }
+                    });
+                    return grupo;
+                };
+                cintaTrack.innerHTML = "";
+                cintaTrack.appendChild(crearGrupoCinta());
+                cintaTrack.appendChild(crearGrupoCinta());
+                if (Number.isFinite(cintaVelocidad) && cintaVelocidad > 0) {
+                    cintaTrack.style.animationDuration = Math.max(8, cintaVelocidad) + "s";
+                }
+            }
+        }
+
         // ETIQUETAS
         setText("titulo-presentacion", etiquetas.presentacion || "¿Quiénes somos?");
         setText("titulo-perfil", etiquetas.perfil || "Perfil profesional");
