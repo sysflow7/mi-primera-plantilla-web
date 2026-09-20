@@ -420,8 +420,25 @@
         // MENÚ MÓVIL
         const menuButton = document.getElementById("menu-button");
         if (menuButton && navLinks) {
-            menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
-            navLinks.querySelectorAll("a").forEach(function (enlace) { enlace.addEventListener("click", function () { navLinks.classList.remove("active"); }); });
+            const setMenuOpen = function (abierto) {
+                navLinks.classList.toggle("active", abierto);
+                menuButton.setAttribute("aria-expanded", abierto ? "true" : "false");
+                menuButton.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+            };
+
+            menuButton.setAttribute("type", "button");
+            menuButton.setAttribute("aria-controls", "nav-links");
+            setMenuOpen(false);
+
+            menuButton.addEventListener("click", function () {
+                setMenuOpen(!navLinks.classList.contains("active"));
+            });
+
+            navLinks.querySelectorAll("a").forEach(function (enlace) {
+                enlace.addEventListener("click", function () {
+                    setMenuOpen(false);
+                });
+            });
         }
     } catch (error) {
         console.error("Error al inicializar la página SIDEN:", error);
