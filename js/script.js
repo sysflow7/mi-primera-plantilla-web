@@ -200,8 +200,14 @@
         setText("texto-contacto", texto.contacto || "Estamos disponibles para atenderte.");
 
         // MÓDULOS
+        const galeria = Array.isArray(negocio.galeria)
+            ? negocio.galeria.map(function (imagen) { return String(imagen || "").trim(); }).filter(Boolean)
+            : [];
+        const galeriaActiva = modulos.includes("galeria") && galeria.length > 0;
+
         ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
-            showModule(modulo, modulos.includes(modulo));
+            const visible = modulo === "galeria" ? galeriaActiva : modulos.includes(modulo);
+            showModule(modulo, visible);
         });
 
         // NAVEGACIÓN
@@ -225,7 +231,9 @@
                     navLinks.appendChild(enlace);
                 });
             } else {
-                modulos.forEach(function (modulo) {
+                modulos.filter(function (modulo) {
+                    return modulo !== "galeria" || galeriaActiva;
+                }).forEach(function (modulo) {
                     const target = navTargets[modulo];
                     if (!target) return;
                     const enlace = document.createElement("a");
@@ -390,15 +398,18 @@
 
         // GALERÍA
         const listaGaleria = document.getElementById("lista-galeria");
-        if (listaGaleria && Array.isArray(negocio.galeria)) {
+        if (listaGaleria) {
             listaGaleria.innerHTML = "";
-            negocio.galeria.forEach(function (imagen, indice) {
-                const foto = document.createElement("img");
-                foto.src = assetUrl("images/" + imagen);
-                foto.alt = negocioBase.nombre + " - Foto " + (indice + 1);
-                foto.loading = "lazy";
-                listaGaleria.appendChild(foto);
-            });
+            listaGaleria.style.setProperty("--gallery-count", String(galeria.length));
+            if (galeriaActiva) {
+                galeria.forEach(function (imagen, indice) {
+                    const foto = document.createElement("img");
+                    foto.src = assetUrl("images/" + imagen);
+                    foto.alt = negocioBase.nombre + " - Foto " + (indice + 1);
+                    foto.loading = "lazy";
+                    listaGaleria.appendChild(foto);
+                });
+            }
         }
 
         // ACCIONES COMUNES
