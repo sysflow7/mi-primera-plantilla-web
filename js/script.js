@@ -428,6 +428,9 @@
 
             menuButton.setAttribute("type", "button");
             menuButton.setAttribute("aria-controls", "nav-links");
+            // Marca el control como enlazado para evitar que otros scripts
+            // de mejoras visuales registren un segundo click handler.
+            menuButton.dataset.sidenBound = "1";
             setMenuOpen(false);
 
             menuButton.addEventListener("click", function () {
