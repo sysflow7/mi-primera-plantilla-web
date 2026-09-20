@@ -1,11 +1,11 @@
 /* SIDeN UI fixes v1.4 — responsive navigation, hero and media */
 .menu-button{display:none!important}
 @media(max-width:700px){
-  .nav-container{flex-wrap:wrap;align-items:center}
-  .menu-button{display:block!important;order:2;font-size:28px;line-height:1;padding:4px 8px;color:#111827}
+  .nav-container{position:relative;flex-wrap:wrap;align-items:center}
+  .menu-button{display:block!important;position:relative;z-index:1002;order:2;font-size:28px;line-height:1;padding:4px 8px;color:#111827;cursor:pointer;pointer-events:auto}
   .nav-logo{order:1}
   .nav-cta{order:3}
-  .nav-links{order:4;display:none!important;width:100%;flex-direction:column;gap:8px;padding:12px 0 4px}
+  .nav-links{order:4;display:none!important;position:relative;z-index:1001;width:100%;flex-direction:column;gap:8px;padding:12px 0 4px}
   .nav-links.active{display:flex!important}
   .nav-links a{padding:10px 4px;border-bottom:1px solid #e5e7eb}
   .nav-links a:last-child{border-bottom:0}
