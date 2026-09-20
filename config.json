@@ -49,7 +49,16 @@
   "productos": [],
   "menu": [],
   "perfil": {},
-  "galeria": [],
+  "galeria": [
+    "gale01.JPG",
+    "gale02.JPG",
+    "gale03.JPG",
+    "gale04.JPG",
+    "gale05.JPG",
+    "gale06.JPG",
+    "gale07.JPG",
+    "gale08.JPG"
+  ],
   "beneficios": [],
   "proceso": [],
   "identidad": {}
