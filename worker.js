@@ -72,6 +72,10 @@ export default {
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
                 if (previewSlug && instanceId !== "corporativo") {
+                    // PREVIEW DE RAMA: primero intentar resolver una instancia propia de la rama.
+                    // Si la rama es una rama de trabajo estructural (sin /sites/<slug>/config.json),
+                    // el preview debe poder visualizar el sitio corporativo base para validar cambios
+                    // de plantilla sin depender de registry.json de otra rama.
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {
@@ -79,6 +83,15 @@ export default {
                             instanceId = slugify(registry[previewSlug] || previewSlug);
                         } catch {
                             instanceId = previewSlug;
+                        }
+                    } else {
+                        instanceId = previewSlug;
+                    }
+
+                    if (instanceId !== "corporativo") {
+                        const respuestaPreviewConfig = await loadAsset(`/sites/${instanceId}/config.json`);
+                        if (!respuestaPreviewConfig.ok) {
+                            instanceId = "corporativo";
                         }
                     }
                 }
