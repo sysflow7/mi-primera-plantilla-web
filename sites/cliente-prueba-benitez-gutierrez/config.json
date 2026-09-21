@@ -17,9 +17,20 @@
   "etiquetaTipo": "Abogacía y Notariado",
   "modoSitio": "single",
   "modeloAtencion": "local",
-  "areasServicio": ["Perquín", "Morazán", "El Salvador"],
-  "heroImagen": "benitez-gutierrez-hero.jpg",
-  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "proceso", "ubicacion", "contacto"],
+  "areasServicio": [
+    "Perquín",
+    "Morazán",
+    "El Salvador"
+  ],
+  "heroImagen": "86624.jpg",
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "galeria",
+    "ubicacion",
+    "contacto"
+  ],
   "indexable": false,
   "whatsapp": "50372334990",
   "telefono": "+503 7233-4990",
@@ -41,7 +52,7 @@
   "maps": "https://www.google.com/maps/search/?api=1&query=Barrio%20El%20Centro%2C%20atr%C3%A1s%20de%20la%20Alcald%C3%ADa%20Municipal%2C%20Perqu%C3%ADn%2C%20Moraz%C3%A1n%2C%20El%20Salvador",
   "catalogo": "",
   "logo": "benitez-gutierrez-logo.svg",
-  "imagenSocial": "benitez-gutierrez-hero.jpg",
+  "imagenSocial": "86624.jpg",
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
@@ -66,32 +77,64 @@
   },
   "paginas": [],
   "servicios": [
-    {"nombre": "Servicios de abogacía", "descripcion": "Orientación y representación jurídica de acuerdo con las necesidades de cada cliente."},
-    {"nombre": "Servicios de notariado", "descripcion": "Atención de trámites y actos notariales con acompañamiento profesional."},
-    {"nombre": "Asesoría jurídica", "descripcion": "Análisis de situaciones legales y orientación sobre las alternativas disponibles."},
-    {"nombre": "Atención personalizada", "descripcion": "Atención directa para conocer su caso y brindarle una orientación clara."}
+    {
+      "nombre": "Servicios de abogacía",
+      "descripcion": "Orientación y representación jurídica de acuerdo con las necesidades de cada cliente.",
+      "imagen": "serv01.JPG"
+    },
+    {
+      "nombre": "Servicios de notariado",
+      "descripcion": "Atención de trámites y actos notariales con acompañamiento profesional.",
+      "imagen": "serv02.JPG"
+    },
+    {
+      "nombre": "Asesoría jurídica",
+      "descripcion": "Análisis de situaciones legales y orientación sobre las alternativas disponibles.",
+      "imagen": "serv03.JPG"
+    }
   ],
   "productos": [],
   "menu": [],
-  "perfil": {
-    "descripcion": "Despacho Jurídico Benítez Gutiérrez — Abogacía y Notariado, ubicado en Perquín, Morazán, El Salvador.",
-    "datos": [
-      {"titulo": "Especialidad", "valor": "Abogacía y Notariado"},
-      {"titulo": "Ubicación", "valor": "Perquín, Morazán"},
-      {"titulo": "Atención", "valor": "Personalizada"}
-    ]
-  },
-  "galeria": [],
+  "galeria": [
+    "gale01.JPG",
+    "gale02.JPG",
+    "gale03.JPG",
+    "gale04.JPG"
+  ],
   "beneficios": [
-    {"titulo": "Atención profesional", "descripcion": "Orientación jurídica con un trato serio, cercano y profesional."},
-    {"titulo": "Información clara", "descripcion": "Explicamos cada situación de forma comprensible para facilitar la toma de decisiones."},
-    {"titulo": "Atención personalizada", "descripcion": "Cada consulta es atendida considerando las circunstancias particulares del cliente."}
+    {
+      "titulo": "¿Dónde encuentro información?",
+      "descripcion": "El cliente necesita saber qué haces, qué ofreces y cómo contactarte sin tener que buscar en varios lugares.",
+      "imagen": "lupa.svg"
+    },
+    {
+      "titulo": "¿Será un negocio confiable?",
+      "descripcion": "Una presentación profesional ayuda a transmitir orden, claridad y confianza desde el primer contacto.",
+      "imagen": "seguridad.svg"
+    },
+    {
+      "titulo": "¿Cómo llego o les escribo?",
+      "descripcion": "La ubicación y WhatsApp deben estar conectados para convertir el interés en una acción sencilla.",
+      "imagen": "Ubicacion.svg"
+    }
   ],
   "proceso": [
-    {"titulo": "Conocemos su caso", "descripcion": "Escuchamos su situación y necesidades."},
-    {"titulo": "Analizamos", "descripcion": "Revisamos la información y las alternativas jurídicas."},
-    {"titulo": "Orientamos", "descripcion": "Explicamos las opciones disponibles de manera clara."},
-    {"titulo": "Acompañamos", "descripcion": "Brindamos seguimiento según el servicio requerido."}
+    {
+      "titulo": "Conocemos su caso",
+      "descripcion": "Escuchamos su situación y necesidades."
+    },
+    {
+      "titulo": "Analizamos",
+      "descripcion": "Revisamos la información y las alternativas jurídicas."
+    },
+    {
+      "titulo": "Orientamos",
+      "descripcion": "Explicamos las opciones disponibles de manera clara."
+    },
+    {
+      "titulo": "Acompañamos",
+      "descripcion": "Brindamos seguimiento según el servicio requerido."
+    }
   ],
   "identidad": {}
 }
