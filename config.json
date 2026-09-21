@@ -1,15 +1,16 @@
 {
   "siden": {
-    "instanceId": "siden-corporativo",
-    "template": "siden-template-v1.4",
-    "version": "1.4"
+    "instanceId": "plantilla-maestra",
+    "template": "siden-template-v1.5",
+    "version": "1.5",
+    "customCss": ""
   },
-  "nombre": "SIDeN",
-  "h1": "Páginas web y presencia digital para negocios en El Salvador",
-  "slogan": "Presencia digital clara, profesional y conectada.",
-  "tituloSEO": "Páginas Web para Negocios en El Salvador | SIDeN",
-  "descripcion": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional, clara y fácil de encontrar. Creamos páginas web conectadas con WhatsApp y dejamos una base preparada para crecer con soluciones de presencia local.",
-  "descripcionSEO": "Páginas web profesionales para pequeños negocios en El Salvador, con SEO básico, WhatsApp y QR SIDeN. Soluciones adicionales de presencia local disponibles.",
+  "nombre": "SIDeN Plantilla Maestra",
+  "h1": "Plantilla maestra SIDeN para sitios web de negocios",
+  "slogan": "Base digital profesional, configurable por instancia.",
+  "tituloSEO": "SIDeN — Plantilla Maestra",
+  "descripcion": "Configuración de demostración de la plantilla maestra SIDeN. Los datos de cada cliente deben vivir exclusivamente dentro de su propia instancia.",
+  "descripcionSEO": "Plantilla maestra SIDeN para crear sitios web configurables por negocio.",
   "tipoNegocio": "organizacion",
   "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
@@ -26,10 +27,10 @@
     "identidad",
     "contacto"
   ],
-  "indexable": true,
-  "whatsapp": "50371887451",
-  "telefono": "503 7188 7451",
-  "email": "admin@sidenred.com",
+  "indexable": false,
+  "whatsapp": "",
+  "telefono": "",
+  "email": "",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
   "direccionTexto": "",
@@ -52,7 +53,7 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "cintaInformativa": {
-    "mostrar": true,
+    "mostrar": false,
     "items": [
       "Perfil de Negocios Google - Paginas Web - Automatizaciones"
     ],
@@ -63,7 +64,7 @@
     "ubicacion": "Área de servicio"
   },
   "textos": {
-    "contacto": "Conoce cómo SIDeN puede ayudarte a construir una presencia digital profesional, clara y fácil de contactar. Si después necesitas trabajar tu presencia local, podemos ampliar la solución."
+    "contacto": "Esta es una vista de demostración de la plantilla maestra SIDeN."
   },
   "paginas": [],
   "servicios": [
