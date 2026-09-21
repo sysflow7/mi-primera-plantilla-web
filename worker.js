@@ -52,7 +52,8 @@ export default {
                 }
             }
         } else if (isWorkersPreview) {
-            const requestedPreviewSite = slugify(url.searchParams.get("site"));\n            const knownCorporatePreview = host.includes("migracion-imagenes-corporativo-v1-5-2026-09-20");
+            const requestedPreviewSite = slugify(url.searchParams.get("site"));
+            const knownCorporatePreview = host.includes("migracion-imagenes-corporativo-v1-5-2026-09-20");
             if (requestedPreviewSite) {
                 instanceId = requestedPreviewSite;
             } else {
