@@ -105,6 +105,13 @@ export default {
 
         // La configuración activa siempre pertenece a la instancia resuelta por el host.
         // Esto evita que un sitio pueda caer accidentalmente en el config.json de otra instancia.
+        const customCss = typeof negocio.siden?.customCss === "string"
+            ? negocio.siden.customCss.trim().replace(/^\/+/, "")
+            : "";
+        const customCssValido = customCss &&
+            /^[a-zA-Z0-9._/-]+\.css$/i.test(customCss) &&
+            !customCss.includes("..");
+
         if (url.pathname === "/config.json") {
             return new Response(JSON.stringify(negocio), {
                 headers: withSecurityHeaders({
@@ -139,6 +146,10 @@ export default {
 
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
             return loadAsset(`${sitePrefix}${url.pathname}`);
+        }
+
+        if (request.method === "GET" && url.pathname === "/custom.css" && customCssValido) {
+            return loadAsset(`${sitePrefix}/${customCss}`);
         }
 
         // Los archivos internos de /sites/<instanceId> nunca se exponen directamente.
@@ -250,13 +261,6 @@ export default {
         const direccionTexto = esAreaServicio ? "" : (negocio.direccionTexto || direccion.calle || ciudad || "");
         const tituloUbicacion = negocio.etiquetas?.ubicacion || (esAreaServicio ? "Área de servicio" : "Encuéntranos");
 
-        const customCss = typeof negocio.siden?.customCss === "string"
-            ? negocio.siden.customCss.trim().replace(/^\/+/, "")
-            : "";
-        const customCssValido = customCss &&
-            /^[a-zA-Z0-9._/-]+\.css$/i.test(customCss) &&
-            !customCss.includes("..");
-
         const reemplazos = {
             "__SEO_TITLE__": escHtml(tituloSEO), "__SEO_DESCRIPTION__": escHtml(descripcionSEO), "__ROBOTS__": indexable ? "index, follow" : "noindex, nofollow",
             "__BUSINESS_NAME__": escHtml(negocio.nombre), "__BUSINESS_TYPE__": escHtml(negocio.etiquetaTipo || ""), "__H1_TITLE__": escHtml(h1Title),
@@ -268,7 +272,7 @@ export default {
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
         if (customCssValido) {
-            const customCssUrl = `${sitePrefix}/${customCss}`;
+            const customCssUrl = "/custom.css";
             html = html.replace("</head>", `<link rel="stylesheet" href="${escHtml(customCssUrl)}" data-siden-instance-css="true"></head>`);
         }
 
