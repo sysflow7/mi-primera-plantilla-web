@@ -68,7 +68,8 @@ export default {
                     "siden-template-v1-4",
                     "siden-corporativo-v1.3",
                     "siden-corporativo-v1-3",
-                    "ajuste-sidenred-inicio-2026-09-19"
+                    "ajuste-sidenred-inicio-2026-09-19",
+                    "arquitectura-maestra-v1-5-2026-09-20"
                 ];
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
@@ -90,9 +91,8 @@ export default {
 
         if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
-        const isCorporate = instanceId === "corporativo";
-        const sitePrefix = isCorporate ? "" : `/sites/${instanceId}`;
-        const configPath = isCorporate ? "/config.json" : `${sitePrefix}/config.json`;
+        const sitePrefix = `/sites/${instanceId}`;
+        const configPath = `${sitePrefix}/config.json`;
 
         const respuestaConfig = await loadAsset(configPath);
         if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
@@ -100,15 +100,20 @@ export default {
         const negocio = await respuestaConfig.json();
         const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
 
-        if (isCorporate) {
-            if (configuredInstance !== "siden-corporativo") {
-                return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
-            }
-        } else if (configuredInstance !== instanceId) {
+        if (configuredInstance !== instanceId) {
             return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
         }
 
-        if (url.pathname === "/config.json" && !isCorporate) {
+        // La configuración activa siempre pertenece a la instancia resuelta por el host.
+        // Esto evita que un sitio pueda caer accidentalmente en el config.json de otra instancia.
+        const customCss = typeof negocio.siden?.customCss === "string"
+            ? negocio.siden.customCss.trim().replace(/^\/+/, "")
+            : "";
+        const customCssValido = customCss &&
+            /^[a-zA-Z0-9._/-]+\.css$/i.test(customCss) &&
+            !customCss.includes("..");
+
+        if (url.pathname === "/config.json") {
             return new Response(JSON.stringify(negocio), {
                 headers: withSecurityHeaders({
                     "Content-Type": "application/json; charset=UTF-8",
@@ -141,7 +146,21 @@ export default {
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
-            return loadAsset(isCorporate ? url.pathname : `${sitePrefix}${url.pathname}`);
+            return loadAsset(`${sitePrefix}${url.pathname}`);
+        }
+
+        if (request.method === "GET" && url.pathname === "/custom.css" && customCssValido) {
+            return loadAsset(`${sitePrefix}/${customCss}`);
+        }
+
+        // Los archivos internos de /sites/<instanceId> nunca se exponen directamente.
+        // El navegador trabaja siempre con rutas relativas (/images/*, /custom.css, etc.)
+        // y el Worker las resuelve contra la instancia activa.
+        if (url.pathname.startsWith("/sites/")) {
+            return new Response("Recurso de instancia no disponible directamente.", {
+                status: 404,
+                headers: withSecurityHeaders()
+            });
         }
 
         if (url.pathname === "/robots.txt") {
@@ -183,7 +202,7 @@ export default {
         const canonical = url.origin + rutaNormalizada(url.pathname);
         const negocioId = url.origin + "/#negocio";
         const construirImagenURL = (archivo) => archivo
-            ? new URL(sitePrefix + "/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
+            ? new URL("/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
             : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
@@ -253,10 +272,15 @@ export default {
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
+        if (customCssValido) {
+            const customCssUrl = "/custom.css";
+            html = html.replace("</head>", `<link rel="stylesheet" href="${escHtml(customCssUrl)}" data-siden-instance-css="true"></head>`);
+        }
+
         const runtimeConfig = {
             ...negocio,
             ...(negocio.modoSitio === "multi" ? { paginas: paginasValidas } : {}),
-            siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix }
+            siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix, customCss: customCssValido ? customCss : "" }
         };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
