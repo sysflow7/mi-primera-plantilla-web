@@ -86,7 +86,6 @@
         };
 
         // IDENTIDAD
-        setText("nav-logo", negocioBase.nombre);
         setText("nombre-negocio", negocioBase.nombre);
         setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
         setText("tipo-negocio", negocioBase.etiquetaTipo || "");
@@ -269,7 +268,8 @@
         if (listaBeneficios && Array.isArray(negocio.beneficios)) {
             listaBeneficios.innerHTML = "";
             negocio.beneficios.forEach(function (beneficio) {
-                addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
+                const icon = beneficio.imagen ? `<div class="benefit-icon"><img src="${escapeHtml(assetUrl("images/" + beneficio.imagen))}" alt="" aria-hidden="true"></div>` : `<div class="benefit-icon">✓</div>`;
+                addCard(listaBeneficios, "benefit", `${icon}<h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
             });
         }
 
@@ -329,13 +329,6 @@
             const boton = document.getElementById(id);
             if (boton) boton.addEventListener("click", compartirNegocio);
         });
-
-        // MENÚ MÓVIL
-        const menuButton = document.getElementById("menu-button");
-        if (menuButton && navLinks) {
-            menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
-            navLinks.querySelectorAll("a").forEach(function (enlace) { enlace.addEventListener("click", function () { navLinks.classList.remove("active"); }); });
-        }
     } catch (error) {
         console.error("Error al inicializar la página SIDEN:", error);
     }
