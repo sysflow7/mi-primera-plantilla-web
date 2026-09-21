@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80" class="loc-icon-2">
+  <defs>
+    <linearGradient id="dialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1E40AF" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .loc-icon-2 {
+      cursor: pointer;
+    }
+    .loc-icon-2 .outer-ring {
+      transform-origin: 50px 50px;
+      transition: transform 0.6s ease;
+    }
+    .loc-icon-2 .needle {
+      transform-origin: 50px 50px;
+      animation: compassWobble 3s ease-in-out infinite;
+    }
+
+    .loc-icon-2:hover .outer-ring {
+      transform: rotate(90deg);
+    }
+
+    @keyframes compassWobble {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-18deg); }
+      75% { transform: rotate(22deg); }
+    }
+  </style>
+
+  <!-- Anillo Exterior -->
+  <circle class="outer-ring" cx="50" cy="50" r="32" fill="none" stroke="url(#dialGrad)" stroke-width="4" stroke-dasharray="12 6" />
+
+  <!-- Fondo base translúcido -->
+  <circle cx="50" cy="50" r="26" fill="#DBEAFE" opacity="0.3" />
+
+  <!-- Aguja de la Brújula -->
+  <g class="needle">
+    <!-- Punta Norte (Azul Oscuro) -->
+    <polygon points="50,22 57,50 50,45" fill="#1D4ED8" />
+    <polygon points="50,22 43,50 50,45" fill="#3B82F6" />
+    
+    <!-- Punta Sur (Azul Claro) -->
+    <polygon points="50,78 57,50 50,55" fill="#93C5FD" />
+    <polygon points="50,78 43,50 50,55" fill="#60A5FA" />
+  </g>
+
+  <!-- Punto Central -->
+  <circle cx="50" cy="50" r="4" fill="#1E3A8A" />
+</svg>
