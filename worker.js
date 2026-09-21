@@ -76,11 +76,15 @@ export default {
                     "reincorporacion-benitez-gutierrez-v1-5-2026-09-21": "despachobg",
                     "reincorporacion-benitez-gutierrez-v1-5-2-3c1a": "despachobg"
                 };
+                const instanciaPreviewConfigurada = previewInstanceAliases[previewSlug];
                 instanceId = corporatePreviewAliases.includes(previewSlug)
                     ? "corporativo"
-                    : (previewInstanceAliases[previewSlug] || previewSlug);
+                    : (instanciaPreviewConfigurada || previewSlug);
 
-                if (previewSlug && instanceId !== "corporativo") {
+                // Si el alias está definido explícitamente para una instancia de cliente,
+                // no debe volver a resolverse contra registry.json: ese paso sobrescribiría
+                // la instancia y provocaría "Sitio SIDeN no configurado".
+                if (previewSlug && !corporatePreviewAliases.includes(previewSlug) && !instanciaPreviewConfigurada) {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {
