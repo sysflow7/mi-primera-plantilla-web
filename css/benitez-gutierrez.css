@@ -5,7 +5,7 @@ body{background:var(--bg);color:var(--text)}
 .nav-logo{display:flex;align-items:flex-start;margin-right:auto;width:110px;height:100px;overflow:hidden;text-decoration:none!important}.nav-logo img{display:block;height:125px;width:auto;max-width:none;object-fit:contain}.nav-logo:hover{opacity:.95}
 .nav-links a{color:var(--primary-dark)!important}.nav-links a:hover{color:var(--accent)!important}
 .nav-cta{background:var(--primary)!important;color:#fff!important}.nav-cta:hover{background:var(--primary-dark)!important}
-.hero{min-height:640px;background:var(--primary-dark);padding:72px 24px}.hero::before{display:none!important}
+.hero{min-height:640px;background:var(--primary-dark);padding:72px 24px}
 .hero-overlay{background:linear-gradient(100deg,rgba(30,21,14,.96) 0%,rgba(73,47,22,.78) 58%,rgba(126,81,40,.48) 100%)}
 .hero-content{grid-template-columns:minmax(0,1.05fr) minmax(380px,.95fr);max-width:1180px;gap:50px}
 .hero-brand{color:var(--accent-soft)!important;font-size:20px!important}.hero-eyebrow{color:var(--accent-soft)!important}
