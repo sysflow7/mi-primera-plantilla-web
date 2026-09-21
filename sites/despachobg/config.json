@@ -22,13 +22,12 @@
     "Morazán",
     "El Salvador"
   ],
-  "heroImagen": "despachobg-hero.jpg",
+  "heroImagen": "86624.jpg",
   "modulos": [
     "presentacion",
-    "perfil",
     "beneficios",
     "servicios",
-    "proceso",
+    "galeria",
     "ubicacion",
     "contacto"
   ],
@@ -52,8 +51,8 @@
   "instagram": "",
   "maps": "https://www.google.com/maps/search/?api=1&query=Barrio%20El%20Centro%2C%20atr%C3%A1s%20de%20la%20Alcald%C3%ADa%20Municipal%2C%20Perqu%C3%ADn%2C%20Moraz%C3%A1n%2C%20El%20Salvador",
   "catalogo": "",
-  "logo": "despachobg-logo.svg",
-  "imagenSocial": "despachobg-hero.jpg",
+  "logo": "logo.jpg",
+  "imagenSocial": "86624.jpg",
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
@@ -74,60 +73,49 @@
     "contactoMenu": "Contacto"
   },
   "textos": {
-    "contacto": "Estamos disponibles para atender sus consultas y orientarle sobre nuestros servicios jurídicos.",
-    "ubicacion": "Visítanos en nuestra oficina en Perquín, Morazán."
+    "contacto": "Estamos disponibles para atender sus consultas y orientarle sobre nuestros servicios jurídicos."
   },
   "paginas": [],
   "servicios": [
     {
       "nombre": "Servicios de abogacía",
-      "descripcion": "Orientación y representación jurídica de acuerdo con las necesidades de cada cliente."
+      "descripcion": "Orientación y representación jurídica de acuerdo con las necesidades de cada cliente.",
+      "imagen": "serv01.JPG"
     },
     {
       "nombre": "Servicios de notariado",
-      "descripcion": "Atención de trámites y actos notariales con acompañamiento profesional."
+      "descripcion": "Atención de trámites y actos notariales con acompañamiento profesional.",
+      "imagen": "serv02.JPG"
     },
     {
       "nombre": "Asesoría jurídica",
-      "descripcion": "Análisis de situaciones legales y orientación sobre las alternativas disponibles."
-    },
-    {
-      "nombre": "Atención personalizada",
-      "descripcion": "Atención directa para conocer su caso y brindarle una orientación clara."
+      "descripcion": "Análisis de situaciones legales y orientación sobre las alternativas disponibles.",
+      "imagen": "serv03.JPG"
     }
   ],
   "productos": [],
   "menu": [],
-  "perfil": {
-    "descripcion": "Despacho Jurídico Benítez Gutiérrez — Abogacía y Notariado, ubicado en Perquín, Morazán, El Salvador.",
-    "datos": [
-      {
-        "titulo": "Especialidad",
-        "valor": "Abogacía y Notariado"
-      },
-      {
-        "titulo": "Ubicación",
-        "valor": "Perquín, Morazán"
-      },
-      {
-        "titulo": "Atención",
-        "valor": "Personalizada"
-      }
-    ]
-  },
-  "galeria": [],
+  "galeria": [
+    "gale01.JPG",
+    "gale02.JPG",
+    "gale03.JPG",
+    "gale04.JPG"
+  ],
   "beneficios": [
     {
-      "titulo": "Atención profesional",
-      "descripcion": "Orientación jurídica con un trato serio, cercano y profesional."
+      "titulo": "¿Dónde encuentro información?",
+      "descripcion": "El cliente necesita saber qué haces, qué ofreces y cómo contactarte sin tener que buscar en varios lugares.",
+      "imagen": "lupa.svg"
     },
     {
-      "titulo": "Información clara",
-      "descripcion": "Explicamos cada situación de forma comprensible para facilitar la toma de decisiones."
+      "titulo": "¿Será un negocio confiable?",
+      "descripcion": "Una presentación profesional ayuda a transmitir orden, claridad y confianza desde el primer contacto.",
+      "imagen": "seguridad.svg"
     },
     {
-      "titulo": "Atención personalizada",
-      "descripcion": "Cada consulta es atendida considerando las circunstancias particulares del cliente."
+      "titulo": "¿Cómo llego o les escribo?",
+      "descripcion": "La ubicación y WhatsApp deben estar conectados para convertir el interés en una acción sencilla.",
+      "imagen": "Ubicacion.svg"
     }
   ],
   "proceso": [
@@ -149,5 +137,5 @@
     }
   ],
   "identidad": {},
-  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-88.1645%2C13.9568%2C-88.1590%2C13.9602&layer=mapnik&marker=13.95847%2C-88.16177"
+  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-88.1630%2C13.9575%2C-88.1605%2C13.9595&layer=mapnik&marker=13.95847%2C-88.16177"
 }
