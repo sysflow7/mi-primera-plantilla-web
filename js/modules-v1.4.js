@@ -106,12 +106,9 @@
       }
       /* SIDeN CORPORATE VISUAL FIXES */
       body.siden-corporate-hero .hero-brand{display:none!important}
-      body.siden-corporate-hero .siden-nav-logo-image{display:block!important;width:150px!important;height:44px!important;min-height:44px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;font-size:0!important;line-height:0!important}
-      body.siden-corporate-hero .siden-nav-logo-image img{display:none!important}
       body.siden-corporate-hero .conversion-contact{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}
       body.siden-corporate-hero .conversion-contact .cta-panel{margin-left:auto!important;margin-right:auto!important}
       @media(max-width:700px){
-        body.siden-corporate-hero .siden-nav-logo-image{width:128px!important;height:40px!important;min-height:40px!important}
         body.siden-corporate-hero .hero{background-color:#0b1220!important}
       }
     `;
@@ -122,8 +119,12 @@
         try { const r = await fetch("config.json", { cache: "no-cache" }); return r.ok ? await r.json() : null; } catch (e) { return null; }
     };
     const asset = function (cfg, file) {
+        const limpio = String(file || "").replace(/^\/+/, "");
+        if (limpio.startsWith("images/")) {
+            return new URL("/" + limpio, location.origin).href;
+        }
         const prefix = String(cfg?.siden?.assetPrefix || "").replace(/\/+$/, "");
-        return new URL((prefix ? prefix + "/" : "/") + String(file || "").replace(/^\/+/, ""), location.origin).href;
+        return new URL((prefix ? prefix + "/" : "/") + limpio, location.origin).href;
     };
     let box = null;
     const openLightbox = function (src, alt) {
@@ -185,10 +186,7 @@
         if (cfg?.nombre === "SIDeN") {
             document.body.classList.add("siden-corporate-hero");
             const navLogo = document.getElementById("nav-logo");
-            if (navLogo && cfg.logo) {
-                navLogo.textContent = "";
-                navLogo.classList.add("siden-nav-logo-image");
-                navLogo.style.backgroundImage = `url("${asset(cfg, "images/" + cfg.logo)}")`;
+            if (navLogo) {
                 navLogo.setAttribute("aria-label", "SIDeN");
             }
         }
