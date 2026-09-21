@@ -89,7 +89,7 @@
         };
 
         // IDENTIDAD
-        setText("nav-logo", negocioBase.nombre);
+        setText("nav-logo-text", negocioBase.nombre);
         setText("nombre-negocio", negocioBase.nombre);
         setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
         setText("tipo-negocio", negocioBase.etiquetaTipo || "");
@@ -103,6 +103,17 @@
 
         const navLogo = document.getElementById("nav-logo");
         if (navLogo) navLogo.href = esMulti ? "/" : "#inicio";
+
+        const navLogoImage = document.getElementById("nav-logo-image");
+        if (navLogoImage) {
+            if (negocioBase.logo) {
+                navLogoImage.src = assetUrl("images/" + negocioBase.logo);
+                navLogoImage.alt = "Logo de " + negocioBase.nombre;
+                navLogoImage.hidden = false;
+            } else {
+                navLogoImage.hidden = true;
+            }
+        }
 
         const logo = document.getElementById("logo-negocio");
         if (logo && negocioBase.logo) {
