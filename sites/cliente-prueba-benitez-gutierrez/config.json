@@ -44,8 +44,8 @@
     "departamento": "Morazán",
     "codigoPostal": "",
     "pais": "SV",
-    "latitud": "",
-    "longitud": ""
+    "latitud": "13.95847",
+    "longitud": "-88.16177"
   },
   "facebook": "",
   "instagram": "",
@@ -136,5 +136,6 @@
       "descripcion": "Brindamos seguimiento según el servicio requerido."
     }
   ],
-  "identidad": {}
+  "identidad": {},
+  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-88.1630%2C13.9575%2C-88.1605%2C13.9595&layer=mapnik&marker=13.95847%2C-88.16177"
 }
