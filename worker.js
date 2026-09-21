@@ -53,7 +53,6 @@ export default {
             }
         } else if (isWorkersPreview) {
             const requestedPreviewSite = slugify(url.searchParams.get("site"));
-            const knownCorporatePreview = host.includes("migracion-imagenes-corporativo-v1-5-2026-");
             if (requestedPreviewSite) {
                 instanceId = requestedPreviewSite;
             } else {
@@ -72,9 +71,8 @@ export default {
                     "ajuste-sidenred-inicio-2026-09-19",
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20",
-                    "migracion-imagenes-corporativo-v1-5-2026-09-20"
                 ];
-                instanceId = knownCorporatePreview || corporatePreviewAliases.includes(previewSlug) || previewSlug.startsWith("migracion-imagenes-corporativo-v1-5-2026-") ? "corporativo" : previewSlug;
+                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
                 if (previewSlug && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
