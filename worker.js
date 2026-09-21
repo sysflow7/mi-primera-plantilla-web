@@ -202,7 +202,7 @@ export default {
         const canonical = url.origin + rutaNormalizada(url.pathname);
         const negocioId = url.origin + "/#negocio";
         const construirImagenURL = (archivo) => archivo
-            ? new URL(sitePrefix + "/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
+            ? new URL("/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
             : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
