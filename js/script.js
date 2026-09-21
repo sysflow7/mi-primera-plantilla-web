@@ -86,7 +86,6 @@
         };
 
         // IDENTIDAD
-        setText("nav-logo", negocioBase.nombre);
         setText("nombre-negocio", negocioBase.nombre);
         setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
         setText("tipo-negocio", negocioBase.etiquetaTipo || "");
@@ -96,7 +95,6 @@
         setText("telefono-negocio", negocioBase.telefono);
         setText("ciudad-negocio", negocioBase.ciudad);
         setText("direccion-linea", negocioBase.direccionTexto || "");
-        setText("texto-ubicacion", texto.ubicacion || "Encuentra nuestro establecimiento y consulta cómo llegar.");
 
         const navLogo = document.getElementById("nav-logo");
         if (navLogo) navLogo.href = esMulti ? "/" : "#inicio";
@@ -220,80 +218,7 @@
         const instagram = document.getElementById("instagram-negocio");
         if (instagram) { instagram.href = negocioBase.instagram || "#"; instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http")); }
         const maps = document.getElementById("maps-negocio");
-        if (maps) {
-            const mapsUrl = String(negocioBase.maps || "").trim();
-            const direccion = negocioBase.direccion || {};
-            const lat = String(direccion.latitud ?? "").trim();
-            const lng = String(direccion.longitud ?? "").trim();
-            const destino = lat && lng
-                ? lat + "," + lng
-                : String(negocioBase.direccionTexto || negocioBase.ciudad || "").trim();
-            const directionsUrl = destino
-                ? "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(destino)
-                : mapsUrl;
-
-            maps.href = directionsUrl || "#";
-            maps.target = "_blank";
-            maps.rel = "noopener noreferrer";
-            maps.hidden = !(directionsUrl && /^https?:\/\//i.test(directionsUrl));
-        }
-
-        // UBICACIÓN / MAPA EMBEBIDO
-        // El proveedor del mapa se define en mapEmbedUrl.
-        // Se aceptan Google Maps y OpenStreetMap sin API key.
-        const mapaWrap = document.getElementById("mapa-google");
-        const mapaIframe = document.getElementById("mapa-google-iframe");
-        const mapEmbedUrl = String(negocioBase.mapEmbedUrl || "").trim();
-        let mapaValido = false;
-
-        if (mapEmbedUrl) {
-            try {
-                const urlMapa = new URL(mapEmbedUrl);
-                const hostMapa = urlMapa.hostname.toLowerCase();
-                const esGoogleMaps = hostMapa === "google.com" ||
-                    hostMapa === "www.google.com" ||
-                    hostMapa === "maps.google.com";
-                const esOpenStreetMap = hostMapa === "openstreetmap.org" ||
-                    hostMapa === "www.openstreetmap.org";
-                const esRutaGoogle = /^\/maps(?:\/|$)/i.test(urlMapa.pathname);
-                const esRutaOsm = /^\/export\/embed\.html$/i.test(urlMapa.pathname);
-
-                mapaValido = urlMapa.protocol === "https:" &&
-                    ((esGoogleMaps && esRutaGoogle) || (esOpenStreetMap && esRutaOsm));
-            } catch (error) {
-                mapaValido = false;
-            }
-        }
-
-        if (mapaWrap && mapaIframe) {
-            if (mapaValido) {
-                mapaIframe.src = mapEmbedUrl;
-                mapaWrap.hidden = false;
-                mapaWrap.style.display = "block";
-            } else {
-                mapaIframe.removeAttribute("src");
-                mapaWrap.hidden = true;
-                mapaWrap.style.display = "none";
-            }
-        }
-        const horarioUbicacion = document.getElementById("horario-ubicacion");
-        if (horarioUbicacion) {
-            const horarios = Array.isArray(negocioBase.horarios) ? negocioBase.horarios : [];
-            if (horarios.length) {
-                const dias = {Monday:"Lunes",Tuesday:"Martes",Wednesday:"Miércoles",Thursday:"Jueves",Friday:"Viernes",Saturday:"Sábado",Sunday:"Domingo"};
-                const bloques = horarios.map(function(h) {
-                    const nombres = Array.isArray(h.dias) ? h.dias.map(function(d){ return dias[d] || d; }).join(", ") : "";
-                    return [nombres, h.abre && h.cierra ? h.abre + "–" + h.cierra : ""].filter(Boolean).join(": ");
-                }).filter(Boolean);
-                horarioUbicacion.textContent = bloques.join(" · ");
-                horarioUbicacion.hidden = !bloques.length;
-            } else {
-                horarioUbicacion.textContent = "";
-                horarioUbicacion.hidden = true;
-            }
-        }
-        const telefonoUbicacion = document.getElementById("telefono-ubicacion");
-        if (telefonoUbicacion) telefonoUbicacion.hidden = !String(negocioBase.telefono || "").trim();
+        if (maps) { maps.href = negocioBase.maps || "#"; maps.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
         const paginaUbicacion = document.getElementById("pagina-ubicacion");
         if (paginaUbicacion) { paginaUbicacion.href = negocioBase.maps || "#"; paginaUbicacion.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
         const catalogo = document.getElementById("catalogo-negocio");
@@ -343,7 +268,8 @@
         if (listaBeneficios && Array.isArray(negocio.beneficios)) {
             listaBeneficios.innerHTML = "";
             negocio.beneficios.forEach(function (beneficio) {
-                addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
+                const icon = beneficio.imagen ? `<div class="benefit-icon"><img src="${escapeHtml(assetUrl("images/" + beneficio.imagen))}" alt="" aria-hidden="true"></div>` : `<div class="benefit-icon">✓</div>`;
+                addCard(listaBeneficios, "benefit", `${icon}<h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
             });
         }
 
@@ -403,13 +329,6 @@
             const boton = document.getElementById(id);
             if (boton) boton.addEventListener("click", compartirNegocio);
         });
-
-        // MENÚ MÓVIL
-        const menuButton = document.getElementById("menu-button");
-        if (menuButton && navLinks) {
-            menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
-            navLinks.querySelectorAll("a").forEach(function (enlace) { enlace.addEventListener("click", function () { navLinks.classList.remove("active"); }); });
-        }
     } catch (error) {
         console.error("Error al inicializar la página SIDEN:", error);
     }
