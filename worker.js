@@ -52,7 +52,7 @@ export default {
                 }
             }
         } else if (isWorkersPreview) {
-            const requestedPreviewSite = slugify(url.searchParams.get("site"));
+            const requestedPreviewSite = slugify(url.searchParams.get("site"));\n            const knownCorporatePreview = host.includes("migracion-imagenes-corporativo-v1-5-2026-09-20");
             if (requestedPreviewSite) {
                 instanceId = requestedPreviewSite;
             } else {
@@ -73,7 +73,7 @@ export default {
                     "ajuste-logo-instancia-v1-5-2026-09-20",
                     "migracion-imagenes-corporativo-v1-5-2026-09-20"
                 ];
-                instanceId = corporatePreviewAliases.includes(previewSlug) || previewSlug.startsWith("migracion-imagenes-corporativo-v1-5-2026-09-20") ? "corporativo" : previewSlug;
+                instanceId = knownCorporatePreview || corporatePreviewAliases.includes(previewSlug) || previewSlug.startsWith("migracion-imagenes-corporativo-v1-5-2026-09-20") ? "corporativo" : previewSlug;
 
                 if (previewSlug && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
