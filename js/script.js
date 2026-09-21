@@ -86,7 +86,6 @@
         };
 
         // IDENTIDAD
-        setText("nav-logo", negocioBase.nombre);
         setText("nombre-negocio", negocioBase.nombre);
         setText("slogan-negocio", paginaActual?.slogan || negocioBase.slogan);
         setText("tipo-negocio", negocioBase.etiquetaTipo || "");
