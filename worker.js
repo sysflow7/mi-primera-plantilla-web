@@ -70,7 +70,7 @@ export default {
                     "siden-corporativo-v1-3",
                     "ajuste-sidenred-inicio-2026-09-19",
                     "arquitectura-maestra-v1-5-2026-09-20",
-                    "ajuste-logo-instancia-v1-5-2026-09-20",
+                    "ajuste-logo-instancia-v1-5-2026-09-20"
                 ];
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
