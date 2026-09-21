@@ -179,3 +179,97 @@ La plantilla maestra es el motor reutilizable. Cada cliente debe ser una instanc
 ## Importante
 
 La plantilla proporciona la base técnica para publicar sitios multi-sitio con SEO local. La configuración de DNS/Cloudflare, Google Business Profile, Search Console, indexación, contenido específico, reseñas y seguimiento de resultados forman parte del procedimiento operativo de SIDeN y no se consideran automatizados por esta plantilla.
+
+# Arquitectura maestra v1.5 — aislamiento por instancia
+
+Desde v1.5, SIDeN aplica una regla estructural obligatoria: **la plantilla maestra es el motor compartido; cada sitio real es una instancia aislada**.
+
+## Estructura obligatoria
+
+    /
+    ├── index.html                 # Motor compartido — NO personalizar por cliente
+    ├── worker.js                  # Resolución multi-sitio — NO personalizar por cliente
+    ├── js/                        # Lógica compartida — NO personalizar por cliente
+    ├── css/                       # Estilos compartidos — NO personalizar por cliente
+    ├── config.json                # Solo demo de la plantilla maestra
+    ├── sites/
+    │   ├── registry.json          # Mapeo de hosts/slug a instanceId
+    │   ├── corporativo/
+    │   │   ├── config.json       # Configuración exclusiva de SIDeN corporativo
+    │   │   ├── custom.css        # Ajustes visuales exclusivos, si existen
+    │   │   └── images/            # Recursos exclusivos de la instancia
+    │   └── <instanceId>/
+    │       ├── config.json       # Configuración exclusiva del cliente
+    │       ├── custom.css        # Opcional; solo para ese cliente
+    │       └── images/            # Imágenes exclusivas del cliente
+
+## Regla de aislamiento
+
+Para crear o modificar un cliente se trabaja **únicamente dentro de `sites/<instanceId>/`** cuando el cambio sea de contenido, imágenes o presentación específica.
+
+No se deben modificar para resolver necesidades de un cliente:
+
+- `index.html`
+- `worker.js`
+- `js/script.js`
+- módulos compartidos
+- CSS compartido
+- `config.json` raíz
+
+Si una necesidad requiere una nueva capacidad visual o funcional, primero se incorpora de forma **genérica y configurable** a la plantilla maestra. Después se activa o parametriza desde el `config.json` de la instancia.
+
+## Personalización visual por cliente
+
+Cada instancia puede declarar:
+
+    {
+      "siden": {
+        "instanceId": "cliente1",
+        "customCss": "custom.css"
+      }
+    }
+
+El Worker carga esa hoja únicamente para la instancia activa. Así, un ajuste de colores, tamaños, espaciados, botones o composición visual de un cliente no modifica la plantilla ni los demás clientes.
+
+`customCss` solo acepta archivos `.css` con rutas relativas seguras dentro de la instancia.
+
+## Flujo correcto de cambios
+
+1. Identificar si el cambio es **general** o **específico del cliente**.
+2. Si es específico: editar `sites/<instanceId>/config.json`, `custom.css` y/o `images/`.
+3. Si no existe la capacidad necesaria: mejorar primero el motor compartido de manera genérica.
+4. Probar la instancia afectada.
+5. Verificar que el cambio no altera la plantilla maestra ni otras instancias.
+6. Crear PR con alcance claramente identificado.
+7. Solo después de la aprobación, integrar y desplegar producción.
+
+## Protección adicional del Worker
+
+El Worker resuelve siempre el `instanceId` a partir del host y carga:
+
+    /sites/<instanceId>/config.json
+    /sites/<instanceId>/images/*
+
+También impide el acceso directo del navegador a las rutas internas `/sites/<instanceId>/...`, evitando que una instancia pueda consumir accidentalmente recursos de otra. La configuración activa se valida contra el `instanceId` resuelto.
+
+## Publicación corporativa
+
+`https://sidenred.com` utiliza ahora la instancia `corporativo` igual que un cliente:
+
+    sidenred.com
+       ↓
+    instanceId = corporativo
+       ↓
+    /sites/corporativo/config.json
+
+Esto elimina la excepción arquitectónica anterior en la que el sitio corporativo utilizaba el `config.json` de la raíz.
+
+## Regla crítica para SIDeN
+
+**Nunca volver a copiar archivos de un cliente sobre los archivos raíz de la plantilla para publicar ese cliente.**
+
+El cliente debe viajar como instancia aislada. El motor compartido debe permanecer reutilizable.
+
+## Referencia técnica
+
+La arquitectura utiliza Cloudflare Workers Static Assets con `run_worker_first`, permitiendo que el Worker resuelva el host y seleccione dinámicamente los recursos de la instancia antes de servir la plantilla compartida.
