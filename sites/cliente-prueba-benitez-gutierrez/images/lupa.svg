@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80" class="search-icon-2">
+  <defs>
+    <linearGradient id="blueGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1E40AF" />
+    </linearGradient>
+
+    <!-- Gradiente para la línea de escaneo -->
+    <linearGradient id="scanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0" />
+      <stop offset="50%" stop-color="#93C5FD" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#60A5FA" stop-opacity="0" />
+    </linearGradient>
+
+    <clipPath id="lensClip">
+      <circle cx="45" cy="45" r="20" />
+    </clipPath>
+  </defs>
+
+  <style>
+    .search-icon-2 {
+      cursor: pointer;
+    }
+    .search-icon-2 .scanning-body {
+      animation: scanMove 2.5s ease-in-out infinite;
+    }
+    .search-icon-2 .scan-line {
+      animation: lineSweep 2.5s ease-in-out infinite;
+    }
+
+    @keyframes scanMove {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-3px, -3px); }
+      75% { transform: translate(3px, 3px); }
+    }
+
+    @keyframes lineSweep {
+      0% { transform: translateY(-25px); }
+      50% { transform: translateY(25px); }
+      100% { transform: translateY(-25px); }
+    }
+  </style>
+
+  <g class="scanning-body">
+    <!-- Mango -->
+    <line x1="60" y1="60" x2="82" y2="82" stroke="url(#blueGrad2)" stroke-width="9" stroke-linecap="round" />
+    <line x1="60" y1="60" x2="82" y2="82" stroke="#1D4ED8" stroke-width="3" stroke-linecap="round" opacity="0.4" />
+
+    <!-- Lente Marco Base -->
+    <circle cx="45" cy="45" r="23" fill="#EFF6FF" stroke="url(#blueGrad2)" stroke-width="6" />
+
+    <!-- Área internamente recortada para la animación de escaneo -->
+    <g clip-path="url(#lensClip)">
+      <rect class="scan-line" x="20" y="42" width="50" height="6" fill="url(#scanGrad)" />
+      <circle cx="40" cy="38" r="14" fill="#FFFFFF" opacity="0.25" />
+    </g>
+  </g>
+</svg>
