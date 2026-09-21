@@ -70,11 +70,15 @@ export default {
                     "siden-corporativo-v1-3",
                     "ajuste-sidenred-inicio-2026-09-19",
                     "arquitectura-maestra-v1-5-2026-09-20",
-                    "ajuste-logo-instancia-v1-5-2026-09-20",
-                    "reincorporacion-benitez-gutierrez-v1-5-2026-09-21",
-                    "reincorporacion-benitez-gutierrez-v1-5-2-3c1a"
+                    "ajuste-logo-instancia-v1-5-2026-09-20"
                 ];
-                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
+                const previewInstanceAliases = {
+                    "reincorporacion-benitez-gutierrez-v1-5-2026-09-21": "despachobg",
+                    "reincorporacion-benitez-gutierrez-v1-5-2-3c1a": "despachobg"
+                };
+                instanceId = corporatePreviewAliases.includes(previewSlug)
+                    ? "corporativo"
+                    : (previewInstanceAliases[previewSlug] || previewSlug);
 
                 if (previewSlug && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
