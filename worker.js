@@ -71,7 +71,8 @@ export default {
                     "ajuste-sidenred-inicio-2026-09-19",
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20",
-                    "reincorporacion-benitez-gutierrez-v1-5-2026-09-21"
+                    "reincorporacion-benitez-gutierrez-v1-5-2026-09-21",
+                    "reincorporacion-benitez-gutierrez-v1-5-2-3c1a"
                 ];
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
