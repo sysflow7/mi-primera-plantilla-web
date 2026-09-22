@@ -96,6 +96,10 @@ Si un cliente solicita un cambio:
 4. Si la capacidad no existe, agregarla al motor compartido de forma genérica y configurable.
 5. Nunca copiar el HTML/CSS/JS de un cliente sobre los archivos raíz.
 
+### Validación previa a producción
+
+Toda instancia nueva o reincorporada debe validarse visualmente en el Preview de su rama antes de realizar el merge hacia la rama de producción. La configuración de producción no debe modificarse para realizar esta prueba.
+
 ## Resultado
 
 Un cambio de Benítez Gutiérrez, FerreHogar o cualquier cliente futuro no debe alterar el motor ni el contenido de otra instancia.
