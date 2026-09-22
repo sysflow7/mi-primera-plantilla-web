@@ -31,7 +31,7 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 
 
 /* SIDeN V1.5 — adaptación aislada a la plantilla maestra compartida */
-#proyectos,#problema,#solucion,#soluciones{display:none!important}
+#proyectos,#problema,#solucion{display:none!important}
 .hero-actions,.hero-trust{display:none!important}
 .hero-brand img,.hero-brand span{display:none!important}
 .hero-brand::after{content:"Despacho Jurídico Benítez Gutiérrez";color:var(--accent-soft);font-size:20px;font-weight:800}
@@ -44,3 +44,65 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 #beneficios .section-heading .section-kicker::after{content:"EL PROBLEMA";font-size:12px}
 #servicios .section-heading .section-kicker{font-size:0}
 #servicios .section-heading .section-kicker::after{content:"SERVICIOS JURÍDICOS";font-size:12px}
+
+
+/* SIDeN V1.5 — ajustes solicitados para Benítez Gutiérrez */
+#hero-imagen-negocio{
+  display:block!important;
+  width:100%;
+  max-width:540px;
+  height:390px;
+  object-fit:cover;
+  border-radius:24px;
+  border:1px solid rgba(226,197,155,.45);
+  box-shadow:0 28px 70px rgba(0,0,0,.34);
+}
+#beneficios .benefits{
+  width:100%;
+  max-width:1180px;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  justify-content:center;
+}
+#beneficios .benefit{
+  text-align:center!important;
+  align-items:center;
+}
+#beneficios .benefit-icon{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+#beneficios .benefit-icon img{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+  display:block;
+}
+#soluciones{
+  display:block!important;
+}
+#soluciones .plans-grid{
+  max-width:1180px;
+  margin-left:auto;
+  margin-right:auto;
+}
+#faq .faq-list{
+  max-width:1000px;
+  margin-left:auto;
+  margin-right:auto;
+}
+#contacto{
+  display:flex;
+  justify-content:center;
+  width:100%;
+}
+#contacto .cta-panel{
+  width:min(900px,calc(100% - 40px));
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box;
+}
+@media(max-width:700px){
+  #hero-imagen-negocio{height:270px}
+  #contacto .cta-panel{width:calc(100% - 28px)}
+}
