@@ -166,5 +166,10 @@
     "soluciones",
     "faq",
     "contacto"
-  ]
+  ],
+  "cintaInformativa": {
+    "mostrar": true,
+    "texto": "Protegemos tus derechos, defendemos tu futuro.",
+    "separador": "✦"
+  }
 }
