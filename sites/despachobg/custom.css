@@ -69,12 +69,17 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
   align-items:center;
 }
 #beneficios .benefit-icon{
+  width:96px!important;
+  height:96px!important;
   margin-left:auto!important;
   margin-right:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
 }
 #beneficios .benefit-icon img{
-  width:20px;
-  height:20px;
+  width:80px!important;
+  height:80px!important;
   object-fit:contain;
   display:block;
 }
