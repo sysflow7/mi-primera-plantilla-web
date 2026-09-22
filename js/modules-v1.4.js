@@ -102,14 +102,14 @@
       .siden-lightbox button{position:absolute;right:22px;top:16px;width:46px;height:46px;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:32px;line-height:1;cursor:pointer}
       @media(max-width:640px){.siden-lightbox{padding:16px}.siden-lightbox img{max-width:96vw;max-height:82vh}.siden-lightbox button{right:12px;top:10px}}
       @media(min-width:901px){
-        body.siden-corporate-hero .hero-overlay{background:linear-gradient(90deg,rgba(3,28,92,.97) 0%,rgba(7,54,135,.92) 42%,rgba(25,99,205,.68) 67%,rgba(37,99,235,.20) 100%)!important}
+        body.siden-commercial-hero .hero-overlay{background:linear-gradient(90deg,rgba(3,28,92,.97) 0%,rgba(7,54,135,.92) 42%,rgba(25,99,205,.68) 67%,rgba(37,99,235,.20) 100%)!important}
       }
       /* SIDeN CORPORATE VISUAL FIXES */
-      body.siden-corporate-hero .hero-brand{display:none!important}
-      body.siden-corporate-hero .conversion-contact{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}
-      body.siden-corporate-hero .conversion-contact .cta-panel{margin-left:auto!important;margin-right:auto!important}
+      body.siden-commercial-hero .hero-brand{display:none!important}
+      body.siden-commercial-hero .conversion-contact{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}
+      body.siden-commercial-hero .conversion-contact .cta-panel{margin-left:auto!important;margin-right:auto!important}
       @media(max-width:700px){
-        body.siden-corporate-hero .hero{background-color:#0b1220!important}
+        body.siden-commercial-hero .hero{background-color:#0b1220!important}
       }
     `;
     document.head.appendChild(css);
@@ -158,7 +158,8 @@
             Array.from(services.querySelectorAll(":scope > .service")).forEach(function (card, index) {
                 if (!card.querySelector("img.service-image")) {
                     const item = data[index] || {};
-                    const file = item.imagen || ["foto1.jpg", "foto2.jpg", "foto3.jpg"][index % 3];
+                    const file = item.imagen;
+                    if (!file) return;
                     const img = document.createElement("img");
                     img.className = "service-image";
                     img.src = asset(cfg || {}, "images/" + file);
@@ -184,7 +185,7 @@
         setupMenu();
         const cfg = await getConfig();
         if (cfg?.siden?.templateFamily === "commercial") {
-            document.body.classList.add("siden-corporate-hero");
+            document.body.classList.add("siden-commercial-hero");
             const navLogo = document.getElementById("nav-logo");
             if (navLogo) {
                 navLogo.setAttribute("aria-label", "SIDeN");
