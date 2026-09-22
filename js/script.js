@@ -149,6 +149,18 @@
             }
         }
 
+        const heroImagenElemento = document.getElementById("hero-imagen-negocio");
+        if (heroImagenElemento) {
+            if (nombreHero) {
+                heroImagenElemento.src = assetUrl("images/" + nombreHero);
+                heroImagenElemento.alt = "Imagen del negocio " + negocioBase.nombre;
+                heroImagenElemento.hidden = false;
+            } else {
+                heroImagenElemento.removeAttribute("src");
+                heroImagenElemento.hidden = true;
+            }
+        }
+
         if (paginaCabecera) {
             if (esPaginaInterna) {
                 paginaCabecera.hidden = false;
@@ -223,6 +235,21 @@
             const visible = modulo === "galeria" ? galeriaActiva : modulos.includes(modulo);
             showModule(modulo, visible);
         });
+
+        // ORDEN PERSONALIZADO DE SECCIONES
+        // Una instancia puede definir ordenSecciones sin alterar la plantilla maestra.
+        const ordenSecciones = Array.isArray(negocioBase.ordenSecciones)
+            ? negocioBase.ordenSecciones.map(function (id) { return String(id || "").trim(); }).filter(Boolean)
+            : [];
+        if (ordenSecciones.length) {
+            const main = document.querySelector("main");
+            if (main) {
+                ordenSecciones.forEach(function (id) {
+                    const seccion = document.getElementById(id);
+                    if (seccion && seccion.parentElement === main) main.appendChild(seccion);
+                });
+            }
+        }
 
         // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
@@ -406,7 +433,8 @@
         if (listaBeneficios && Array.isArray(negocio.beneficios)) {
             listaBeneficios.innerHTML = "";
             negocio.beneficios.forEach(function (beneficio) {
-                addCard(listaBeneficios, "benefit", `<div class="benefit-icon">✓</div><h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
+                const iconoBeneficio = beneficio.imagen ? `<img src="${escapeHtml(assetUrl("images/" + beneficio.imagen))}" alt="" loading="lazy">` : "✓";
+                addCard(listaBeneficios, "benefit", `<div class="benefit-icon">${iconoBeneficio}</div><h3>${escapeHtml(beneficio.titulo)}</h3><p>${escapeHtml(beneficio.descripcion)}</p>`);
             });
         }
 
