@@ -30,6 +30,7 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 @media(max-width:700px){.nav-logo{width:90px;height:64px;align-items:flex-start}.nav-logo img{height:80px;width:auto;max-width:none}.location{grid-template-columns:1fr}.google-map-wrap,.google-map-wrap iframe{min-height:300px}.hero{min-height:unset;padding:60px 18px}.hero-visual{min-height:260px}.hero-visual #hero-imagen-negocio{height:270px}.gallery{grid-template-columns:1fr!important}.cta-panel{padding:34px 20px}}
 
 
+
 /* SIDeN V1.5 — adaptación aislada a la plantilla maestra compartida */
 #proyectos,#problema,#solucion{display:none!important}
 .hero-actions,.hero-trust{display:none!important}
@@ -43,6 +44,7 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 #beneficios .section-heading .section-kicker::after{content:"EL PROBLEMA";font-size:12px}
 #servicios .section-heading .section-kicker{font-size:0}
 #servicios .section-heading .section-kicker::after{content:"SERVICIOS JURÍDICOS";font-size:12px}
+
 
 
 /* SIDeN V1.5 — ajustes solicitados para Benítez Gutiérrez */
@@ -114,3 +116,8 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
   #contacto .cta-panel{width:calc(100% - 28px)}
 }
 
+/* Corrección móvil Benítez: el Hero compartido aplica fondo celeste cuando oculta el overlay.
+   La instancia debe conservar su paleta café también en el tramo móvil del Hero. */
+@media(max-width:640px){
+  .hero{background-color:var(--primary-dark)!important}
+}
