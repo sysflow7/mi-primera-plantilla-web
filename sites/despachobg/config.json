@@ -156,5 +156,15 @@
     }
   ],
   "identidad": {},
-  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-88.1630%2C13.9575%2C-88.1605%2C13.9595&layer=mapnik&marker=13.95847%2C-88.16177"
+  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-88.1630%2C13.9575%2C-88.1605%2C13.9595&layer=mapnik&marker=13.95847%2C-88.16177",
+  "ordenSecciones": [
+    "nosotros",
+    "beneficios",
+    "servicios",
+    "galeria",
+    "ubicacion",
+    "soluciones",
+    "faq",
+    "contacto"
+  ]
 }
