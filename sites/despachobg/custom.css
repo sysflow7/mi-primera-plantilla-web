@@ -124,6 +124,7 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 .siden-marquee-track{
   min-height:76px!important;
   height:76px!important;
+  align-items:center!important;
 }
 .siden-marquee-item{
   padding:0 34px!important;
