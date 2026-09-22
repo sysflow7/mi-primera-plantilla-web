@@ -69,15 +69,18 @@
   "servicios": [
     {
       "nombre": "Páginas web para negocios",
-      "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes."
+      "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes.",
+      "imagen": "foto1.jpg"
     },
     {
       "nombre": "SEO local",
-      "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales."
+      "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales.",
+      "imagen": "foto2.jpg"
     },
     {
       "nombre": "Perfil de Empresa de Google",
-      "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado."
+      "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado.",
+      "imagen": "foto3.jpg"
     }
   ],
   "productos": [],
