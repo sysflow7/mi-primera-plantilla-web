@@ -77,10 +77,13 @@ export default {
                 const previewInstanceAliases = {
                     "reincorporacion-benitez-gutierrez-v1-5-2-3c1a": "despachobg"
                 };
-                instanceId = previewInstanceAliases[previewSlug] ||
+                const aliasInstanceId = previewInstanceAliases[previewSlug] || "";
+                instanceId = aliasInstanceId ||
                     (corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug);
 
-                if (previewSlug && instanceId !== "corporativo") {
+                // Solo consultar el registry cuando el Preview no fue resuelto
+                // previamente por un alias explícito.
+                if (previewSlug && !aliasInstanceId && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {
