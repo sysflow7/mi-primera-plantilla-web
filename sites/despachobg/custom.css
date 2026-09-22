@@ -73,8 +73,8 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
   margin-right:auto!important;
 }
 #beneficios .benefit-icon img{
-  width:40px;
-  height:40px;
+  width:20px;
+  height:20px;
   object-fit:contain;
   display:block;
 }
@@ -94,7 +94,10 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 #contacto{
   display:flex;
   justify-content:center;
-  width:100%;
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
 }
 #contacto .cta-panel{
   width:min(900px,calc(100% - 40px));
