@@ -16,6 +16,9 @@
             ? runtime
             : await respuesta.json();
         const siden = negocioBase.siden || {};
+        const templateFamily = String(siden.templateFamily || "corporate").toLowerCase();
+        document.body.dataset.templateFamily = templateFamily;
+        document.body.classList.add("siden-template-" + templateFamily);
         const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
         const assetUrl = function (archivo) {
             const limpio = String(archivo || "").replace(/^\/+/, "");
