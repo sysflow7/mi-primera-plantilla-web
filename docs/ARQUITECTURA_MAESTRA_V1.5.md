@@ -54,6 +54,10 @@ Cuando una instancia define esta propiedad, el motor reorganiza las secciones ex
 
 Esta capacidad es genérica y no contiene condiciones específicas de ningún cliente. Una instancia puede utilizarla cuando necesite una secuencia distinta sin modificar nuevamente `index.html` ni introducir lógica del tipo "si es cliente X".
 
+### Imagen visual del Hero
+
+La plantilla incluye un espacio visual opcional para mostrar una imagen de negocio en el Hero. La instancia debe activar explícitamente `mostrarHeroImagen: true` junto con `heroImagen` en su `config.json`. Si la propiedad no existe o es `false`, el espacio visual permanece oculto y la plantilla conserva su comportamiento normal.
+
 ## Instancia corporativa
 
 SIDeN corporativo también se comporta como una instancia:
