@@ -72,19 +72,9 @@ export default {
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20"
                 ];
-                const previewInstanceAliases = {
-                    "reincorporacion-benitez-gutierrez-v1-5-2026-09-21": "despachobg",
-                    "reincorporacion-benitez-gutierrez-v1-5-2-3c1a": "despachobg"
-                };
-                const instanciaPreviewConfigurada = previewInstanceAliases[previewSlug];
-                instanceId = corporatePreviewAliases.includes(previewSlug)
-                    ? "corporativo"
-                    : (instanciaPreviewConfigurada || previewSlug);
+                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
-                // Si el alias está definido explícitamente para una instancia de cliente,
-                // no debe volver a resolverse contra registry.json: ese paso sobrescribiría
-                // la instancia y provocaría "Sitio SIDeN no configurado".
-                if (previewSlug && !corporatePreviewAliases.includes(previewSlug) && !instanciaPreviewConfigurada) {
+                if (previewSlug && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {
@@ -155,12 +145,6 @@ export default {
             ? negocio.paginas.filter(pagina => rutaInternaValida(pagina?.ruta)) : [];
         const rutasMultipagina = paginasValidas.map(pagina => rutaNormalizada(pagina.ruta));
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
-
-        // Compatibilidad temporal para activos raíz declarados explícitamente como legado.
-        // Se usa mientras se completa la migración binaria de Logo-ajustado.JPG a la instancia.
-        if (request.method === "GET" && url.pathname === "/images/Logo-ajustado.JPG" && negocio.logo === "Logo-ajustado.JPG") {
-            return loadAsset("/images/Logo-ajustado.JPG");
-        }
 
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
             return loadAsset(`${sitePrefix}${url.pathname}`);
