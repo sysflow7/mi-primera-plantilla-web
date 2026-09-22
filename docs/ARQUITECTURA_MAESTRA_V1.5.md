@@ -33,6 +33,27 @@ Cada cliente debe disponer de:
 
 `custom.css` permite resolver diferencias visuales particulares sin modificar el CSS compartido.
 
+### Orden configurable de secciones
+
+La plantilla maestra admite opcionalmente la propiedad `ordenSecciones` en el `config.json` de una instancia.
+
+Ejemplo:
+
+    "ordenSecciones": [
+      "nosotros",
+      "beneficios",
+      "servicios",
+      "galeria",
+      "ubicacion",
+      "soluciones",
+      "faq",
+      "contacto"
+    ]
+
+Cuando una instancia define esta propiedad, el motor reorganiza las secciones existentes de `main` según ese arreglo. Si la propiedad no existe, la plantilla conserva su orden normal.
+
+Esta capacidad es genérica y no contiene condiciones específicas de ningún cliente. Una instancia puede utilizarla cuando necesite una secuencia distinta sin modificar nuevamente `index.html` ni introducir lógica del tipo "si es cliente X".
+
 ## Instancia corporativa
 
 SIDeN corporativo también se comporta como una instancia:
