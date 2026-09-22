@@ -72,18 +72,9 @@ export default {
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20"
                 ];
-                // Alias temporal de Preview: permite que CSS, JS e imágenes
-                // resuelvan la misma instancia aunque el navegador no conserve ?site=.
-                const previewInstanceAliases = {
-                    "reincorporacion-benitez-gutierrez-v1-5-2-3c1a": "despachobg"
-                };
-                const aliasInstanceId = previewInstanceAliases[previewSlug] || "";
-                instanceId = aliasInstanceId ||
-                    (corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug);
+                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
-                // Solo consultar el registry cuando el Preview no fue resuelto
-                // previamente por un alias explícito.
-                if (previewSlug && !aliasInstanceId && instanceId !== "corporativo") {
+                if (previewSlug && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {
@@ -114,8 +105,6 @@ export default {
             return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
         }
 
-        // La configuración activa siempre pertenece a la instancia resuelta por el host.
-        // Esto evita que un sitio pueda caer accidentalmente en el config.json de otra instancia.
         const customCss = typeof negocio.siden?.customCss === "string"
             ? negocio.siden.customCss.trim().replace(/^\/+/, "")
             : "";
@@ -163,9 +152,6 @@ export default {
             return loadAsset(`${sitePrefix}/${customCss}`);
         }
 
-        // Los archivos internos de /sites/<instanceId> nunca se exponen directamente.
-        // El navegador trabaja siempre con rutas relativas (/images/*, /custom.css, etc.)
-        // y el Worker las resuelve contra la instancia activa.
         if (url.pathname.startsWith("/sites/")) {
             return new Response("Recurso de instancia no disponible directamente.", {
                 status: 404,
