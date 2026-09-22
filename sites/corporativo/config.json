@@ -1,6 +1,7 @@
 {
   "siden": {
     "instanceId": "corporativo",
+    "templateFamily": "commercial",
     "template": "siden-template-v1.5",
     "version": "1.5",
     "customCss": "custom.css"
