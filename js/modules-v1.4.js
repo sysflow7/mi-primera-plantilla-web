@@ -183,7 +183,7 @@
     const start = async function () {
         setupMenu();
         const cfg = await getConfig();
-        if (cfg?.nombre === "SIDeN") {
+        if (cfg?.siden?.templateFamily === "commercial") {
             document.body.classList.add("siden-corporate-hero");
             const navLogo = document.getElementById("nav-logo");
             if (navLogo) {
@@ -206,6 +206,8 @@
         "PROFESIONAL": ["Página web profesional de hasta 6 páginas","Dominio personalizado","Hasta 12 productos o servicios","Hasta 2 fotos por producto o servicio","Hasta 10 imágenes del negocio","Botón directo a WhatsApp","Catálogo WhatsApp hasta 20 productos/servicios","SEO básico para Google","QR digital SIDeN","100 tarjetas impresas a doble cara con QR","1 pieza impresa en Foldcote de 6 × 9 pulgadas con QR SIDeN","12 meses de hosting, SSL y mantenimiento técnico","2 actualizaciones al mes, no acumulables","Asistencia básica sobre el servicio SIDeN"]
     };
     const actualizarPlanes = function () {
+        const runtime = window.__SIDEN_CONFIG__;
+        if (!runtime?.siden || runtime.siden.templateFamily !== "commercial") return;
         document.querySelectorAll("#soluciones .plan-card").forEach(function (card) {
             const titulo = card.querySelector("h3");
             const lista = card.querySelector("ul");
