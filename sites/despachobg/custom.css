@@ -32,7 +32,6 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
 
 
 /* SIDeN V1.5 — adaptación aislada a la plantilla maestra compartida */
-#proyectos,#problema,#solucion{display:none!important}
 .hero-actions,.hero-trust{display:none!important}
 .hero-brand img,.hero-brand span{display:none!important}
 .hero-brand::after{content:"Despacho Jurídico Benítez Gutiérrez";color:var(--accent-soft);font-size:20px;font-weight:800}
