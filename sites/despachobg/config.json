@@ -2,8 +2,6 @@
   "siden": {
     "instanceId": "despachobg",
     "templateFamily": "corporate",
-    "template": "siden-template-v1.5",
-    "version": "1.5",
     "baseDomain": "sidenred.com",
     "architecture": "multisite",
     "domainMode": "subdomain",
