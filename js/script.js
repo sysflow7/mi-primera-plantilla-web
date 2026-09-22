@@ -19,9 +19,6 @@
         const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
         const assetUrl = function (archivo) {
             const limpio = String(archivo || "").replace(/^\/+/, "");
-            if (limpio.startsWith("../images/")) {
-                return new URL("/images/" + limpio.slice("../images/".length), window.location.origin).href;
-            }
             if (limpio.startsWith("images/")) {
                 return new URL("/" + limpio, window.location.origin).href;
             }
