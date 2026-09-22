@@ -72,9 +72,18 @@ export default {
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20"
                 ];
-                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
+                // Alias temporal de Preview: permite que CSS, JS e imágenes
+                // resuelvan la misma instancia aunque el navegador no conserve ?site=.
+                const previewInstanceAliases = {
+                    "reincorporacion-benitez-gutierrez-v1-5-2-3c1a": "despachobg"
+                };
+                const aliasInstanceId = previewInstanceAliases[previewSlug] || "";
+                instanceId = aliasInstanceId ||
+                    (corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug);
 
-                if (previewSlug && instanceId !== "corporativo") {
+                // Solo consultar el registry cuando el Preview no fue resuelto
+                // previamente por un alias explícito.
+                if (previewSlug && !aliasInstanceId && instanceId !== "corporativo") {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
                     if (respuestaRegistry.ok) {
                         try {

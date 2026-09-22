@@ -33,6 +33,31 @@ Cada cliente debe disponer de:
 
 `custom.css` permite resolver diferencias visuales particulares sin modificar el CSS compartido.
 
+### Orden configurable de secciones
+
+La plantilla maestra admite opcionalmente la propiedad `ordenSecciones` en el `config.json` de una instancia.
+
+Ejemplo:
+
+    "ordenSecciones": [
+      "nosotros",
+      "beneficios",
+      "servicios",
+      "galeria",
+      "ubicacion",
+      "soluciones",
+      "faq",
+      "contacto"
+    ]
+
+Cuando una instancia define esta propiedad, el motor reorganiza las secciones existentes de `main` según ese arreglo. Si la propiedad no existe, la plantilla conserva su orden normal.
+
+Esta capacidad es genérica y no contiene condiciones específicas de ningún cliente. Una instancia puede utilizarla cuando necesite una secuencia distinta sin modificar nuevamente `index.html` ni introducir lógica del tipo "si es cliente X".
+
+### Imagen visual del Hero
+
+La plantilla incluye un espacio visual opcional para mostrar una imagen de negocio en el Hero. La instancia debe activar explícitamente `mostrarHeroImagen: true` junto con `heroImagen` en su `config.json`. Si la propiedad no existe o es `false`, el espacio visual permanece oculto y la plantilla conserva su comportamiento normal.
+
 ## Instancia corporativa
 
 SIDeN corporativo también se comporta como una instancia:
@@ -70,6 +95,10 @@ Si un cliente solicita un cambio:
 3. Si necesita imágenes, agregarlas a `sites/<instanceId>/images/`.
 4. Si la capacidad no existe, agregarla al motor compartido de forma genérica y configurable.
 5. Nunca copiar el HTML/CSS/JS de un cliente sobre los archivos raíz.
+
+### Validación previa a producción
+
+Toda instancia nueva o reincorporada debe validarse visualmente en el Preview de su rama antes de realizar el merge hacia la rama de producción. La configuración de producción no debe modificarse para realizar esta prueba.
 
 ## Resultado
 
