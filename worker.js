@@ -156,6 +156,12 @@ export default {
         const rutasMultipagina = paginasValidas.map(pagina => rutaNormalizada(pagina.ruta));
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
+        // Compatibilidad temporal para activos raíz declarados explícitamente como legado.
+        // Se usa mientras se completa la migración binaria de Logo-ajustado.JPG a la instancia.
+        if (request.method === "GET" && url.pathname === "/images/Logo-ajustado.JPG" && negocio.logo === "Logo-ajustado.JPG") {
+            return loadAsset("/images/Logo-ajustado.JPG");
+        }
+
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
             return loadAsset(`${sitePrefix}${url.pathname}`);
         }
