@@ -114,3 +114,24 @@ footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.flo
   #hero-imagen-negocio{height:270px}
   #contacto .cta-panel{width:calc(100% - 28px)}
 }
+
+
+/* SIDeN V1.5 — banda informativa compacta para Benítez Gutiérrez */
+.siden-marquee-track{
+  min-height:64px!important;
+}
+.siden-marquee-item{
+  padding:0 24px;
+  font-size:clamp(20px,2.4vw,30px)!important;
+}
+.siden-marquee-separator{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  font-size:16px;
+}
+@media(max-width:700px){
+  .siden-marquee-track{min-height:54px!important}
+  .siden-marquee-item{padding:0 16px;font-size:19px!important}
+  .siden-marquee-separator{width:28px;height:28px;flex-basis:28px;font-size:13px}
+}
