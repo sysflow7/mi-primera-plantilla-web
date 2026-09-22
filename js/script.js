@@ -150,8 +150,9 @@
         }
 
         const heroImagenElemento = document.getElementById("hero-imagen-negocio");
+        const mostrarHeroImagen = negocioBase.mostrarHeroImagen === true;
         if (heroImagenElemento) {
-            if (nombreHero) {
+            if (mostrarHeroImagen && nombreHero) {
                 heroImagenElemento.src = assetUrl("images/" + nombreHero);
                 heroImagenElemento.alt = "Imagen del negocio " + negocioBase.nombre;
                 heroImagenElemento.hidden = false;
