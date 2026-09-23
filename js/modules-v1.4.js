@@ -110,6 +110,7 @@
         }
 
         const anchor = document.getElementById("nosotros");
+        if (anchor) anchor.hidden = true;
         const main = document.querySelector("main");
         if (main && anchor && !document.getElementById("proyectos")) {
             anchor.insertAdjacentHTML("beforebegin", `
