@@ -74,6 +74,7 @@ text("mini-contacto-title",contacto.titulo||"Contáctanos");
 const loc=runtime.ubicacionAtencion||{};
 const hasLoc=!!(loc.direccion||loc.zona||loc.areaAtencion||loc.comoLlegarUrl||runtime.direccionTexto||runtime.ciudad);
 show(q("mini-ubicacion"),loc.mostrar!==false&&hasLoc);
+q("mini-ubicacion").classList.add("mini-ubicacion");
 text("mini-ubicacion-title",loc.titulo||"Ubicación y atención");
 text("mini-direccion",loc.direccion||runtime.direccionTexto||"");
 text("mini-zona",loc.zona||runtime.ciudad||"");
