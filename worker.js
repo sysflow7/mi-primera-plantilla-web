@@ -94,6 +94,8 @@ export default {
         if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const sitePrefix = `/sites/${instanceId}`;
+        const previewSite = isWorkersPreview ? String(url.searchParams.get("site") || "").trim() : "";
+        const assetQuery = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
         const configPath = `${sitePrefix}/config.json`;
 
         const respuestaConfig = await loadAsset(configPath);
@@ -199,7 +201,7 @@ export default {
         const canonical = url.origin + rutaNormalizada(url.pathname);
         const negocioId = url.origin + "/#negocio";
         const construirImagenURL = (archivo) => archivo
-            ? new URL("/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
+            ? new URL("/images/" + String(archivo).replace(/^\/+/, "") + assetQuery, url.origin + "/").href
             : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
@@ -270,7 +272,7 @@ export default {
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
         if (customCssValido) {
-            const customCssUrl = "/custom.css";
+            const customCssUrl = "/custom.css" + assetQuery;
             html = html.replace("</head>", `<link rel="stylesheet" href="${escHtml(customCssUrl)}" data-siden-instance-css="true"></head>`);
         }
 
