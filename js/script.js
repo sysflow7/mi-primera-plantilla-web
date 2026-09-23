@@ -20,12 +20,14 @@
         document.body.dataset.templateFamily = templateFamily;
         document.body.classList.add("siden-template-" + templateFamily);
         const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
+        const previewSite = new URLSearchParams(window.location.search).get("site");
+        const assetQuery = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
         const assetUrl = function (archivo) {
             const limpio = String(archivo || "").replace(/^\/+/, "");
             if (limpio.startsWith("images/")) {
-                return new URL("/" + limpio, window.location.origin).href;
+                return new URL("/" + limpio + assetQuery, window.location.origin).href;
             }
-            return new URL((assetPrefix ? assetPrefix + "/" : "/") + limpio, window.location.origin).href;
+            return new URL((assetPrefix ? assetPrefix + "/" : "/") + limpio + assetQuery, window.location.origin).href;
         };
 
         const tipo = String(negocioBase.tipoNegocio || "comercio").toLowerCase();
