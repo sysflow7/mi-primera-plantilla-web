@@ -363,3 +363,22 @@ footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13p
     }
 }
 
+
+
+/* HERO VISUAL — image supplied by each instance stays inside its visual zone. */
+.hero-visual #hero-imagen-negocio{
+  display:block;
+  width:auto;
+  max-width:min(100%, 520px);
+  height:auto;
+  max-height:390px;
+  object-fit:contain;
+  object-position:center;
+  margin:0 auto;
+}
+@media(max-width:900px){
+  .hero-visual #hero-imagen-negocio{
+    max-width:min(100%, 500px);
+    max-height:360px;
+  }
+}
