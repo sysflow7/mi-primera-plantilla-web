@@ -129,15 +129,16 @@
         // HERO / CABECERA INTERNA
         const hero = document.getElementById("inicio");
         const paginaCabecera = document.getElementById("pagina-cabecera");
-        const nombreHero = negocio.heroImagen || negocioBase.heroImagen;
+        const nombreHeroFondo = negocio.heroImagenFondo || negocioBase.heroImagenFondo || negocio.heroImagen || negocioBase.heroImagen;
+        const nombreHeroVisual = negocio.heroImagenVisual || negocioBase.heroImagenVisual || "";
         const esPaginaInterna = esMulti && rutaActual !== "/" && !!paginaActual;
 
         if (hero) {
             if (esPaginaInterna) {
                 hero.hidden = true;
                 document.body.classList.add("multi-inner-page");
-            } else if (nombreHero) {
-                const rutaHero = assetUrl("images/" + nombreHero);
+            } else if (nombreHeroFondo) {
+                const rutaHero = assetUrl("images/" + nombreHeroFondo);
                 const imagenHero = new Image();
                 imagenHero.onload = function () {
                     hero.style.setProperty("--hero-image", `url("${rutaHero}")`);
@@ -147,7 +148,7 @@
                     hero.classList.add("hero-has-image");
                 };
                 imagenHero.onerror = function () {
-                    console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
+                    console.error("SIDEN: no se pudo cargar la imagen de fondo del Hero:", rutaHero);
                     hero.classList.remove("hero-has-image");
                 };
                 imagenHero.src = rutaHero;
@@ -157,9 +158,9 @@
         const heroImagenElemento = document.getElementById("hero-imagen-negocio");
         const mostrarHeroImagen = negocioBase.mostrarHeroImagen === true;
         if (heroImagenElemento) {
-            if (mostrarHeroImagen && nombreHero) {
-                heroImagenElemento.src = assetUrl("images/" + nombreHero);
-                heroImagenElemento.alt = "Imagen del negocio " + negocioBase.nombre;
+            if (mostrarHeroImagen && nombreHeroVisual) {
+                heroImagenElemento.src = assetUrl("images/" + nombreHeroVisual);
+                heroImagenElemento.alt = "Imagen visual del negocio " + negocioBase.nombre;
                 heroImagenElemento.hidden = false;
             } else {
                 heroImagenElemento.removeAttribute("src");
