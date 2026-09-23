@@ -23,7 +23,7 @@
     "El Salvador"
   ],
   "heroImagenFondo": "86624.jpg",
-  "heroImagenVisual": "86624.jpg",
+  "heroImagenVisual": "heroVisual.JPG",
   "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
