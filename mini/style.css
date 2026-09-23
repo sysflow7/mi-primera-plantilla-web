@@ -33,3 +33,12 @@ a{color:inherit}
 .mini-footer{margin-top:30px;padding:28px 20px;text-align:center;background:var(--mini-secondary);color:#fff;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 @media(max-width:760px){.mini-hero{grid-template-columns:1fr;padding-top:48px}.mini-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.mini-cards{grid-template-columns:1fr}.mini-hero-media{min-height:220px}.mini-hero-media img{min-height:220px}.mini-contact-grid a{width:100%}}
+
+.mini-anchor{scroll-margin-top:80px;height:0;overflow:hidden}
+.mini-section{text-align:center}
+.mini-section p{max-width:760px;margin-left:auto;margin-right:auto}
+.mini-cards{justify-items:stretch}
+.mini-contact-grid{justify-content:center}
+.mini-ubicacion{text-align:center}
+.mini-link{display:inline-flex;margin-top:8px}
+.mini-social{justify-content:center}
