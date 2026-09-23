@@ -70,6 +70,7 @@ if(whats){q("mini-whatsapp").href=whats;q("mini-whatsapp").textContent="WhatsApp
 if(phone){const el=q("mini-telefono");el.href="tel:"+String(phone).replace(/[^+\d]/g,"");el.textContent=phone;show(el,true)}
 if(email){const el=q("mini-email");el.href="mailto:"+email;el.textContent=email;show(el,true)}
 text("mini-contacto-title",contacto.titulo||"Contáctanos");
+text("mini-contacto-text",contacto.mensaje||"");
 
 const loc=runtime.ubicacionAtencion||{};
 const hasLoc=!!(loc.direccion||loc.zona||loc.areaAtencion||loc.comoLlegarUrl||runtime.direccionTexto||runtime.ciudad);
