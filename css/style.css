@@ -366,24 +366,48 @@ footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13p
 
 
 /* HERO VISUAL — configurable rectangular presentation area. */
+.hero-visual{
+  min-height:430px;
+  width:100%;
+  overflow:visible;
+}
+.hero-visual::before,
+.hero-visual::after{
+  display:none!important;
+}
 .hero-visual #hero-imagen-negocio{
   display:block;
-  width:min(100%, 700px);
-  max-height:460px;
-  height:auto;
-  object-fit:contain;
+  width:min(100%, 720px)!important;
+  height:405px!important;
+  max-width:720px!important;
+  max-height:405px!important;
+  aspect-ratio:16 / 9;
+  object-fit:cover;
   object-position:center;
   margin:0 auto;
+  border-radius:18px;
 }
 @media(max-width:900px){
+  .hero-visual{
+    min-height:380px;
+  }
   .hero-visual #hero-imagen-negocio{
-    width:min(100%, 620px);
-    max-height:400px;
+    width:min(100%, 620px)!important;
+    height:349px!important;
+    max-width:620px!important;
+    max-height:349px!important;
   }
 }
 @media(max-width:600px){
+  .hero-visual{
+    min-height:0;
+  }
   .hero-visual #hero-imagen-negocio{
-    width:100%;
-    max-height:340px;
+    width:100%!important;
+    height:auto!important;
+    max-width:100%!important;
+    max-height:none!important;
+    aspect-ratio:16 / 9;
+    object-fit:cover;
   }
 }
