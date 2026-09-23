@@ -100,11 +100,6 @@
             if (slogan) slogan.insertAdjacentHTML("afterend", '<p class="hero-description">Creamos páginas web profesionales que ayudan a tus clientes a encontrarte, conocer tus servicios y contactarte fácilmente.</p><div class="hero-actions"><a id="whatsapp-principal" class="hero-primary" target="_blank" rel="noopener noreferrer">Quiero mi página web <span>→</span></a><a href="#proyectos" class="hero-secondary">Ver ejemplos <span>↘</span></a></div><div class="hero-trust"><span>✓ Diseño profesional</span><span>✓ SEO básico</span><span>✓ Google + WhatsApp</span></div>');
         }
 
-        const visual = document.querySelector("#inicio .hero-visual");
-        if (visual && !visual.querySelector(".browser-window")) {
-            visual.insertAdjacentHTML("beforeend", '<div class="browser-window"><div class="browser-top"><span></span><span></span><span></span><small>tu-negocio.com</small></div><div class="browser-body"><div class="mock-nav"><b>Tu negocio</b><i></i><i></i><i></i><em></em></div><div class="mock-hero"><div><small>BIENVENIDO</small><strong>Haz que tu negocio<br>se vea profesional.</strong><label></label></div><div class="mock-photo"></div></div><div class="mock-cards"><span>Servicios</span><span>Ubicación</span><span>WhatsApp</span></div></div></div>');
-        }
-
         const navContainer = document.querySelector(".nav-container");
         if (navContainer && !navContainer.querySelector(".nav-cta")) {
             const cta = document.createElement("a");
