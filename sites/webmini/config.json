@@ -1,0 +1,97 @@
+{
+  "siden": {
+    "instanceId": "webmini",
+    "templateFamily": "mini",
+    "architecture": "multisite",
+    "domainMode": "subdomain",
+    "customCss": ""
+  },
+  "nombre": "Despacho Jurídico Benítez Gutiérrez",
+  "h1": "Despacho Jurídico Benítez Gutiérrez | Abogacía y Notariado en Perquín",
+  "slogan": "Abogacía y Notariado en Perquín, Morazán",
+  "tituloSEO": "Despacho Jurídico Benítez Gutiérrez | Perquín",
+  "descripcionSEO": "Despacho Jurídico Benítez Gutiérrez, servicios de abogacía y notariado en Perquín, Morazán, El Salvador.",
+  "descripcion": "Brindamos servicios de abogacía y notariado con atención profesional y cercana en Perquín, Morazán.",
+  "tipoNegocio": "abogado",
+  "etiquetaTipo": "Abogacía y Notariado",
+  "indexable": false,
+  "identidad": {
+    "nombre": "Despacho Jurídico Benítez Gutiérrez",
+    "slogan": "Abogacía y Notariado en Perquín, Morazán",
+    "logo": "Logo-ajustado.JPG"
+  },
+  "seo": {
+    "title": "Despacho Jurídico Benítez Gutiérrez | Perquín",
+    "description": "Despacho Jurídico Benítez Gutiérrez, servicios de abogacía y notariado en Perquín, Morazán, El Salvador.",
+    "indexable": false
+  },
+  "hero": {
+    "mostrar": true,
+    "imagen": "heroVisual.JPG",
+    "titulo": "Despacho Jurídico Benítez Gutiérrez",
+    "subtitulo": "Abogacía y Notariado en Perquín, Morazán",
+    "mostrarWhatsapp": true
+  },
+  "presentacion": {
+    "mostrar": true,
+    "titulo": "Sobre el despacho",
+    "texto": "Brindamos servicios de abogacía y notariado con atención profesional y cercana en Perquín, Morazán."
+  },
+  "productosServicios": {
+    "mostrar": true,
+    "titulo": "Servicios jurídicos",
+    "items": [
+      {
+        "nombre": "Servicios de abogacía",
+        "descripcion": "Orientación y representación jurídica de acuerdo con las necesidades de cada cliente.",
+        "imagen": "serv01.JPG"
+      },
+      {
+        "nombre": "Servicios de notariado",
+        "descripcion": "Atención de trámites y actos notariales con acompañamiento profesional.",
+        "imagen": "serv02.JPG"
+      },
+      {
+        "nombre": "Asesoría jurídica",
+        "descripcion": "Análisis de situaciones legales y orientación sobre las alternativas disponibles.",
+        "imagen": "serv03.JPG"
+      }
+    ]
+  },
+  "contacto": {
+    "whatsapp": "50372334990",
+    "telefono": "+503 7233-4990",
+    "email": "edenilsonbenitez01@gmail.com",
+    "titulo": "Contáctanos",
+    "mensaje": "Estamos disponibles para atender sus consultas y orientarle sobre nuestros servicios jurídicos."
+  },
+  "ubicacionAtencion": {
+    "mostrar": true,
+    "titulo": "Dónde encontrarnos",
+    "direccion": "Barrio El Centro, atrás de la Alcaldía Municipal, Perquín, Morazán, El Salvador",
+    "zona": "Perquín, Morazán",
+    "areaAtencion": "Perquín, Morazán, El Salvador",
+    "comoLlegarUrl": "https://www.google.com/maps/dir/?api=1&destination=13.95847%2C-88.16177"
+  },
+  "horarios": {
+    "mostrar": false,
+    "texto": ""
+  },
+  "redes": {
+    "facebook": "",
+    "instagram": "",
+    "tiktok": ""
+  },
+  "compartir": {
+    "mostrar": true
+  },
+  "apariencia": {
+    "colorPrimario": "#7E5128",
+    "colorSecundario": "#492F16",
+    "colorFondo": "#F9F6F1",
+    "colorTexto": "#1E150E",
+    "colorBoton": "#7E5128",
+    "colorTextoBoton": "#FFFFFF"
+  },
+  "imagenSocial": "86624.jpg"
+}

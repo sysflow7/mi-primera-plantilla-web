@@ -1,0 +1,81 @@
+{
+  "siden": {
+    "instanceId": "mini-demo",
+    "templateFamily": "mini",
+    "architecture": "multisite",
+    "domainMode": "subdomain",
+    "customCss": "custom.css"
+  },
+  "nombre": "Negocio Demo SIDeN MINI",
+  "slogan": "Una presencia digital simple, profesional y fácil de compartir.",
+  "tituloSEO": "Negocio Demo | SIDeN MINI",
+  "descripcionSEO": "Ejemplo técnico de una Mini Página SIDeN.",
+  "descripcion": "Esta es una instancia de prueba para validar la plantilla SIDeN MINI.",
+  "tipoNegocio": "comercio",
+  "indexable": false,
+  "identidad": {
+    "nombre": "Negocio Demo SIDeN MINI",
+    "slogan": "Presencia digital simple y profesional.",
+    "logo": ""
+  },
+  "seo": {
+    "title": "Negocio Demo | SIDeN MINI",
+    "description": "Ejemplo técnico de una Mini Página SIDeN.",
+    "indexable": false
+  },
+  "hero": {
+    "mostrar": false,
+    "imagen": "",
+    "titulo": "Negocio Demo SIDeN MINI",
+    "subtitulo": "Presenta tu negocio de forma clara y fácil de compartir.",
+    "mostrarWhatsapp": true
+  },
+  "presentacion": {
+    "mostrar": true,
+    "titulo": "Sobre nuestro negocio",
+    "texto": "Contenido de prueba para validar la estructura independiente de SIDeN MINI."
+  },
+  "productosServicios": {
+    "mostrar": true,
+    "titulo": "Productos y servicios destacados",
+    "items": [
+      {"nombre":"Servicio 1","descripcion":"Descripción del primer servicio.","imagen":""},
+      {"nombre":"Servicio 2","descripcion":"Descripción del segundo servicio.","imagen":""},
+      {"nombre":"Servicio 3","descripcion":"Descripción del tercer servicio.","imagen":""},
+      {"nombre":"Servicio 4","descripcion":"Descripción del cuarto servicio.","imagen":""}
+    ]
+  },
+  "contacto": {
+    "whatsapp": "50371887451",
+    "telefono": "503 7188 7451",
+    "email": "admin@sidenred.com",
+    "titulo": "Contáctanos"
+  },
+  "ubicacionAtencion": {
+    "mostrar": true,
+    "direccion": "Dirección de prueba",
+    "zona": "San Salvador, El Salvador",
+    "areaAtencion": "Atención local y por WhatsApp",
+    "comoLlegarUrl": ""
+  },
+  "horarios": {
+    "mostrar": true,
+    "texto": "Lunes a viernes, 8:00 a.m. a 5:00 p.m."
+  },
+  "redes": {
+    "facebook": "",
+    "instagram": "",
+    "tiktok": ""
+  },
+  "compartir": {
+    "mostrar": true
+  },
+  "apariencia": {
+    "colorPrimario": "#2563eb",
+    "colorSecundario": "#0f172a",
+    "colorFondo": "#f8fafc",
+    "colorTexto": "#172033",
+    "colorBoton": "#2563eb",
+    "colorTextoBoton": "#ffffff"
+  }
+}
