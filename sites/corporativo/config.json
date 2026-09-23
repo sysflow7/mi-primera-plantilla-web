@@ -17,7 +17,9 @@
   "areasServicio": [
     "El Salvador"
   ],
-  "heroImagen": "Presenta01.png",
+  "heroImagenFondo": "Presenta01.png",
+  "heroImagenVisual": "Presenta01.png",
+  "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
     "beneficios",
