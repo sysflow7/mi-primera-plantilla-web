@@ -71,7 +71,7 @@
     "direccion": "Barrio El Centro, atrás de la Alcaldía Municipal, Perquín, Morazán, El Salvador",
     "zona": "Perquín, Morazán",
     "areaAtencion": "Perquín, Morazán, El Salvador",
-    "comoLlegarUrl": "https://www.google.com/maps/search/?api=1&query=Barrio%20El%20Centro%2C%20atr%C3%A1s%20de%20la%20Alcald%C3%ADa%20Municipal%2C%20Perqu%C3%ADn%2C%20Moraz%C3%A1n%2C%20El%20Salvador"
+    "comoLlegarUrl": "https://www.google.com/maps/dir/?api=1&destination=13.95847%2C-88.16177"
   },
   "horarios": {
     "mostrar": false,
