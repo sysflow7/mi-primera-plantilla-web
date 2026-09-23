@@ -1,6 +1,5 @@
 @import url("redesign-v3.css");
 @import url("hero-speed.css");
-@import url("despachobg-hero-mockup.css");
 /* SIDeN REDESIGN V2 — capas visuales de conversión */
 .conversion-section,.solution-section,.plans-section,.faq-section{max-width:1180px;margin:auto;padding:88px 24px}
 .conversion-section{background:#fff}.solution-section{background:#f8fafc}.problem-grid,.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
@@ -40,3 +39,15 @@
 .solution-grid article:nth-child(2)::before{background-image:url('../images/seo.svg')}
 .solution-grid article:nth-child(3)::before{background-image:url('../images/googlemaps.svg')}
 .solution-grid article:nth-child(4)::before{background-image:url('../images/WhatsApp.svg')}
+
+
+/* ==================================================
+   SIDeN — AISLAMIENTO POR FAMILIA DE PLANTILLA
+   Estas reglas son estructurales y pertenecen al motor compartido.
+   No deben implementarse mediante custom.css de una instancia.
+================================================== */
+.siden-template-corporate #proyectos,
+.siden-template-corporate #problema,
+.siden-template-corporate #solucion{
+  display:none!important;
+}

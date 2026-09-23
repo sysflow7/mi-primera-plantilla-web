@@ -1,8 +1,7 @@
 {
   "siden": {
     "instanceId": "despachobg",
-    "template": "siden-template-v1.5",
-    "version": "1.5",
+    "templateFamily": "corporate",
     "baseDomain": "sidenred.com",
     "architecture": "multisite",
     "domainMode": "subdomain",
@@ -23,7 +22,9 @@
     "Morazán",
     "El Salvador"
   ],
-  "heroImagen": "86624.jpg",
+  "heroImagenFondo": "86624.jpg",
+  "heroImagenVisual": "heroVisual.JPG",
+  "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
     "beneficios",
@@ -171,6 +172,5 @@
     "mostrar": true,
     "texto": "Protegemos tus derechos, defendemos tu futuro.",
     "separador": "✦"
-  },
-  "mostrarHeroImagen": true
+  }
 }

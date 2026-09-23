@@ -70,7 +70,8 @@ export default {
                     "siden-corporativo-v1-3",
                     "ajuste-sidenred-inicio-2026-09-19",
                     "arquitectura-maestra-v1-5-2026-09-20",
-                    "ajuste-logo-instancia-v1-5-2026-09-20"
+                    "ajuste-logo-instancia-v1-5-2026-09-20",
+                    "feature-template-families-v1"
                 ];
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
@@ -93,6 +94,8 @@ export default {
         if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const sitePrefix = `/sites/${instanceId}`;
+        const previewSite = isWorkersPreview ? String(url.searchParams.get("site") || "").trim() : "";
+        const assetQuery = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
         const configPath = `${sitePrefix}/config.json`;
 
         const respuestaConfig = await loadAsset(configPath);
@@ -198,11 +201,11 @@ export default {
         const canonical = url.origin + rutaNormalizada(url.pathname);
         const negocioId = url.origin + "/#negocio";
         const construirImagenURL = (archivo) => archivo
-            ? new URL("/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href
+            ? new URL("/images/" + String(archivo).replace(/^\/+/, "") + assetQuery, url.origin + "/").href
             : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
-        const heroURL = construirImagenURL(negocio.heroImagen);
+        const heroBackgroundURL = construirImagenURL(negocio.heroImagenFondo || negocio.heroImagen);
         const indexable = negocio.indexable !== false;
         const direccion = negocio.direccion || {};
         const modeloAtencion = String(negocio.modeloAtencion || "local").toLowerCase();
@@ -264,12 +267,12 @@ export default {
             "__H1_DESCRIPTION__": escHtml(h1Description), "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO), "__LOCATION_TITLE__": escHtml(tituloUbicacion),
             "__CITY__": escHtml(ciudadVisible), "__ADDRESS__": escHtml(direccionTexto), "__PHONE__": escHtml(negocio.telefono || ""), "__CANONICAL_URL__": escHtml(canonical),
             "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__LOGO_IMAGE_URL__": escHtml(logoURL),
-            "__HERO_IMAGE_URL__": escHtml(heroURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio)
+            "__HERO_BACKGROUND_URL__": escHtml(heroBackgroundURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
         if (customCssValido) {
-            const customCssUrl = "/custom.css";
+            const customCssUrl = "/custom.css" + assetQuery;
             html = html.replace("</head>", `<link rel="stylesheet" href="${escHtml(customCssUrl)}" data-siden-instance-css="true"></head>`);
         }
 

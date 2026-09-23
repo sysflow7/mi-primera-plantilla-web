@@ -16,13 +16,18 @@
             ? runtime
             : await respuesta.json();
         const siden = negocioBase.siden || {};
+        const templateFamily = String(siden.templateFamily || "corporate").toLowerCase();
+        document.body.dataset.templateFamily = templateFamily;
+        document.body.classList.add("siden-template-" + templateFamily);
         const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
+        const previewSite = new URLSearchParams(window.location.search).get("site");
+        const assetQuery = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
         const assetUrl = function (archivo) {
             const limpio = String(archivo || "").replace(/^\/+/, "");
             if (limpio.startsWith("images/")) {
-                return new URL("/" + limpio, window.location.origin).href;
+                return new URL("/" + limpio + assetQuery, window.location.origin).href;
             }
-            return new URL((assetPrefix ? assetPrefix + "/" : "/") + limpio, window.location.origin).href;
+            return new URL((assetPrefix ? assetPrefix + "/" : "/") + limpio + assetQuery, window.location.origin).href;
         };
 
         const tipo = String(negocioBase.tipoNegocio || "comercio").toLowerCase();
@@ -124,15 +129,16 @@
         // HERO / CABECERA INTERNA
         const hero = document.getElementById("inicio");
         const paginaCabecera = document.getElementById("pagina-cabecera");
-        const nombreHero = negocio.heroImagen || negocioBase.heroImagen;
+        const nombreHeroFondo = negocio.heroImagenFondo || negocioBase.heroImagenFondo || negocio.heroImagen || negocioBase.heroImagen;
+        const nombreHeroVisual = negocio.heroImagenVisual || negocioBase.heroImagenVisual || "";
         const esPaginaInterna = esMulti && rutaActual !== "/" && !!paginaActual;
 
         if (hero) {
             if (esPaginaInterna) {
                 hero.hidden = true;
                 document.body.classList.add("multi-inner-page");
-            } else if (nombreHero) {
-                const rutaHero = assetUrl("images/" + nombreHero);
+            } else if (nombreHeroFondo) {
+                const rutaHero = assetUrl("images/" + nombreHeroFondo);
                 const imagenHero = new Image();
                 imagenHero.onload = function () {
                     hero.style.setProperty("--hero-image", `url("${rutaHero}")`);
@@ -142,7 +148,7 @@
                     hero.classList.add("hero-has-image");
                 };
                 imagenHero.onerror = function () {
-                    console.error("SIDEN: no se pudo cargar la imagen del Hero:", rutaHero);
+                    console.error("SIDEN: no se pudo cargar la imagen de fondo del Hero:", rutaHero);
                     hero.classList.remove("hero-has-image");
                 };
                 imagenHero.src = rutaHero;
@@ -152,9 +158,9 @@
         const heroImagenElemento = document.getElementById("hero-imagen-negocio");
         const mostrarHeroImagen = negocioBase.mostrarHeroImagen === true;
         if (heroImagenElemento) {
-            if (mostrarHeroImagen && nombreHero) {
-                heroImagenElemento.src = assetUrl("images/" + nombreHero);
-                heroImagenElemento.alt = "Imagen del negocio " + negocioBase.nombre;
+            if (mostrarHeroImagen && nombreHeroVisual) {
+                heroImagenElemento.src = assetUrl("images/" + nombreHeroVisual);
+                heroImagenElemento.alt = "Imagen visual del negocio " + negocioBase.nombre;
                 heroImagenElemento.hidden = false;
             } else {
                 heroImagenElemento.removeAttribute("src");
@@ -499,12 +505,8 @@
             if (boton) boton.addEventListener("click", compartirNegocio);
         });
 
-        // MENÚ MÓVIL
-        const menuButton = document.getElementById("menu-button");
-        if (menuButton && navLinks) {
-            menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
-            navLinks.querySelectorAll("a").forEach(function (enlace) { enlace.addEventListener("click", function () { navLinks.classList.remove("active"); }); });
-        }
+        // El menú móvil se inicializa una sola vez desde el módulo común de navegación.
+        // Evitamos registrar aquí un segundo click handler que pueda alternar dos veces el estado.
     } catch (error) {
         console.error("Error al inicializar la página SIDEN:", error);
     }
