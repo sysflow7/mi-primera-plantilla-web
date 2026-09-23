@@ -22,7 +22,9 @@
     "Morazán",
     "El Salvador"
   ],
-  "heroImagen": "86624.jpg",
+  "heroImagenFondo": "86624.jpg",
+  "heroImagenVisual": "86624.jpg",
+  "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
     "beneficios",
@@ -170,6 +172,5 @@
     "mostrar": true,
     "texto": "Protegemos tus derechos, defendemos tu futuro.",
     "separador": "✦"
-  },
-  "mostrarHeroImagen": true
+  }
 }
