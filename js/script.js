@@ -505,12 +505,8 @@
             if (boton) boton.addEventListener("click", compartirNegocio);
         });
 
-        // MENÚ MÓVIL
-        const menuButton = document.getElementById("menu-button");
-        if (menuButton && navLinks) {
-            menuButton.addEventListener("click", function () { navLinks.classList.toggle("active"); });
-            navLinks.querySelectorAll("a").forEach(function (enlace) { enlace.addEventListener("click", function () { navLinks.classList.remove("active"); }); });
-        }
+        // El menú móvil se inicializa una sola vez desde el módulo común de navegación.
+        // Evitamos registrar aquí un segundo click handler que pueda alternar dos veces el estado.
     } catch (error) {
         console.error("Error al inicializar la página SIDEN:", error);
     }
