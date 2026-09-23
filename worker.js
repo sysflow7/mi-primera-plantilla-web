@@ -205,7 +205,7 @@ export default {
             : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
-        const heroURL = construirImagenURL(negocio.heroImagen);
+        const heroBackgroundURL = construirImagenURL(negocio.heroImagenFondo || negocio.heroImagen);
         const indexable = negocio.indexable !== false;
         const direccion = negocio.direccion || {};
         const modeloAtencion = String(negocio.modeloAtencion || "local").toLowerCase();
@@ -267,7 +267,7 @@ export default {
             "__H1_DESCRIPTION__": escHtml(h1Description), "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO), "__LOCATION_TITLE__": escHtml(tituloUbicacion),
             "__CITY__": escHtml(ciudadVisible), "__ADDRESS__": escHtml(direccionTexto), "__PHONE__": escHtml(negocio.telefono || ""), "__CANONICAL_URL__": escHtml(canonical),
             "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__LOGO_IMAGE_URL__": escHtml(logoURL),
-            "__HERO_IMAGE_URL__": escHtml(heroURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio)
+            "__HERO_BACKGROUND_URL__": escHtml(heroBackgroundURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
