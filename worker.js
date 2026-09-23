@@ -101,6 +101,7 @@ export default {
         if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
 
         const negocio = await respuestaConfig.json();
+        const templateFamily = String(negocio.siden?.templateFamily || "corporate").toLowerCase();
         const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
 
         if (configuredInstance !== instanceId) {
@@ -183,7 +184,8 @@ export default {
 
         if (request.method !== "GET" || !esRutaPagina) return env.ASSETS.fetch(request);
 
-        const respuestaHTML = await loadAsset("/index.html");
+        const templatePath = templateFamily === "mini" ? "/mini/index.html" : "/index.html";
+        const respuestaHTML = await loadAsset(templatePath);
         if (!respuestaHTML.ok) return respuestaHTML;
         let html = await respuestaHTML.text();
 
@@ -260,13 +262,14 @@ export default {
         const direccionTexto = esAreaServicio ? "" : (negocio.direccionTexto || direccion.calle || ciudad || "");
         const tituloUbicacion = negocio.etiquetas?.ubicacion || (esAreaServicio ? "Área de servicio" : "Encuéntranos");
 
+        const primaryColor = typeof negocio.apariencia?.colorPrimario === "string" ? negocio.apariencia.colorPrimario.trim() : "#2563eb";
         const reemplazos = {
             "__SEO_TITLE__": escHtml(tituloSEO), "__SEO_DESCRIPTION__": escHtml(descripcionSEO), "__ROBOTS__": indexable ? "index, follow" : "noindex, nofollow",
             "__BUSINESS_NAME__": escHtml(negocio.nombre), "__BUSINESS_TYPE__": escHtml(negocio.etiquetaTipo || ""), "__H1_TITLE__": escHtml(h1Title),
             "__H1_DESCRIPTION__": escHtml(h1Description), "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO), "__LOCATION_TITLE__": escHtml(tituloUbicacion),
             "__CITY__": escHtml(ciudadVisible), "__ADDRESS__": escHtml(direccionTexto), "__PHONE__": escHtml(negocio.telefono || ""), "__CANONICAL_URL__": escHtml(canonical),
             "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__LOGO_IMAGE_URL__": escHtml(logoURL),
-            "__HERO_BACKGROUND_URL__": escHtml(heroBackgroundURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio)
+            "__HERO_BACKGROUND_URL__": escHtml(heroBackgroundURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio), "__PRIMARY_COLOR__": escHtml(primaryColor)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
@@ -278,7 +281,7 @@ export default {
         const runtimeConfig = {
             ...negocio,
             ...(negocio.modoSitio === "multi" ? { paginas: paginasValidas } : {}),
-            siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix, customCss: customCssValido ? customCss : "" }
+            siden: { ...(negocio.siden || {}), instanceId: configuredInstance, templateFamily, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix, customCss: customCssValido ? customCss : "" }
         };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
