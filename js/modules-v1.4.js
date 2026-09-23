@@ -105,7 +105,22 @@
         body.siden-commercial-hero .hero-overlay{background:linear-gradient(90deg,rgba(3,28,92,.97) 0%,rgba(7,54,135,.92) 42%,rgba(25,99,205,.68) 67%,rgba(37,99,235,.20) 100%)!important}
       }
       /* SIDeN CORPORATE VISUAL FIXES */
-      body.siden-commercial-hero .hero-brand{display:none!important}
+      /* FAMILY ISOLATION: Corporate must not render Commercial-only content. */
+      body.siden-template-corporate #proyectos,
+      body.siden-template-corporate #problema,
+      body.siden-template-corporate #solucion,
+      body.siden-template-corporate #soluciones,
+      body.siden-template-corporate #faq{display:none!important}
+      body.siden-template-corporate .hero-eyebrow,
+      body.siden-template-corporate .hero-description,
+      body.siden-template-corporate .hero-actions,
+      body.siden-template-corporate .hero-trust,
+      body.siden-template-corporate .browser-window,
+      body.siden-template-corporate .float-card{display:none!important}
+      body.siden-template-corporate .hero-visual{display:flex;align-items:center;justify-content:center}
+      body.siden-template-corporate .hero-visual #hero-imagen-negocio{display:block!important}
+      
+            body.siden-commercial-hero .hero-brand{display:none!important}
       body.siden-commercial-hero .conversion-contact{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}
       body.siden-commercial-hero .conversion-contact .cta-panel{margin-left:auto!important;margin-right:auto!important}
       @media(max-width:700px){
@@ -120,11 +135,13 @@
     };
     const asset = function (cfg, file) {
         const limpio = String(file || "").replace(/^\/+/, "");
+        const previewSite = new URLSearchParams(window.location.search).get("site");
+        const query = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
         if (limpio.startsWith("images/")) {
-            return new URL("/" + limpio, location.origin).href;
+            return new URL("/" + limpio + query, location.origin).href;
         }
         const prefix = String(cfg?.siden?.assetPrefix || "").replace(/\/+$/, "");
-        return new URL((prefix ? prefix + "/" : "/") + limpio, location.origin).href;
+        return new URL((prefix ? prefix + "/" : "/") + limpio + query, location.origin).href;
     };
     let box = null;
     const openLightbox = function (src, alt) {
