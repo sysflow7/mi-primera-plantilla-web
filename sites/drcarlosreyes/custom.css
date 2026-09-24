@@ -1,0 +1,54 @@
+/* SIDeN — Instancia preliminar Dr. Carlos Reyes
+   Personalizaciones exclusivas de esta instancia. */
+
+:root {
+  --cr-navy: #101a3d;
+  --cr-gold: #a38732;
+  --cr-cream: #f7f4eb;
+}
+
+body.siden-template-corporate #soluciones,
+body.siden-template-corporate #faq {
+  display: block !important;
+}
+
+body.siden-template-corporate .plans-section,
+body.siden-template-corporate .faq-section {
+  border-top: 1px solid rgba(163,135,50,.18);
+}
+
+body.siden-template-corporate .plans-section .section-kicker,
+body.siden-template-corporate .faq-section .section-kicker {
+  color: var(--cr-gold);
+}
+
+body.siden-template-corporate .hero h1,
+body.siden-template-corporate .section-heading h2,
+body.siden-template-corporate #titulo-presentacion,
+body.siden-template-corporate #titulo-beneficios,
+body.siden-template-corporate #titulo-servicios,
+body.siden-template-corporate #titulo-galeria,
+body.siden-template-corporate #titulo-ubicacion {
+  color: var(--cr-navy);
+}
+
+body.siden-template-corporate .plan-card.featured {
+  border-color: var(--cr-gold);
+}
+
+body.siden-template-corporate .plan-badge,
+body.siden-template-corporate .plan-card h3,
+body.siden-template-corporate .plan-link {
+  color: var(--cr-navy);
+}
+
+body.siden-template-corporate .services img,
+body.siden-template-corporate .gallery img {
+  object-fit: cover;
+}
+
+@media (max-width: 700px) {
+  body.siden-template-corporate .hero-business-image {
+    max-height: 52vh;
+  }
+}
