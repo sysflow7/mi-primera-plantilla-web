@@ -1,0 +1,132 @@
+{
+  "siden": {
+    "instanceId": "drcarlosreyes",
+    "templateFamily": "corporate",
+    "customCss": "custom.css"
+  },
+  "nombre": "Dr. Carlos Reyes",
+  "h1": "Dr. Carlos Reyes",
+  "slogan": "¡Tu salud y bienestar son mi prioridad!",
+  "tituloSEO": "Dr. Carlos Reyes | Cirugía General y Laparoscópica",
+  "descripcion": "Dr. Carlos Reyes, especialista en Cirugía General y Laparoscópica en San Salvador. Atención profesional para enfermedades de la vesícula biliar, apéndice, intestino y hernias.",
+  "descripcionSEO": "Dr. Carlos Reyes — Cirugía General y Laparoscópica en San Salvador. Información sobre servicios, ubicación y contacto para agendar una consulta.",
+  "tipoNegocio": "servicio profesional",
+  "etiquetaTipo": "Cirugía General y Laparoscópica",
+  "modoSitio": "single",
+  "modeloAtencion": "ubicacion",
+  "areasServicio": [
+    "San Salvador",
+    "El Salvador"
+  ],
+  "heroImagenFondo": "HeroImagenFondo.jpg",
+  "heroImagenVisual": "HeroImagenFrente.jpg",
+  "mostrarHeroImagen": true,
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "galeria",
+    "ubicacion",
+    "contacto"
+  ],
+  "indexable": false,
+  "whatsapp": "50372702332",
+  "telefono": "503 7270 2332",
+  "email": "",
+  "ciudad": "San Salvador",
+  "pais": "El Salvador",
+  "direccionTexto": "Calle Los Sisimiles #2961, Edificio Orthoestetic, San Salvador",
+  "direccion": {
+    "calle": "Calle Los Sisimiles #2961, Edificio Orthoestetic",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
+  "facebook": "https://www.facebook.com/profile.php?id=61554274094059",
+  "instagram": "https://www.instagram.com/drcarlos.reyes/",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Calle+Los+Sisimiles+2961%2C+Edificio+Orthoestetic%2C+San+Salvador%2C+El+Salvador",
+  "catalogo": "",
+  "logo": "logo.jpg",
+  "imagenSocial": "HeroImagenFondo.jpg",
+  "horarios": [
+    "Lunes a viernes: 1:00 pm a 3:00 pm",
+    "Sábado: 9:00 am a 12:00 pm"
+  ],
+  "rangoPrecios": "",
+  "galeriaAlt": [
+    "Dr. Carlos Reyes durante un procedimiento quirúrgico",
+    "Atención médica y entorno quirúrgico",
+    "Dr. Carlos Reyes en procedimiento de cirugía laparoscópica",
+    "Equipo e instrumental para cirugía laparoscópica"
+  ],
+  "cintaInformativa": {
+    "mostrar": false,
+    "items": [],
+    "separador": " ",
+    "velocidad": 28
+  },
+  "etiquetas": {
+    "ubicacion": "Consultorio"
+  },
+  "textos": {
+    "contacto": "Si tienes un síntoma, una enfermedad que requiere valoración o un procedimiento pendiente, puedes comunicarte para solicitar información y agendar una consulta.",
+    "presentacion": "El Dr. Carlos Reyes es especialista en Cirugía General y Laparoscópica. Su enfoque incorpora técnicas de mínima invasión cuando están indicadas, utilizando pequeñas incisiones, cámara e instrumentos especializados.",
+    "servicios": "Atención y valoración quirúrgica para distintas condiciones de cirugía general, con especial énfasis en procedimientos laparoscópicos cuando corresponda."
+  },
+  "servicios": [
+    {
+      "nombre": "Cirugía de Vesícula Biliar",
+      "descripcion": "Valoración y tratamiento quirúrgico de enfermedades de la vesícula biliar. Cuando está indicado, la cirugía laparoscópica utiliza pequeñas incisiones y permite trabajar con una cámara e instrumentos especializados.",
+      "imagen": "servicio1.jpg"
+    },
+    {
+      "nombre": "Cirugía de Apéndice",
+      "descripcion": "Evaluación y tratamiento quirúrgico de casos de apendicitis aguda, según la valoración médica. La técnica laparoscópica puede formar parte del abordaje cuando está indicada.",
+      "imagen": "servicio2.jpg"
+    },
+    {
+      "nombre": "Cirugía intestinal",
+      "descripcion": "Valoración de enfermedades intestinales que pueden requerir tratamiento quirúrgico, con planificación del procedimiento de acuerdo con cada caso clínico.",
+      "imagen": "servicio3.jpg"
+    },
+    {
+      "nombre": "Cura de Hernias",
+      "descripcion": "Evaluación y tratamiento quirúrgico de hernias. Una valoración oportuna permite determinar el manejo más adecuado para cada paciente.",
+      "imagen": "servicio4.jpg"
+    }
+  ],
+  "productos": [],
+  "menu": [],
+  "perfil": {},
+  "galeria": [
+    "galeria01.jpg",
+    "galeria02.jpg",
+    "galeria03.jpg",
+    "galeria04.jpg"
+  ],
+  "beneficios": [
+    {
+      "titulo": "Cirugía de mínima invasión",
+      "descripcion": "En la cirugía laparoscópica se utilizan pequeñas incisiones, una cámara e instrumentos finos para realizar el procedimiento con precisión.",
+      "imagen": "HeroImagenFrente.jpg"
+    },
+    {
+      "titulo": "Menos dolor postoperatorio",
+      "descripcion": "Una de las ventajas descritas para la cirugía laparoscópica es un menor dolor después de la operación.",
+      "imagen": "servicio2.jpg"
+    },
+    {
+      "titulo": "Recuperación más rápida",
+      "descripcion": "La cirugía laparoscópica puede asociarse con menos días de hospitalización y una recuperación más rápida, según el procedimiento y cada caso.",
+      "imagen": "servicio4.jpg"
+    }
+  ],
+  "proceso": [],
+  "identidad": {
+    "descripcion": "Cirugía General y Laparoscópica en San Salvador.",
+    "detalles": []
+  }
+}
