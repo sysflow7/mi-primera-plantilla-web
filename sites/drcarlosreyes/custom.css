@@ -111,3 +111,21 @@ footer{background:#061426!important;color:#C7D0DA!important}
   .google-map-wrap,.google-map-wrap iframe{min-height:300px}
   .cta-panel{padding:34px 20px}
 }
+
+/* Preliminar: mantener activos los bloques comerciales solicitados para esta instancia corporativa. */
+html body.siden-template-corporate #soluciones,
+html body.siden-template-corporate #faq{display:block!important}
+html body.siden-template-corporate #soluciones .plans-grid{display:grid!important}
+html body.siden-template-corporate #faq .faq-list{display:grid!important}
+#soluciones,#faq{scroll-margin-top:90px}
+#soluciones .plans-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+#soluciones .plan-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;position:relative}
+#soluciones .plan-card.featured{box-shadow:0 16px 42px rgba(7,24,46,.12)}
+#soluciones .plan-card ul{padding-left:20px;text-align:left;line-height:1.65;color:var(--muted)}
+#soluciones .plan-link{display:inline-block;margin-top:14px;color:var(--primary);font-weight:800;text-decoration:none}
+#soluciones .plans-note{max-width:1000px;margin:28px auto 0;color:var(--muted);font-size:14px;line-height:1.6;text-align:center}
+#faq .faq-list{grid-template-columns:1fr 1fr;gap:14px}
+#faq details{border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+#faq summary{cursor:pointer;font-weight:800}
+#faq details p{color:var(--muted);line-height:1.65;margin:12px 0 0}
+@media(max-width:900px){#soluciones .plans-grid{grid-template-columns:1fr}.faq-list,#faq .faq-list{grid-template-columns:1fr!important}}
