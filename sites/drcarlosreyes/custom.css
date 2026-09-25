@@ -143,3 +143,14 @@ html body.siden-template-corporate #faq .faq-list{display:grid!important}
 #contacto .cta-panel{text-align:left!important;margin-left:0!important;margin-right:auto!important}
 #contacto .section-kicker,#contacto h2,#contacto p,#contacto .social{text-align:left!important}
 #contacto .contact-actions-siden{justify-content:flex-start!important}
+
+
+/* AISLAMIENTO CORPORATIVO DE ESTA INSTANCIA — no mostrar bloques exclusivos de la plantilla comercial. */
+html body.siden-template-corporate #proyectos,
+html body.siden-template-corporate #problema,
+html body.siden-template-corporate #solucion{display:none!important}
+/* Los bloques comerciales solicitados para esta preliminar sí permanecen visibles. */
+html body.siden-template-corporate #soluciones,
+html body.siden-template-corporate #faq{display:block!important}
+html body.siden-template-corporate #soluciones .plans-grid{display:grid!important}
+html body.siden-template-corporate #faq .faq-list{display:grid!important}
