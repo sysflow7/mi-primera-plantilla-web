@@ -129,3 +129,17 @@ html body.siden-template-corporate #faq .faq-list{display:grid!important}
 #faq summary{cursor:pointer;font-weight:800}
 #faq details p{color:var(--muted);line-height:1.65;margin:12px 0 0}
 @media(max-width:900px){#soluciones .plans-grid{grid-template-columns:1fr}.faq-list,#faq .faq-list{grid-template-columns:1fr!important}}
+
+/* AJUSTE FINAL DR CARLOS · imágenes y contacto */
+/* Las imágenes usan su proporción dentro del contenedor sin deformarse. */
+.hero-visual #hero-imagen-negocio{object-fit:contain!important;background:#fff}
+.benefit-icon{width:112px!important;height:112px!important}
+.benefit-icon img{width:82px!important;height:82px!important;object-fit:contain!important}
+#servicios .service-image{height:260px!important;object-fit:cover!important}
+#lista-galeria img,#galeria img,.gallery img{height:260px!important;object-fit:cover!important}
+
+/* Contacto de la instancia: contenido alineado a la izquierda. */
+#contacto{text-align:left!important}
+#contacto .cta-panel{text-align:left!important;margin-left:0!important;margin-right:auto!important}
+#contacto .section-kicker,#contacto h2,#contacto p,#contacto .social{text-align:left!important}
+#contacto .contact-actions-siden{justify-content:flex-start!important}
