@@ -238,7 +238,7 @@
             : [];
         const galeriaActiva = modulos.includes("galeria") && galeria.length > 0;
 
-        ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
+        ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto", "soluciones", "faq"].forEach(function (modulo) {
             const visible = modulo === "galeria" ? galeriaActiva : modulos.includes(modulo);
             showModule(modulo, visible);
         });
