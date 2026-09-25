@@ -56,12 +56,22 @@
   "imagenSocial": "HeroImagenFondo.jpg",
   "horarios": [
     {
-      "dia": "Lunes a viernes",
-      "horario": "1:00 pm a 3:00 pm"
+      "dias": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "abre": "1:00 pm",
+      "cierra": "3:00 pm"
     },
     {
-      "dia": "Sábado",
-      "horario": "9:00 am a 12:00 pm"
+      "dias": [
+        "Saturday"
+      ],
+      "abre": "9:00 am",
+      "cierra": "12:00 pm"
     }
   ],
   "rangoPrecios": "",
