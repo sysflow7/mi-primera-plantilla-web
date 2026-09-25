@@ -112,11 +112,6 @@ footer{background:#061426!important;color:#C7D0DA!important}
   .cta-panel{padding:34px 20px}
 }
 
-/* Preliminar: mantener activos los bloques comerciales solicitados para esta instancia corporativa. */
-html body.siden-template-corporate #soluciones,
-html body.siden-template-corporate #faq{display:block!important}
-html body.siden-template-corporate #soluciones .plans-grid{display:grid!important}
-html body.siden-template-corporate #faq .faq-list{display:grid!important}
 #soluciones,#faq{scroll-margin-top:90px}
 #soluciones .plans-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 #soluciones .plan-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;position:relative}
@@ -149,8 +144,3 @@ html body.siden-template-corporate #faq .faq-list{display:grid!important}
 html body.siden-template-corporate #proyectos,
 html body.siden-template-corporate #problema,
 html body.siden-template-corporate #solucion{display:none!important}
-/* Los bloques comerciales solicitados para esta preliminar sí permanecen visibles. */
-html body.siden-template-corporate #soluciones,
-html body.siden-template-corporate #faq{display:block!important}
-html body.siden-template-corporate #soluciones .plans-grid{display:grid!important}
-html body.siden-template-corporate #faq .faq-list{display:grid!important}
