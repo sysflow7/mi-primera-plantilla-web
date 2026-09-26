@@ -142,6 +142,41 @@
   display:none;
 }
 
+/* Cómo trabajamos: cuatro pasos en una sola fila en escritorio para evitar una segunda línea innecesaria. */
+.process-section{
+  padding-top:58px!important;
+  padding-bottom:58px!important;
+}
+.process-section .services{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:16px;
+}
+.process-section .service{
+  padding:22px 18px!important;
+  box-shadow:none;
+}
+.process-section .service p{
+  margin-bottom:0;
+}
+@media(max-width:900px){
+  .process-section{
+    padding-top:50px!important;
+    padding-bottom:50px!important;
+  }
+  .process-section .services{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:640px){
+  .process-section{
+    padding-top:45px!important;
+    padding-bottom:45px!important;
+  }
+  .process-section .services{
+    grid-template-columns:1fr!important;
+  }
+}
+
 /* FAQ configurable: el contenido se genera desde config.json. */
 #faq[data-module="faq"] .faq-list{
   min-height:1px;
