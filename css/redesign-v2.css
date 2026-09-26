@@ -225,3 +225,9 @@
     max-height:260px;
   }
 }
+
+
+/* SIDeN template — estándares explícitos de botones de soluciones. */
+#soluciones .plan-link{
+  color:#fff!important;
+}
