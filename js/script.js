@@ -237,14 +237,17 @@
         const textoPresentacion = presentacionConfig.texto || negocio.descripcion || negocioBase.descripcion || "";
         setText("descripcion-negocio", textoPresentacion);
         const imagenPresentacion = document.getElementById("imagen-presentacion");
+        const seccionPresentacion = document.getElementById("nosotros");
         if (imagenPresentacion) {
             if (presentacionConfig.imagen) {
                 imagenPresentacion.src = assetUrl("images/" + presentacionConfig.imagen);
                 imagenPresentacion.alt = presentacionConfig.alt || (presentacionConfig.titulo || etiquetas.presentacion || "Especialidad") + " - " + negocioBase.nombre;
                 imagenPresentacion.hidden = false;
+                if (seccionPresentacion) seccionPresentacion.classList.remove("split-no-image");
             } else {
                 imagenPresentacion.removeAttribute("src");
                 imagenPresentacion.hidden = true;
+                if (seccionPresentacion) seccionPresentacion.classList.add("split-no-image");
             }
         }
 
