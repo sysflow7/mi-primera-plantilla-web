@@ -23,3 +23,4 @@ html body.siden-template-corporate #proyectos,html body.siden-template-corporate
 #contacto .contact-actions-siden{display:flex!important;justify-content:center!important;align-items:center!important;}
 
 @media(max-width:700px){.hero-brand{color:#fff!important}.hero-copy h1{color:#fff!important}.hero-subtitle{color:#fff!important}.hero-description{color:#fff!important}}
+@media(max-width:700px){.hero-brand::after{color:#fff!important}}
