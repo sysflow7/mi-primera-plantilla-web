@@ -125,6 +125,8 @@
     "detalles": [
       "Actualmente, SIDeN es operado directamente por su fundador. Trabajamos de forma cercana con cada negocio, priorizando soluciones claras, prácticas y adaptadas a sus necesidades reales.",
       "SIDeN se presenta de forma transparente como un proyecto independiente en etapa de crecimiento, sin atribuirse una estructura empresarial, certificaciones o resultados que todavía no corresponden a su realidad."
-    ]
+    ],
+    "imagen": "logo-SIDeN.png",
+    "alt": "SIDeN"
   }
 }

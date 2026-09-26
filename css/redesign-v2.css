@@ -53,9 +53,175 @@
 }
 
 
-/* SIDeN corporate template — contact block aligned left */
-.cta-panel{text-align:left}
-.cta-panel h2{margin-left:0;margin-right:0}
-.cta-panel p{margin-left:0;margin-right:0}
-.cta-panel .contact-actions-siden{justify-content:flex-start;margin-left:0;margin-right:0}
-.cta-panel .social{text-align:left}
+/* SIDeN template — contact block centered */
+.cta-panel{text-align:center}
+.cta-panel h2{margin-left:auto;margin-right:auto}
+.cta-panel p{margin-left:auto;margin-right:auto}
+.cta-panel .contact-actions-siden{justify-content:center;margin-left:auto;margin-right:auto}
+.cta-panel .social{text-align:center}
+
+
+/* ==================================================
+   SIDeN — ESTÁNDARES VISUALES DE INSTANCIA
+   Estas reglas son compartidas por todas las instancias.
+================================================== */
+
+/* Beneficios: imagen visual más grande dentro de su contenedor. */
+.benefit-icon{
+  width:160px;
+  height:160px;
+  margin:0 auto 18px;
+  padding:16px;
+  border-radius:24px;
+  overflow:hidden;
+}
+.benefit-icon img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:16px;
+}
+
+/* Servicios y productos: tres elementos por fila en escritorio. */
+.services,
+.products{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+
+/* Galería: cuatro imágenes por fila cuando hay cuatro o más. */
+.gallery{
+  grid-template-columns:repeat(min(var(--gallery-count),4),minmax(0,1fr));
+}
+
+/* Presentación / Especialidad y Quiénes somos: bloques visuales configurables. */
+.content-split{
+  display:grid;
+  grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);
+  align-items:center;
+  gap:52px;
+}
+.content-split-media-right .split-content{order:1}
+.content-split-media-right .split-media{order:2}
+.content-split-media-left .split-media{order:1}
+.content-split-media-left .split-content{order:2}
+.content-split .split-media{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:220px;
+}
+.content-split .split-media img{
+  display:block;
+  width:100%;
+  max-width:420px;
+  max-height:300px;
+  object-fit:cover;
+  border-radius:14px;
+}
+.content-split .split-content{
+  min-width:0;
+}
+.content-split h2{
+  text-align:left;
+  margin-bottom:24px;
+}
+.content-split .about,
+.content-split .split-text{
+  max-width:none;
+  margin:0;
+  text-align:left;
+  color:#596579;
+  font-size:17px;
+  line-height:1.8;
+}
+.content-split.split-no-image{
+  grid-template-columns:1fr;
+}
+.content-split.split-no-image .split-media{
+  display:none;
+}
+
+/* Cómo trabajamos: cuatro pasos en una sola fila en escritorio para evitar una segunda línea innecesaria. */
+.process-section{
+  padding-top:58px!important;
+  padding-bottom:58px!important;
+}
+.process-section .services{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:16px;
+}
+.process-section .service{
+  padding:22px 18px!important;
+  box-shadow:none;
+}
+.process-section .service p{
+  margin-bottom:0;
+}
+@media(max-width:900px){
+  .process-section{
+    padding-top:50px!important;
+    padding-bottom:50px!important;
+  }
+  .process-section .services{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:640px){
+  .process-section{
+    padding-top:45px!important;
+    padding-bottom:45px!important;
+  }
+  .process-section .services{
+    grid-template-columns:1fr!important;
+  }
+}
+
+/* FAQ configurable: el contenido se genera desde config.json. */
+#faq[data-module="faq"] .faq-list{
+  min-height:1px;
+}
+
+@media(max-width:900px){
+  .services,
+  .products{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .content-split{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+  .content-split-media-left .split-media,
+  .content-split-media-right .split-media{
+    order:1;
+  }
+  .content-split-media-left .split-content,
+  .content-split-media-right .split-content{
+    order:2;
+  }
+  .content-split .split-content,
+  .content-split .about,
+  .content-split .split-text{
+    text-align:center;
+  }
+  .content-split h2{text-align:center}
+}
+
+@media(max-width:640px){
+  .services,
+  .products{
+    grid-template-columns:1fr!important;
+  }
+  .benefit-icon{
+    width:140px;
+    height:140px;
+  }
+  .content-split{
+    padding-left:18px;
+    padding-right:18px;
+  }
+  .content-split .split-media img{
+    max-width:100%;
+    max-height:260px;
+  }
+}
