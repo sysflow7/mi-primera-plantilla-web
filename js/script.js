@@ -69,6 +69,8 @@
         const modulos = Array.isArray(negocio.modulos) ? negocio.modulos : (defaults[tipoNormalizado] || defaults.comercio);
         const etiquetas = negocio.etiquetas || {};
         const texto = negocio.textos || {};
+        const presentacionConfig = negocio.presentacion && typeof negocio.presentacion === "object" ? negocio.presentacion : {};
+        const faqConfig = negocio.faq && typeof negocio.faq === "object" ? negocio.faq : {};
         const escapeHtml = function (value) {
             return String(value ?? "")
                 .replace(/&/g, "&amp;")
@@ -220,8 +222,8 @@
         }
 
 
-        // ETIQUETAS
-        setText("titulo-presentacion", etiquetas.presentacion || "¿Quiénes somos?");
+        // ETIQUETAS Y PRESENTACIÓN CONFIGURABLE
+        setText("titulo-presentacion", presentacionConfig.titulo || etiquetas.presentacion || "¿Quiénes somos?");
         setText("titulo-perfil", etiquetas.perfil || "Perfil profesional");
         setText("titulo-beneficios", etiquetas.beneficios || "¿Por qué elegirnos?");
         setText("titulo-servicios", etiquetas.servicios || "Nuestros servicios");
@@ -231,6 +233,20 @@
         setText("titulo-ubicacion", etiquetas.ubicacion || "Encuéntranos");
         setText("titulo-contacto", etiquetas.contacto || "¿Tienes alguna pregunta?");
         setText("texto-contacto", texto.contacto || "Estamos disponibles para atenderte.");
+
+        const textoPresentacion = presentacionConfig.texto || negocio.descripcion || negocioBase.descripcion || "";
+        setText("descripcion-negocio", textoPresentacion);
+        const imagenPresentacion = document.getElementById("imagen-presentacion");
+        if (imagenPresentacion) {
+            if (presentacionConfig.imagen) {
+                imagenPresentacion.src = assetUrl("images/" + presentacionConfig.imagen);
+                imagenPresentacion.alt = presentacionConfig.alt || (presentacionConfig.titulo || etiquetas.presentacion || "Especialidad") + " - " + negocioBase.nombre;
+                imagenPresentacion.hidden = false;
+            } else {
+                imagenPresentacion.removeAttribute("src");
+                imagenPresentacion.hidden = true;
+            }
+        }
 
         // MÓDULOS
         const galeria = Array.isArray(negocio.galeria)
@@ -457,6 +473,42 @@
                     foto.alt = negocioBase.nombre + " - Foto " + (indice + 1);
                     foto.loading = "lazy";
                     listaGaleria.appendChild(foto);
+                });
+            }
+        }
+
+        // SOLUCIONES SIDeN WEB Y FAQ
+        const mostrarSolucionesSiden = negocio.mostrarSolucionesSiden !== false;
+        showModule("soluciones", mostrarSolucionesSiden);
+
+        const faqSidenDefault = [
+            ["¿Necesito saber de tecnología para tener una página web?", "No. SIDeN se encarga de la parte técnica y organiza la información para que tu presencia sea clara y fácil de utilizar."],
+            ["¿La página funciona en celulares?", "Sí. El diseño se plantea para adaptarse a celulares, tablets y computadoras."],
+            ["¿El SEO incluido en los planes es SEO local?", "Los planes Web incluyen SEO básico. La gestión de Perfil de Empresa de Google y los servicios de SEO local forman parte de soluciones adicionales y no están incluidos en estos planes."],
+            ["¿Puedo conectar WhatsApp?", "Sí. Los planes Web incluyen un botón de WhatsApp para facilitar el contacto directo. Además, cada plan contempla un catálogo de WhatsApp Presencia con el límite indicado en su alcance."],
+            ["¿Puedo agregar más cosas después?", "Sí. La idea es construir una base que pueda crecer con las necesidades de tu negocio. Las funciones adicionales pueden cotizarse por separado."],
+            ["¿Cuánto tiempo dura el servicio?", "Los planes se contratan por 12 meses e incluyen hosting, SSL, mantenimiento básico, soporte básico y las condiciones de actualización indicadas en cada plan. La renovación anual se realiza para continuar con el servicio."]
+        ];
+        const faqActivo = faqConfig.activo !== false;
+        showModule("faq", faqActivo);
+        if (faqActivo) {
+            const faqTitulo = faqConfig.titulo || etiquetas.faq || "Preguntas frecuentes";
+            setText("titulo-faq", faqTitulo);
+            const faqLista = document.getElementById("lista-faq");
+            if (faqLista) {
+                const preguntasNegocio = Array.isArray(faqConfig.preguntas)
+                    ? faqConfig.preguntas.filter(function (item) { return item && String(item.pregunta || "").trim() && String(item.respuesta || "").trim(); })
+                    : [];
+                const preguntas = preguntasNegocio.length ? preguntasNegocio : faqSidenDefault.map(function (item) { return { pregunta: item[0], respuesta: item[1] }; });
+                faqLista.innerHTML = "";
+                preguntas.slice(0, 6).forEach(function (item) {
+                    const detalle = document.createElement("details");
+                    const resumen = document.createElement("summary");
+                    const respuesta = document.createElement("p");
+                    resumen.textContent = String(item.pregunta || "").trim();
+                    respuesta.textContent = String(item.respuesta || "").trim();
+                    detalle.append(resumen, respuesta);
+                    faqLista.appendChild(detalle);
                 });
             }
         }
