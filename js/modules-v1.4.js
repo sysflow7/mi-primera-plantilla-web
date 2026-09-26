@@ -18,6 +18,14 @@
             const elemento = document.getElementById(id);
             if (elemento && valor) elemento.textContent = valor;
         };
+        const assetUrl = function (archivo) {
+            const limpio = String(archivo || "").replace(/^\/+/, "");
+            const previewSite = new URLSearchParams(window.location.search).get("site");
+            const query = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
+            if (limpio.startsWith("images/")) return new URL("/" + limpio + query, window.location.origin).href;
+            const prefix = String(config?.siden?.assetPrefix || "").replace(/\/+$/, "");
+            return new URL((prefix ? prefix + "/" : "/") + limpio + query, window.location.origin).href;
+        };
         const procesoActivo = modulos.includes("proceso") && proceso.length > 0;
         const identidadActiva = modulos.includes("identidad") && Object.keys(identidad).length > 0;
         mostrar("proceso", procesoActivo);
@@ -39,6 +47,8 @@
             });
         }
         const contenidoIdentidad = document.getElementById("contenido-identidad");
+        const imagenIdentidad = document.getElementById("imagen-identidad");
+        const seccionIdentidad = document.getElementById("identidad");
         if (contenidoIdentidad && identidadActiva) {
             contenidoIdentidad.innerHTML = "";
             if (identidad.descripcion) {
@@ -52,6 +62,18 @@
                 p.textContent = typeof detalle === "string" ? detalle : (detalle.texto || "");
                 if (p.textContent) contenidoIdentidad.appendChild(p);
             });
+            if (imagenIdentidad) {
+                if (identidad.imagen) {
+                    imagenIdentidad.src = assetUrl("images/" + identidad.imagen);
+                    imagenIdentidad.alt = identidad.alt || "Imagen de " + (config.nombre || "la empresa");
+                    imagenIdentidad.hidden = false;
+                    if (seccionIdentidad) seccionIdentidad.classList.remove("split-no-image");
+                } else {
+                    imagenIdentidad.removeAttribute("src");
+                    imagenIdentidad.hidden = true;
+                    if (seccionIdentidad) seccionIdentidad.classList.add("split-no-image");
+                }
+            }
         }
         const navLinks = document.getElementById("nav-links");
         if (navLinks && !document.body.classList.contains("multi-inner-page")) {
