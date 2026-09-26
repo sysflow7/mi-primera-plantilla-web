@@ -53,12 +53,12 @@
 }
 
 
-/* SIDeN corporate template — contact block centered */
-.siden-template-corporate .cta-panel{text-align:center}
-.siden-template-corporate .cta-panel h2{margin-left:auto;margin-right:auto}
-.siden-template-corporate .cta-panel p{margin-left:auto;margin-right:auto}
-.siden-template-corporate .cta-panel .contact-actions-siden{justify-content:center;margin-left:auto;margin-right:auto}
-.siden-template-corporate .cta-panel .social{text-align:center}
+/* SIDeN template — contact block centered */
+.cta-panel{text-align:center}
+.cta-panel h2{margin-left:auto;margin-right:auto}
+.cta-panel p{margin-left:auto;margin-right:auto}
+.cta-panel .contact-actions-siden{justify-content:center;margin-left:auto;margin-right:auto}
+.cta-panel .social{text-align:center}
 
 
 /* ==================================================
