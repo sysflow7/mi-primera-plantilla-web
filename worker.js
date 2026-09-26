@@ -71,7 +71,8 @@ export default {
                     "ajuste-sidenred-inicio-2026-09-19",
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20",
-                    "ajuste-plantilla-corporate-v1.1-2026-09-25"
+                    "ajuste-plantilla-corporate-v1.1-2026-09-25",
+                    "web-dr-carlos-reyes-v1.3-2026-09-26"
                 ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
