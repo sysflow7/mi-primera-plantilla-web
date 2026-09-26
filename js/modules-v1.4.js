@@ -175,9 +175,7 @@
       /* FAMILY ISOLATION: Corporate must not render Commercial-only content. */
       body.siden-template-corporate #proyectos,
       body.siden-template-corporate #problema,
-      body.siden-template-corporate #solucion,
-      body.siden-template-corporate #soluciones,
-      body.siden-template-corporate #faq{display:none!important}
+      body.siden-template-corporate #solucion{display:none!important}
       body.siden-template-corporate .hero-eyebrow,
       body.siden-template-corporate .hero-description,
       body.siden-template-corporate .hero-actions,
