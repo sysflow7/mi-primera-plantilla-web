@@ -14,3 +14,10 @@ section{background:var(--bg)}#nosotros{background:var(--surface)}#nosotros .abou
 html body.siden-template-corporate #proyectos,html body.siden-template-corporate #problema,html body.siden-template-corporate #solucion{display:none!important}
 @media(max-width:900px){.hero-content{grid-template-columns:1fr}.hero-copy{text-align:center}.hero-visual{min-height:340px}.gallery{grid-template-columns:repeat(2,1fr)!important}#soluciones .plans-grid{grid-template-columns:1fr}#faq .faq-list{grid-template-columns:1fr!important}}
 @media(max-width:700px){.nav-logo{width:90px;height:64px}.nav-logo img{width:70px;height:70px}.hero{min-height:unset;padding:48px 18px}.hero-overlay{background:rgba(255,255,255,.92)!important}.hero-visual{min-height:300px}.hero-visual #hero-imagen-negocio{height:300px!important;border-width:5px}.gallery{grid-template-columns:1fr!important}.location{grid-template-columns:1fr}.google-map-wrap,.google-map-wrap iframe{min-height:300px}.cta-panel{padding:34px 20px}}
+
+
+/* Ajuste de instancia: botones y contenido de contacto centrados. */
+#soluciones .plan-link{width:100%!important;text-align:center!important;justify-content:center!important;}
+#soluciones .plan-card{text-align:center!important;}
+#contacto .cta-panel{text-align:center!important;}
+#contacto .contact-actions-siden{display:flex!important;justify-content:center!important;align-items:center!important;}
