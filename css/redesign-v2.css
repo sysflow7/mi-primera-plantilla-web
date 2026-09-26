@@ -231,3 +231,10 @@
 #soluciones .plan-link{
   color:#fff!important;
 }
+
+
+/* SIDeN template — centrar contenido y texto de botones de soluciones. */
+#soluciones .plan-link{width:100%;text-align:center;justify-content:center;}
+#soluciones .plan-card{text-align:center;}
+.cta-panel{text-align:center!important;}
+.cta-panel .contact-actions-siden{display:flex;justify-content:center!important;align-items:center;}
