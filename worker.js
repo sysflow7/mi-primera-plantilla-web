@@ -72,7 +72,7 @@ export default {
                     "arquitectura-maestra-v1-5-2026-09-20",
                     "ajuste-logo-instancia-v1-5-2026-09-20",
                     "ajuste-plantilla-corporate-v1.1-2026-09-25"
-                ];
+                ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
                 if (previewSlug && instanceId !== "corporativo") {
