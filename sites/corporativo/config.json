@@ -21,7 +21,6 @@
   "heroImagenVisual": "Presenta01.png",
   "mostrarHeroImagen": true,
   "modulos": [
-    "presentacion",
     "beneficios",
     "servicios",
     "proceso",
