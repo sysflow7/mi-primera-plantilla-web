@@ -156,6 +156,23 @@
         setText("titulo-contacto", etiquetas.contacto || "¿Tienes alguna pregunta?");
         setText("texto-contacto", texto.contacto || "Estamos disponibles para atenderte.");
 
+        // IMAGEN DE PRESENTACIÓN / NOSOTROS
+        const presentacionConfig = negocio.presentacion || {};
+        const imagenPresentacion = document.getElementById("imagen-presentacion");
+        const seccionPresentacion = document.getElementById("nosotros");
+        if (imagenPresentacion) {
+            if (presentacionConfig.imagen) {
+                imagenPresentacion.src = assetUrl("images/" + presentacionConfig.imagen);
+                imagenPresentacion.alt = presentacionConfig.alt || (etiquetas.presentacion || "Presentación") + " - " + negocioBase.nombre;
+                imagenPresentacion.hidden = false;
+                if (seccionPresentacion) seccionPresentacion.classList.remove("split-no-image");
+            } else {
+                imagenPresentacion.removeAttribute("src");
+                imagenPresentacion.hidden = true;
+                if (seccionPresentacion) seccionPresentacion.classList.add("split-no-image");
+            }
+        }
+
         // MÓDULOS
         ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
             showModule(modulo, modulos.includes(modulo));
