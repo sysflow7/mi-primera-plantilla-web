@@ -95,9 +95,15 @@ export default {
                     if (respuestaRegistry.ok) {
                         try {
                             const registry = await respuestaRegistry.json();
-                            instanceId = slugify(registry[previewSlug] || previewSlug);
+                            // El registry puede resolver aliases de Preview, pero no debe
+                            // sobrescribir una instancia ya resuelta por previewInstanceAliases
+                            // cuando el alias aún no está registrado allí.
+                            const registryInstance = registry[previewSlug];
+                            if (registryInstance) {
+                                instanceId = slugify(registryInstance);
+                            }
                         } catch {
-                            instanceId = previewSlug;
+                            // Mantener la resolución obtenida por alias cuando registry no esté disponible.
                         }
                     }
                 }
