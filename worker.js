@@ -63,6 +63,15 @@ export default {
                     : "";
                 const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
                 const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
+
+                // Cloudflare puede truncar el nombre de la rama y agregar un hash
+                // cuando el alias + nombre del Worker supera el límite DNS de 63 caracteres.
+                // Por eso no dependemos exclusivamente de una coincidencia exacta del hostname.
+                const previewInstanceAliases = {
+                    "ajuste-nosotros-benitez-gutierrez-v1-4-2026-09-27": "cliente-prueba-benitez-gutierrez",
+                    "ajuste-nosotros-benitez-gutierrez-v1-4-2-5deb": "cliente-prueba-benitez-gutierrez"
+                };
+
                 const corporatePreviewAliases = [
                     "siden-template-v1.4",
                     "siden-template-v1-4",
@@ -73,10 +82,13 @@ export default {
                     "ajuste-logo-instancia-v1-5-2026-09-20",
                     "ajuste-plantilla-corporate-v1.1-2026-09-25",
                     "ajuste-plantilla-corporate-v1.2-2026-09-27",
-                    "web-dr-carlos-reyes-v1.3-2026-09-26",
-                    "ajuste-nosotros-benitez-gutierrez-v1-4-2026-09-27"
+                    "web-dr-carlos-reyes-v1.3-2026-09-26"
                 ].map(slugify);
-                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
+
+                const previewInstance = previewInstanceAliases[previewSlug] || previewInstanceAliases[previewHostLabel];
+                instanceId = previewInstance
+                    ? slugify(previewInstance)
+                    : (corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug);
 
                 if (previewSlug) {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
