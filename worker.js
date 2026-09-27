@@ -73,7 +73,7 @@ export default {
                     "ajuste-logo-instancia-v1-5-2026-09-20",
                     "ajuste-plantilla-corporate-v1.1-2026-09-25",
                     "ajuste-plantilla-corporate-v1.2-2026-09-27",
-                    "web-dr-carlos-reyes-v1.3-2026-09-26"",
+                    "web-dr-carlos-reyes-v1.3-2026-09-26",
                     "web-dr-leopoldo-reyes-v1-4-2026-09-26"
                 ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
