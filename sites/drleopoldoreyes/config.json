@@ -22,8 +22,8 @@
     "Morazán",
     "El Salvador"
   ],
-  "heroImagenFondo": "HeroImagenFondo.jpg",
-  "heroImagenVisual": "HeroImagenFrente.jpg",
+  "heroImagenFondo": "HeroImagenFondo.png",
+  "heroImagenVisual": "HeroImagenFrente.jfif",
   "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
@@ -65,8 +65,8 @@
   "instagram": "https://www.instagram.com/dr._carlos_leopoldo_reyes/",
   "maps": "https://maps.app.goo.gl/K8HtX4CWL2YhasCp6",
   "catalogo": "",
-  "logo": "logo.jpg",
-  "imagenSocial": "HeroImagenFondo.jpg",
+  "logo": "Logo.jfif",
+  "imagenSocial": "HeroImagenFondo.png",
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [
@@ -97,22 +97,22 @@
     {
       "nombre": "Cirugía de Hernia",
       "descripcion": "Valoración y tratamiento quirúrgico de hernias cuando está indicado. La reparación puede realizarse mediante cirugía abierta o técnicas mínimamente invasivas, según el tipo de hernia y las condiciones de cada paciente.",
-      "imagen": "servicio4.jpg"
+      "imagen": "Servicio Hernia.JPG"
     },
     {
       "nombre": "Cirugía de Lipoma",
       "descripcion": "Evaluación de masas compatibles con lipoma y, cuando corresponde, extirpación quirúrgica. La valoración permite determinar si se requieren estudios adicionales antes del procedimiento.",
-      "imagen": "servicio3.jpg"
+      "imagen": "Servicio Lipoma.JPG"
     },
     {
       "nombre": "Cirugía de Vesícula",
       "descripcion": "Evaluación y tratamiento quirúrgico de enfermedades de la vesícula biliar, incluidos casos relacionados con cálculos. Cuando está indicado, la colecistectomía puede realizarse por vía laparoscópica.",
-      "imagen": "servicio1.jpg"
+      "imagen": "Servicio Vesicula.JPG"
     },
     {
       "nombre": "Tratamiento del Pie Diabético",
       "descripcion": "Valoración y manejo de lesiones y complicaciones del pie relacionadas con la diabetes, con atención orientada a la evaluación oportuna y prevención de complicaciones según cada caso.",
-      "imagen": "servicio2.jpg"
+      "imagen": "Servicio Pie Diabetico.JPG"
     }
   ],
   "productos": [],
@@ -144,22 +144,22 @@
     {
       "titulo": "Valoración individual",
       "descripcion": "Cada procedimiento requiere una evaluación médica para determinar el abordaje apropiado según las características de cada paciente.",
-      "imagen": "servicio4.jpg"
+      "imagen": "Servicio Hernia.JPG"
     },
     {
       "titulo": "Cirugía laparoscópica cuando corresponde",
       "descripcion": "Las técnicas mínimamente invasivas pueden ser una alternativa en determinados procedimientos, de acuerdo con la valoración médica.",
-      "imagen": "servicio1.jpg"
+      "imagen": "Servicio Vesicula.JPG"
     },
     {
       "titulo": "Información clara",
       "descripcion": "La consulta permite explicar el procedimiento, alternativas, preparación y cuidados relacionados con cada caso.",
-      "imagen": "servicio3.jpg"
+      "imagen": "Servicio Lipoma.JPG"
     },
     {
       "titulo": "Atención cercana",
       "descripcion": "Un canal directo de comunicación facilita solicitar información y coordinar una consulta.",
-      "imagen": "servicio2.jpg"
+      "imagen": "Servicio Pie Diabetico.JPG"
     }
   ],
   "proceso": [],
@@ -180,7 +180,7 @@
   "presentacion": {
     "titulo": "Cirugía General y Laparoscópica",
     "texto": "El Dr. Carlos Leopoldo Reyes brinda atención en Cirugía General y Laparoscópica. La consulta permite valorar cada caso y orientar al paciente sobre las alternativas de tratamiento que correspondan.",
-    "imagen": "HeroImagenFrente.jpg",
+    "imagen": "HeroImagenFrente.jfif",
     "alt": "Dr. Carlos Leopoldo Reyes - Cirugía General y Laparoscópica"
   }
 }
