@@ -1,0 +1,186 @@
+{
+  "siden": {
+    "instanceId": "drleopoldoreyes",
+    "templateFamily": "corporate",
+    "baseDomain": "sidenred.com",
+    "architecture": "multisite",
+    "domainMode": "subdomain",
+    "customCss": "custom.css"
+  },
+  "activo": true,
+  "nombre": "Dr. Carlos Leopoldo Reyes",
+  "h1": "Dr. Carlos Leopoldo Reyes | Cirugía General y Laparoscópica",
+  "slogan": "Cirugía General y Laparoscópica con atención profesional y cercana",
+  "descripcion": "Atención médica especializada en Cirugía General y Laparoscópica, con valoración individual y orientación clara para cada paciente.",
+  "descripcionSEO": "Dr. Carlos Leopoldo Reyes, especialista en Cirugía General y Laparoscópica. Consulta y orientación sobre cirugía de hernia, lipoma, vesícula y manejo del pie diabético en San Francisco Gotera, Morazán.",
+  "tipoNegocio": "medico",
+  "etiquetaTipo": "Cirugía General y Laparoscópica",
+  "modoSitio": "single",
+  "modeloAtencion": "local",
+  "areasServicio": [
+    "San Francisco Gotera",
+    "Morazán",
+    "El Salvador"
+  ],
+  "heroImagenFondo": "HeroImagenFondo.jpg",
+  "heroImagenVisual": "HeroImagenFrente.jpg",
+  "mostrarHeroImagen": true,
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "galeria",
+    "ubicacion",
+    "soluciones",
+    "faq",
+    "contacto"
+  ],
+  "ordenSecciones": [
+    "nosotros",
+    "beneficios",
+    "servicios",
+    "galeria",
+    "ubicacion",
+    "soluciones",
+    "faq",
+    "contacto"
+  ],
+  "indexable": false,
+  "whatsapp": "50371406048",
+  "telefono": "26540538",
+  "email": "carloslreyes08@gmail.com",
+  "ciudad": "San Francisco Gotera",
+  "pais": "El Salvador",
+  "direccionTexto": "Consultorio 201, Clínica Salint, San Francisco Gotera, Morazán, El Salvador",
+  "direccion": {
+    "calle": "Consultorio 201, Clínica Salint",
+    "ciudad": "San Francisco Gotera",
+    "departamento": "Morazán",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
+  "facebook": "https://www.facebook.com/profile.php?id=61579350106573",
+  "instagram": "https://www.instagram.com/dr._carlos_leopoldo_reyes/",
+  "maps": "https://maps.app.goo.gl/K8HtX4CWL2YhasCp6",
+  "catalogo": "",
+  "logo": "logo.jpg",
+  "imagenSocial": "HeroImagenFondo.jpg",
+  "horarios": [],
+  "rangoPrecios": "",
+  "galeriaAlt": [
+    "Atención profesional del Dr. Carlos Leopoldo Reyes",
+    "Cirugía General y Laparoscópica",
+    "Procedimientos quirúrgicos",
+    "Información de servicios médicos"
+  ],
+  "etiquetas": {
+    "presentacion": "Especialidad",
+    "presentacionMenu": "Especialidad",
+    "beneficios": "Un enfoque profesional para tu atención",
+    "beneficiosMenu": "Beneficios",
+    "servicios": "Servicios y procedimientos",
+    "serviciosMenu": "Servicios",
+    "galeria": "Galería",
+    "galeriaMenu": "Galería",
+    "ubicacion": "Consultorio",
+    "ubicacionMenu": "Ubicación",
+    "contacto": "Agenda tu cita",
+    "contactoMenu": "Contacto"
+  },
+  "textos": {
+    "contacto": "¿Tienes una consulta o necesitas una valoración? Comunícate por WhatsApp o teléfono para conocer disponibilidad y agendar tu cita.",
+    "ubicacion": "Atención en Consultorio 201 de Clínica Salint, en San Francisco Gotera, Morazán."
+  },
+  "servicios": [
+    {
+      "nombre": "Cirugía de Hernia",
+      "descripcion": "Valoración y tratamiento quirúrgico de hernias cuando está indicado. La reparación puede realizarse mediante cirugía abierta o técnicas mínimamente invasivas, según el tipo de hernia y las condiciones de cada paciente.",
+      "imagen": "servicio4.jpg"
+    },
+    {
+      "nombre": "Cirugía de Lipoma",
+      "descripcion": "Evaluación de masas compatibles con lipoma y, cuando corresponde, extirpación quirúrgica. La valoración permite determinar si se requieren estudios adicionales antes del procedimiento.",
+      "imagen": "servicio3.jpg"
+    },
+    {
+      "nombre": "Cirugía de Vesícula",
+      "descripcion": "Evaluación y tratamiento quirúrgico de enfermedades de la vesícula biliar, incluidos casos relacionados con cálculos. Cuando está indicado, la colecistectomía puede realizarse por vía laparoscópica.",
+      "imagen": "servicio1.jpg"
+    },
+    {
+      "nombre": "Tratamiento del Pie Diabético",
+      "descripcion": "Valoración y manejo de lesiones y complicaciones del pie relacionadas con la diabetes, con atención orientada a la evaluación oportuna y prevención de complicaciones según cada caso.",
+      "imagen": "servicio2.jpg"
+    }
+  ],
+  "productos": [],
+  "menu": [],
+  "perfil": {
+    "descripcion": "El Dr. Carlos Leopoldo Reyes es médico especializado en Cirugía General y Laparoscópica. Esta página preliminar presenta sus principales servicios y canales de contacto.",
+    "datos": [
+      {
+        "titulo": "Especialidad",
+        "valor": "Cirugía General y Laparoscópica"
+      },
+      {
+        "titulo": "Consultorio",
+        "valor": "201, Clínica Salint"
+      },
+      {
+        "titulo": "Ubicación",
+        "valor": "San Francisco Gotera, Morazán"
+      }
+    ]
+  },
+  "galeria": [
+    "galeria01.jpg",
+    "galeria02.jpg",
+    "galeria03.jpg",
+    "galeria04.jpg"
+  ],
+  "beneficios": [
+    {
+      "titulo": "Valoración individual",
+      "descripcion": "Cada procedimiento requiere una evaluación médica para determinar el abordaje apropiado según las características de cada paciente.",
+      "imagen": "servicio4.jpg"
+    },
+    {
+      "titulo": "Cirugía laparoscópica cuando corresponde",
+      "descripcion": "Las técnicas mínimamente invasivas pueden ser una alternativa en determinados procedimientos, de acuerdo con la valoración médica.",
+      "imagen": "servicio1.jpg"
+    },
+    {
+      "titulo": "Información clara",
+      "descripcion": "La consulta permite explicar el procedimiento, alternativas, preparación y cuidados relacionados con cada caso.",
+      "imagen": "servicio3.jpg"
+    },
+    {
+      "titulo": "Atención cercana",
+      "descripcion": "Un canal directo de comunicación facilita solicitar información y coordinar una consulta.",
+      "imagen": "servicio2.jpg"
+    }
+  ],
+  "proceso": [],
+  "identidad": {},
+  "mapEmbedUrl": "https://www.google.com/maps?q=Clinica%20Salint%2C%20San%20Francisco%20Gotera%2C%20Morazan%2C%20El%20Salvador&output=embed",
+  "cintaInformativa": {
+    "mostrar": true,
+    "items": [
+      "Cirugía General",
+      "Cirugía Laparoscópica",
+      "Cirugía de Hernia",
+      "Cirugía de Vesícula",
+      "Pie Diabético"
+    ],
+    "separador": "✦",
+    "velocidad": 30
+  },
+  "presentacion": {
+    "titulo": "Cirugía General y Laparoscópica",
+    "texto": "El Dr. Carlos Leopoldo Reyes brinda atención en Cirugía General y Laparoscópica. La consulta permite valorar cada caso y orientar al paciente sobre las alternativas de tratamiento que correspondan.",
+    "imagen": "HeroImagenFrente.jpg",
+    "alt": "Dr. Carlos Leopoldo Reyes - Cirugía General y Laparoscópica"
+  }
+}
