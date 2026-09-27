@@ -63,7 +63,20 @@ export default {
                     : "";
                 const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
                 const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
-                instanceId = previewSlug;
+                const corporatePreviewAliases = [
+                    "siden-template-v1.4",
+                    "siden-template-v1-4",
+                    "siden-corporativo-v1.3",
+                    "siden-corporativo-v1-3",
+                    "ajuste-sidenred-inicio-2026-09-19",
+                    "arquitectura-maestra-v1-5-2026-09-20",
+                    "ajuste-logo-instancia-v1-5-2026-09-20",
+                    "ajuste-plantilla-corporate-v1.1-2026-09-25",
+                    "ajuste-plantilla-corporate-v1.2-2026-09-27",
+                    "web-dr-carlos-reyes-v1.3-2026-09-26",
+                    "ajuste-nosotros-benitez-gutierrez-v1-4-2026-09-27"
+                ].map(slugify);
+                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
                 if (previewSlug) {
                     const respuestaRegistry = await loadAsset("/sites/registry.json");
