@@ -28,3 +28,38 @@ section{background:var(--bg)}#nosotros{background:var(--bg)}
 footer{background:#1E150E!important;color:#D0C2B5!important}.whatsapp-float,.float-card{display:none!important}
 @media(max-width:900px){.hero-content{grid-template-columns:1fr}.hero-visual{min-height:320px}.gallery{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:700px){.nav-logo{width:90px;height:64px;align-items:flex-start}.nav-logo img{height:80px;width:auto;max-width:none}.location{grid-template-columns:1fr}.google-map-wrap,.google-map-wrap iframe{min-height:300px}.hero{min-height:unset;padding:60px 18px}.hero-visual{min-height:260px}.hero-visual #hero-imagen-negocio{height:270px}.gallery{grid-template-columns:1fr!important}.cta-panel{padding:34px 20px}}
+
+/* Nosotros · imagen configurable de presentación */
+#nosotros.content-split{
+  max-width:1180px;
+  margin:0 auto;
+  padding:78px 24px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(360px,.85fr);
+  gap:50px;
+  align-items:center;
+  background:var(--bg);
+}
+#nosotros.content-split .split-content{order:1}
+#nosotros.content-split .split-media{order:2;display:flex;align-items:center;justify-content:center}
+#nosotros.content-split .split-media img{
+  display:block;
+  width:100%;
+  max-width:520px;
+  height:360px;
+  object-fit:cover;
+  border-radius:22px;
+  border:1px solid var(--border);
+  box-shadow:0 18px 45px rgba(73,47,22,.14);
+}
+#nosotros.content-split.split-no-image{grid-template-columns:1fr}
+#nosotros.content-split.split-no-image .split-media{display:none}
+@media(max-width:900px){
+  #nosotros.content-split{grid-template-columns:1fr;gap:30px}
+  #nosotros.content-split .split-content{order:1}
+  #nosotros.content-split .split-media{order:2}
+}
+@media(max-width:640px){
+  #nosotros.content-split{padding:60px 18px}
+  #nosotros.content-split .split-media img{height:280px}
+}

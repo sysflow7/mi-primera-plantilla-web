@@ -23,6 +23,10 @@
     "El Salvador"
   ],
   "heroImagen": "86624.jpg",
+  "presentacion": {
+    "imagen": "nosotros.jfif",
+    "alt": "Despacho Jurídico Benítez Gutiérrez"
+  },
   "modulos": [
     "presentacion",
     "beneficios",
