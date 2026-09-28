@@ -25,6 +25,10 @@
   "heroImagenFondo": "86624.jpg",
   "heroImagenVisual": "heroVisual.JPG",
   "mostrarHeroImagen": true,
+  "presentacion": {
+    "imagen": "nosotros.jfif",
+    "alt": "Despacho Jurídico Benítez Gutiérrez"
+  },
   "modulos": [
     "presentacion",
     "beneficios",
