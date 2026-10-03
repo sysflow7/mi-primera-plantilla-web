@@ -155,11 +155,6 @@ export default {
             return loadAsset(`${sitePrefix}${url.pathname}`);
         }
 
-        // Assets compartidos: servirlos mediante el mismo binding interno que usa la plantilla.
-        // Esto evita depender del host externo del request en los previews de Workers.
-        if (request.method === "GET" && (url.pathname.startsWith("/css/") || url.pathname.startsWith("/js/"))) {
-            return loadAsset(url.pathname);
-        }
 
         if (request.method === "GET" && url.pathname === "/custom.css" && customCssValido) {
             return loadAsset(`${sitePrefix}/${customCss}`);
