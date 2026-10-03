@@ -155,7 +155,6 @@ export default {
             return loadAsset(`${sitePrefix}${url.pathname}`);
         }
 
-
         if (request.method === "GET" && url.pathname === "/custom.css" && customCssValido) {
             return loadAsset(`${sitePrefix}/${customCss}`);
         }
