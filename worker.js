@@ -277,6 +277,15 @@ export default {
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
+        // En Workers Preview, las solicitudes secundarias de CSS/JS no heredan el query ?site= de la URL inicial.
+        // Propagamos el identificador de Preview únicamente en los recursos compartidos del template,
+        // sin modificar URLs en producción ni recursos de la instancia.
+        if (assetQuery) {
+            html = html.replace(/(\\b(?:href|src)=["'])(\\/?(?:css|js)\\/[^"'?#]+)(["'])/gi, (coincidencia, prefijo, ruta, cierre) => {
+                return prefijo + ruta + assetQuery + cierre;
+            });
+        }
+
         if (customCssValido) {
             const customCssUrl = "/custom.css" + assetQuery;
             html = html.replace("</head>", `<link rel="stylesheet" href="${escHtml(customCssUrl)}" data-siden-instance-css="true"></head>`);
