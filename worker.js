@@ -281,7 +281,7 @@ export default {
         // Propagamos el identificador de Preview únicamente en los recursos compartidos del template,
         // sin modificar URLs en producción ni recursos de la instancia.
         if (assetQuery) {
-            html = html.replace(/(\\b(?:href|src)=["'])(\\/?(?:css|js)\\/[^"'?#]+)(["'])/gi, (coincidencia, prefijo, ruta, cierre) => {
+            html = html.replace(/((?:href|src)=["'])(?:\\.\\/)?(css\\/[^"'?#]+|js\\/[^"'?#]+)(["'])/gi, (coincidencia, prefijo, ruta, cierre) => {
                 return prefijo + ruta + assetQuery + cierre;
             });
         }
