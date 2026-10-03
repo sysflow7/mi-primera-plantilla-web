@@ -73,7 +73,8 @@ export default {
                     "ajuste-logo-instancia-v1-5-2026-09-20",
                     "ajuste-plantilla-corporate-v1.1-2026-09-25",
                     "ajuste-plantilla-corporate-v1.2-2026-09-27",
-                    "web-dr-carlos-reyes-v1.3-2026-09-26"
+                    "web-dr-carlos-reyes-v1.3-2026-09-26",
+                    "web-dr-leopoldo-reyes-v1-4-2026-09-26"
                 ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
@@ -275,6 +276,15 @@ export default {
             "__HERO_BACKGROUND_URL__": escHtml(heroBackgroundURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio), "__PRIMARY_COLOR__": escHtml(primaryColor)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
+
+        // En Workers Preview, las solicitudes secundarias de CSS/JS no heredan el query ?site= de la URL inicial.
+        // Propagamos el identificador de Preview únicamente en los recursos compartidos del template,
+        // sin modificar URLs en producción ni recursos de la instancia.
+        if (assetQuery) {
+            html = html.replace(/((?:href|src)=["'])(?:\.\/)?(css\/[^"'?#]+|js\/[^"'?#]+)(["'])/gi, (coincidencia, prefijo, ruta, cierre) => {
+                return prefijo + ruta + assetQuery + cierre;
+            });
+        }
 
         if (customCssValido) {
             const customCssUrl = "/custom.css" + assetQuery;
