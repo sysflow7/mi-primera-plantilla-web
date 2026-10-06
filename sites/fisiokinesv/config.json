@@ -35,7 +35,7 @@
     "ubicacion",
     "contacto"
   ],
-  "indexable": false,
+  "indexable": true,
   "whatsapp": "50361042801",
   "telefono": "+503 6104-2801",
   "email": "",
