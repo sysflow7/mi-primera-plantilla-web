@@ -75,7 +75,6 @@ export default {
                     "ajuste-plantilla-corporate-v1.2-2026-09-27",
                     "web-dr-carlos-reyes-v1.3-2026-09-26",
                     "web-dr-leopoldo-reyes-v1-4-2026-09-26",
-                    "web-fisiokinesv-v1-0-2026-10-05"
                 ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
