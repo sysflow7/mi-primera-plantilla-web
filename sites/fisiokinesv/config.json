@@ -1,0 +1,208 @@
+{
+  "siden": {
+    "instanceId": "fisiokinesv",
+    "templateFamily": "corporate",
+    "template": "siden-template-v1.4",
+    "version": "1.4",
+    "baseDomain": "sidenred.com",
+    "architecture": "multisite",
+    "domainMode": "subdomain",
+    "customCss": "custom.css"
+  },
+  "activo": true,
+  "nombre": "FISIOKINESV",
+  "h1": "FISIOKINESV | Fisioterapia a domicilio",
+  "slogan": "Recupera tu movimiento, sin salir de casa.",
+  "descripcion": "En Fisiokine nuestros pacientes son atendidos por la Lic. en Fisioterapia y terapia ocupacional Gabriela Lopez y por el Lic. en Fisioterapia y terapia ocupacional Ricardo Vasquez. Llevamos la fisioterapia hasta tu hogar para que recibas una atención personalizada, cómoda y enfocada en recuperar tu movimiento. Nuestro tratamiento combina valoración, terapia manual, ejercicio terapéutico y un plan de recuperación adaptado a tus objetivos.",
+  "descripcionSEO": "FISIOKINESV ofrece fisioterapia a domicilio en San Salvador Centro, Antiguo Cuscatlán y Santa Tecla, con rehabilitación musculoesquelética, recuperación post fracturas, rehabilitación deportiva y atención al adulto mayor.",
+  "tipoNegocio": "profesional",
+  "etiquetaTipo": "Fisioterapia y terapia ocupacional",
+  "modoSitio": "single",
+  "modeloAtencion": "areaservicio",
+  "areasServicio": [
+    "San Salvador Centro",
+    "Antiguo Cuscatlán",
+    "Santa Tecla"
+  ],
+  "heroImagenFondo": "HeroImagenfondo.jpg",
+  "heroImagenVisual": "HeroImagenFrente.JPG",
+  "mostrarHeroImagen": true,
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "galeria",
+    "ubicacion",
+    "contacto"
+  ],
+  "indexable": true,
+  "whatsapp": "50361042801",
+  "telefono": "+503 6104-2801",
+  "email": "",
+  "ciudad": "San Salvador",
+  "pais": "El Salvador",
+  "direccionTexto": "Atención a domicilio en San Salvador Centro, Antiguo Cuscatlán y Santa Tecla.",
+  "direccion": {
+    "calle": "",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "13.6929",
+    "longitud": "-89.2182"
+  },
+  "facebook": "",
+  "instagram": "",
+  "maps": "https://www.google.com/maps/search/?api=1&query=San%20Salvador%20Centro%2C%20San%20Salvador%2C%20El%20Salvador",
+  "catalogo": "",
+  "logo": "logo-fisiokinesv.JPG",
+  "imagenSocial": "HeroImagenfondo.jpg",
+  "horarios": [],
+  "rangoPrecios": "",
+  "galeriaAlt": [
+    "Sesión de fisioterapia a domicilio",
+    "Ejercicio terapéutico y movilidad",
+    "Rehabilitación y terapia manual",
+    "Atención personalizada de fisioterapia"
+  ],
+  "etiquetas": {
+    "presentacion": "Quiénes somos",
+    "presentacionMenu": "Nosotros",
+    "beneficios": "Ventajas de una fisioterapia oportuna",
+    "beneficiosMenu": "Beneficios",
+    "servicios": "Nuestros servicios",
+    "serviciosMenu": "Servicios",
+    "galeria": "Galería",
+    "galeriaMenu": "Galería",
+    "ubicacion": "Zona de atención",
+    "ubicacionMenu": "Zona de atención",
+    "contacto": "Agenda tu atención",
+    "contactoMenu": "Contacto"
+  },
+  "textos": {
+    "contacto": "¿Necesitas recuperar movilidad, disminuir molestias o acompañar una recuperación? Escríbenos por WhatsApp para conocer la disponibilidad de atención a domicilio.",
+    "ubicacion": "FISIOKINESV brinda atención a domicilio en San Salvador Centro, Antiguo Cuscatlán y Santa Tecla. El mapa muestra de forma referencial San Salvador Centro como punto general de cobertura."
+  },
+  "paginas": [],
+  "servicios": [
+    {
+      "nombre": "Rehabilitación musculoesquelética",
+      "descripcion": "Atención orientada a recuperar movilidad, función y confianza en el movimiento ante molestias o limitaciones musculoesqueléticas.",
+      "imagen": "Servicio01.JPG"
+    },
+    {
+      "nombre": "Recuperación post fracturas",
+      "descripcion": "Acompañamiento fisioterapéutico para recuperar progresivamente movilidad, fuerza y funcionalidad después de una fractura, según la indicación profesional.",
+      "imagen": "Servicio02.JPG"
+    },
+    {
+      "nombre": "Rehabilitación deportiva",
+      "descripcion": "Plan de recuperación y ejercicio terapéutico enfocado en retomar movimiento y actividad física de manera progresiva y adaptada.",
+      "imagen": "Servicio03.JPG"
+    },
+    {
+      "nombre": "Atención al adulto mayor",
+      "descripcion": "Fisioterapia adaptada a las necesidades del adulto mayor para favorecer movilidad, independencia y seguridad en las actividades cotidianas.",
+      "imagen": "Servicio04.JPG"
+    }
+  ],
+  "productos": [],
+  "menu": [],
+  "perfil": {
+    "descripcion": "FISIOKINESV integra fisioterapia y terapia ocupacional con atención a domicilio, buscando que cada persona reciba un acompañamiento personalizado y adaptado a sus objetivos.",
+    "datos": [
+      {
+        "titulo": "Profesionales",
+        "valor": "Lic. Gabriela Lopez y Lic. Ricardo Vasquez"
+      },
+      {
+        "titulo": "Modalidad",
+        "valor": "Atención a domicilio"
+      },
+      {
+        "titulo": "Cobertura",
+        "valor": "San Salvador Centro, Antiguo Cuscatlán y Santa Tecla"
+      }
+    ]
+  },
+  "galeria": [
+    "galeria01.JPG",
+    "galeria02.JPG",
+    "galeria03.JPG",
+    "galeria04.JPG"
+  ],
+  "beneficios": [
+    {
+      "titulo": "Atención oportuna",
+      "descripcion": "Iniciar una valoración y un plan de recuperación de forma oportuna puede ayudar a abordar limitaciones de movimiento antes de que interfieran más con las actividades diarias.",
+      "imagen": "beneficio1.JPG"
+    },
+    {
+      "titulo": "Recuperación personalizada",
+      "descripcion": "Cada persona tiene objetivos y necesidades diferentes; por eso el tratamiento puede adaptarse a su condición, evolución y metas funcionales.",
+      "imagen": "beneficio2.JPG"
+    },
+    {
+      "titulo": "Mejor movilidad y función",
+      "descripcion": "La terapia manual y el ejercicio terapéutico pueden utilizarse para trabajar movilidad, fuerza y función dentro de un plan progresivo.",
+      "imagen": "beneficio3.JPG"
+    },
+    {
+      "titulo": "Comodidad de recibir atención en casa",
+      "descripcion": "La atención a domicilio evita desplazamientos y permite realizar el proceso de recuperación en un entorno cómodo y familiar.",
+      "imagen": "beneficio4.JPG"
+    }
+  ],
+  "proceso": [],
+  "identidad": {},
+  "mapEmbedUrl": "https://www.google.com/maps?q=San%20Salvador%20Centro%2C%20San%20Salvador%2C%20El%20Salvador&output=embed",
+  "mostrarSolucionesSiden": true,
+  "faq": {
+    "activo": true,
+    "titulo": "Preguntas frecuentes",
+    "preguntas": [
+      {
+        "pregunta": "¿Necesito saber de tecnología para tener una página web?",
+        "respuesta": "No. SIDeN se encarga de la parte técnica y organiza la información para que tu presencia sea clara y fácil de utilizar."
+      },
+      {
+        "pregunta": "¿La página funciona en celulares?",
+        "respuesta": "Sí. El diseño se plantea para adaptarse a celulares, tablets y computadoras."
+      },
+      {
+        "pregunta": "¿El SEO incluido en los planes es SEO local?",
+        "respuesta": "Los planes Web incluyen SEO básico. La gestión del Perfil de Empresa de Google y los servicios de SEO local forman parte de soluciones adicionales y no están incluidos en estos planes."
+      },
+      {
+        "pregunta": "¿Puedo conectar WhatsApp?",
+        "respuesta": "Sí. Los planes Web incluyen un botón de WhatsApp para facilitar el contacto directo. Además, cada plan contempla un catálogo de WhatsApp Presencia con el límite indicado en su alcance."
+      },
+      {
+        "pregunta": "¿Puedo agregar más cosas después?",
+        "respuesta": "Sí. La idea es construir una base que pueda crecer con las necesidades de tu negocio. Las funciones adicionales pueden cotizarse por separado."
+      },
+      {
+        "pregunta": "¿Cuánto tiempo dura el servicio?",
+        "respuesta": "Los planes se contratan por 12 meses e incluyen hosting, SSL, mantenimiento básico, soporte básico y las condiciones de actualización indicadas en cada plan. La renovación anual se realiza para continuar con el servicio."
+      }
+    ]
+  },
+  "presentacion": {
+    "titulo": "Quiénes somos",
+    "texto": "En Fisiokine nuestros pacientes son atendidos por la Lic. en Fisioterapia y terapia ocupacional Gabriela Lopez y por el Lic. en Fisioterapia y terapia ocupacional Ricardo Vasquez. Fisiokine llevamos la fisioterapia hasta tu hogar para que recibas una atención personalizada, cómoda y enfocada en recuperar tu movimiento. Nuestro tratamiento combina valoración, terapia manual, ejercicio terapéutico y un plan de recuperación adaptado a tus objetivos.",
+    "imagen": "HeroImagenFrente.JPG",
+    "alt": "Profesional de FISIOKINESV durante una sesión de fisioterapia"
+  },
+  "cintaInformativa": {
+    "mostrar": true,
+    "items": [
+      "Fisioterapia a domicilio",
+      "Rehabilitación personalizada",
+      "San Salvador Centro",
+      "Antiguo Cuscatlán",
+      "Santa Tecla"
+    ],
+    "separador": "✦",
+    "velocidad": 28
+  }
+}

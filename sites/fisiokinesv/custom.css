@@ -1,0 +1,19 @@
+/* FISIOKINESV - estilos exclusivos de instancia */
+:root { --blue:#1479b8; --blue-dark:#0e5f93; --cyan:#24a9c8; --green:#39a96b; --text:#183244; --muted:#647786; --light:#f2f8fb; --border:#dce9ef; }
+body.siden-template-corporate { background:#fff; }
+.navbar { border-bottom-color:rgba(36,169,200,.16); }
+.nav-logo img, #logo-negocio { object-fit:contain; }
+.hero-overlay { background:linear-gradient(90deg,rgba(8,34,52,.82),rgba(8,58,78,.50)); }
+.hero-brand span { color:#7bd4df; }
+.hero-subtitle { max-width:640px; }
+.siden-marquee { background:#0e5f93; }
+.section-kicker { color:#1479b8; }
+.benefits .benefit, .services .service { border-color:var(--border); }
+.benefit img, .service img { object-fit:cover; }
+.plans-section { background:#f4fafc; }
+.plan-card.featured { border-color:#24a9c8; box-shadow:0 18px 45px rgba(20,121,184,.14); }
+.location-section-heading, .contact { background:#f4fafc; }
+.whatsapp, .whatsapp-float { background:#25d366; }
+.cta-panel { border-color:rgba(36,169,200,.24); }
+footer { background:#0b344d; }
+@media (max-width:700px) { .hero-overlay { background:rgba(8,34,52,.70); } }
