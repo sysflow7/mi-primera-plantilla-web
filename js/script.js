@@ -17,6 +17,41 @@
             : await respuesta.json();
         const siden = negocioBase.siden || {};
         const templateFamily = String(siden.templateFamily || "corporate").toLowerCase();
+        // ==================================================
+        // SIDEN - GOOGLE ANALYTICS 4
+        // La medición es opcional y se configura por instancia.
+        // No se cargan datos de GA4 durante Cloudflare Preview (?site=).
+        // ==================================================
+        const analyticsConfig = negocioBase.analytics && negocioBase.analytics.ga4
+            ? negocioBase.analytics.ga4
+            : {};
+        const ga4MeasurementId = String(analyticsConfig.measurementId || "").trim();
+        const ga4Enabled = analyticsConfig.enabled !== false && /^G-[A-Z0-9]+$/i.test(ga4MeasurementId);
+        const esCloudflarePreview = !!previewSite;
+
+        if (ga4Enabled && !esCloudflarePreview) {
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+            window.gtag("js", new Date());
+            window.gtag("config", ga4MeasurementId, { send_page_view: true });
+
+            if (!document.querySelector('script[data-siden-ga4="true"]')) {
+                const gaScript = document.createElement("script");
+                gaScript.async = true;
+                gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(ga4MeasurementId);
+                gaScript.dataset.sidenGa4 = "true";
+                document.head.appendChild(gaScript);
+            }
+        }
+
+        const sidenAnalyticsEvent = function (eventName, params) {
+            if (!ga4Enabled || esCloudflarePreview || typeof window.gtag !== "function") return;
+            window.gtag("event", eventName, {
+                instance_id: String(siden.instanceId || negocioBase.siden?.instanceId || ""),
+                template_family: templateFamily,
+                ...(params || {})
+            });
+        };
         document.body.dataset.templateFamily = templateFamily;
         document.body.classList.add("siden-template-" + templateFamily);
         const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
@@ -558,6 +593,40 @@
         ["compartir-negocio", "pagina-compartir-negocio"].forEach(function (id) {
             const boton = document.getElementById(id);
             if (boton) boton.addEventListener("click", compartirNegocio);
+        });
+
+        // ANALÍTICA DE INTERACCIONES SIDEN
+        // Los eventos personalizados se mantienen genéricos y funcionan por instancia.
+        document.addEventListener("click", function (event) {
+            const elemento = event.target && event.target.closest ? event.target.closest("a, button") : null;
+            if (!elemento) return;
+
+            const id = elemento.id || "";
+            const href = String(elemento.getAttribute("href") || "").trim();
+
+            if (/^https:\/\/wa\.me\//i.test(href)) {
+                sidenAnalyticsEvent("whatsapp_click", { button_id: id || "whatsapp_link" });
+                return;
+            }
+
+            if (/^tel:/i.test(href)) {
+                sidenAnalyticsEvent("phone_click", { button_id: id || "phone_link" });
+                return;
+            }
+
+            if (id === "guardar-contacto" || id === "pagina-guardar-contacto") {
+                sidenAnalyticsEvent("contact_save", { button_id: id });
+                return;
+            }
+
+            if (id === "compartir-negocio" || id === "pagina-compartir-negocio") {
+                sidenAnalyticsEvent("share", { content_type: "business", button_id: id });
+                return;
+            }
+
+            if (id === "maps-negocio" && /^https?:\/\//i.test(href)) {
+                sidenAnalyticsEvent("directions_click", { button_id: id });
+            }
         });
 
         // El menú móvil se inicializa una sola vez desde el módulo común de navegación.
