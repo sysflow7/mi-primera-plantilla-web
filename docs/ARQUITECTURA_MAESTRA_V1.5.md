@@ -105,3 +105,41 @@ Toda instancia nueva o reincorporada debe validarse visualmente en el Preview de
 Un cambio de Benítez Gutiérrez, FerreHogar o cualquier cliente futuro no debe alterar el motor ni el contenido de otra instancia.
 
 Esta separación permite que la plantilla maestra evolucione sin perder las personalizaciones de los clientes ya publicados.
+
+
+## Google Analytics 4
+
+GA4 se incorpora como capacidad transversal, opcional y configurable por instancia. El ID de medición no se incrusta en `index.html`, `worker.js` ni en lógica específica del cliente.
+
+La configuración reside en cada `sites/<instanceId>/config.json` mediante:
+
+    "analytics": {
+      "ga4": {
+        "enabled": false,
+        "measurementId": ""
+      }
+    }
+
+Cuando `enabled` es verdadero y `measurementId` tiene un formato válido, el motor compartido carga la etiqueta de Google y habilita la medición. Si no existe configuración válida, la instancia continúa funcionando sin Analytics.
+
+Cada cliente debe utilizar su propio measurementId cuando se requiera aislamiento de estadísticas por cliente. Las páginas SIDeN MINI utilizan el mismo principio y el mismo esquema de configuración.
+
+### Eventos SIDeN
+
+- `whatsapp_click`: clic en un enlace de WhatsApp.
+- `phone_click`: clic en un enlace telefónico.
+- `contact_save`: Guardar contacto en SIDeN WEB.
+- `share`: Compartir negocio.
+- `directions_click`: Cómo llegar.
+
+GA4 también puede recopilar `page_view` y otras mediciones automáticas/mejoradas configuradas en el flujo web.
+
+### Regla de Preview
+
+Cuando el sitio se prueba mediante Cloudflare Preview con `?site=<instanceId>`, GA4 no debe enviar datos a la propiedad de producción. Esta condición es obligatoria para evitar contaminar las estadísticas reales.
+
+### Seguridad y privacidad
+
+Los eventos solo deben transportar parámetros técnicos necesarios, como `instance_id`, `template_family` y `button_id/content_type`. No se debe enviar información personal identificable mediante GA4.
+
+La integración de GA4 debe mantenerse genérica, configurable, retrocompatible y sometida al mismo proceso de Preview, validación y PR que cualquier cambio del motor compartido.

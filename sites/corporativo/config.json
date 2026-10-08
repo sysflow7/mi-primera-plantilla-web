@@ -4,6 +4,12 @@
     "templateFamily": "commercial",
     "customCss": "custom.css"
   },
+  "analytics": {
+    "ga4": {
+      "enabled": false,
+      "measurementId": ""
+    }
+  },
   "nombre": "SIDeN",
   "h1": "Páginas web y presencia digital para negocios en El Salvador",
   "slogan": "Presencia digital clara, profesional y conectada.",

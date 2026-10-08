@@ -6,6 +6,12 @@
     "domainMode": "subdomain",
     "customCss": "custom.css"
   },
+  "analytics": {
+    "ga4": {
+      "enabled": false,
+      "measurementId": ""
+    }
+  },
   "nombre": "Negocio Demo SIDeN MINI",
   "slogan": "Una presencia digital simple, profesional y fácil de compartir.",
   "tituloSEO": "Negocio Demo | SIDeN MINI",
@@ -39,10 +45,26 @@
     "mostrar": true,
     "titulo": "Productos y servicios destacados",
     "items": [
-      {"nombre":"Servicio 1","descripcion":"Descripción del primer servicio.","imagen":""},
-      {"nombre":"Servicio 2","descripcion":"Descripción del segundo servicio.","imagen":""},
-      {"nombre":"Servicio 3","descripcion":"Descripción del tercer servicio.","imagen":""},
-      {"nombre":"Servicio 4","descripcion":"Descripción del cuarto servicio.","imagen":""}
+      {
+        "nombre": "Servicio 1",
+        "descripcion": "Descripción del primer servicio.",
+        "imagen": ""
+      },
+      {
+        "nombre": "Servicio 2",
+        "descripcion": "Descripción del segundo servicio.",
+        "imagen": ""
+      },
+      {
+        "nombre": "Servicio 3",
+        "descripcion": "Descripción del tercer servicio.",
+        "imagen": ""
+      },
+      {
+        "nombre": "Servicio 4",
+        "descripcion": "Descripción del cuarto servicio.",
+        "imagen": ""
+      }
     ]
   },
   "contacto": {

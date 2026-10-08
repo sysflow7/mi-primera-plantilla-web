@@ -5,6 +5,12 @@
     "version": "1.5",
     "customCss": ""
   },
+  "analytics": {
+    "ga4": {
+      "enabled": false,
+      "measurementId": ""
+    }
+  },
   "nombre": "SIDeN Plantilla Maestra",
   "h1": "Plantilla maestra SIDeN para sitios web de negocios",
   "slogan": "Base digital profesional, configurable por instancia.",

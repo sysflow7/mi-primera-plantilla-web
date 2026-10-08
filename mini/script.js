@@ -4,6 +4,34 @@ const runtime=window.__SIDEN_CONFIG__||{};
 const siden=runtime.siden||{};
 const previewSite=new URLSearchParams(window.location.search).get("site");
 const assetQuery=previewSite?"?site="+encodeURIComponent(previewSite):"";
+
+const analyticsConfig=runtime.analytics&&runtime.analytics.ga4?runtime.analytics.ga4:{};
+const ga4MeasurementId=String(analyticsConfig.measurementId||"").trim();
+const ga4Enabled=analyticsConfig.enabled!==false&&/^G-[A-Z0-9]+$/i.test(ga4MeasurementId);
+const esCloudflarePreview=!!previewSite;
+
+if(ga4Enabled&&!esCloudflarePreview){
+ window.dataLayer=window.dataLayer||[];
+ window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};
+ window.gtag("js",new Date());
+ window.gtag("config",ga4MeasurementId,{send_page_view:true});
+ if(!document.querySelector('script[data-siden-ga4="true"]')){
+  const gaScript=document.createElement("script");
+  gaScript.async=true;
+  gaScript.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(ga4MeasurementId);
+  gaScript.dataset.sidenGa4="true";
+  document.head.appendChild(gaScript);
+ }
+}
+
+const sidenAnalyticsEvent=(eventName,params)=>{
+ if(!ga4Enabled||esCloudflarePreview||typeof window.gtag!=="function")return;
+ window.gtag("event",eventName,{
+  instance_id:String(siden.instanceId||runtime.siden?.instanceId||""),
+  template_family:"mini",
+  ...(params||{})
+ });
+};
 const assetUrl=(file)=>{
  const clean=String(file||"").replace(/^\/+/,"");
  return new URL("/images/"+clean+assetQuery,window.location.origin).href;
@@ -100,4 +128,29 @@ q("mini-share-button")?.addEventListener("click",async()=>{
 });
 
 if(!logo){q("mini-logo").hidden=true}
+
+// ANALÍTICA DE INTERACCIONES MINI
+document.addEventListener("click",(event)=>{
+ const elemento=event.target&&event.target.closest?event.target.closest("a,button"):null;
+ if(!elemento)return;
+ const id=elemento.id||"";
+ const href=String(elemento.getAttribute("href")||"").trim();
+
+ if(/^https:\/\/wa\.me\//i.test(href)){
+  sidenAnalyticsEvent("whatsapp_click",{button_id:id||"whatsapp_link"});
+  return;
+ }
+ if(/^tel:/i.test(href)){
+  sidenAnalyticsEvent("phone_click",{button_id:id||"phone_link"});
+  return;
+ }
+ if(id==="mini-como-llegar"&&/^https?:\/\//i.test(href)){
+  sidenAnalyticsEvent("directions_click",{button_id:id});
+  return;
+ }
+ if(id==="mini-share-button"){
+  sidenAnalyticsEvent("share",{content_type:"business",button_id:id});
+ }
+});
+
 })();
