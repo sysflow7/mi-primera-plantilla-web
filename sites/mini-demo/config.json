@@ -4,8 +4,13 @@
     "templateFamily": "mini",
     "architecture": "multisite",
     "domainMode": "subdomain",
-    "customCss": "custom.css"
-  },
+    "customCss": "custom.css"  },
+  "analytics": {
+    "ga4": {
+      "enabled": false,
+      "measurementId": ""
+    }
+  }
   "nombre": "Negocio Demo SIDeN MINI",
   "slogan": "Una presencia digital simple, profesional y fácil de compartir.",
   "tituloSEO": "Negocio Demo | SIDeN MINI",
