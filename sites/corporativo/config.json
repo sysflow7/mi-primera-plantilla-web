@@ -6,8 +6,8 @@
   },
   "analytics": {
     "ga4": {
-      "enabled": false,
-      "measurementId": ""
+      "enabled": true,
+      "measurementId": "G-SM7N97YP38"
     }
   },
   "nombre": "SIDeN",
