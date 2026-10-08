@@ -17,6 +17,7 @@
             : await respuesta.json();
         const siden = negocioBase.siden || {};
         const templateFamily = String(siden.templateFamily || "corporate").toLowerCase();
+        const previewSite = new URLSearchParams(window.location.search).get("site");
         // ==================================================
         // SIDEN - GOOGLE ANALYTICS 4
         // La medición es opcional y se configura por instancia.
@@ -55,7 +56,6 @@
         document.body.dataset.templateFamily = templateFamily;
         document.body.classList.add("siden-template-" + templateFamily);
         const assetPrefix = String(siden.assetPrefix || "").replace(/\/+$/, "");
-        const previewSite = new URLSearchParams(window.location.search).get("site");
         const assetQuery = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
         const assetUrl = function (archivo) {
             const limpio = String(archivo || "").replace(/^\/+/, "");
