@@ -4,13 +4,14 @@
     "templateFamily": "mini",
     "architecture": "multisite",
     "domainMode": "subdomain",
-    "customCss": ""  },
+    "customCss": ""
+  },
   "analytics": {
     "ga4": {
       "enabled": false,
       "measurementId": ""
     }
-  }
+  },
   "nombre": "Despacho Jurídico Benítez Gutiérrez",
   "h1": "Despacho Jurídico Benítez Gutiérrez | Abogacía y Notariado en Perquín",
   "slogan": "Abogacía y Notariado en Perquín, Morazán",
