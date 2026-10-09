@@ -522,8 +522,7 @@
         }
 
         // SOLUCIONES SIDeN WEB Y FAQ
-        const mostrarSolucionesSiden = negocio.mostrarSolucionesSiden !== false;
-        showModule("soluciones", mostrarSolucionesSiden);
+        showModule("soluciones", mostrarPlanesSiden);
 
         const faqSidenDefault = [
             ["¿Necesito saber de tecnología para tener una página web?", "No. SIDeN se encarga de la parte técnica y organiza la información para que tu presencia sea clara y fácil de utilizar."],
@@ -533,17 +532,17 @@
             ["¿Puedo agregar más cosas después?", "Sí. La idea es construir una base que pueda crecer con las necesidades de tu negocio. Las funciones adicionales pueden cotizarse por separado."],
             ["¿Cuánto tiempo dura el servicio?", "Los planes se contratan por 12 meses e incluyen hosting, SSL, mantenimiento básico, soporte básico y las condiciones de actualización indicadas en cada plan. La renovación anual se realiza para continuar con el servicio."]
         ];
-        const faqActivo = faqConfig.activo !== false;
-        showModule("faq", faqActivo);
-        if (faqActivo) {
+        showModule("faq", mostrarFAQ);
+        if (mostrarFAQ) {
             const faqTitulo = faqConfig.titulo || etiquetas.faq || "Preguntas frecuentes";
             setText("titulo-faq", faqTitulo);
             const faqLista = document.getElementById("lista-faq");
             if (faqLista) {
-                const preguntasNegocio = Array.isArray(faqConfig.preguntas)
-                    ? faqConfig.preguntas.filter(function (item) { return item && String(item.pregunta || "").trim() && String(item.respuesta || "").trim(); })
-                    : [];
-                const preguntas = preguntasNegocio.length ? preguntasNegocio : faqSidenDefault.map(function (item) { return { pregunta: item[0], respuesta: item[1] }; });
+                const preguntas = preguntasFAQNegocio.length
+                    ? preguntasFAQNegocio
+                    : (esPlantillaComercial || esDemoCorporativa)
+                        ? faqSidenDefault.map(function (item) { return { pregunta: item[0], respuesta: item[1] }; })
+                        : [];
                 faqLista.innerHTML = "";
                 preguntas.slice(0, 6).forEach(function (item) {
                     const detalle = document.createElement("details");
