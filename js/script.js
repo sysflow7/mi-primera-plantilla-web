@@ -106,6 +106,12 @@
         const texto = negocio.textos || {};
         const presentacionConfig = negocio.presentacion && typeof negocio.presentacion === "object" ? negocio.presentacion : {};
         const faqConfig = negocio.faq && typeof negocio.faq === "object" ? negocio.faq : {};
+        const estadoComercial = String(negocioBase.estadoComercial || "").trim().toLowerCase();
+        const esPlantillaComercial = templateFamily === "commercial";
+        const esDemoCorporativa = templateFamily === "corporate" && estadoComercial === "demo";
+        const mostrarPlanesSiden = esPlantillaComercial || esDemoCorporativa;
+        const preguntasFAQNegocio = Array.isArray(faqConfig.preguntas) ? faqConfig.preguntas.filter(item => item && String(item.pregunta || "").trim() && String(item.respuesta || "").trim()) : [];
+        const mostrarFAQ = esPlantillaComercial ? faqConfig.activo !== false : esDemoCorporativa ? faqConfig.activo !== false : faqConfig.activo === true && preguntasFAQNegocio.length > 0;
         const escapeHtml = function (value) {
             return String(value ?? "")
                 .replace(/&/g, "&amp;")
