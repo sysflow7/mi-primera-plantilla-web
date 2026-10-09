@@ -157,36 +157,6 @@
   "identidad": {},
   "mapEmbedUrl": "https://www.google.com/maps?q=San%20Salvador%20Centro%2C%20San%20Salvador%2C%20El%20Salvador&output=embed",
   "mostrarSolucionesSiden": true,
-  "faq": {
-    "activo": true,
-    "titulo": "Preguntas frecuentes",
-    "preguntas": [
-      {
-        "pregunta": "¿Necesito saber de tecnología para tener una página web?",
-        "respuesta": "No. SIDeN se encarga de la parte técnica y organiza la información para que tu presencia sea clara y fácil de utilizar."
-      },
-      {
-        "pregunta": "¿La página funciona en celulares?",
-        "respuesta": "Sí. El diseño se plantea para adaptarse a celulares, tablets y computadoras."
-      },
-      {
-        "pregunta": "¿El SEO incluido en los planes es SEO local?",
-        "respuesta": "Los planes Web incluyen SEO básico. La gestión del Perfil de Empresa de Google y los servicios de SEO local forman parte de soluciones adicionales y no están incluidos en estos planes."
-      },
-      {
-        "pregunta": "¿Puedo conectar WhatsApp?",
-        "respuesta": "Sí. Los planes Web incluyen un botón de WhatsApp para facilitar el contacto directo. Además, cada plan contempla un catálogo de WhatsApp Presencia con el límite indicado en su alcance."
-      },
-      {
-        "pregunta": "¿Puedo agregar más cosas después?",
-        "respuesta": "Sí. La idea es construir una base que pueda crecer con las necesidades de tu negocio. Las funciones adicionales pueden cotizarse por separado."
-      },
-      {
-        "pregunta": "¿Cuánto tiempo dura el servicio?",
-        "respuesta": "Los planes se contratan por 12 meses e incluyen hosting, SSL, mantenimiento básico, soporte básico y las condiciones de actualización indicadas en cada plan. La renovación anual se realiza para continuar con el servicio."
-      }
-    ]
-  },
   "presentacion": {
     "titulo": "Quiénes somos",
     "texto": "En Fisiokine nuestros pacientes son atendidos por la Lic. en Fisioterapia y terapia ocupacional Gabriela Lopez y por el Lic. en Fisioterapia y terapia ocupacional Ricardo Vasquez. Fisiokine llevamos la fisioterapia hasta tu hogar para que recibas una atención personalizada, cómoda y enfocada en recuperar tu movimiento. Nuestro tratamiento combina valoración, terapia manual, ejercicio terapéutico y un plan de recuperación adaptado a tus objetivos.",
