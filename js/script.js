@@ -320,13 +320,15 @@
 
         // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
-        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto" };
+        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
             beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
             productos: etiquetas.productosMenu || "Productos", menu: etiquetas.menuMenu || "Menú",
             galeria: etiquetas.galeriaMenu || "Galería", ubicacion: etiquetas.ubicacionMenu || "Ubicación",
-            contacto: etiquetas.contactoMenu || "Contacto"
+            contacto: etiquetas.contactoMenu || "Contacto",
+            soluciones: etiquetas.solucionesMenu || "Planes SIDeN",
+            faq: etiquetas.faqMenu || etiquetas.faq || "Preguntas frecuentes"
         };
 
         if (navLinks) {
@@ -339,9 +341,15 @@
                     navLinks.appendChild(enlace);
                 });
             } else {
-                modulos.filter(function (modulo) {
-                    return modulo !== "galeria" || galeriaActiva;
-                }).forEach(function (modulo) {
+                const modulosNavegacion = modulos.filter(function (modulo) {
+                    if (modulo === "galeria") return galeriaActiva;
+                    if (modulo === "soluciones") return mostrarPlanesSiden;
+                    if (modulo === "faq") return mostrarFAQ;
+                    return true;
+                });
+                if (mostrarPlanesSiden && !modulosNavegacion.includes("soluciones")) modulosNavegacion.push("soluciones");
+                if (mostrarFAQ && !modulosNavegacion.includes("faq")) modulosNavegacion.push("faq");
+                modulosNavegacion.forEach(function (modulo) {
                     const target = navTargets[modulo];
                     if (!target) return;
                     const enlace = document.createElement("a");
