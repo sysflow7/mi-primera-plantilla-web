@@ -20,6 +20,20 @@
   "areasServicio": [],
   "heroImagen": "",
   "modulos": ["presentacion", "beneficios", "servicios", "ubicacion", "contacto"],
+  "faq": {
+    "activo": true,
+    "titulo": "Preguntas sobre nuestro negocio",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es el horario de atención?",
+        "respuesta": "Atendemos de lunes a viernes, de 8:00 a. m. a 5:00 p. m."
+      },
+      {
+        "pregunta": "¿Cómo puedo solicitar información?",
+        "respuesta": "Puedes comunicarte con nuestro equipo por WhatsApp para recibir información."
+      }
+    ]
+  },
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
