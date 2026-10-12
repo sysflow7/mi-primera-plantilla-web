@@ -150,7 +150,7 @@
         setText("texto-ubicacion", texto.ubicacion || "Encuentra nuestro establecimiento y consulta cómo llegar.");
 
         const navLogo = document.getElementById("nav-logo");
-        if (navLogo) navLogo.href = esMulti ? "/" : "#inicio";
+        if (navLogo) navLogo.href = esMulti ? (previewSite ? "/?site=" + encodeURIComponent(previewSite) : "/") : "#inicio";
 
         const navLogoImage = document.getElementById("nav-logo-image");
         if (navLogoImage) {
@@ -336,7 +336,10 @@
             if (esMulti && negocioBase.paginas.length > 0) {
                 negocioBase.paginas.forEach(function (pagina) {
                     const enlace = document.createElement("a");
-                    enlace.href = pagina.ruta || "/";
+                    const rutaPagina = pagina.ruta || "/";
+                    enlace.href = previewSite
+                        ? rutaPagina + (rutaPagina.includes("?") ? "&" : "?") + "site=" + encodeURIComponent(previewSite)
+                        : rutaPagina;
                     enlace.textContent = pagina.nombre || "Página";
                     navLinks.appendChild(enlace);
                 });
