@@ -76,6 +76,7 @@ export default {
                     "web-dr-carlos-reyes-v1.3-2026-09-26",
                     "web-dr-leopoldo-reyes-v1-4-2026-09-26",
                     "feature-ga4-siden-web-mini-v1-5",
+                    "auditoria-multipagina-v1-2026-10-12",
                 ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
