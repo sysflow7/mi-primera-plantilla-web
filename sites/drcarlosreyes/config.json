@@ -180,5 +180,6 @@
     "texto": "El Dr. Carlos Reyes es médico cirujano especializado en Cirugía General y Laparoscópica. Su práctica incorpora técnicas de mínima invasión cuando son apropiadas para el procedimiento y el paciente.",
     "imagen": "HeroImagenFrente.jpg",
     "alt": "Dr. Carlos Reyes - Cirugía General y Laparoscópica"
-  }
+  },
+  "estadoComercial": "demo"
 }

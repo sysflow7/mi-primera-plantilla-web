@@ -106,6 +106,12 @@
         const texto = negocio.textos || {};
         const presentacionConfig = negocio.presentacion && typeof negocio.presentacion === "object" ? negocio.presentacion : {};
         const faqConfig = negocio.faq && typeof negocio.faq === "object" ? negocio.faq : {};
+        const estadoComercial = String(negocioBase.estadoComercial || "").trim().toLowerCase();
+        const esPlantillaComercial = templateFamily === "commercial";
+        const esDemoCorporativa = templateFamily === "corporate" && estadoComercial === "demo";
+        const mostrarPlanesSiden = esPlantillaComercial || esDemoCorporativa;
+        const preguntasFAQNegocio = Array.isArray(faqConfig.preguntas) ? faqConfig.preguntas.filter(item => item && String(item.pregunta || "").trim() && String(item.respuesta || "").trim()) : [];
+        const mostrarFAQ = esPlantillaComercial ? faqConfig.activo !== false : esDemoCorporativa ? faqConfig.activo !== false : faqConfig.activo === true && preguntasFAQNegocio.length > 0;
         const escapeHtml = function (value) {
             return String(value ?? "")
                 .replace(/&/g, "&amp;")
@@ -314,13 +320,15 @@
 
         // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
-        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto" };
+        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
             beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
             productos: etiquetas.productosMenu || "Productos", menu: etiquetas.menuMenu || "Menú",
             galeria: etiquetas.galeriaMenu || "Galería", ubicacion: etiquetas.ubicacionMenu || "Ubicación",
-            contacto: etiquetas.contactoMenu || "Contacto"
+            contacto: etiquetas.contactoMenu || "Contacto",
+            soluciones: etiquetas.solucionesMenu || "Planes SIDeN",
+            faq: etiquetas.faqMenu || etiquetas.faq || "Preguntas frecuentes"
         };
 
         if (navLinks) {
@@ -333,9 +341,15 @@
                     navLinks.appendChild(enlace);
                 });
             } else {
-                modulos.filter(function (modulo) {
-                    return modulo !== "galeria" || galeriaActiva;
-                }).forEach(function (modulo) {
+                const modulosNavegacion = modulos.filter(function (modulo) {
+                    if (modulo === "galeria") return galeriaActiva;
+                    if (modulo === "soluciones") return mostrarPlanesSiden;
+                    if (modulo === "faq") return mostrarFAQ;
+                    return true;
+                });
+                if (mostrarPlanesSiden && !modulosNavegacion.includes("soluciones")) modulosNavegacion.push("soluciones");
+                if (mostrarFAQ && !modulosNavegacion.includes("faq")) modulosNavegacion.push("faq");
+                modulosNavegacion.forEach(function (modulo) {
                     const target = navTargets[modulo];
                     if (!target) return;
                     const enlace = document.createElement("a");
@@ -516,8 +530,7 @@
         }
 
         // SOLUCIONES SIDeN WEB Y FAQ
-        const mostrarSolucionesSiden = negocio.mostrarSolucionesSiden !== false;
-        showModule("soluciones", mostrarSolucionesSiden);
+        showModule("soluciones", mostrarPlanesSiden);
 
         const faqSidenDefault = [
             ["¿Necesito saber de tecnología para tener una página web?", "No. SIDeN se encarga de la parte técnica y organiza la información para que tu presencia sea clara y fácil de utilizar."],
@@ -527,17 +540,17 @@
             ["¿Puedo agregar más cosas después?", "Sí. La idea es construir una base que pueda crecer con las necesidades de tu negocio. Las funciones adicionales pueden cotizarse por separado."],
             ["¿Cuánto tiempo dura el servicio?", "Los planes se contratan por 12 meses e incluyen hosting, SSL, mantenimiento básico, soporte básico y las condiciones de actualización indicadas en cada plan. La renovación anual se realiza para continuar con el servicio."]
         ];
-        const faqActivo = faqConfig.activo !== false;
-        showModule("faq", faqActivo);
-        if (faqActivo) {
+        showModule("faq", mostrarFAQ);
+        if (mostrarFAQ) {
             const faqTitulo = faqConfig.titulo || etiquetas.faq || "Preguntas frecuentes";
             setText("titulo-faq", faqTitulo);
             const faqLista = document.getElementById("lista-faq");
             if (faqLista) {
-                const preguntasNegocio = Array.isArray(faqConfig.preguntas)
-                    ? faqConfig.preguntas.filter(function (item) { return item && String(item.pregunta || "").trim() && String(item.respuesta || "").trim(); })
-                    : [];
-                const preguntas = preguntasNegocio.length ? preguntasNegocio : faqSidenDefault.map(function (item) { return { pregunta: item[0], respuesta: item[1] }; });
+                const preguntas = preguntasFAQNegocio.length
+                    ? preguntasFAQNegocio
+                    : (esPlantillaComercial || esDemoCorporativa)
+                        ? faqSidenDefault.map(function (item) { return { pregunta: item[0], respuesta: item[1] }; })
+                        : [];
                 faqLista.innerHTML = "";
                 preguntas.slice(0, 6).forEach(function (item) {
                     const detalle = document.createElement("details");
