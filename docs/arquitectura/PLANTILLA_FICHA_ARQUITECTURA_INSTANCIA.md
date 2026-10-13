@@ -124,4 +124,7 @@ Esta matriz es una guía inicial, no una lista exhaustiva. La revisión debe seg
 - Evidencias y enlaces:
 
 ## 10. Regla de mantenimiento
-Toda modificación de motor, Worker, HTML, CSS/JS compartidos, esquema de configuración, routing, registry o infraestructura debe consultar las fichas de las instancias relevantes antes de implementarse. Si una instancia no tiene ficha y el cambio puede afectarla, primero se debe documentar lo suficiente para evaluar el riesgo. Nunca se debe asumir que una página no será afectada solo porque la dependencia no aparezca en la documentación.
+
+Antes de cambiar un componente compartido, consultar primero el archivo central `SIDeN_Registro_Maestro_Instancias.xlsx`, filtrar las instancias y dependencias potencialmente afectadas y consultar solo las fichas detalladas pertinentes. Después, buscar consumidores y referencias en el código real; el registro y las fichas no sustituyen esa búsqueda ni las pruebas de regresión. Si una instancia relevante no tiene ficha, documentar lo necesario para evaluar el riesgo antes de implementar.
+
+Al cerrar el cambio, actualizar el historial y las relaciones de dependencia del Registro Maestro, así como las fichas pertinentes. Un dato vacío o una dependencia no documentada no demuestra ausencia de impacto. Si no puede demostrarse compatibilidad, detener el cambio y aislar la solución o evaluar una familia/plantilla separada.
