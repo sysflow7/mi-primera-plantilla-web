@@ -1,9 +1,19 @@
-# SIDeN — Regla obligatoria de fichas de arquitectura por instancia
+# SIDeN — Regla obligatoria de Registro Maestro y fichas de arquitectura por instancia
 
 **Fecha de adopción:** 2026-10-13  
 **Aplicación:** arquitectura maestra, instancias SIDeN WEB y cualquier instancia que consuma dependencias compartidas.
 
-## 1. Clasificación de personalización
+## 1. Punto de entrada obligatorio: Registro Maestro
+
+El archivo **`SIDeN_Registro_Maestro_Instancias.xlsx`** es el resumen central de las instancias SIDeN y el primer documento que se consulta para evaluar cualquier cambio transversal. Contiene tres hojas:
+
+- **Instancias:** resumen por sitio, familia, modo, nivel de personalización, funciones opcionales, riesgos, estado documental y ruta de ficha.
+- **Dependencias:** relación conocida o por verificar entre instancias y componentes, con riesgos y pruebas mínimas.
+- **Historial de cambios:** registro de decisiones, análisis de impacto, instancias evaluadas, pruebas, PR/commit y actualización documental.
+
+El registro debe mantenerse en la ubicación documental oficial acordada para el proyecto. La copia inicial entregada por separado es un borrador operativo: los campos no verificados están marcados como pendientes y deben reconciliarse con el repositorio/commit vigente antes de usarlos como evidencia de certificación.
+
+## 2. Clasificación de personalización
 
 - **Nivel 1 — estándar:** configuración, contenido, imágenes y capacidades existentes. Puede usar ficha abreviada. La instancia SIDeN corporativa `sidenred.com` se documenta como línea base de referencia.
 - **Nivel 2 — particular relevante:** CSS exclusivo con selectores significativos, composición visual propia, sitio multipágina, video/medios opcionales, reglas de módulos/visibilidad particulares o dependencias que exigen pruebas propias. **Ficha detallada obligatoria antes de aprobar/publicar.**
@@ -11,7 +21,21 @@
 
 Si no es claro el nivel, clasificar provisionalmente en el nivel superior que razonablemente pueda aplicar y resolverlo en la evaluación de impacto antes de implementar.
 
-## 2. Contenido mínimo obligatorio
+## 3. Flujo obligatorio antes de modificar un componente compartido
+
+Antes de modificar `worker.js`, `index.html`, CSS/JS compartidos, contratos/esquemas de configuración, routing, `sites/registry.json`, `wrangler.jsonc` u otro elemento transversal:
+
+1. **Consultar el Registro Maestro** y filtrar las instancias que declaran o podrían depender del componente, función, selector, módulo, ruta o contrato que se propone cambiar.
+2. **Revisar la hoja Dependencias** para identificar acoplamientos, riesgos, pruebas mínimas y puntos pendientes de confirmar.
+3. **Consultar solo las fichas detalladas pertinentes** para las instancias potencialmente afectadas. No es necesario cargar las fichas de todas las instancias; se consultan según el análisis de impacto.
+4. **Buscar en el código real** las referencias, consumidores, selectores y contratos afectados. El registro y las fichas son herramientas de trazabilidad, no sustituyen la búsqueda de código.
+5. **Si falta una ficha relevante**, documentar lo necesario para evaluar el riesgo antes de implementar. No asumir que una instancia no se verá afectada por no tener ficha o por no aparecer una dependencia en el registro.
+6. **Evaluar aislamiento:** determinar si la necesidad se puede resolver mediante `config.json`, contenido, imágenes, `custom.css` o capacidades existentes sin modificar código compartido.
+7. **Definir matriz de regresión y Preview** con las instancias/familias representativas y todos los casos de uso alcanzables por el cambio.
+8. **Detener y rediseñar** si no puede demostrarse compatibilidad o aislamiento. Si la diferencia es estructural, evaluar una familia/plantilla separada en lugar de añadir excepciones que afecten otras instancias.
+9. **Cerrar la documentación junto con el cambio:** actualizar el historial del Registro Maestro, las dependencias afectadas y las fichas pertinentes; registrar rama/commit, pruebas, resultado y estado de certificación.
+
+## 4. Contenido mínimo obligatorio de la ficha
 
 La ficha debe documentar:
 1. Identidad de instancia, dominio/host, instanceId, ruta, familia, estado comercial, modo, nivel de personalización, rama/commit y estado de publicación.
@@ -23,22 +47,14 @@ La ficha debe documentar:
 
 No registrar contraseñas, tokens privados ni claves secretas. Los identificadores públicos de medición pueden documentarse cuando sean necesarios para distinguir configuraciones.
 
-## 3. Regla obligatoria antes de cambiar dependencias compartidas
+## 5. Entregable y ubicación
 
-**Antes de modificar** `worker.js`, `index.html`, CSS/JS compartidos, contratos/esquemas de configuración, routing, `sites/registry.json`, `wrangler.jsonc` u otro elemento transversal:
+- Registro central: `SIDeN_Registro_Maestro_Instancias.xlsx`.
+- Plantilla de ficha: `docs/arquitectura/PLANTILLA_FICHA_ARQUITECTURA_INSTANCIA.md`.
+- Ficha SIDeN corporativo de referencia: `docs/arquitectura/instancias/FICHA_SIDENRED_COM.md`.
+- Ficha detallada de Nivel 2/3: entregable obligatorio antes de aprobar/publicar la instancia.
+- Cada PR que modifique dependencias compartidas debe indicar el Registro Maestro consultado, las fichas consultadas/actualizadas, las instancias probadas y cualquier pendiente de auditoría.
 
-1. Consultar las fichas vigentes de las instancias y familias que podrían consumir el elemento.
-2. Inspeccionar el código real y buscar referencias/consumidores; la ficha no es una fuente exhaustiva.
-3. Determinar si el cambio puede resolverse con `config.json`, recursos propios, `custom.css` o capacidades existentes.
-4. Identificar instancias/familias afectadas y definir pruebas de regresión y Preview antes de implementar.
-5. Si no se puede demostrar compatibilidad, detener el cambio y rediseñar/aislar la solución; evaluar una nueva familia/plantilla cuando la diferencia sea estructural.
-6. Tras aprobar el cambio, actualizar fichas, evidencias e historial.
+## 6. Regla de integridad del registro
 
-**No tener ficha, ni encontrar una dependencia documentada, nunca prueba que una instancia no será afectada.** Si un cambio compartido puede alcanzar una instancia sin ficha, documentar primero lo necesario para evaluar el riesgo.
-
-## 4. Entregable y ubicación
-
-- La ficha detallada de Nivel 2/3 es un entregable obligatorio de la instancia y debe existir antes de su aprobación/publicación.
-- Plantilla: `docs/arquitectura/PLANTILLA_FICHA_ARQUITECTURA_INSTANCIA.md`.
-- Registro SIDeN corporativo de referencia: `docs/arquitectura/instancias/FICHA_SIDENRED_COM.md`.
-- Cada PR que modifique dependencias compartidas debe declarar qué fichas consultó, qué instancias probó y si alguna ficha requiere actualización.
+Un campo vacío, una dependencia no documentada o una ficha inexistente **nunca significa que una instancia no será afectada**. Los datos no verificados deben marcarse como pendientes, no completarse por suposición. El Registro Maestro facilita la selección de fichas relevantes, pero no sustituye la inspección del código, Preview ni pruebas de regresión.
