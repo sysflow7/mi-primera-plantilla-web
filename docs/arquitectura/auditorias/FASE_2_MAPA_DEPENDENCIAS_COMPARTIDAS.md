@@ -54,3 +54,19 @@ El mecanismo está implementado en el Worker. sites/corporativo/custom.css está
 - [ ] Actualizar fichas con dependencias comprobadas y fecha de certificación.
 
 No se recomienda modificar código de ejecución durante esta fase de documentación. Completar las pruebas pendientes y clasificar los hallazgos antes de decidir cambios.
+
+## 7. Comparación preliminar COMMERCIAL vs CORPORATE
+
+- COMMERCIAL se identifica mediante siden.templateFamily = commercial. js/modules-v1.4.js añade elementos comerciales al hero y navegación, oculta la sección de presentación y aplica la clase siden-commercial-hero. La lógica de planes y FAQ conserva el comportamiento comercial.
+- CORPORATE se identifica mediante siden.templateFamily = corporate. Los estilos dinámicos ocultan contenido exclusivo de COMMERCIAL; js/script.js usa estadoComercial para controlar planes SIDeN y FAQ. Si estadoComercial falta o no es demo, el comportamiento conservador oculta planes y FAQ genérica; la FAQ de negocio exige activación explícita y contenido válido.
+- templateFamily y estadoComercial son propiedades distintas. No se deben usar como sustitutos entre sí. La prueba de regresión debe incluir COMMERCIAL, CORPORATE demo, CORPORATE cliente con FAQ propia activa y CORPORATE cliente sin FAQ propia.
+
+## 8. Hallazgo puntual para verificar — imagen Hero en CORPORATE
+
+js/script.js establece hero-imagen-negocio.hidden = true y elimina src cuando mostrarHeroImagen no está activo o no existe nombreHeroVisual. Sin embargo, js/modules-v1.4.js inyecta la regla `body.siden-template-corporate .hero-visual #hero-imagen-negocio { display:block!important }`. css/style.css también define `[hidden] { display:none!important }`, pero el selector corporativo contiene un ID y mayor especificidad, por lo que podría imponerse en la cascada aunque la imagen tenga atributo hidden. Esto es un **riesgo potencial, no una falla runtime confirmada**.
+
+Prueba requerida: en una instancia CORPORATE temporal de Preview, probar mostrarHeroImagen=true con imagen válida y mostrarHeroImagen=false/sin imagen; verificar que no aparezca imagen rota ni espacio residual. No cambiar código durante la auditoría; si se reproduce, corregirlo de forma acotada y certificar COMMERCIAL y CORPORATE antes de integrar.
+
+## 9. Próxima fase
+
+La siguiente fase es la certificación runtime en Cloudflare Preview: custom.css, assets, imagen Hero opcional, GA4/Preview, navegación y regresión visual/funcional. La inspección web pública directa no se pudo completar en esta ejecución, por lo que no se declara verificado el comportamiento live.
