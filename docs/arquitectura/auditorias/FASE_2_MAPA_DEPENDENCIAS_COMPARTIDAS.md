@@ -70,3 +70,36 @@ Prueba requerida: en una instancia CORPORATE temporal de Preview, probar mostrar
 ## 9. Próxima fase
 
 La siguiente fase es la certificación runtime en Cloudflare Preview: custom.css, assets, imagen Hero opcional, GA4/Preview, navegación y regresión visual/funcional. La inspección web pública directa no se pudo completar en esta ejecución, por lo que no se declara verificado el comportamiento live.
+
+## 10. Hallazgos al reconciliar el Registro Maestro con la rama auditada
+
+Estos hallazgos provienen de inspección estática de `sites/registry.json`, directorios de instancia y `config.json` en la rama `docs/fichas-arquitectura-instancias`, basada en `siden-corporativo-v1.3`. No son certificación runtime.
+
+### 10.1 Alias y rutas reales de instancia
+
+- `sites/registry.json` contiene `"ferrehogar": "ferrehogar-sv"`; la configuración real está en `sites/ferrehogar-sv/config.json`, no en `sites/ferrehogar/config.json`.
+- `sites/registry.json` contiene `"drcarlosleopoldoreyes": "drleopoldoreyes"`; la ruta real es `sites/drleopoldoreyes/config.json`, no `sites/drcarlosleopoldoreyes/`.
+- Estos mapeos son intencionales según el código de resolución del Worker, que busca el slug del host en el registro y utiliza el valor mapeado como `instanceId`. No renombrar carpetas ni cambiar aliases sin una evaluación separada y pruebas de resolución de host.
+
+### 10.2 Instancia MINI de demostración no listada explícitamente en registry.json
+
+Existe `sites/mini-demo/config.json` con `instanceId: mini-demo`, familia `mini`, analítica desactivada e indexación desactivada, pero no existe una clave `mini-demo` en `sites/registry.json`. El Worker tiene una ruta de fallback al slug del host y un flujo de Preview con `?site=`; por tanto, la ausencia de una entrada no prueba por sí sola que la instancia no pueda resolverse. Verificar host/Preview antes de decidir si debe añadirse al registro.
+
+### 10.3 Posible inconsistencia de contenido en WebMini
+
+`sites/webmini/config.json` declara `instanceId: webmini` y `templateFamily: mini`, pero el nombre y el contenido SEO observados corresponden al Despacho Jurídico Benítez Gutiérrez. Es una posible reutilización intencional de contenido o una copia pendiente de limpiar; **no modificar automáticamente**. Confirmar el propósito de WebMini y revisar el contenido esperado antes de publicarlo o indexarlo. Actualmente la configuración inspeccionada marca `indexable: false`.
+
+### 10.4 Estado de las configuraciones de clientes
+
+- `sites/drcarlosreyes/config.json` se observa en modo `single` y con `indexable: false`. Aunque el motor compartido tiene soporte multipágina, la configuración final multipágina del cliente no queda demostrada por este archivo. No empezar la certificación final hasta identificar el commit/configuración de producción prevista para Dr. Carlos Reyes.
+- `sites/drleopoldoreyes/config.json` está en modo `single`, con `estadoComercial: demo`, `indexable: false` y `custom.css` particular. Por el tamaño y alcance de ese CSS, debe considerarse candidata a ficha detallada Nivel 2 y pruebas visuales propias.
+- `sites/fisiokinesv/config.json` declara metadatos `template: siden-template-v1.4` y `version: 1.4`; estos valores son datos de configuración, no prueba de que la rama o el Worker desplegado correspondan a esa versión. Verificar commit/deploy por separado.
+- `sites/despachobg/config.json` identifica la familia `corporate` y `custom.css`. `sites/webmini/config.json` es una instancia independiente de familia `mini`; no asumir que sus datos, reglas o pruebas son equivalentes a los de Despacho.
+
+### 10.5 Acciones pendientes derivadas
+
+- [ ] Confirmar qué contenido debe representar WebMini antes de cualquier publicación/indexación.
+- [ ] Verificar resolución de `ferrehogar`, `drcarlosleopoldoreyes` y `mini-demo` en Preview sin modificar registry ni carpetas.
+- [ ] Identificar la rama/commit y configuración multipágina definitiva de Dr. Carlos Reyes.
+- [ ] Completar fichas detalladas para instancias Nivel 2/3 identificadas, especialmente las que tienen CSS particular amplio o modo multipágina.
+- [ ] Mantener la prueba de imagen Hero opcional y aislamiento de `custom.css` como pendientes de runtime.
