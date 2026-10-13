@@ -143,3 +143,14 @@ Cuando el sitio se prueba mediante Cloudflare Preview con `?site=<instanceId>`, 
 Los eventos solo deben transportar parámetros técnicos necesarios, como `instance_id`, `template_family` y `button_id/content_type`. No se debe enviar información personal identificable mediante GA4.
 
 La integración de GA4 debe mantenerse genérica, configurable, retrocompatible y sometida al mismo proceso de Preview, validación y PR que cualquier cambio del motor compartido.
+
+
+## Registro Maestro y análisis de impacto de instancias (regla obligatoria)
+
+Antes de modificar cualquier dependencia compartida, consultar el **Registro Maestro de Instancias SIDeN** y seguir el procedimiento definido en `docs/arquitectura/REGLA_OBLIGATORIA_FICHAS_INSTANCIAS.md`.
+
+El Registro Maestro resume instancias, dependencias e historial de cambios. Se consultan únicamente las fichas detalladas pertinentes según el análisis de impacto, pero siempre se buscan consumidores en el código real y se ejecutan pruebas de regresión. Un campo vacío o una ficha ausente nunca prueba que una instancia no será afectada.
+
+Las instancias con personalización Nivel 2 o Nivel 3 requieren ficha detallada antes de aprobar/publicar. Al cerrar cada cambio se actualizan el Registro Maestro, las dependencias y las fichas afectadas. Los datos no verificados deben permanecer marcados como pendientes.
+
+**Estado del registro:** el archivo Excel de trabajo inicial se ha entregado por separado y requiere revisión/reconciliación con la rama y el commit que se auditen. No tratar el borrador como certificación runtime ni asumir que está versionado en este repositorio hasta que se incorpore formalmente.
