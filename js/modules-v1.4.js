@@ -183,7 +183,7 @@
       body.siden-template-corporate .browser-window,
       body.siden-template-corporate .float-card{display:none!important}
       body.siden-template-corporate .hero-visual{display:flex;align-items:center;justify-content:center}
-      body.siden-template-corporate .hero-visual #hero-imagen-negocio{display:block!important}
+      body.siden-template-corporate .hero-visual #hero-imagen-negocio:not([hidden]){display:block!important}
       
             body.siden-commercial-hero .hero-brand{display:none!important}
       body.siden-commercial-hero .conversion-contact{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}
