@@ -23,7 +23,7 @@
   ],
   "heroImagenFondo": "HeroImagenFondo.jpg",
   "heroImagenVisual": "HeroImagenFrente.jpg",
-  "mostrarHeroImagen": true,
+  "mostrarHeroImagen": false,
   "modulos": [
     "presentacion",
     "beneficios",
