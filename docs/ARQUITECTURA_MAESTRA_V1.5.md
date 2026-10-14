@@ -56,7 +56,12 @@ Esta capacidad es genérica y no contiene condiciones específicas de ningún cl
 
 ### Imagen visual del Hero
 
-La plantilla incluye un espacio visual opcional para mostrar una imagen de negocio en el Hero. La instancia debe activar explícitamente `mostrarHeroImagen: true` junto con `heroImagen` en su `config.json`. Si la propiedad no existe o es `false`, el espacio visual permanece oculto y la plantilla conserva su comportamiento normal.
+La plantilla distingue dos usos de imagen en el Hero:
+
+- `heroImagenFondo`: archivo utilizado como imagen de fondo del Hero. Si no se define, el motor puede recurrir a `heroImagen` como valor alternativo de fondo.
+- `heroImagenVisual`: archivo que se muestra como imagen visual del negocio dentro del Hero.
+
+Para mostrar la imagen visual, la instancia debe configurar `mostrarHeroImagen: true` y definir `heroImagenVisual` en su `config.json`. Si `mostrarHeroImagen` no existe o es `false`, la imagen visual debe permanecer oculta, aunque haya un archivo configurado. Las reglas CSS de la familia corporativa deben respetar el atributo HTML `hidden` y no forzar la visualización de ese elemento.
 
 ## Instancia corporativa
 
