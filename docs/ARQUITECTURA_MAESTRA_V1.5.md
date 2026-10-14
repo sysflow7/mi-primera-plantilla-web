@@ -33,6 +33,17 @@ Cada cliente debe disponer de:
 
 `custom.css` permite resolver diferencias visuales particulares sin modificar el CSS compartido.
 
+### Regla de aislamiento de instancias
+
+1. Resolver primero cualquier cambio en el `config.json` de la instancia.
+2. Las imágenes y los recursos de una instancia deben residir en `sites/<instanceId>/images/`; el Worker los resuelve a través de `/images/*` para la instancia activa.
+3. El CSS específico debe residir en la carpeta de la instancia y exponerse mediante `/custom.css`; el Worker valida la ruta y evita segmentos `..`.
+4. No editar `index.html`, `js/` o `css/` compartidos para satisfacer una solicitud exclusiva de un cliente. Si hace falta una capacidad nueva, implementarla de forma genérica y configurable, con revisión de impacto y pruebas de regresión.
+5. Las rutas directas `/sites/*` no se exponen al navegador. El Worker carga la configuración usando el `instanceId` resuelto desde el host/registro.
+6. Una rama de prueba debe usar Preview y sus alias temporales deben permanecer fuera de la rama de producción. Antes de fusionar, probar la instancia afectada y las familias/instancias que consumen el motor compartido.
+
+El aislamiento de recursos está respaldado por la resolución del Worker y la estructura de archivos. La ausencia de impacto visual en todas las instancias no se considera certificada solo por inspeccionar el código: requiere pruebas de regresión representativas después de cada cambio compartido.
+
 ### Orden configurable de secciones
 
 La plantilla maestra admite opcionalmente la propiedad `ordenSecciones` en el `config.json` de una instancia.
@@ -62,6 +73,72 @@ La plantilla distingue dos usos de imagen en el Hero:
 - `heroImagenVisual`: archivo que se muestra como imagen visual del negocio dentro del Hero.
 
 Para mostrar la imagen visual, la instancia debe configurar `mostrarHeroImagen: true` y definir `heroImagenVisual` en su `config.json`. Si `mostrarHeroImagen` no existe o es `false`, la imagen visual debe permanecer oculta, aunque haya un archivo configurado. Las reglas CSS de la familia corporativa deben respetar el atributo HTML `hidden` y no forzar la visualización de ese elemento.
+
+La corrección propuesta para este caso usa el selector `#hero-imagen-negocio:not([hidden])` en la regla CSS corporativa. La validación manual en Preview confirmó ambos estados en la instancia de prueba: imagen visible con la opción activada y oculta con la opción desactivada. La corrección está en el PR #53 y no se considera publicada hasta que se apruebe, fusione y despliegue.
+
+## Familias de plantilla
+
+La propiedad `siden.templateFamily` identifica el comportamiento de la plantilla. No debe confundirse con `estadoComercial`, que distingue una demo de un sitio de cliente.
+
+### `commercial`
+
+- Usa el motor compartido `index.html`, `js/script.js` y los estilos compartidos.
+- Puede mostrar los planes SIDeN y las preguntas frecuentes de SIDeN según la configuración.
+- Es la familia usada por la instancia principal `corporativo` en `sidenred.com`.
+
+### `corporate`
+
+- Usa el motor compartido, con presentación y estilos corporativos.
+- Una instancia con `estadoComercial: "demo"` puede mostrar los planes SIDeN y las FAQ de demostración.
+- Un sitio de cliente no debe mostrar los planes SIDeN; sus FAQ solo deben mostrarse cuando estén activadas y tengan preguntas/respuestas válidas.
+- La familia puede recibir `custom.css` de la instancia, sin cambiar los estilos de las demás.
+
+### `mini`
+
+- Usa una implementación separada: `/mini/index.html`, `/mini/script.js` y `/mini/style.css`.
+- Su esquema de configuración tiene estructura propia (por ejemplo, `hero`, `productosServicios`, `contacto`, `apariencia` e `identidad`). No se debe asumir que todas las propiedades del esquema corporativo aplican a MINI.
+- El Worker selecciona `/mini/index.html` cuando `templateFamily === "mini"`.
+
+### Reglas de separación
+
+- `templateFamily` determina la familia funcional/visual.
+- `estadoComercial` determina el estado de demostración comercial; no sustituye a `templateFamily`.
+- `modoSitio` (`single` o `multi`) determina si la instancia funciona como página única o multipágina; es independiente de la familia.
+- Las correcciones a un archivo compartido deben probar al menos la familia directamente afectada y las otras familias que comparten ese archivo. MINI debe probarse con sus archivos propios cuando el cambio le afecte.
+- La inspección del código confirma que estas condiciones están implementadas; la certificación visual completa de todas las combinaciones requiere ejecutar las pruebas de regresión descritas en el informe de auditoría.
+
+## SIDeN WEB multipágina
+
+La modalidad multipágina se configura por instancia con `modoSitio: "multi"` y un arreglo `paginas`. El modo `single` conserva el comportamiento de página única.
+
+Cada objeto de `paginas` debe declarar como mínimo una ruta interna absoluta, única y válida, además del nombre/contenido correspondiente. Se pueden configurar campos de página como `nombre`, `ruta`, `h1`, `slogan`, `descripcion`, `tituloSEO` y `descripcionSEO`. Las propiedades de página complementan/sobrescriben los datos generales para esa ruta; las etiquetas y textos se combinan con los valores globales.
+
+### Comportamiento implementado
+
+- El Worker acepta la ruta raíz y las rutas declaradas en `paginas`; para las rutas no declaradas no genera una página multipágina.
+- Se validan rutas internas para impedir rutas vacías, rutas que empiezan por `//`, barras invertidas, saltos de línea y destinos con origen distinto.
+- La navegación multipágina se construye a partir del arreglo `paginas`; el enlace del logotipo lleva a la raíz del sitio.
+- En una página interna se oculta el Hero principal y se presenta una cabecera interna con nombre y descripción de la página.
+- El Worker selecciona metadatos SEO por página cuando están definidos y genera un canonical para la ruta actual.
+- El sitemap incluye la raíz y las rutas multipágina válidas sin duplicados.
+- En Preview, los enlaces de navegación y los recursos compartidos propagan el parámetro `site` para que las solicitudes sigan resolviendo la instancia de prueba.
+- Las imágenes y el CSS personalizado siguen resolviéndose dentro de la instancia; la modalidad multipágina no debe mezclar recursos de clientes.
+
+### Condiciones de aceptación antes de producción
+
+Para certificar una nueva instancia multipágina, probar en Preview, al menos:
+
+1. La raíz carga correctamente y el menú contiene las páginas declaradas.
+2. Cada enlace lleva a su ruta y presenta el contenido de esa página, no el de otra.
+3. El logotipo regresa a la raíz.
+4. Una ruta no declarada no muestra accidentalmente una página válida.
+5. Títulos, descripción, H1 y canonical cambian según la página.
+6. `sitemap.xml` contiene la raíz y las rutas declaradas; `robots.txt` respeta `indexable`.
+7. Las imágenes, enlaces de WhatsApp y CSS personalizado funcionan en todas las páginas.
+8. En Preview, la navegación no pierde el contexto `?site=<instanceId>`.
+9. Probar escritorio y móvil, y revisar consola/solicitudes fallidas.
+
+La inspección de la implementación confirma que el soporte multipágina existe en el Worker y en `js/script.js`. En la revisión actual, las configuraciones de las instancias consultadas (SIDeN corporativo, FISIOKINESV y Dr. Carlos Leopoldo Reyes) están en `modoSitio: "single"`; por tanto, la auditoría de código no equivale a una prueba de extremo a extremo con una instancia multipágina real. Antes de certificar el plan Profesional de Dr. Carlos Reyes, esta lista deberá ejecutarse en su Preview multipágina.
 
 ## Instancia corporativa
 
@@ -111,7 +188,6 @@ Un cambio de Benítez Gutiérrez, FerreHogar o cualquier cliente futuro no debe 
 
 Esta separación permite que la plantilla maestra evolucione sin perder las personalizaciones de los clientes ya publicados.
 
-
 ## Google Analytics 4
 
 GA4 se incorpora como capacidad transversal, opcional y configurable por instancia. El ID de medición no se incrusta en `index.html`, `worker.js` ni en lógica específica del cliente.
@@ -148,7 +224,6 @@ Cuando el sitio se prueba mediante Cloudflare Preview con `?site=<instanceId>`, 
 Los eventos solo deben transportar parámetros técnicos necesarios, como `instance_id`, `template_family` y `button_id/content_type`. No se debe enviar información personal identificable mediante GA4.
 
 La integración de GA4 debe mantenerse genérica, configurable, retrocompatible y sometida al mismo proceso de Preview, validación y PR que cualquier cambio del motor compartido.
-
 
 ## Registro Maestro y análisis de impacto de instancias (regla obligatoria)
 
