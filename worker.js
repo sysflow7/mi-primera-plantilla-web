@@ -77,6 +77,7 @@ export default {
                     "web-dr-leopoldo-reyes-v1-4-2026-09-26",
                     "feature-ga4-siden-web-mini-v1-5",
                     "fix-corporate-hero-hidden-state",
+                    "test-hero-hidden-state",
                 ].map(slugify);
                 instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
 
