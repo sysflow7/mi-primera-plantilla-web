@@ -1,45 +1,46 @@
 {
   "siden": {
-    "instanceId": "plantilla-maestra",
+    "instanceId": "demo-plantilla",
+    "templateFamily": "corporate",
+    "baseDomain": "sidenred.com",
+    "architecture": "independent-project",
+    "domainMode": "subdomain",
+    "customCss": "",
     "template": "siden-template-v1.5",
-    "version": "1.5",
-    "customCss": ""
+    "version": "1.5"
   },
-  "analytics": {
-    "ga4": {
-      "enabled": false,
-      "measurementId": ""
-    }
-  },
-  "nombre": "SIDeN Plantilla Maestra",
-  "h1": "Plantilla maestra SIDeN para sitios web de negocios",
-  "slogan": "Base digital profesional, configurable por instancia.",
-  "tituloSEO": "SIDeN — Plantilla Maestra",
-  "descripcion": "Configuración de demostración de la plantilla maestra SIDeN. Los datos de cada cliente deben vivir exclusivamente dentro de su propia instancia.",
-  "descripcionSEO": "Plantilla maestra SIDeN para crear sitios web configurables por negocio.",
-  "tipoNegocio": "organizacion",
-  "etiquetaTipo": "Presencia digital para negocios",
+  "activo": true,
+  "nombre": "Mi Negocio",
+  "h1": "Tu negocio, presente en Internet",
+  "slogan": "Tu negocio, tu identidad digital",
+  "descripcion": "Presentación de demostración de la plantilla maestra SIDeN.",
+  "descripcionSEO": "Plantilla maestra SIDeN para sitios web profesionales.",
+  "tipoNegocio": "comercio",
+  "etiquetaTipo": "Comercio",
   "modoSitio": "single",
-  "modeloAtencion": "areaServicio",
+  "modeloAtencion": "local",
   "areasServicio": [
+    "San Salvador",
     "El Salvador"
   ],
-  "heroImagen": "Presenta01.png",
+  "heroImagenFondo": "",
+  "heroImagenVisual": "",
+  "mostrarHeroImagen": false,
   "modulos": [
     "presentacion",
     "beneficios",
     "servicios",
-    "proceso",
-    "identidad",
+    "galeria",
+    "ubicacion",
     "contacto"
   ],
   "indexable": false,
-  "whatsapp": "",
-  "telefono": "",
+  "whatsapp": "50300000000",
+  "telefono": "+503 0000-0000",
   "email": "",
   "ciudad": "San Salvador",
   "pais": "El Salvador",
-  "direccionTexto": "",
+  "direccionTexto": "San Salvador, El Salvador",
   "direccion": {
     "calle": "",
     "ciudad": "San Salvador",
@@ -53,81 +54,42 @@
   "instagram": "",
   "maps": "",
   "catalogo": "",
-  "logo": "logo-SIDeN.png",
+  "logo": "",
   "imagenSocial": "",
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
-  "cintaInformativa": {
-    "mostrar": false,
-    "items": [
-      "Perfil de Negocios Google - Paginas Web - Automatizaciones"
-    ],
-    "separador": " ",
-    "velocidad": 28
-  },
   "etiquetas": {
-    "ubicacion": "Área de servicio"
+    "presentacion": "Especialidad",
+    "presentacionMenu": "Especialidad",
+    "beneficios": "Ventajas de la cirugía laparoscópica",
+    "beneficiosMenu": "Beneficios",
+    "servicios": "Servicios médicos",
+    "serviciosMenu": "Servicios",
+    "ubicacion": "Consultorio",
+    "ubicacionMenu": "Ubicación",
+    "contacto": "Agenda tu cita",
+    "contactoMenu": "Contacto"
   },
   "textos": {
-    "contacto": "Esta es una vista de demostración de la plantilla maestra SIDeN."
+    "contacto": "¿Tienes una consulta o necesitas una evaluación? Comunícate para conocer la disponibilidad y agendar tu cita.",
+    "ubicacion": "Encuentra el consultorio del Dr. Carlos Reyes en Edificio Orthoestetic, San Salvador."
   },
   "paginas": [],
-  "servicios": [
-    {
-      "nombre": "Páginas web para negocios",
-      "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes."
-    },
-    {
-      "nombre": "SEO local",
-      "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales."
-    },
-    {
-      "nombre": "Perfil de Empresa de Google",
-      "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado."
-    }
-  ],
+  "servicios": [],
   "productos": [],
   "menu": [],
   "perfil": {},
   "galeria": [],
-  "beneficios": [
-    {
-      "titulo": "Más visibilidad",
-      "descripcion": "Ayudamos a que las personas puedan encontrar información clara sobre tu negocio en internet."
-    },
-    {
-      "titulo": "Más confianza",
-      "descripcion": "Presentamos tu negocio de forma profesional y coherente en sus principales puntos de contacto digitales."
-    },
-    {
-      "titulo": "Más oportunidades",
-      "descripcion": "Facilitamos que una persona interesada pueda pasar de conocer tu negocio a contactarlo."
-    }
-  ],
-  "proceso": [
-    {
-      "titulo": "1. Conocemos tu negocio",
-      "descripcion": "Entendemos qué haces, a quién atiendes y qué información necesitan encontrar tus clientes."
-    },
-    {
-      "titulo": "2. Definimos tu presencia",
-      "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."
-    },
-    {
-      "titulo": "3. Construimos y optimizamos",
-      "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia digital."
-    },
-    {
-      "titulo": "4. Conectamos y mejoramos",
-      "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."
-    }
-  ],
-  "identidad": {
-    "descripcion": "SIDeN es un proyecto independiente de servicios digitales, desarrollado para ayudar a pequeños negocios a construir una presencia digital profesional y conectada.",
-    "detalles": [
-      "Actualmente, SIDeN es operado directamente por su fundador. Trabajamos de forma cercana con cada negocio, priorizando soluciones claras, prácticas y adaptadas a sus necesidades reales.",
-      "SIDeN se presenta de forma transparente como un proyecto independiente en etapa de crecimiento, sin atribuirse una estructura empresarial, certificaciones o resultados que todavía no corresponden a su realidad."
-    ]
-  }
+  "beneficios": [],
+  "proceso": [],
+  "identidad": {},
+  "mapEmbedUrl": "",
+  "cintaInformativa": {
+    "mostrar": true,
+    "texto": "Cirugía General ✦ Cirugía Laparoscópica ✦ Atención profesional ✦ Agenda tu cita",
+    "separador": "✦"
+  },
+  "presentacion": {},
+  "estadoComercial": "demo"
 }
