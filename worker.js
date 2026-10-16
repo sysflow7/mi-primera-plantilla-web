@@ -2,29 +2,13 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         const host = url.hostname.toLowerCase();
-        const baseDomain = "sidenred.com";
-        const normalizedHost = host.replace(/^www\./, "");
-        const isCorporateHost = normalizedHost === baseDomain;
-        const hostParts = host.split(".");
-        const isSidenSubdomain = host.endsWith("." + baseDomain) && hostParts.length === 3 && hostParts[0] !== "www";
 
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
-        let instanceId = "";
-        if (isCorporateHost) {
-            instanceId = "corporativo";
-        } else if (isSidenSubdomain) {
-            instanceId = slugify(hostParts[0]);
-        } else if (env.SIDEN_REGISTRY) {
-            instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
-        }
-
-        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404 });
-
-        const isCorporate = instanceId === "corporativo";
-        const sitePrefix = isCorporate ? "" : `/sites/${instanceId}`;
-        const configPath = isCorporate ? "/config.json" : `${sitePrefix}/config.json`;
+        // Arquitectura independiente: este Worker sirve exclusivamente este proyecto.
+        const sitePrefix = "";
+        const configPath = "/config.json";
 
         const loadAsset = async (pathname) => env.ASSETS.fetch(
             new Request(new URL(pathname, request.url), request)
@@ -34,15 +18,9 @@ export default {
         if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404 });
 
         const negocio = await respuestaConfig.json();
-        const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
+        const configuredInstance = slugify(negocio.siden?.instanceId || "cliente-independiente");
 
-        // Evita que una configuración perteneciente a otra instancia pueda
-        // ser servida accidentalmente para este hostname.
-        if (configuredInstance !== instanceId) {
-            return new Response("Configuración de sitio no válida.", { status: 500 });
-        }
-
-        if (url.pathname === "/config.json" && !isCorporate) {
+        if (url.pathname === "/config.json") {
             return new Response(JSON.stringify(negocio), {
                 headers: {
                     "Content-Type": "application/json; charset=UTF-8",
@@ -62,7 +40,7 @@ export default {
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         // Aislamiento estricto de imágenes por instancia.
-        if (request.method === "GET" && url.pathname.startsWith("/images/") && !isCorporate) {
+        if (request.method === "GET" && url.pathname.startsWith("/images/")) {
             return loadAsset(`${sitePrefix}${url.pathname}`);
         }
 
@@ -163,7 +141,7 @@ export default {
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
-        const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
+        const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
         if (!imagenSocialURL) {
