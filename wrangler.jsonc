@@ -1,12 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "siden-corporativo",
-  "compatibility_date": "2026-08-20",
+  "name": "siden-arquitectura-independiente-pruebas",
+  "compatibility_date": "2026-09-06",
   "main": "worker.js",
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "run_worker_first": true,
-    "html_handling": "none"
+    "html_handling": "none",
+    "run_worker_first": true
   }
 }
