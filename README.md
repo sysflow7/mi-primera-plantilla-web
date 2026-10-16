@@ -1,181 +1,77 @@
-# SIDEN — Plantilla Maestra v1.4 Multi-Sitio + SEO Local
+# SIDeN — Plantilla Maestra para Proyectos Independientes
 
-Esta es la plantilla maestra reutilizable de SIDeN para producir sitios independientes de pequeños negocios, preparada para una arquitectura multi-sitio sobre un mismo Worker de Cloudflare.
+Esta rama implementa la base de la **arquitectura híbrida de SIDeN**. La plantilla es un punto de partida para crear un proyecto independiente por cliente. Después de crear el proyecto, su HTML, CSS, JavaScript, configuración, imágenes y Worker pueden evolucionar sin modificar el código que ejecutan otros clientes.
 
-## Arquitectura
+## Principio de arquitectura
 
-- `sidenred.com` → sitio corporativo SIDeN.
-- `cliente1.sidenred.com` → instancia independiente del Cliente 1.
-- `cliente2.sidenred.com` → instancia independiente del Cliente 2.
-- Un dominio propio (`www.cliente.com`) podrá asociarse posteriormente mediante el registro de dominios/instancias.
-- Cada instancia tiene su propio `instanceId`, contenido, SEO, sitemap, robots.txt, canonical, Schema, WhatsApp e identidad.
-- El Worker identifica la instancia por el `Host`; no se debe depender de configuración manual para cada página.
+- **Un repositorio/proyecto y un despliegue por cliente.**
+- **Un Worker por sitio**, con sus propios archivos y configuración.
+- La plantilla maestra sirve como base para nuevos proyectos; no es una dependencia de ejecución de los sitios ya publicados.
+- Las mejoras generales se incorporan a la plantilla y se trasladan selectivamente a los proyectos que las necesiten.
+- El DNS y la zona `sidenred.com` pueden seguir bajo la administración central de SIDeN.
+- El sitio corporativo `sidenred.com` y el Worker de producción existente no se modifican como parte de la creación de un cliente nuevo.
 
-## Estructura de instancias
-
-La plantilla mantiene el sitio corporativo en la raíz y las instancias de clientes bajo:
+## Estructura de un proyecto independiente
 
 ```text
 /
-├── config.json                  # SIDeN corporativo
-├── index.html                   # plantilla compartida
-├── worker.js                    # router multi-sitio
-├── js/
-├── css/
-└── sites/
-    ├── cliente-demo/
-    │   └── config.json
-    ├── cliente1/
-    │   ├── config.json
-    │   └── images/
-    └── cliente2/
-        ├── config.json
-        └── images/
+├── config.json       # configuración exclusiva del cliente
+├── index.html        # HTML exclusivo del cliente
+├── worker.js         # lógica exclusiva del despliegue
+├── wrangler.jsonc    # nombre/configuración del Worker del cliente
+├── css/              # estilos propios
+├── js/               # comportamiento propio
+└── images/           # imágenes propias
 ```
 
-Las imágenes de una instancia se resuelven mediante el Worker en `/sites/{instanceId}/images/`, evitando que un sitio utilice accidentalmente recursos de otra instancia.
+No se deben usar rutas `/sites/{instanceId}/` ni depender de `registry.json` o de un KV central para resolver el sitio. El Worker sirve los recursos de este proyecto y lee su `/config.json`.
 
-## Flujo de creación de un cliente
+## Crear un proyecto de cliente
 
-```text
-Cliente
-  ↓
-Crear instancia
-  ↓
-Asignar instanceId / subdominio
-  ↓
-Crear sites/{instanceId}/config.json
-  ↓
-Agregar imágenes de la instancia
-  ↓
-Configurar SEO y contenido
-  ↓
-indexable: true
-  ↓
-Publicar
-```
+1. Crear un repositorio nuevo a partir de esta plantilla, no una rama de producción compartida.
+2. Asignar un nombre de repositorio y un nombre único al Worker en `wrangler.jsonc`.
+3. Cambiar `siden.instanceId`, `siden.template`, los datos de negocio y el contenido de `config.json`.
+4. Incorporar los archivos y las imágenes del cliente en `images/`.
+5. Personalizar libremente `index.html`, `css/`, `js/` y `worker.js` sin modificar los sitios existentes.
+6. Mantener `indexable: false` durante la preparación y las pruebas.
+7. Desplegar primero en el dominio de prueba `workers.dev` del proyecto y validar navegación, recursos, SEO, formularios/botones, móvil y modo multipágina.
+8. Asociar el hostname definitivo en Cloudflare después de validar el despliegue.
+9. Para un sitio aprobado, revisar canonical, `robots.txt`, `sitemap.xml`, Schema y Google Analytics 4; cambiar `indexable` a `true` solo cuando corresponda.
+10. Documentar la versión base de la plantilla y las personalizaciones exclusivas.
 
-No se deben colocar datos reales de clientes en la configuración corporativa ni en la plantilla maestra.
+## Dominios
 
-## Identidad de instancia
+### Subdominio administrado por SIDeN
 
-Cada configuración debe contener:
+Ejemplo: `clienteA.sidenred.com`.
 
-- `siden.instanceId`: identificador único y estable.
-- `siden.template`: versión de la plantilla utilizada.
-- `siden.version`: versión de la configuración/motor.
-- `siden.architecture`: `multisite`.
-- `siden.domainMode`: modalidad de publicación.
+El cliente no necesita comprar un dominio. SIDeN conserva la administración de la zona DNS y configura el hostname para que apunte al Worker independiente de ese cliente. La asignación del dominio en Cloudflare es una operación de despliegue separada; crear el repositorio no la configura automáticamente.
 
-El Worker añade en tiempo de ejecución `host`, `canonicalOrigin` y `assetPrefix` para que el navegador conozca únicamente el contexto de la instancia actual.
+### Dominio propio del cliente
 
-## Dominios y resolución
+Ejemplo: `www.cliente.com`.
 
-### Subdominio SIDeN
+El dominio puede asociarse al Worker independiente del cliente cuando se cuente con acceso y configuración DNS necesarios. Esto no requiere que el sitio comparta el Worker de otros clientes.
 
-Un host como `cliente1.sidenred.com` se resuelve automáticamente a:
+## Reglas de aislamiento
 
-```text
-instanceId = cliente1
-config     = /sites/cliente1/config.json
-images     = /sites/cliente1/images/*
-```
+- No cambiar el Worker, HTML, CSS, JS ni configuración de otro cliente para resolver una necesidad exclusiva.
+- No copiar datos reales a la plantilla maestra.
+- No publicar un proyecto nuevo sobre el Worker corporativo existente.
+- No activar indexación antes de revisar el dominio final y el contenido.
+- No considerar un despliegue terminado hasta probar el hostname real, los recursos, las rutas y los encabezados SEO.
+- Las mejoras reutilizables se evalúan primero en la plantilla; su incorporación a cada cliente es selectiva y controlada.
 
-No requiere una entrada manual por cliente en el Worker.
+## Qué cambia respecto de la arquitectura anterior
 
-### Dominio propio
+La arquitectura anterior resolvía varios sitios mediante un Worker central, un registro de hosts y configuraciones bajo `sites/`, mientras compartían el mismo HTML/CSS/JS en tiempo de ejecución. En esta arquitectura, cada sitio tiene su propia copia de esos archivos y su propio despliegue. Por eso, una modificación exclusiva deja de afectar automáticamente a los demás clientes.
 
-El Worker contempla un binding opcional `SIDEN_REGISTRY` (KV). Cuando se configure, una clave con el hostname del cliente puede devolver su `instanceId`:
+## Alcance y validación pendiente
 
-```text
-www.cliente.com → cliente1
-```
+Esta rama prepara la plantilla para proyectos independientes. Antes de usarla con un cliente real, hay que validar en Cloudflare un despliegue de prueba completo: ejecución del Worker, archivos estáticos, navegación multipágina, subdominio SIDeN y dominio personalizado. La zona DNS central puede conservarse, pero la asociación de cada hostname debe probarse con la configuración real de la cuenta Cloudflare.
 
-Esto permite conectar posteriormente dominios propios sin reconstruir el sitio ni modificar la plantilla.
+## Versión
 
-## SEO por instancia
-
-Cada host genera dinámicamente:
-
-- `<title>` propio.
-- Meta description propia.
-- Meta robots propia.
-- Canonical propio usando el host actual.
-- `robots.txt` propio.
-- `sitemap.xml` propio.
-- JSON-LD / Schema propio.
-- H1 propio.
-- `areaServed` / ubicación propia cuando corresponda.
-- URL de imágenes propia de la instancia.
-
-Nunca se debe generar para un cliente:
-
-```text
-canonical → https://sidenred.com/...
-sitemap   → https://sidenred.com/sitemap.xml
-Schema    → entidad corporativa de SIDeN
-```
-
-El sitio debe verse ante los motores de búsqueda como la entidad correspondiente al host solicitado.
-
-## Search Console
-
-La plantilla no automatiza la creación ni verificación de propiedades de Google Search Console. La arquitectura deja preparado el aislamiento por URL para que cada cliente pueda utilizar su propia propiedad de prefijo de URL, mientras SIDeN conserva la administración de su ecosistema cuando corresponda.
-
-## SEO local incluido
-
-- Title y meta description configurables por negocio/página.
-- Canonical dinámico.
-- robots.txt dinámico.
-- sitemap.xml dinámico.
-- JSON-LD para LocalBusiness y subtipos soportados.
-- Nombre, teléfono, correo, dirección, ciudad, país, mapa y redes sociales cuando corresponda.
-- Coordenadas geográficas para negocios con ubicación física.
-- Horarios estructurados.
-- Soporte para `local`, `areaServicio` y `ambos` mediante `modeloAtencion` y `areasServicio`.
-- Contenido SEO esencial renderizado desde el Worker.
-- ALT personalizados opcionales para la galería mediante `galeriaAlt`.
-
-## Indexación — regla obligatoria
-
-La **plantilla maestra y la instancia de demostración permanecen con `indexable: false`**.
-
-Cuando se crea una instancia real para un cliente:
-
-1. Cambiar `instanceId`.
-2. Sustituir datos ficticios por datos reales.
-3. Agregar imágenes reales.
-4. Revisar SEO local, horarios, ubicación y áreas de servicio.
-5. Verificar canonical, robots, sitemap y Schema en el host del cliente.
-6. Cambiar `indexable` a `true` antes de solicitar/indexar el sitio.
-
-## Tipos y modos soportados
-
-Tipos comerciales soportados por el motor:
-
-- Comercio
-- HardwareStore
-- Profesional
-- Abogado
-- Médico
-- Contador
-- Arquitecto
-- Electricista
-- Fotógrafo
-- Consultor
-- Psicólogo
-- Dentista
-- Restaurante
-
-Modos de sitio:
-
-- Sitio de una página (`single`).
-- Sitio multipágina (`multi`).
-
-## Regla de operación
-
-La plantilla maestra es el motor reutilizable. Cada cliente debe ser una instancia aislada por `instanceId`, con su propia configuración y recursos. El contenido corporativo y los datos de clientes no deben mezclarse.
-
-## Importante
-
-La plantilla proporciona la base técnica para publicar sitios multi-sitio con SEO local. La configuración de DNS/Cloudflare, Google Business Profile, Search Console, indexación, contenido específico, reseñas y seguimiento de resultados forman parte del procedimiento operativo de SIDeN y no se consideran automatizados por esta plantilla.
+- Base de partida: `siden-template-v1.4`.
+- Arquitectura propuesta: `independent-project`.
+- Rama de trabajo: `arquitectura-hibrida-independiente-v1.0-2026-10-15`.
