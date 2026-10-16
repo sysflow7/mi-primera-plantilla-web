@@ -1,6 +1,6 @@
 {
   "siden": {
-    "instanceId": "demo-plantilla",
+    "instanceId": "cliente-prueba-multipagina",
     "templateFamily": "corporate",
     "baseDomain": "sidenred.com",
     "architecture": "independent-project",
@@ -10,14 +10,14 @@
     "version": "1.5"
   },
   "activo": true,
-  "nombre": "Mi Negocio",
-  "h1": "Tu negocio, presente en Internet",
-  "slogan": "Tu negocio, tu identidad digital",
-  "descripcion": "Presentación de demostración de la plantilla maestra SIDeN.",
-  "descripcionSEO": "Plantilla maestra SIDeN para sitios web profesionales.",
-  "tipoNegocio": "comercio",
-  "etiquetaTipo": "Comercio",
-  "modoSitio": "single",
+  "nombre": "Negocio de Prueba",
+  "h1": "Sitio multipágina de prueba",
+  "slogan": "Validación de arquitectura SIDeN V1.5",
+  "descripcion": "Sitio ficticio para verificar la configuración de cliente y la navegación multipágina.",
+  "descripcionSEO": "Prueba técnica de la arquitectura independiente SIDeN.",
+  "tipoNegocio": "profesional",
+  "etiquetaTipo": "Servicio profesional",
+  "modoSitio": "multi",
   "modeloAtencion": "local",
   "areasServicio": [
     "San Salvador",
@@ -28,6 +28,7 @@
   "mostrarHeroImagen": false,
   "modulos": [
     "presentacion",
+    "perfil",
     "beneficios",
     "servicios",
     "galeria",
@@ -75,13 +76,92 @@
     "contacto": "¿Tienes alguna consulta? Comunícate con nuestro negocio para recibir más información.",
     "ubicacion": "Consulta la ubicación y las opciones de contacto de nuestro negocio."
   },
-  "paginas": [],
-  "servicios": [],
+  "paginas": [
+    {
+      "ruta": "/",
+      "nombre": "Inicio",
+      "h1": "Negocio de Prueba",
+      "slogan": "Bienvenido al sitio de prueba",
+      "descripcion": "Página principal del sitio multipágina.",
+      "modulos": [
+        "presentacion",
+        "beneficios",
+        "servicios",
+        "contacto"
+      ],
+      "etiquetas": {
+        "presentacion": "Sobre el negocio",
+        "beneficios": "Beneficios",
+        "servicios": "Servicios"
+      },
+      "textos": {
+        "contacto": "Contáctanos para más información."
+      }
+    },
+    {
+      "ruta": "/perfil-profesional",
+      "nombre": "Perfil profesional",
+      "h1": "Nuestro perfil profesional",
+      "slogan": "Experiencia y atención",
+      "descripcion": "Página interna para validar el contenido independiente.",
+      "modulos": [
+        "perfil",
+        "presentacion"
+      ],
+      "etiquetas": {
+        "perfil": "Perfil profesional",
+        "presentacion": "Nuestra experiencia"
+      }
+    },
+    {
+      "ruta": "/servicios",
+      "nombre": "Servicios",
+      "h1": "Servicios de prueba",
+      "slogan": "Soluciones para nuestros clientes",
+      "descripcion": "Página de servicios de prueba.",
+      "modulos": [
+        "servicios",
+        "beneficios"
+      ],
+      "etiquetas": {
+        "servicios": "Nuestros servicios",
+        "beneficios": "Ventajas"
+      }
+    },
+    {
+      "ruta": "/contacto",
+      "nombre": "Contacto",
+      "h1": "Contacto",
+      "slogan": "Estamos para ayudarte",
+      "descripcion": "Página de contacto de prueba.",
+      "modulos": [
+        "ubicacion",
+        "contacto"
+      ],
+      "etiquetas": {
+        "ubicacion": "Nuestra ubicación",
+        "contacto": "Escríbenos"
+      }
+    }
+  ],
+  "servicios": [
+    {
+      "nombre": "Servicio de demostración",
+      "descripcion": "Contenido de prueba para comprobar la presentación de servicios."
+    }
+  ],
   "productos": [],
   "menu": [],
-  "perfil": {},
+  "perfil": {
+    "descripcion": "Perfil profesional de prueba."
+  },
   "galeria": [],
-  "beneficios": [],
+  "beneficios": [
+    {
+      "nombre": "Información clara",
+      "descripcion": "Contenido ficticio para comprobar módulos."
+    }
+  ],
   "proceso": [],
   "identidad": {},
   "mapEmbedUrl": "",
@@ -90,6 +170,22 @@
     "texto": "Calidad ✦ Confianza ✦ Atención profesional ✦ Estamos para ayudarte",
     "separador": "✦"
   },
-  "presentacion": {},
-  "estadoComercial": "demo"
+  "presentacion": {
+    "titulo": "Sobre el negocio",
+    "texto": "Contenido ficticio de la página principal."
+  },
+  "estadoComercial": "cliente",
+  "faq": {
+    "activo": true,
+    "preguntas": [
+      {
+        "pregunta": "¿Este sitio es una prueba?",
+        "respuesta": "Sí. Es un sitio ficticio para validar la arquitectura SIDeN."
+      },
+      {
+        "pregunta": "¿Los planes de SIDeN deben aparecer aquí?",
+        "respuesta": "No. En un sitio de cliente no deben mostrarse los planes comerciales de SIDeN."
+      }
+    ]
+  }
 }
