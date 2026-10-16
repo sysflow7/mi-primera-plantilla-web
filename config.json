@@ -62,13 +62,13 @@
   "etiquetas": {
     "presentacion": "Especialidad",
     "presentacionMenu": "Especialidad",
-    "beneficios": "Ventajas de la cirugía laparoscópica",
+    "beneficios": "Beneficios de nuestros servicios",
     "beneficiosMenu": "Beneficios",
-    "servicios": "Servicios médicos",
+    "servicios": "Nuestros servicios",
     "serviciosMenu": "Servicios",
-    "ubicacion": "Consultorio",
+    "ubicacion": "Ubicación",
     "ubicacionMenu": "Ubicación",
-    "contacto": "Agenda tu cita",
+    "contacto": "Contáctanos",
     "contactoMenu": "Contacto"
   },
   "textos": {
@@ -87,7 +87,7 @@
   "mapEmbedUrl": "",
   "cintaInformativa": {
     "mostrar": true,
-    "texto": "Cirugía General ✦ Cirugía Laparoscópica ✦ Atención profesional ✦ Agenda tu cita",
+    "texto": "Calidad ✦ Confianza ✦ Atención profesional ✦ Estamos para ayudarte",
     "separador": "✦"
   },
   "presentacion": {},
