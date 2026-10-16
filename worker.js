@@ -6,6 +6,16 @@ export default {
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
+        // Bloqueo defensivo de rutas internas o de otros proyectos.
+        // .assetsignore evita nuevas cargas; este filtro también protege frente a assets antiguos ya almacenados.
+        const ruta = decodeURIComponent(url.pathname);
+        const rutasPrivadas = ["/sites", "/mini", "/docs", "/.git", "/.wrangler"];
+        if (rutasPrivadas.some(prefijo => ruta === prefijo || ruta.startsWith(prefijo + "/")) ||
+            ["/worker.js", "/wrangler.jsonc", "/README.md"].includes(ruta) ||
+            ruta.toLowerCase().endsWith(".md")) {
+            return new Response("No encontrado", { status: 404, headers: { "Cache-Control": "no-store" } });
+        }
+
         // Arquitectura independiente: este Worker sirve exclusivamente este proyecto.
         const sitePrefix = "";
         const configPath = "/config.json";
