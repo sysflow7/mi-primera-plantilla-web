@@ -2,200 +2,75 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         const host = url.hostname.toLowerCase();
-        const baseDomain = "sidenred.com";
-        const normalizedHost = host.replace(/^www\./, "");
-        const isCorporateHost = normalizedHost === baseDomain;
-        const isWorkersPreview = host.endsWith(".workers.dev");
-        const hostParts = host.split(".");
-        const isSidenSubdomain = host.endsWith("." + baseDomain) && hostParts.length === 3 && hostParts[0] !== "www";
 
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
-        const securityHeaders = {
-            "X-Frame-Options": "DENY",
-            "X-Content-Type-Options": "nosniff",
-            "Referrer-Policy": "strict-origin-when-cross-origin",
-            "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()"
-        };
+        // Arquitectura independiente: este Worker sirve exclusivamente este proyecto.
+        const sitePrefix = "";
+        const configPath = "/config.json";
 
-        const withSecurityHeaders = (headers) => {
-            const resultado = new Headers(headers);
-            Object.entries(securityHeaders).forEach(([nombre, valor]) => resultado.set(nombre, valor));
-            return resultado;
-        };
-
-        const loadAsset = async (pathname) => {
-            const assetUrl = new URL(pathname, "https://siden-assets.internal");
-            const headers = new Headers(request.headers);
-            headers.delete("host");
-            headers.delete("content-length");
-            return env.ASSETS.fetch(new Request(assetUrl, {
-                method: request.method,
-                headers
-            }));
-        };
-
-        let instanceId = "";
-        if (isCorporateHost) {
-            instanceId = "corporativo";
-        } else if (isSidenSubdomain) {
-            const hostSlug = slugify(hostParts[0]);
-            instanceId = hostSlug;
-            const respuestaRegistry = await loadAsset("/sites/registry.json");
-            if (respuestaRegistry.ok) {
-                try {
-                    const registry = await respuestaRegistry.json();
-                    instanceId = slugify(registry[hostSlug] || hostSlug);
-                } catch {
-                    instanceId = hostSlug;
-                }
-            }
-        } else if (isWorkersPreview) {
-            const requestedPreviewSite = slugify(url.searchParams.get("site"));
-            if (requestedPreviewSite) {
-                instanceId = requestedPreviewSite;
-            } else {
-                const previewHostLabel = hostParts[0] || "";
-                const workerSuffix = "-siden-corporativo";
-                const previewAlias = previewHostLabel.endsWith(workerSuffix)
-                    ? previewHostLabel.slice(0, -workerSuffix.length)
-                    : "";
-                const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
-                const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
-                const corporatePreviewAliases = [
-                    "siden-template-v1.4",
-                    "siden-template-v1-4",
-                    "siden-corporativo-v1.3",
-                    "siden-corporativo-v1-3",
-                    "ajuste-sidenred-inicio-2026-09-19",
-                    "arquitectura-maestra-v1-5-2026-09-20",
-                    "ajuste-logo-instancia-v1-5-2026-09-20",
-                    "ajuste-plantilla-corporate-v1.1-2026-09-25",
-                    "ajuste-plantilla-corporate-v1.2-2026-09-27",
-                    "web-dr-carlos-reyes-v1.3-2026-09-26",
-                    "web-dr-leopoldo-reyes-v1-4-2026-09-26",
-                    "feature-ga4-siden-web-mini-v1-5",
-                ].map(slugify);
-                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
-
-                if (previewSlug && instanceId !== "corporativo") {
-                    const respuestaRegistry = await loadAsset("/sites/registry.json");
-                    if (respuestaRegistry.ok) {
-                        try {
-                            const registry = await respuestaRegistry.json();
-                            instanceId = slugify(registry[previewSlug] || previewSlug);
-                        } catch {
-                            instanceId = previewSlug;
-                        }
-                    }
-                }
-            }
-        } else if (env.SIDEN_REGISTRY) {
-            instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
-        }
-
-        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
-
-        const sitePrefix = `/sites/${instanceId}`;
-        const previewSite = isWorkersPreview ? String(url.searchParams.get("site") || "").trim() : "";
-        const assetQuery = previewSite ? "?site=" + encodeURIComponent(previewSite) : "";
-        const configPath = `${sitePrefix}/config.json`;
+        const loadAsset = async (pathname) => env.ASSETS.fetch(
+            new Request(new URL(pathname, request.url), request)
+        );
 
         const respuestaConfig = await loadAsset(configPath);
-        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
+        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404 });
 
         const negocio = await respuestaConfig.json();
-        const templateFamily = String(negocio.siden?.templateFamily || "corporate").toLowerCase();
-        const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
-
-        if (configuredInstance !== instanceId) {
-            return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
-        }
-
-        const customCss = typeof negocio.siden?.customCss === "string"
-            ? negocio.siden.customCss.trim().replace(/^\/+/, "")
-            : "";
-        const customCssValido = customCss &&
-            /^[a-zA-Z0-9._/-]+\.css$/i.test(customCss) &&
-            !customCss.includes("..");
+        const configuredInstance = slugify(negocio.siden?.instanceId || "cliente-independiente");
 
         if (url.pathname === "/config.json") {
             return new Response(JSON.stringify(negocio), {
-                headers: withSecurityHeaders({
+                headers: {
                     "Content-Type": "application/json; charset=UTF-8",
                     "Cache-Control": "public, max-age=300",
                     "Vary": "Host"
-                })
+                }
             });
         }
-
-        const rutaInternaValida = (ruta) => {
-            const valor = String(ruta || "").trim();
-            if (!valor || !valor.startsWith("/") || valor.startsWith("//")) return false;
-            if (valor.includes("\\") || /[\r\n]/.test(valor)) return false;
-            try {
-                const destino = new URL(valor, "https://siden.internal");
-                return destino.origin === "https://siden.internal" && destino.protocol === "https:";
-            } catch {
-                return false;
-            }
-        };
 
         const rutaNormalizada = (ruta) => {
             const valor = String(ruta || "/");
             return valor === "/" ? "/" : "/" + valor.replace(/^\/+|\/+$/g, "");
         };
 
-        const paginasValidas = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
-            ? negocio.paginas.filter(pagina => rutaInternaValida(pagina?.ruta)) : [];
-        const rutasMultipagina = paginasValidas.map(pagina => rutaNormalizada(pagina.ruta));
+        const rutasMultipagina = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
+            ? negocio.paginas.map(pagina => rutaNormalizada(pagina.ruta)) : [];
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
+        // Aislamiento estricto de imágenes por instancia.
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
             return loadAsset(`${sitePrefix}${url.pathname}`);
         }
 
-        if (request.method === "GET" && url.pathname === "/custom.css" && customCssValido) {
-            return loadAsset(`${sitePrefix}/${customCss}`);
-        }
-
-        if (url.pathname.startsWith("/sites/")) {
-            return new Response("Recurso de instancia no disponible directamente.", {
-                status: 404,
-                headers: withSecurityHeaders()
-            });
-        }
-
         if (url.pathname === "/robots.txt") {
-            const indexable = negocio.indexable !== false;
-            const contenido = indexable
-                ? "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n"
-                : "User-agent: *\nDisallow: /\n";
-            return new Response(contenido, { headers: withSecurityHeaders({ "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" }) });
+            const contenido = "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n";
+            return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
         }
 
         if (url.pathname === "/sitemap.xml") {
             const rutas = ["/"];
-            paginasValidas.forEach(pagina => {
-                const ruta = rutaNormalizada(pagina.ruta);
-                if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
-            });
+            if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)) {
+                negocio.paginas.forEach(pagina => {
+                    const ruta = rutaNormalizada(pagina.ruta);
+                    if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
+                });
+            }
             const contenido = '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                 rutas.map(ruta => `<url><loc>${url.origin}${ruta}</loc></url>`).join("") + '</urlset>';
-            return new Response(contenido, { headers: withSecurityHeaders({ "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" }) });
+            return new Response(contenido, { headers: { "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
         }
 
         if (request.method !== "GET" || !esRutaPagina) return env.ASSETS.fetch(request);
 
-        const templatePath = templateFamily === "mini" ? "/mini/index.html" : "/index.html";
-        const respuestaHTML = await loadAsset(templatePath);
+        const respuestaHTML = await loadAsset("/index.html");
         if (!respuestaHTML.ok) return respuestaHTML;
         let html = await respuestaHTML.text();
 
-        const paginaActual = negocio.modoSitio === "multi"
-            ? paginasValidas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
+        const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
+            ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
 
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre} | ${negocio.ciudad}`);
@@ -207,11 +82,9 @@ export default {
         const canonical = url.origin + rutaNormalizada(url.pathname);
         const negocioId = url.origin + "/#negocio";
         const construirImagenURL = (archivo) => archivo
-            ? new URL("/images/" + String(archivo).replace(/^\/+/, "") + assetQuery, url.origin + "/").href
-            : "";
+            ? new URL(sitePrefix + "/images/" + String(archivo).replace(/^\/+/, ""), url.origin + "/").href : "";
         const logoURL = construirImagenURL(negocio.logo);
         const imagenSocialURL = construirImagenURL(negocio.imagenSocial || negocio.logo);
-        const heroBackgroundURL = construirImagenURL(negocio.heroImagenFondo || negocio.heroImagen);
         const indexable = negocio.indexable !== false;
         const direccion = negocio.direccion || {};
         const modeloAtencion = String(negocio.modeloAtencion || "local").toLowerCase();
@@ -224,16 +97,8 @@ export default {
             consultor: "ProfessionalService", psicologo: "Psychologist", psicólogo: "Psychologist", dentista: "Dentist", restaurante: "Restaurant", restaurant: "Restaurant"
         };
         const tipoClave = String(paginaActual?.tipoNegocio || negocio.tipoNegocio || "LocalBusiness").toLowerCase();
-        const datosNegocio = {
-            "@context": "https://schema.org",
-            "@type": schemaTypes[tipoClave] || "LocalBusiness",
-            "@id": negocioId,
-            name: negocio.nombre,
-            description: descripcionSEO,
-            url: canonical,
-            telephone: negocio.telefono,
-            mainEntityOfPage: { "@type": "WebPage", "@id": canonical, url: canonical, name: tituloSEO }
-        };
+        const datosNegocio = { "@context": "https://schema.org", "@type": schemaTypes[tipoClave] || "LocalBusiness", "@id": negocioId,
+            name: negocio.nombre, description: descripcionSEO, url: canonical, telephone: negocio.telefono };
         if (logoURL) datosNegocio.logo = logoURL;
         if (imagenSocialURL) datosNegocio.image = [imagenSocialURL];
         if (negocio.email) datosNegocio.email = negocio.email;
@@ -260,43 +125,23 @@ export default {
             datosNegocio.openingHoursSpecification = negocio.horarios.flatMap(horario => (horario.dias || []).map(dia => ({ "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra })));
         }
 
-        const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+        const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
         const escJson = valor => JSON.stringify(valor).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
         const ciudad = direccion.ciudad || negocio.ciudad || "";
         const ciudadVisible = esAreaServicio ? (Array.isArray(negocio.areasServicio) && negocio.areasServicio.length ? negocio.areasServicio.map(area => typeof area === "string" ? area : area?.nombre).filter(Boolean).join(", ") : negocio.pais || "Área de servicio") : ciudad;
         const direccionTexto = esAreaServicio ? "" : (negocio.direccionTexto || direccion.calle || ciudad || "");
         const tituloUbicacion = negocio.etiquetas?.ubicacion || (esAreaServicio ? "Área de servicio" : "Encuéntranos");
 
-        const primaryColor = typeof negocio.apariencia?.colorPrimario === "string" ? negocio.apariencia.colorPrimario.trim() : "#2563eb";
         const reemplazos = {
             "__SEO_TITLE__": escHtml(tituloSEO), "__SEO_DESCRIPTION__": escHtml(descripcionSEO), "__ROBOTS__": indexable ? "index, follow" : "noindex, nofollow",
             "__BUSINESS_NAME__": escHtml(negocio.nombre), "__BUSINESS_TYPE__": escHtml(negocio.etiquetaTipo || ""), "__H1_TITLE__": escHtml(h1Title),
             "__H1_DESCRIPTION__": escHtml(h1Description), "__BUSINESS_DESCRIPTION__": escHtml(negocio.descripcion || descripcionSEO), "__LOCATION_TITLE__": escHtml(tituloUbicacion),
             "__CITY__": escHtml(ciudadVisible), "__ADDRESS__": escHtml(direccionTexto), "__PHONE__": escHtml(negocio.telefono || ""), "__CANONICAL_URL__": escHtml(canonical),
-            "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__LOGO_IMAGE_URL__": escHtml(logoURL),
-            "__HERO_BACKGROUND_URL__": escHtml(heroBackgroundURL), "__MAP_EMBED_URL__": escHtml(typeof negocio.mapEmbedUrl === "string" ? negocio.mapEmbedUrl.trim() : ""), "__STRUCTURED_DATA__": escJson(datosNegocio), "__PRIMARY_COLOR__": escHtml(primaryColor)
+            "__FAVICON_URL__": escHtml(logoURL), "__SOCIAL_IMAGE_URL__": escHtml(imagenSocialURL), "__STRUCTURED_DATA__": escJson(datosNegocio)
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
-        // En Workers Preview, las solicitudes secundarias de CSS/JS no heredan el query ?site= de la URL inicial.
-        // Propagamos el identificador de Preview únicamente en los recursos compartidos del template,
-        // sin modificar URLs en producción ni recursos de la instancia.
-        if (assetQuery) {
-            html = html.replace(/((?:href|src)=["'])(?:\.\/)?(css\/[^"'?#]+|js\/[^"'?#]+)(["'])/gi, (coincidencia, prefijo, ruta, cierre) => {
-                return prefijo + ruta + assetQuery + cierre;
-            });
-        }
-
-        if (customCssValido) {
-            const customCssUrl = "/custom.css" + assetQuery;
-            html = html.replace("</head>", `<link rel="stylesheet" href="${escHtml(customCssUrl)}" data-siden-instance-css="true"></head>`);
-        }
-
-        const runtimeConfig = {
-            ...negocio,
-            ...(negocio.modoSitio === "multi" ? { paginas: paginasValidas } : {}),
-            siden: { ...(negocio.siden || {}), instanceId: configuredInstance, templateFamily, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix, customCss: customCssValido ? customCss : "" }
-        };
+        const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
         if (!imagenSocialURL) {
@@ -308,13 +153,6 @@ export default {
             html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>');
         }
 
-        return new Response(html, {
-            status: respuestaHTML.status,
-            headers: withSecurityHeaders({
-                "Content-Type": "text/html; charset=UTF-8",
-                "Cache-Control": "no-store, no-cache, must-revalidate",
-                "Vary": "Host"
-            })
-        });
+        return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "Vary": "Host" } });
     }
 };
