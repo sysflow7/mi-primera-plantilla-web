@@ -87,6 +87,19 @@ export default {
         if (!respuestaHTML.ok) return respuestaHTML;
         let html = await respuestaHTML.text();
 
+        // Aislamiento de contenido comercial: no entregar secciones de venta SIDeN a clientes corporativos.
+        // Las demos corporativas y la plantilla comercial conservan estas secciones.
+        const templateFamily = String(negocio.siden?.templateFamily || "corporate").toLowerCase();
+        const estadoComercial = String(negocio.estadoComercial || "").trim().toLowerCase();
+        const esClienteCorporativo = templateFamily === "corporate" && estadoComercial !== "demo";
+
+        if (esClienteCorporativo) {
+            html = html.replace(/<section\\b(?=[^>]*\\bid="(?:proyectos|problema|solucion|soluciones)")(?:"[^"]*"|'[^']*'|[^'">])*?>[\\s\\S]*?<\\/section>/gi, "");
+        }
+
+        // Las preguntas se generan desde config.json por script.js; no dejar FAQ de SIDeN preinsertadas.
+        html = html.replace(/(<div\\s+id="lista-faq"[^>]*>)[\\s\\S]*?(<\\/div>)/i, "$1$2");
+
         const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
             ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
 
