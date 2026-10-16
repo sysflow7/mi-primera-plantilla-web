@@ -75,3 +75,8 @@ Esta rama prepara la plantilla para proyectos independientes. Antes de usarla co
 - Base de partida: `siden-template-v1.4`.
 - Arquitectura propuesta: `independent-project`.
 - Rama de trabajo: `arquitectura-hibrida-independiente-v1.0-2026-10-15`.
+
+
+## Validación de integración Cloudflare
+
+Para el Worker de pruebas de esta rama, la conexión de Workers Builds debe apuntar a la rama `arquitectura-hibrida-independiente-v1.0-2026-10-15`, con directorio raíz `/` y comando de implementación `npx wrangler deploy`. El archivo `wrangler.jsonc` debe declarar el nombre del Worker de pruebas y coincidir con el recurso configurado en Cloudflare. Una compilación histórica de otra rama no demuestra qué revisión se despliega actualmente; para validar la rama seleccionada, debe generarse una compilación nueva a partir de un commit de esta rama y comprobar su nombre de rama, revisión y registro.
