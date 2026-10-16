@@ -5,3 +5,9 @@
 worker.js
 README.md
 wrangler.jsonc
+# Archivos internos y documentación: no se publican como recursos del sitio
+*.md
+docs/**
+# Contenido de otros proyectos/clientes: no debe viajar con esta instancia independiente
+sites/**
+mini/**
