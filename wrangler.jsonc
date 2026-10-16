@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "siden-arquitectura-independiente-pruebas",
+  "name": "siden-prueba-cliente-multipagina-v15",
   "compatibility_date": "2026-09-06",
   "main": "worker.js",
   "assets": {
