@@ -5,3 +5,7 @@
 worker.js
 README.md
 wrangler.jsonc
+**/docs
+**/docs/**
+**/sites
+**/sites/**
