@@ -2,12 +2,6 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         const host = url.hostname.toLowerCase();
-        const baseDomain = "sidenred.com";
-        const normalizedHost = host.replace(/^www\./, "");
-        const isCorporateHost = normalizedHost === baseDomain;
-        const isWorkersPreview = host.endsWith(".workers.dev");
-        const hostParts = host.split(".");
-        const isSidenSubdomain = host.endsWith("." + baseDomain) && hostParts.length === 3 && hostParts[0] !== "www";
 
         const slugify = (value) => String(value || "").toLowerCase().trim()
             .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
@@ -36,83 +30,25 @@ export default {
             }));
         };
 
-        let instanceId = "";
-        if (isCorporateHost) {
-            instanceId = "corporativo";
-        } else if (isSidenSubdomain) {
-            const hostSlug = slugify(hostParts[0]);
-            instanceId = hostSlug;
-            const respuestaRegistry = await loadAsset("/sites/registry.json");
-            if (respuestaRegistry.ok) {
-                try {
-                    const registry = await respuestaRegistry.json();
-                    instanceId = slugify(registry[hostSlug] || hostSlug);
-                } catch {
-                    instanceId = hostSlug;
-                }
-            }
-        } else if (isWorkersPreview) {
-            const requestedPreviewSite = slugify(url.searchParams.get("site"));
-            if (requestedPreviewSite) {
-                instanceId = requestedPreviewSite;
-            } else {
-                const previewHostLabel = hostParts[0] || "";
-                const workerSuffix = "-siden-corporativo";
-                const previewAlias = previewHostLabel.endsWith(workerSuffix)
-                    ? previewHostLabel.slice(0, -workerSuffix.length)
-                    : "";
-                const isVersionPreview = /^[a-f0-9]{8}$/.test(previewAlias);
-                const previewSlug = isVersionPreview ? "" : slugify(previewAlias);
-                const corporatePreviewAliases = [
-                    "siden-template-v1.4",
-                    "siden-template-v1-4",
-                    "siden-corporativo-v1.3",
-                    "siden-corporativo-v1-3"
-                ];
-                instanceId = corporatePreviewAliases.includes(previewSlug) ? "corporativo" : previewSlug;
-
-                if (previewSlug && instanceId !== "corporativo") {
-                    const respuestaRegistry = await loadAsset("/sites/registry.json");
-                    if (respuestaRegistry.ok) {
-                        try {
-                            const registry = await respuestaRegistry.json();
-                            instanceId = slugify(registry[previewSlug] || previewSlug);
-                        } catch {
-                            instanceId = previewSlug;
-                        }
-                    }
-                }
-            }
-        } else if (env.SIDEN_REGISTRY) {
-            instanceId = slugify(await env.SIDEN_REGISTRY.get(normalizedHost));
-        }
-
-        if (!instanceId) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
-
-        const isCorporate = instanceId === "corporativo";
-        const sitePrefix = isCorporate ? "" : `/sites/${instanceId}`;
-        const configPath = isCorporate ? "/config.json" : `${sitePrefix}/config.json`;
-
+        // Arquitectura independiente: cada proyecto sirve únicamente su propia configuración.
+        const sitePrefix = "";
+        const configPath = "/config.json";
         const respuestaConfig = await loadAsset(configPath);
-        if (!respuestaConfig.ok) return new Response("Sitio SIDeN no configurado.", { status: 404, headers: withSecurityHeaders() });
+        if (!respuestaConfig.ok) {
+            return new Response("Sitio SIDeN no configurado.", {
+                status: 404,
+                headers: withSecurityHeaders()
+            });
+        }
 
         const negocio = await respuestaConfig.json();
-        const configuredInstance = slugify(negocio.siden?.instanceId || instanceId);
+        const configuredInstance = slugify(negocio.siden?.instanceId || "cliente-independiente");
 
-        if (isCorporate) {
-            if (configuredInstance !== "siden-corporativo") {
-                return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
-            }
-        } else if (configuredInstance !== instanceId) {
-            return new Response("Configuración de sitio no válida.", { status: 500, headers: withSecurityHeaders() });
-        }
-
-        if (url.pathname === "/config.json" && !isCorporate) {
+        if (url.pathname === "/config.json") {
             return new Response(JSON.stringify(negocio), {
                 headers: withSecurityHeaders({
                     "Content-Type": "application/json; charset=UTF-8",
-                    "Cache-Control": "public, max-age=300",
-                    "Vary": "Host"
+                    "Cache-Control": "no-store"
                 })
             });
         }
@@ -140,7 +76,7 @@ export default {
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         if (request.method === "GET" && url.pathname.startsWith("/images/")) {
-            return loadAsset(isCorporate ? url.pathname : `${sitePrefix}${url.pathname}`);
+            return loadAsset(url.pathname);
         }
 
         if (url.pathname === "/robots.txt") {
