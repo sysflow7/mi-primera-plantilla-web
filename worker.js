@@ -94,11 +94,11 @@ export default {
         const esClienteCorporativo = templateFamily === "corporate" && estadoComercial !== "demo";
 
         if (esClienteCorporativo) {
-            html = html.replace(/<section\\b(?=[^>]*\\bid="(?:proyectos|problema|solucion|soluciones)")(?:"[^"]*"|'[^']*'|[^'">])*?>[\\s\\S]*?<\\/section>/gi, "");
+            html = html.replace(/<section\b(?=[^>]*\bid="(?:proyectos|problema|solucion|soluciones)")(?:"[^"]*"|'[^']*'|[^'">])*?>[\s\S]*?<\/section>/gi, "");
         }
 
         // Las preguntas se generan desde config.json por script.js; no dejar FAQ de SIDeN preinsertadas.
-        html = html.replace(/(<div\\s+id="lista-faq"[^>]*>)[\\s\\S]*?(<\\/div>)/i, "$1$2");
+        html = html.replace(/(<div\s+id="lista-faq"[^>]*>)[\s\S]*?(<\/div>)/i, "$1$2");
 
         const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
             ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
