@@ -8,7 +8,15 @@ export default {
 
         // Bloqueo defensivo de rutas internas o de otros proyectos.
         // .assetsignore evita nuevas cargas; este filtro también protege frente a assets antiguos ya almacenados.
-        const ruta = decodeURIComponent(url.pathname);
+        let ruta;
+        try {
+            ruta = decodeURIComponent(url.pathname);
+        } catch {
+            return new Response("No encontrado", {
+                status: 404,
+                headers: { "Cache-Control": "no-store" }
+            });
+        }
         const rutasPrivadas = ["/sites", "/mini", "/docs", "/.git", "/.wrangler"];
         if (rutasPrivadas.some(prefijo => ruta === prefijo || ruta.startsWith(prefijo + "/")) ||
             ["/worker.js", "/wrangler.jsonc", "/README.md"].includes(ruta) ||
