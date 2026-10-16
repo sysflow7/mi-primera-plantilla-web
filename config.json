@@ -1,10 +1,10 @@
 {
   "siden": {
-    "instanceId": "corporativo",
-    "template": "siden-template-v1.4",
-    "version": "1.4",
+    "instanceId": "cliente-reemplazar",
+    "template": "siden-template-v1.3",
+    "version": "1.3",
     "baseDomain": "sidenred.com",
-    "architecture": "multisite",
+    "architecture": "independent-project",
     "domainMode": "subdomain"
   },
   "nombre": "Mi Negocio",
@@ -18,7 +18,13 @@
   "modeloAtencion": "local",
   "areasServicio": [],
   "heroImagen": "",
-  "modulos": ["presentacion", "beneficios", "servicios", "ubicacion", "contacto"],
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "ubicacion",
+    "contacto"
+  ],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
@@ -26,7 +32,15 @@
   "ciudad": "San Salvador",
   "pais": "El Salvador",
   "direccionTexto": "San Salvador, El Salvador",
-  "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
+  "direccion": {
+    "calle": "",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
   "facebook": "",
   "instagram": "",
   "maps": "",
@@ -37,7 +51,9 @@
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {},
-  "textos": {"contacto": "Estamos disponibles para atenderte."},
+  "textos": {
+    "contacto": "Estamos disponibles para atenderte."
+  },
   "paginas": [],
   "servicios": [],
   "productos": [],
