@@ -53,8 +53,35 @@ export default {
             return valor === "/" ? "/" : "/" + valor.replace(/^\/+|\/+$/g, "");
         };
 
-        const rutasMultipagina = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
-            ? negocio.paginas.map(pagina => rutaNormalizada(pagina.ruta)) : [];
+        // Rechazar configuraciones multipágina ambiguas antes de resolver rutas.
+        const validarPaginas = (paginas) => {
+            if (!Array.isArray(paginas) || paginas.length === 0) return null;
+            const rutas = [];
+            const vistas = new Set();
+            for (const pagina of paginas) {
+                if (!pagina || typeof pagina !== "object" || typeof pagina.ruta !== "string") return null;
+                const original = pagina.ruta.trim();
+                if (!original.startsWith("/") || original.startsWith("//") || original.includes("?") || original.includes("#") || original.includes("\\") || original.includes(" ")) return null;
+                const segmentos = original.split("/");
+                if (segmentos.some(segmento => segmento === "." || segmento === "..")) return null;
+                const normalizada = rutaNormalizada(original);
+                if (normalizada !== "/" && !normalizada.slice(1).split("/").every(segmento => /^[a-zA-Z0-9_-]+$/.test(segmento))) return null;
+                if (vistas.has(normalizada)) return null;
+                vistas.add(normalizada);
+                rutas.push(normalizada);
+            }
+            return vistas.has("/") ? rutas : null;
+        };
+
+        const esModoMultipagina = negocio.modoSitio === "multi";
+        const rutasValidadas = esModoMultipagina ? validarPaginas(negocio.paginas) : [];
+        if (esModoMultipagina && !rutasValidadas) {
+            return new Response("Configuración multipágina inválida.", {
+                status: 500,
+                headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "no-store" }
+            });
+        }
+        const rutasMultipagina = rutasValidadas;
         const esRutaPagina = url.pathname === "/" || rutasMultipagina.includes(rutaNormalizada(url.pathname));
 
         // Aislamiento estricto de imágenes por instancia.
