@@ -19,3 +19,4 @@ Probar apariencia V1.5, textos retirados anteriormente, planes y FAQ demo, imág
 
 ## Prueba de aislamiento de contenido
 Rama `prueba-aislamiento-contenido-v1.5`: despliegue de prueba para verificar que las páginas corporativas de clientes no entreguen en el HTML las secciones comerciales de SIDeN ni las preguntas frecuentes predeterminadas.
+
