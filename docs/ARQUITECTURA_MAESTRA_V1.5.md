@@ -253,11 +253,11 @@ Las instancias con personalización Nivel 2 o Nivel 3 requieren ficha detallada 
 
 ### Corrección de sitemap
 
-El Worker se actualizó en la rama de prueba para que, cuando `indexable: false`, el sitemap no enumere páginas del sitio. Cuando `indexable` es verdadero o no está definido, el sitemap incluye la raíz y las rutas multipágina configuradas sin duplicados. Esta corrección necesita confirmación en el despliegue Preview de la rama antes de darla por validada funcionalmente.
+El Worker se actualizó en la rama de prueba para que, cuando `indexable: false`, el sitemap no enumere páginas del sitio. Cuando `indexable` es verdadero o no está definido, el sitemap incluye la raíz y las rutas multipágina configuradas sin duplicados. La corrección fue confirmada por el usuario en Preview el 17-10-2026: con `indexable: false`, `/sitemap.xml` muestra un XML válido con `urlset` vacío.
 
 ### Límites de certificación
 
-La revisión del código no sustituye las pruebas de navegador. Se consideran verificadas por el usuario las rutas `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga y la selección de módulos; no se afirma haber ejecutado una matriz visual completa de todas las familias ni todas las combinaciones de configuración. La arquitectura independiente debe mantenerse separada de producción hasta completar la comprobación del sitemap y cerrar los pendientes documentados.
+La revisión del código no sustituye las pruebas de navegador. Se consideran verificadas por el usuario las rutas `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga y la selección de módulos; no se afirma haber ejecutado una matriz visual completa de todas las familias ni todas las combinaciones de configuración. La arquitectura independiente debe mantenerse separada de producción hasta reconciliar las instrucciones históricas, completar las pruebas de regresión representativas y resolver los pendientes documentados.
 
 
 ### Actualización de certificación — 17-10-2026
