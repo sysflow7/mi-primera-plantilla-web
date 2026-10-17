@@ -106,3 +106,10 @@ Pruebas ejecutadas por el usuario en el Worker de Preview `siden-prueba-cliente-
 
 ### Pendiente documental
 El archivo de arquitectura contiene material histórico que describe la arquitectura compartida basada en `sites/<instanceId>`, mientras que la rama auditada corresponde a un proyecto independiente con `config.json` en raíz. El addendum ya distingue ambos modelos, pero aún se debe consolidar el documento para evitar que un operador siga instrucciones históricas incompatibles con el despliegue independiente.
+
+
+## Documento operativo consolidado
+
+Se creó `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md` como guía operativa coherente con el modelo de proyecto independiente. Para nuevos trabajos sobre la rama de certificación, utilizar ese documento en lugar de las instrucciones históricas de enrutamiento por `sites/<instanceId>`.
+
+La arquitectura independiente continúa en estado de **certificación en curso**: las pruebas manuales registradas son satisfactorias, pero aún falta una matriz de regresión más amplia y la validación completa de una instancia real del plan Profesional en su Preview. No se debe interpretar la creación de esta guía como autorización para modificar o desplegar producción.
