@@ -1,5 +1,7 @@
 # SIDeN — Arquitectura Maestra v1.5
 
+> **AVISO DE VIGENCIA DOCUMENTAL — 16-10-2026:** Este archivo contiene apartados históricos del modelo anterior basado en `sites/<instanceId>`. Para la rama independiente `prueba-aislamiento-contenido-v1.5`, la arquitectura vigente es un repositorio/proyecto por cliente, un Worker propio y `config.json` en la raíz. No seguir las instrucciones históricas de resolución mediante `sites/registry.json` para desplegar esta rama. Consultar el addendum **“certificación — arquitectura independiente V1.5”** al final del documento. La consolidación completa del texto histórico sigue pendiente.
+
 ## Objetivo
 
 Evitar que los cambios específicos de un cliente modifiquen o reemplacen accidentalmente la plantilla maestra o el contenido de otros clientes.
