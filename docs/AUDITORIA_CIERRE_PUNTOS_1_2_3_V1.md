@@ -72,3 +72,16 @@ Las configuraciones consultadas de SIDeN corporativo, FISIOKINESV y Dr. Carlos L
 - No se fusionó el PR #53 (corrección CSS Hero).
 - No se desplegó producción.
 - El PR temporal #54 se utilizó para probar el estado oculto del Hero; no se debe fusionar porque modifica temporalmente la configuración de demo y añade un alias de prueba.
+
+
+## Addendum — hallazgo de auditoría y corrección aplicada (16-10-2026)
+
+### Hallazgo adicional: sitemap de instancias no indexables
+La inspección del Worker de la rama independiente detectó que `/sitemap.xml` incluía las rutas configuradas aunque `indexable: false`. El HTML ya aplicaba `noindex, nofollow`, pero el sitemap no respetaba el estado de indexación.
+
+**Corrección aplicada en la rama de prueba:** commit `12b29dfd055fb000deca4fe09a19e09d3a48bd38`. El sitemap queda vacío cuando `indexable: false`; para sitios indexables conserva la raíz y las rutas multipágina válidas sin duplicados.
+
+**Estado:** corrección de código aplicada; falta confirmar el comportamiento del endpoint en Preview. No se modificó ni desplegó producción.
+
+### Aclaración de arquitectura
+El documento histórico contiene secciones que describen el modelo anterior con `sites/<instanceId>/config.json` y `sites/registry.json`. Ese modelo no corresponde a la rama independiente V1.5 auditada aquí, que sirve el `config.json` raíz y usa un Worker por proyecto. Se añadió un addendum a `ARQUITECTURA_MAESTRA_V1.5.md` para marcar explícitamente esta diferencia; las secciones históricas deben reconciliarse en una revisión documental posterior antes de declarar el documento completamente unificado.
