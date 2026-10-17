@@ -1,276 +1,177 @@
-# SIDeN — Arquitectura Maestra v1.5
+# SIDeN — Arquitectura Maestra V1.5 (modelo independiente)
 
-> **AVISO DE VIGENCIA DOCUMENTAL — 16-10-2026:** Este archivo contiene apartados históricos del modelo anterior basado en `sites/<instanceId>`. Para la rama independiente `prueba-aislamiento-contenido-v1.5`, la arquitectura vigente es un repositorio/proyecto por cliente, un Worker propio y `config.json` en la raíz. No seguir las instrucciones históricas de resolución mediante `sites/registry.json` para desplegar esta rama. Consultar el addendum **“certificación — arquitectura independiente V1.5”** al final del documento. La consolidación completa del texto histórico sigue pendiente.
+**Estado:** documento operativo para la rama de certificación `prueba-aislamiento-contenido-v1.5`.  
+**Fecha de consolidación:** 17 de octubre de 2026.  
+**Producción:** no modificada por esta auditoría.
 
-## Objetivo
+> **Regla de vigencia:** este documento describe el modelo independiente vigente. No seguir instrucciones heredadas que mencionen `sites/<instanceId>/config.json`, `sites/registry.json`, resolución de instancias mediante host/registro central, ni el parámetro `?site=<instanceId>`. Esos elementos pertenecen al modelo anterior y no forman parte de esta arquitectura.
 
-Evitar que los cambios específicos de un cliente modifiquen o reemplacen accidentalmente la plantilla maestra o el contenido de otros clientes.
+## 1. Modelo vigente
 
-## Principio
+SIDeN V1.5 en modo independiente utiliza **un proyecto/repo y un Worker por sitio de cliente**. Cada proyecto contiene su propia configuración en la raíz. No utiliza el registro central de instancias ni resuelve el contenido del cliente desde `sites/<instanceId>/config.json`.
 
-**Motor compartido + instancias aisladas.**
+Estructura principal del proyecto:
 
-El motor compartido define estructura, módulos, comportamiento y estilos base. Cada instancia mantiene sus datos, imágenes y personalizaciones visuales dentro de `sites/<instanceId>/`.
+```text
+/
+├── config.json
+├── index.html
+├── worker.js
+├── wrangler.jsonc
+├── .assetsignore
+├── css/
+├── js/
+└── images/
+```
 
-## Archivos compartidos
+Los archivos compartidos dentro de ese proyecto constituyen el motor de esa instancia desplegada. Las mejoras generales de la plantilla deben probarse antes de propagarlas a proyectos de clientes.
 
-- `index.html`
-- `worker.js`
-- `js/`
-- `css/`
-- `wrangler.jsonc`
+## 2. Responsabilidades de los componentes
 
-Estos archivos solo se modifican cuando la mejora es general para toda la plataforma.
+- **`config.json`:** identidad, contenido, módulos, navegación, configuración SEO, contacto, ubicación, analítica y opciones visuales del sitio.
+- **`index.html`:** estructura HTML compartida de la instancia; contiene marcadores que el Worker completa antes de entregar la página.
+- **`js/script.js`:** comportamiento configurable del cliente, módulos, navegación, banda informativa, FAQ y eventos analíticos.
+- **`worker.js`:** carga la configuración raíz, gestiona las rutas multipágina declaradas, inyecta metadatos y configuración runtime, aplica aislamiento de contenido y sirve endpoints técnicos.
+- **`wrangler.jsonc`:** identifica el Worker y el directorio de assets que se publica.
+- **`.assetsignore`:** excluye archivos internos y contenido heredado que no debe publicarse.
 
-## Archivos por instancia
+## 3. Aislamiento y publicación de recursos
 
-Cada cliente debe disponer de:
+1. Cada cliente debe desplegarse en su propio proyecto y Worker.
+2. Las imágenes de esta arquitectura se sirven desde `/images/*` y deben pertenecer al proyecto actual.
+3. No copiar contenido, imágenes, configuraciones o código de otros clientes al proyecto sin autorización y revisión.
+4. No publicar `worker.js`, `wrangler.jsonc`, documentación Markdown, `docs/**`, `sites/**` ni `mini/**` como recursos del sitio.
+5. El Worker rechaza determinadas rutas internas, incluidas `/sites/*`, `/mini/*`, `/docs/*`, `/.git/*`, `/.wrangler/*`, archivos Markdown y archivos internos seleccionados.
+6. La exclusión de assets y el filtro de rutas son controles defensivos; no equivalen a una auditoría de penetración.
+7. No almacenar secretos en `config.json`: el endpoint `/config.json` es público y el motor necesita que el navegador pueda leer la configuración.
 
-    sites/<instanceId>/
-    ├── config.json
-    ├── custom.css        (opcional)
-    └── images/
+## 4. Familias y estado comercial
 
-`config.json` controla contenido, módulos, SEO, contacto, ubicación, galería, servicios y demás datos del negocio.
+- `siden.templateFamily` identifica la familia funcional/visual, por ejemplo `commercial` o `corporate`.
+- `estadoComercial` diferencia una demo de un sitio de cliente.
+- `modoSitio` controla si el sitio es `single` o `multi`; es independiente de la familia.
+- La familia `mini` tiene archivos y esquema propios. No asumir que las opciones corporativas se aplican automáticamente a MINI.
+- Los clientes corporativos no deben mostrar planes promocionales de SIDeN. Las FAQ del cliente solo deben mostrarse cuando estén habilitadas, tengan preguntas válidas y, en multipágina, el módulo `faq` esté incluido en la página actual.
 
-`custom.css` permite resolver diferencias visuales particulares sin modificar el CSS compartido.
+## 5. Sitio multipágina
 
-### Regla de aislamiento de instancias
+La modalidad multipágina se habilita con `modoSitio: "multi"` y un arreglo `paginas` en `config.json`. Cada ruta debe ser interna, única y explícita.
 
-1. Resolver primero cualquier cambio en el `config.json` de la instancia.
-2. Las imágenes y los recursos de una instancia deben residir en `sites/<instanceId>/images/`; el Worker los resuelve a través de `/images/*` para la instancia activa.
-3. El CSS específico debe residir en la carpeta de la instancia y exponerse mediante `/custom.css`; el Worker valida la ruta y evita segmentos `..`.
-4. No editar `index.html`, `js/` o `css/` compartidos para satisfacer una solicitud exclusiva de un cliente. Si hace falta una capacidad nueva, implementarla de forma genérica y configurable, con revisión de impacto y pruebas de regresión.
-5. Las rutas directas `/sites/*` no se exponen al navegador. El Worker carga la configuración usando el `instanceId` resuelto desde el host/registro.
-6. Una rama de prueba debe usar Preview y sus alias temporales deben permanecer fuera de la rama de producción. Antes de fusionar, probar la instancia afectada y las familias/instancias que consumen el motor compartido.
+El Worker valida antes de resolver las rutas que `paginas` sea un arreglo no vacío, que cada elemento tenga una ruta de texto local, que exista la raíz `/`, que las rutas no contengan segmentos `.` o `..`, espacios, query/hash ni barras invertidas, y que no haya rutas duplicadas después de normalizarlas. Si la configuración multipágina falla estas validaciones, devuelve HTTP 500 con `Configuración multipágina inválida.`. Esta validación básica no sustituye una revisión completa del contenido de cada página.
 
-El aislamiento de recursos está respaldado por la resolución del Worker y la estructura de archivos. La ausencia de impacto visual en todas las instancias no se considera certificada solo por inspeccionar el código: requiere pruebas de regresión representativas después de cada cambio compartido.
+El Worker debe:
+- Entregar el HTML de la página raíz y de las rutas declaradas.
+- Seleccionar título, descripción, H1 y canonical según la página cuando existan valores específicos.
+- Generar sitemap sin rutas duplicadas.
+- Devolver 404 para rutas no declaradas.
+- Mantener recursos y configuración dentro del proyecto activo.
 
-### Orden configurable de secciones
+La configuración por página puede personalizar `nombre`, `ruta`, `h1`, `slogan`, `descripcion`, `tituloSEO`, `descripcionSEO`, `modulos`, `etiquetas` y `textos`.
 
-La plantilla maestra admite opcionalmente la propiedad `ordenSecciones` en el `config.json` de una instancia.
+## 6. Métodos HTTP y endpoints públicos
 
-Ejemplo:
+El Worker es de solo lectura y acepta únicamente solicitudes `GET`. Cualquier otro método, incluida una solicitud `HEAD`, devuelve HTTP 405, con `Allow: GET` y `Cache-Control: no-store`. Esta regla aplica antes de procesar la configuración, las rutas del sitio y los endpoints técnicos.
 
-    "ordenSecciones": [
-      "nosotros",
-      "beneficios",
-      "servicios",
-      "galeria",
-      "ubicacion",
-      "soluciones",
-      "faq",
-      "contacto"
-    ]
+`/config.json` es un recurso público de lectura: no debe contener claves, contraseñas, tokens ni otros secretos. Los endpoints `/robots.txt` y `/sitemap.xml` también son públicos y deben responder únicamente a métodos de lectura.
 
-Cuando una instancia define esta propiedad, el motor reorganiza las secciones existentes de `main` según ese arreglo. Si la propiedad no existe, la plantilla conserva su orden normal.
+## 7. SEO e indexación
 
-Esta capacidad es genérica y no contiene condiciones específicas de ningún cliente. Una instancia puede utilizarla cuando necesite una secuencia distinta sin modificar nuevamente `index.html` ni introducir lógica del tipo "si es cliente X".
+- `indexable: false` produce `noindex, nofollow` en los metadatos entregados por el Worker y un sitemap válido sin URLs.
+- `indexable: true` o la ausencia del campo conserva el sitemap con la raíz y las rutas multipágina declaradas.
+- `robots.txt` incluye una referencia al sitemap. `Allow: /` permite rastreo, pero no obliga a indexar una página; la directiva `noindex` y el sitemap vacío son los controles pertinentes en este caso.
+- Para publicar un cliente real, comprobar títulos, descripción, canonical, datos estructurados, sitemap y el valor de `indexable` en Preview.
 
-### Imagen visual del Hero
+## 8. Google Analytics 4
 
-La plantilla distingue dos usos de imagen en el Hero:
+GA4 es opcional y se configura por instancia mediante `analytics.ga4.enabled` y `analytics.ga4.measurementId`. Cada cliente debe usar su propio Measurement ID cuando sus métricas deban permanecer separadas. El motor no debe enviar eventos de medición durante una sesión de Cloudflare Preview.
 
-- `heroImagenFondo`: archivo utilizado como imagen de fondo del Hero. Si no se define, el motor puede recurrir a `heroImagen` como valor alternativo de fondo.
-- `heroImagenVisual`: archivo que se muestra como imagen visual del negocio dentro del Hero.
+## 9. Regla de cambios compartidos
 
-Para mostrar la imagen visual, la instancia debe configurar `mostrarHeroImagen: true` y definir `heroImagenVisual` en su `config.json`. Si `mostrarHeroImagen` no existe o es `false`, la imagen visual debe permanecer oculta, aunque haya un archivo configurado. Las reglas CSS de la familia corporativa deben respetar el atributo HTML `hidden` y no forzar la visualización de ese elemento.
+Antes de editar `index.html`, `worker.js`, `js/` o `css/`:
 
-La corrección propuesta para este caso usa el selector `#hero-imagen-negocio:not([hidden])` en la regla CSS corporativa. La validación manual en Preview confirmó ambos estados en la instancia de prueba: imagen visible con la opción activada y oculta con la opción desactivada. La corrección está en el PR #53 y no se considera publicada hasta que se apruebe, fusione y despliegue.
+1. Determinar si la solicitud puede resolverse en `config.json`.
+2. Si es exclusivamente visual, evaluar una personalización específica del proyecto.
+3. Si requiere una capacidad nueva, diseñarla como opción genérica y configurable, no como condición codificada para un cliente.
+4. Evaluar qué familias y sitios pueden verse afectados.
+5. Probar en una rama/Worker de Preview separado de producción.
+6. Ejecutar pruebas de regresión de rutas, módulos, SEO y vistas afectadas.
+7. Actualizar la documentación después de validar los resultados.
+8. No fusionar ni desplegar a producción sin autorización explícita.
 
-## Familias de plantilla
+## 10. Flujo de creación y certificación de una instancia
 
-La propiedad `siden.templateFamily` identifica el comportamiento de la plantilla. No debe confundirse con `estadoComercial`, que distingue una demo de un sitio de cliente.
+1. Crear el proyecto desde la plantilla aprobada.
+2. Crear una rama de trabajo y un Worker de prueba.
+3. Configurar la instancia en `config.json`.
+4. Revisar que `.assetsignore` y `wrangler.jsonc` correspondan al proyecto.
+5. Desplegar a Preview y probar las rutas y los recursos.
+6. Validar contenido comercial, módulos, banda informativa, FAQ y enlaces de contacto.
+7. Revisar SEO: metadatos, canonical, robots y sitemap.
+8. Probar escritorio y móvil, además de la consola y las solicitudes fallidas.
+9. Documentar los resultados y pendientes.
+10. Publicar solo después de la aprobación del cliente y autorización del responsable.
 
-### `commercial`
+## 11. Pruebas verificadas en la rama de certificación
 
-- Usa el motor compartido `index.html`, `js/script.js` y los estilos compartidos.
-- Puede mostrar los planes SIDeN y las preguntas frecuentes de SIDeN según la configuración.
-- Es la familia usada por la instancia principal `corporativo` en `sidenred.com`.
+Pruebas reportadas por el usuario en el Worker de Preview:
 
-### `corporate`
+| Prueba | Resultado |
+|---|---|
+| Navegación entre `/`, `/perfil-profesional`, `/servicios` y `/contacto` | Correcta |
+| Recarga de rutas declaradas | Correcta |
+| Selección de módulos y ausencia de FAQ cuando la página no incluye `faq` | Correcta |
+| Ruta no declarada `/esta-pagina-no-existe` | 404 |
+| `robots.txt` | Contiene reglas y referencia al sitemap del host |
+| `sitemap.xml` con `indexable: false` | XML válido, sin URLs |
+| Solicitud HTTP `POST` a `/` | HTTP 405 confirmado por el usuario desde DevTools |
+| ID duplicados en `index.html` | No detectados en la inspección estática |
 
-- Usa el motor compartido, con presentación y estilos corporativos.
-- Una instancia con `estadoComercial: "demo"` puede mostrar los planes SIDeN y las FAQ de demostración.
-- Un sitio de cliente no debe mostrar los planes SIDeN; sus FAQ solo deben mostrarse cuando estén activadas y tengan preguntas/respuestas válidas.
-- La familia puede recibir `custom.css` de la instancia, sin cambiar los estilos de las demás.
+## 12. Límites y pendientes
 
-### `mini`
+- La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
+- La carga de imágenes sigue pendiente porque el proyecto de prueba no contiene imágenes disponibles.
+- No se ha validado visualmente toda combinación de familia, módulo y configuración.
+- La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
+- La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
+- Antes de utilizar esta arquitectura como estándar definitivo, completar la reconciliación de documentos históricos y verificar que las instrucciones operativas apuntan a este modelo independiente.
+- La rama de certificación no implica publicación en producción.
 
-- Usa una implementación separada: `/mini/index.html`, `/mini/script.js` y `/mini/style.css`.
-- Su esquema de configuración tiene estructura propia (por ejemplo, `hero`, `productosServicios`, `contacto`, `apariencia` e `identidad`). No se debe asumir que todas las propiedades del esquema corporativo aplican a MINI.
-- El Worker selecciona `/mini/index.html` cuando `templateFamily === "mini"`.
 
-### Reglas de separación
+## 13. Registro Maestro de instancias y análisis de impacto
 
-- `templateFamily` determina la familia funcional/visual.
-- `estadoComercial` determina el estado de demostración comercial; no sustituye a `templateFamily`.
-- `modoSitio` (`single` o `multi`) determina si la instancia funciona como página única o multipágina; es independiente de la familia.
-- Las correcciones a un archivo compartido deben probar al menos la familia directamente afectada y las otras familias que comparten ese archivo. MINI debe probarse con sus archivos propios cuando el cambio le afecte.
-- La inspección del código confirma que estas condiciones están implementadas; la certificación visual completa de todas las combinaciones requiere ejecutar las pruebas de regresión descritas en el informe de auditoría.
+Antes de modificar archivos compartidos de la plantilla, identificar los proyectos que consumen la capacidad afectada y revisar sus configuraciones reales. Una ficha ausente o incompleta no demuestra que una instancia no será afectada.
 
-## SIDeN WEB multipágina
+1. Resolver primero si el cambio puede realizarse con `config.json`.
+2. Para personalizaciones visuales exclusivas, preferir una solución aislada del proyecto en lugar de modificar lógica global.
+3. Si se requiere una capacidad nueva, implementarla de forma genérica y configurable.
+4. Registrar los proyectos/familias que podrían verse afectados y definir las pruebas de regresión correspondientes.
+5. No fusionar ni desplegar cambios en producción sin autorización explícita.
+6. Actualizar la documentación después de validar los resultados en Preview.
 
-La modalidad multipágina se configura por instancia con `modoSitio: "multi"` y un arreglo `paginas`. El modo `single` conserva el comportamiento de página única.
+El archivo de Registro Maestro de instancias se debe reconciliar con la rama y el commit que se estén certificando antes de tratarlo como evidencia vigente. Los datos no verificados deben identificarse como pendientes.
 
-Cada objeto de `paginas` debe declarar como mínimo una ruta interna absoluta, única y válida, además del nombre/contenido correspondiente. Se pueden configurar campos de página como `nombre`, `ruta`, `h1`, `slogan`, `descripcion`, `tituloSEO` y `descripcionSEO`. Las propiedades de página complementan/sobrescriben los datos generales para esa ruta; las etiquetas y textos se combinan con los valores globales.
+## 14. Funcionalidades heredadas no asumidas por el modelo independiente
 
-### Comportamiento implementado
+Las siguientes instrucciones del documento histórico no deben tratarse como funcionalidades disponibles en el modelo independiente hasta implementarlas y probarlas expresamente en esta rama:
 
-- El Worker acepta la ruta raíz y las rutas declaradas en `paginas`; para las rutas no declaradas no genera una página multipágina.
-- Se validan rutas internas para impedir rutas vacías, rutas que empiezan por `//`, barras invertidas, saltos de línea y destinos con origen distinto.
-- La navegación multipágina se construye a partir del arreglo `paginas`; el enlace del logotipo lleva a la raíz del sitio.
-- En una página interna se oculta el Hero principal y se presenta una cabecera interna con nombre y descripción de la página.
-- El Worker selecciona metadatos SEO por página cuando están definidos y genera un canonical para la ruta actual.
-- El sitemap incluye la raíz y las rutas multipágina válidas sin duplicados.
-- En Preview, los enlaces de navegación y los recursos compartidos propagan el parámetro `site` para que las solicitudes sigan resolviendo la instancia de prueba.
-- Las imágenes y el CSS personalizado siguen resolviéndose dentro de la instancia; la modalidad multipágina no debe mezclar recursos de clientes.
+- Configuración de instancias bajo `sites/<instanceId>/`.
+- Resolución central mediante `sites/registry.json` o parámetros `?site=`.
+- Carga de `custom.css` desde una carpeta por instancia.
+- Selección automática de `/mini/index.html` dentro del mismo Worker.
+- Garantías de propagación de cambios entre proyectos mediante archivos compartidos.
 
-### Condiciones de aceptación antes de producción
+Si se desea recuperar alguna de estas capacidades, debe diseñarse como un requisito nuevo, evaluarse el impacto y probarse sin asumir que el código histórico continúa vigente.
 
-Para certificar una nueva instancia multipágina, probar en Preview, al menos:
+## 15. Historial de certificación y cambios recientes
 
-1. La raíz carga correctamente y el menú contiene las páginas declaradas.
-2. Cada enlace lleva a su ruta y presenta el contenido de esa página, no el de otra.
-3. El logotipo regresa a la raíz.
-4. Una ruta no declarada no muestra accidentalmente una página válida.
-5. Títulos, descripción, H1 y canonical cambian según la página.
-6. `sitemap.xml` contiene la raíz y las rutas declaradas; `robots.txt` respeta `indexable`.
-7. Las imágenes, enlaces de WhatsApp y CSS personalizado funcionan en todas las páginas.
-8. En Preview, la navegación no pierde el contexto `?site=<instanceId>`.
-9. Probar escritorio y móvil, y revisar consola/solicitudes fallidas.
+- Validación defensiva de rutas multipágina: commit `1f0a6902223e37f03f806c3ce4760436b709498c`.
+- Sitemap compatible con `indexable: false`: commit `12b29dfd055fb000deca4fe09a19e09d3a48bd38`.
+- Restricción del Worker a solicitudes `GET`, con HTTP 405 para otros métodos: commit `517b4fcd4149bb8859f4adef15fbc8abdb564771`.
+- Registro de prueba HTTP POST en la auditoría: commit `db524bbb12d10002204b23a063e7225cb0f49828`.
+- Actualización del registro de certificación: commit `dca980a2e3d759cf7921c8c85933fa1b9318d12c`.
 
-La inspección de la implementación confirma que el soporte multipágina existe en el Worker y en `js/script.js`. En la revisión actual, las configuraciones de las instancias consultadas (SIDeN corporativo, FISIOKINESV y Dr. Carlos Leopoldo Reyes) están en `modoSitio: "single"`; por tanto, la auditoría de código no equivale a una prueba de extremo a extremo con una instancia multipágina real. Antes de certificar el plan Profesional de Dr. Carlos Reyes, esta lista deberá ejecutarse en su Preview multipágina.
+## 16. Criterio de certificación
 
-## Instancia corporativa
+La arquitectura no se considera certificada únicamente por esta documentación. La certificación requiere código revisado, pruebas funcionales en Preview, regresión de los comportamientos afectados, documentación consistente y revisión de una instancia de cliente representativa.
 
-SIDeN corporativo también se comporta como una instancia:
-
-    sidenred.com
-       ↓
-    instanceId = corporativo
-       ↓
-    /sites/corporativo/config.json
-
-Esto elimina la excepción anterior del `config.json` raíz.
-
-## Configuración raíz
-
-`/config.json` queda únicamente como configuración de demostración de la plantilla maestra. Está marcada como `indexable: false` y no representa a un cliente real.
-
-## Resolución del Worker
-
-El Worker determina el `instanceId` a partir del host y carga exclusivamente:
-
-    /sites/<instanceId>/config.json
-
-Las imágenes solicitadas mediante `/images/*` se resuelven internamente contra la misma instancia.
-
-Las hojas `custom.css` se sirven mediante `/custom.css` y el Worker las resuelve contra la instancia activa.
-
-Las rutas internas `/sites/*` no se sirven directamente al navegador.
-
-## Regla de desarrollo
-
-Si un cliente solicita un cambio:
-
-1. Resolverlo primero mediante `config.json`.
-2. Si es visual, utilizar `custom.css`.
-3. Si necesita imágenes, agregarlas a `sites/<instanceId>/images/`.
-4. Si la capacidad no existe, agregarla al motor compartido de forma genérica y configurable.
-5. Nunca copiar el HTML/CSS/JS de un cliente sobre los archivos raíz.
-
-### Validación previa a producción
-
-Toda instancia nueva o reincorporada debe validarse visualmente en el Preview de su rama antes de realizar el merge hacia la rama de producción. La configuración de producción no debe modificarse para realizar esta prueba.
-
-## Resultado
-
-Un cambio de Benítez Gutiérrez, FerreHogar o cualquier cliente futuro no debe alterar el motor ni el contenido de otra instancia.
-
-Esta separación permite que la plantilla maestra evolucione sin perder las personalizaciones de los clientes ya publicados.
-
-## Google Analytics 4
-
-GA4 se incorpora como capacidad transversal, opcional y configurable por instancia. El ID de medición no se incrusta en `index.html`, `worker.js` ni en lógica específica del cliente.
-
-La configuración reside en cada `sites/<instanceId>/config.json` mediante:
-
-    "analytics": {
-      "ga4": {
-        "enabled": false,
-        "measurementId": ""
-      }
-    }
-
-Cuando `enabled` es verdadero y `measurementId` tiene un formato válido, el motor compartido carga la etiqueta de Google y habilita la medición. Si no existe configuración válida, la instancia continúa funcionando sin Analytics.
-
-Cada cliente debe utilizar su propio measurementId cuando se requiera aislamiento de estadísticas por cliente. Las páginas SIDeN MINI utilizan el mismo principio y el mismo esquema de configuración.
-
-### Eventos SIDeN
-
-- `whatsapp_click`: clic en un enlace de WhatsApp.
-- `phone_click`: clic en un enlace telefónico.
-- `contact_save`: Guardar contacto en SIDeN WEB.
-- `share`: Compartir negocio.
-- `directions_click`: Cómo llegar.
-
-GA4 también puede recopilar `page_view` y otras mediciones automáticas/mejoradas configuradas en el flujo web.
-
-### Regla de Preview
-
-Cuando el sitio se prueba mediante Cloudflare Preview con `?site=<instanceId>`, GA4 no debe enviar datos a la propiedad de producción. Esta condición es obligatoria para evitar contaminar las estadísticas reales.
-
-### Seguridad y privacidad
-
-Los eventos solo deben transportar parámetros técnicos necesarios, como `instance_id`, `template_family` y `button_id/content_type`. No se debe enviar información personal identificable mediante GA4.
-
-La integración de GA4 debe mantenerse genérica, configurable, retrocompatible y sometida al mismo proceso de Preview, validación y PR que cualquier cambio del motor compartido.
-
-## Registro Maestro y análisis de impacto de instancias (regla obligatoria)
-
-Antes de modificar cualquier dependencia compartida, consultar el **Registro Maestro de Instancias SIDeN** y seguir el procedimiento definido en `docs/arquitectura/REGLA_OBLIGATORIA_FICHAS_INSTANCIAS.md`.
-
-El Registro Maestro resume instancias, dependencias e historial de cambios. Se consultan únicamente las fichas detalladas pertinentes según el análisis de impacto, pero siempre se buscan consumidores en el código real y se ejecutan pruebas de regresión. Un campo vacío o una ficha ausente nunca prueba que una instancia no será afectada.
-
-Las instancias con personalización Nivel 2 o Nivel 3 requieren ficha detallada antes de aprobar/publicar. Al cerrar cada cambio se actualizan el Registro Maestro, las dependencias y las fichas afectadas. Los datos no verificados deben permanecer marcados como pendientes.
-
-**Estado del registro:** el archivo Excel de trabajo inicial se ha entregado por separado y requiere revisión/reconciliación con la rama y el commit que se auditen. No tratar el borrador como certificación runtime ni asumir que está versionado en este repositorio hasta que se incorpore formalmente.
-
-
----
-
-## Addendum de certificación — arquitectura independiente V1.5 (16-10-2026)
-
-**Este addendum prevalece sobre las secciones anteriores que describen el enrutamiento legado mediante `sites/<instanceId>` y `sites/registry.json`.** La rama `prueba-aislamiento-contenido-v1.5` corresponde al modelo de proyecto independiente validado en las pruebas recientes:
-
-- Cada proyecto despliega su propio Worker y su propio `config.json` en la raíz del proyecto.
-- `worker.js` utiliza `sitePrefix = ""`; no resuelve configuración, imágenes ni CSS desde `/sites/<instanceId>`.
-- `.assetsignore` excluye `sites/**`, `mini/**`, documentación y archivos internos del paquete de assets.
-- El Worker devuelve 404 para rutas privadas como `/sites/*`, `/mini/*`, `/docs/*`, `/.git/*`, `/.wrangler/*`, archivos Markdown y archivos internos seleccionados.
-- Las rutas multipágina se toman de `config.json`; el contenido de módulos y FAQ se decide por la configuración global y la lista de módulos de la página actual.
-- El Worker elimina las secciones comerciales SIDeN del HTML entregado a clientes corporativos y retira el contenido FAQ predeterminado del HTML antes de inyectar la configuración runtime.
-
-### Corrección de sitemap
-
-El Worker se actualizó en la rama de prueba para que, cuando `indexable: false`, el sitemap no enumere páginas del sitio. Cuando `indexable` es verdadero o no está definido, el sitemap incluye la raíz y las rutas multipágina configuradas sin duplicados. La corrección fue confirmada por el usuario en Preview el 17-10-2026: con `indexable: false`, `/sitemap.xml` muestra un XML válido con `urlset` vacío.
-
-### Límites de certificación
-
-La revisión del código no sustituye las pruebas de navegador. Se consideran verificadas por el usuario las rutas `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga y la selección de módulos; no se afirma haber ejecutado una matriz visual completa de todas las familias ni todas las combinaciones de configuración. La arquitectura independiente debe mantenerse separada de producción hasta reconciliar las instrucciones históricas, completar las pruebas de regresión representativas y resolver los pendientes documentados.
-
-
-### Actualización de certificación — 17-10-2026
-
-Esta actualización registra las pruebas realizadas después del addendum inicial del 16-10-2026 y prevalece sobre los estados de prueba anteriores que indiquen que estas comprobaciones siguen pendientes.
-
-- Navegación de `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga: confirmada por el usuario en Preview.
-- Ruta no declarada `/esta-pagina-no-existe`: devuelve 404.
-- `/sitemap.xml` con `indexable: false`: muestra un XML válido con `urlset` vacío, sin URLs.
-- `/robots.txt`: contiene `User-agent: *`, `Allow: /` y referencia al sitemap del mismo host.
-- Solicitud real `fetch("/", { method: "POST" })` desde Chrome DevTools: devuelve HTTP 405, confirmado por el usuario.
-- Imágenes: no verificadas, porque la configuración de prueba no contiene imágenes disponibles.
-
-El control de métodos HTTP se incorporó en el commit `517b4fcd4149bb8859f4adef15fbc8abdb564771` de la rama de certificación. La documentación operativa se actualizó en los commits `9e0906760146c272274ae8c7e90d681c0440464c`, `db524bbb12d10002204b23a063e7225cb0f49828` y `f3a3edbb44d2a2cf1113acd52c106182e7658aad`.
-
-**Estado actual:** continúan pendientes la reconciliación completa de las instrucciones históricas con el modelo independiente, la verificación de imágenes cuando haya recursos disponibles y una regresión representativa de la configuración de cliente real. Estas pruebas no equivalen a una auditoría de seguridad integral ni autorizan cambios o despliegues en producción.
+**Estado actual: certificación en curso.** Navegación multipágina, rutas inexistentes, sitemap, robots y rechazo de POST han sido comprobados por el usuario en Preview. La prueba de imágenes está pendiente porque la configuración de prueba no incluye imágenes. Falta una regresión representativa con una instancia real y terminar de validar los comportamientos que no están cubiertos por las pruebas actuales.
