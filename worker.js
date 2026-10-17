@@ -3,11 +3,11 @@ export default {
         const url = new URL(request.url);
         const host = url.hostname.toLowerCase();
 
-        // Este sitio es de solo lectura: permitir únicamente GET y HEAD.
-        if (!["GET", "HEAD"].includes(request.method)) {
+        // Este Worker sirve un sitio estático de solo lectura mediante GET.
+        if (request.method !== "GET") {
             return new Response("Método no permitido.", {
                 status: 405,
-                headers: { "Allow": "GET, HEAD", "Cache-Control": "no-store", "Content-Type": "text/plain; charset=UTF-8" }
+                headers: { "Allow": "GET", "Cache-Control": "no-store", "Content-Type": "text/plain; charset=UTF-8" }
             });
         }
 
