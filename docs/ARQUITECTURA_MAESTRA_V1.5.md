@@ -234,3 +234,25 @@ El Registro Maestro resume instancias, dependencias e historial de cambios. Se c
 Las instancias con personalización Nivel 2 o Nivel 3 requieren ficha detallada antes de aprobar/publicar. Al cerrar cada cambio se actualizan el Registro Maestro, las dependencias y las fichas afectadas. Los datos no verificados deben permanecer marcados como pendientes.
 
 **Estado del registro:** el archivo Excel de trabajo inicial se ha entregado por separado y requiere revisión/reconciliación con la rama y el commit que se auditen. No tratar el borrador como certificación runtime ni asumir que está versionado en este repositorio hasta que se incorpore formalmente.
+
+
+---
+
+## Addendum de certificación — arquitectura independiente V1.5 (16-10-2026)
+
+**Este addendum prevalece sobre las secciones anteriores que describen el enrutamiento legado mediante `sites/<instanceId>` y `sites/registry.json`.** La rama `prueba-aislamiento-contenido-v1.5` corresponde al modelo de proyecto independiente validado en las pruebas recientes:
+
+- Cada proyecto despliega su propio Worker y su propio `config.json` en la raíz del proyecto.
+- `worker.js` utiliza `sitePrefix = ""`; no resuelve configuración, imágenes ni CSS desde `/sites/<instanceId>`.
+- `.assetsignore` excluye `sites/**`, `mini/**`, documentación y archivos internos del paquete de assets.
+- El Worker devuelve 404 para rutas privadas como `/sites/*`, `/mini/*`, `/docs/*`, `/.git/*`, `/.wrangler/*`, archivos Markdown y archivos internos seleccionados.
+- Las rutas multipágina se toman de `config.json`; el contenido de módulos y FAQ se decide por la configuración global y la lista de módulos de la página actual.
+- El Worker elimina las secciones comerciales SIDeN del HTML entregado a clientes corporativos y retira el contenido FAQ predeterminado del HTML antes de inyectar la configuración runtime.
+
+### Corrección de sitemap
+
+El Worker se actualizó en la rama de prueba para que, cuando `indexable: false`, el sitemap no enumere páginas del sitio. Cuando `indexable` es verdadero o no está definido, el sitemap incluye la raíz y las rutas multipágina configuradas sin duplicados. Esta corrección necesita confirmación en el despliegue Preview de la rama antes de darla por validada funcionalmente.
+
+### Límites de certificación
+
+La revisión del código no sustituye las pruebas de navegador. Se consideran verificadas por el usuario las rutas `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga y la selección de módulos; no se afirma haber ejecutado una matriz visual completa de todas las familias ni todas las combinaciones de configuración. La arquitectura independiente debe mantenerse separada de producción hasta completar la comprobación del sitemap y cerrar los pendientes documentados.
