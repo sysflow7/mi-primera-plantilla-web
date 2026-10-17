@@ -125,6 +125,16 @@
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#39;");
         };
+        // Acepta únicamente URLs absolutas HTTPS para enlaces externos configurables.
+        const urlHttpsValida = function (valor) {
+            if (typeof valor !== "string" || !valor.trim()) return "";
+            try {
+                const url = new URL(valor.trim());
+                return url.protocol === "https:" && url.hostname ? url.href : "";
+            } catch (error) {
+                return "";
+            }
+        };
         const setText = function (id, value) {
             const elemento = document.getElementById(id);
             if (elemento && value !== undefined && value !== null) elemento.textContent = value;
@@ -389,9 +399,19 @@
             }
         }
         const facebook = document.getElementById("facebook-negocio");
-        if (facebook) { facebook.href = negocioBase.facebook || "#"; facebook.hidden = !(negocioBase.facebook && negocioBase.facebook.startsWith("http")); }
+        if (facebook) {
+            const urlFacebook = urlHttpsValida(negocioBase.facebook);
+            facebook.href = urlFacebook || "#";
+            facebook.hidden = !urlFacebook;
+            if (urlFacebook) { facebook.target = "_blank"; facebook.rel = "noopener noreferrer"; }
+        }
         const instagram = document.getElementById("instagram-negocio");
-        if (instagram) { instagram.href = negocioBase.instagram || "#"; instagram.hidden = !(negocioBase.instagram && negocioBase.instagram.startsWith("http")); }
+        if (instagram) {
+            const urlInstagram = urlHttpsValida(negocioBase.instagram);
+            instagram.href = urlInstagram || "#";
+            instagram.hidden = !urlInstagram;
+            if (urlInstagram) { instagram.target = "_blank"; instagram.rel = "noopener noreferrer"; }
+        }
         const maps = document.getElementById("maps-negocio");
         if (maps) {
             const mapsUrl = String(negocioBase.maps || "").trim();
@@ -468,9 +488,19 @@
         const telefonoUbicacion = document.getElementById("telefono-ubicacion");
         if (telefonoUbicacion) telefonoUbicacion.hidden = !String(negocioBase.telefono || "").trim();
         const paginaUbicacion = document.getElementById("pagina-ubicacion");
-        if (paginaUbicacion) { paginaUbicacion.href = negocioBase.maps || "#"; paginaUbicacion.hidden = !(negocioBase.maps && negocioBase.maps.startsWith("http")); }
+        if (paginaUbicacion) {
+            const urlUbicacion = urlHttpsValida(negocioBase.maps);
+            paginaUbicacion.href = urlUbicacion || "#";
+            paginaUbicacion.hidden = !urlUbicacion;
+            if (urlUbicacion) { paginaUbicacion.target = "_blank"; paginaUbicacion.rel = "noopener noreferrer"; }
+        }
         const catalogo = document.getElementById("catalogo-negocio");
-        if (catalogo) { catalogo.href = negocioBase.catalogo || "#"; catalogo.hidden = !(negocioBase.catalogo && negocioBase.catalogo.startsWith("http")); }
+        if (catalogo) {
+            const urlCatalogo = urlHttpsValida(negocioBase.catalogo);
+            catalogo.href = urlCatalogo || "#";
+            catalogo.hidden = !urlCatalogo;
+            if (urlCatalogo) { catalogo.target = "_blank"; catalogo.rel = "noopener noreferrer"; }
+        }
 
         // PERFIL
         const perfil = negocio.perfil || {};
