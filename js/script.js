@@ -543,8 +543,11 @@
             ["¿Puedo agregar más cosas después?", "Sí. La idea es construir una base que pueda crecer con las necesidades de tu negocio. Las funciones adicionales pueden cotizarse por separado."],
             ["¿Cuánto tiempo dura el servicio?", "Los planes se contratan por 12 meses e incluyen hosting, SSL, mantenimiento básico, soporte básico y las condiciones de actualización indicadas en cada plan. La renovación anual se realiza para continuar con el servicio."]
         ];
-        showModule("faq", mostrarFAQ);
-        if (mostrarFAQ) {
+        // En sitios multipágina, las FAQ solo se muestran si la ruta actual incluye el módulo "faq".
+        // En sitios de una sola página se conserva el comportamiento existente.
+        const mostrarFAQEnPagina = mostrarFAQ && (!esMulti || modulos.includes("faq"));
+        showModule("faq", mostrarFAQEnPagina);
+        if (mostrarFAQEnPagina) {
             const faqTitulo = faqConfig.titulo || etiquetas.faq || "Preguntas frecuentes";
             setText("titulo-faq", faqTitulo);
             const faqLista = document.getElementById("lista-faq");
