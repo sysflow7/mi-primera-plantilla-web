@@ -85,3 +85,24 @@ La inspección del Worker de la rama independiente detectó que `/sitemap.xml` i
 
 ### Aclaración de arquitectura
 El documento histórico contiene secciones que describen el modelo anterior con `sites/<instanceId>/config.json` y `sites/registry.json`. Ese modelo no corresponde a la rama independiente V1.5 auditada aquí, que sirve el `config.json` raíz y usa un Worker por proyecto. Se añadió un addendum a `ARQUITECTURA_MAESTRA_V1.5.md` para marcar explícitamente esta diferencia; las secciones históricas deben reconciliarse en una revisión documental posterior antes de declarar el documento completamente unificado.
+
+
+## Registro de pruebas manuales posteriores (16-10-2026)
+
+Pruebas ejecutadas por el usuario en el Worker de Preview `siden-prueba-cliente-multipagina-v15`:
+
+| Prueba | Resultado observado | Estado |
+|---|---|---|
+| Ruta no declarada `/esta-pagina-no-existe` | Devuelve 404 | Aprobada |
+| `/robots.txt` | Incluye `User-agent: *`, `Allow: /` y referencia al sitemap de ese host | Aprobada |
+| `/sitemap.xml` con `indexable: false` | XML válido con `urlset` vacío, sin URLs | Aprobada |
+
+### Revisión estática adicional
+- `.assetsignore` excluye documentación, archivos internos y las carpetas heredadas `sites/**` y `mini/**` del paquete de assets.
+- El Worker bloquea rutas privadas seleccionadas y rechaza rutas cuyo percent-decoding falla.
+- El Worker aplica `noindex, nofollow` cuando `indexable: false` y el sitemap ahora respeta ese mismo indicador.
+- Se inspeccionó el HTML por IDs duplicados; no se encontraron IDs duplicados en la plantilla revisada.
+- Las pruebas anteriores no constituyen una auditoría de penetración ni una certificación visual completa de todas las familias/configuraciones.
+
+### Pendiente documental
+El archivo de arquitectura contiene material histórico que describe la arquitectura compartida basada en `sites/<instanceId>`, mientras que la rama auditada corresponde a un proyecto independiente con `config.json` en raíz. El addendum ya distingue ambos modelos, pero aún se debe consolidar el documento para evitar que un operador siga instrucciones históricas incompatibles con el despliegue independiente.
