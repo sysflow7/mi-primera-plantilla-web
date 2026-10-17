@@ -21,14 +21,19 @@
         // ==================================================
         // SIDEN - GOOGLE ANALYTICS 4
         // La medición es opcional y se configura por instancia.
-        // No se cargan datos de GA4 durante Cloudflare Preview (?site=).
+        // No se cargan datos de GA4 en Preview por parámetro ?site=, workers.dev, pages.dev o localhost.
         // ==================================================
         const analyticsConfig = negocioBase.analytics && negocioBase.analytics.ga4
             ? negocioBase.analytics.ga4
             : {};
         const ga4MeasurementId = String(analyticsConfig.measurementId || "").trim();
         const ga4Enabled = analyticsConfig.enabled !== false && /^G-[A-Z0-9]+$/i.test(ga4MeasurementId);
-        const esCloudflarePreview = !!previewSite;
+        const hostActual = window.location.hostname.toLowerCase();
+        const esHostPreview = hostActual.endsWith(".workers.dev") ||
+            hostActual.endsWith(".pages.dev") ||
+            hostActual === "localhost" ||
+            hostActual === "127.0.0.1";
+        const esCloudflarePreview = !!previewSite || esHostPreview;
 
         if (ga4Enabled && !esCloudflarePreview) {
             window.dataLayer = window.dataLayer || [];
