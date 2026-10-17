@@ -147,3 +147,7 @@ La lógica de `js/script.js` debe evitar el envío de eventos cuando la página 
 - La política HTTP GET se aplica al inicio del Worker, antes de resolver configuración, páginas o endpoints técnicos. Los recursos estáticos se siguen delegando a `ASSETS` mediante las rutas normales.
 - Se identificó y corrigió la detección insuficiente de Preview para GA4. La nueva condición cubre `workers.dev`, `pages.dev`, `localhost`, `127.0.0.1` y el parámetro heredado `?site=`. Commit de código: `4d845202005dcd0df0a4bee9513332c856fb7502`.
 - La protección de GA4 sigue pendiente de prueba funcional después de desplegar esta revisión en el Worker de Preview. No se ha comprobado todavía mediante Network/Realtime que no se cargue `gtag.js` ni se envíen eventos.
+
+### Validación de enlaces externos configurables — 17-10-2026
+
+Se actualizó `js/script.js` para validar las URLs configurables de Facebook, Instagram, ubicación y catálogo: solo se aceptan URLs absolutas con protocolo HTTPS y host válido. Cuando el valor no cumple la validación, el enlace se oculta y se establece `#` como destino de reserva. Los enlaces externos visibles se configuran con `target="_blank"` y `rel="noopener noreferrer"`. Cambio guardado en el commit `d54be281002a718d040df0f31cb5886a39ea1b36`. La validación es estática; requiere comprobación funcional en Preview.
