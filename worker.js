@@ -68,12 +68,16 @@ export default {
         }
 
         if (url.pathname === "/sitemap.xml") {
-            const rutas = ["/"];
-            if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)) {
-                negocio.paginas.forEach(pagina => {
-                    const ruta = rutaNormalizada(pagina.ruta);
-                    if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
-                });
+            // No incluir páginas marcadas como no indexables en el sitemap.
+            const rutas = [];
+            if (negocio.indexable !== false) {
+                rutas.push("/");
+                if (negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)) {
+                    negocio.paginas.forEach(pagina => {
+                        const ruta = rutaNormalizada(pagina.ruta);
+                        if (ruta !== "/" && !rutas.includes(ruta)) rutas.push(ruta);
+                    });
+                }
             }
             const contenido = '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
