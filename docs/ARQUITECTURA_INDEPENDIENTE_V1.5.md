@@ -138,3 +138,12 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 ### Protección de GA4 en Preview (revisión estática 17-10-2026)
 
 La lógica de `js/script.js` debe evitar el envío de eventos cuando la página se sirve desde una URL de prueba. Además del parámetro heredado `?site=`, la detección ahora considera los hosts `*.workers.dev`, `*.pages.dev`, `localhost` y `127.0.0.1`. Esto previene que un Worker de Preview con GA4 habilitado contamine las métricas del sitio de producción. La modificación está en el commit `4d845202005dcd0df0a4bee9513332c856fb7502` y requiere comprobarse en Preview antes de considerarla validada funcionalmente.
+
+
+### Revisión estática complementaria — 17-10-2026
+
+- Se revisaron las asignaciones `innerHTML` de `js/script.js`. Las tarjetas dinámicas inspeccionadas escapan los valores de contenido antes de interpolarlos en HTML; la lista de preguntas frecuentes usa `textContent`. Esta inspección no sustituye una prueba de seguridad completa.
+- Los enlaces externos que usan `target="_blank"` en las zonas inspeccionadas incluyen `rel="noopener noreferrer"`.
+- La política HTTP GET se aplica al inicio del Worker, antes de resolver configuración, páginas o endpoints técnicos. Los recursos estáticos se siguen delegando a `ASSETS` mediante las rutas normales.
+- Se identificó y corrigió la detección insuficiente de Preview para GA4. La nueva condición cubre `workers.dev`, `pages.dev`, `localhost`, `127.0.0.1` y el parámetro heredado `?site=`. Commit de código: `4d845202005dcd0df0a4bee9513332c856fb7502`.
+- La protección de GA4 sigue pendiente de prueba funcional después de desplegar esta revisión en el Worker de Preview. No se ha comprobado todavía mediante Network/Realtime que no se cargue `gtag.js` ni se envíen eventos.
