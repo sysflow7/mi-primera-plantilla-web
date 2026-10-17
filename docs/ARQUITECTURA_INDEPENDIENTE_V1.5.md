@@ -66,18 +66,24 @@ El Worker debe:
 
 La configuración por página puede personalizar `nombre`, `ruta`, `h1`, `slogan`, `descripcion`, `tituloSEO`, `descripcionSEO`, `modulos`, `etiquetas` y `textos`.
 
-## 6. SEO e indexación
+## 6. Métodos HTTP y endpoints públicos
+
+El Worker es de solo lectura y acepta únicamente solicitudes `GET` y `HEAD`. Cualquier otro método devuelve HTTP 405, con `Allow: GET, HEAD` y `Cache-Control: no-store`. Esta regla aplica antes de procesar la configuración, las rutas del sitio y los endpoints técnicos.
+
+`/config.json` es un recurso público de lectura: no debe contener claves, contraseñas, tokens ni otros secretos. Los endpoints `/robots.txt` y `/sitemap.xml` también son públicos y deben responder únicamente a métodos de lectura.
+
+## 7. SEO e indexación
 
 - `indexable: false` produce `noindex, nofollow` en los metadatos entregados por el Worker y un sitemap válido sin URLs.
 - `indexable: true` o la ausencia del campo conserva el sitemap con la raíz y las rutas multipágina declaradas.
 - `robots.txt` incluye una referencia al sitemap. `Allow: /` permite rastreo, pero no obliga a indexar una página; la directiva `noindex` y el sitemap vacío son los controles pertinentes en este caso.
 - Para publicar un cliente real, comprobar títulos, descripción, canonical, datos estructurados, sitemap y el valor de `indexable` en Preview.
 
-## 7. Google Analytics 4
+## 8. Google Analytics 4
 
 GA4 es opcional y se configura por instancia mediante `analytics.ga4.enabled` y `analytics.ga4.measurementId`. Cada cliente debe usar su propio Measurement ID cuando sus métricas deban permanecer separadas. El motor no debe enviar eventos de medición durante una sesión de Cloudflare Preview.
 
-## 8. Regla de cambios compartidos
+## 9. Regla de cambios compartidos
 
 Antes de editar `index.html`, `worker.js`, `js/` o `css/`:
 
@@ -90,7 +96,7 @@ Antes de editar `index.html`, `worker.js`, `js/` o `css/`:
 7. Actualizar la documentación después de validar los resultados.
 8. No fusionar ni desplegar a producción sin autorización explícita.
 
-## 9. Flujo de creación y certificación de una instancia
+## 10. Flujo de creación y certificación de una instancia
 
 1. Crear el proyecto desde la plantilla aprobada.
 2. Crear una rama de trabajo y un Worker de prueba.
@@ -103,7 +109,7 @@ Antes de editar `index.html`, `worker.js`, `js/` o `css/`:
 9. Documentar los resultados y pendientes.
 10. Publicar solo después de la aprobación del cliente y autorización del responsable.
 
-## 10. Pruebas verificadas en la rama de certificación
+## 11. Pruebas verificadas en la rama de certificación
 
 Pruebas reportadas por el usuario en el Worker de Preview:
 
@@ -117,7 +123,7 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 | `sitemap.xml` con `indexable: false` | XML válido, sin URLs |
 | ID duplicados en `index.html` | No detectados en la inspección estática |
 
-## 11. Límites y pendientes
+## 12. Límites y pendientes
 
 - La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
 - No se ha validado visualmente toda combinación de familia, módulo y configuración.
