@@ -68,7 +68,7 @@ La configuración por página puede personalizar `nombre`, `ruta`, `h1`, `slogan
 
 ## 6. Métodos HTTP y endpoints públicos
 
-El Worker es de solo lectura y acepta únicamente solicitudes `GET` y `HEAD`. Cualquier otro método devuelve HTTP 405, con `Allow: GET, HEAD` y `Cache-Control: no-store`. Esta regla aplica antes de procesar la configuración, las rutas del sitio y los endpoints técnicos.
+El Worker es de solo lectura y acepta únicamente solicitudes `GET`. Cualquier otro método, incluida una solicitud `HEAD`, devuelve HTTP 405, con `Allow: GET` y `Cache-Control: no-store`. Esta regla aplica antes de procesar la configuración, las rutas del sitio y los endpoints técnicos.
 
 `/config.json` es un recurso público de lectura: no debe contener claves, contraseñas, tokens ni otros secretos. Los endpoints `/robots.txt` y `/sitemap.xml` también son públicos y deben responder únicamente a métodos de lectura.
 
