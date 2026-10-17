@@ -113,3 +113,10 @@ El archivo de arquitectura contiene material histórico que describe la arquitec
 Se creó `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md` como guía operativa coherente con el modelo de proyecto independiente. Para nuevos trabajos sobre la rama de certificación, utilizar ese documento en lugar de las instrucciones históricas de enrutamiento por `sites/<instanceId>`.
 
 La arquitectura independiente continúa en estado de **certificación en curso**: las pruebas manuales registradas son satisfactorias, pero aún falta una matriz de regresión más amplia y la validación completa de una instancia real del plan Profesional en su Preview. No se debe interpretar la creación de esta guía como autorización para modificar o desplegar producción.
+
+
+## Registro de validación HTTP (17-10-2026)
+
+El usuario ejecutó desde Chrome DevTools una solicitud `fetch("/", { method: "POST" })` contra el Worker de Preview. Resultado observado: `405 (Method Not Allowed)` y `Código HTTP: 405`. Se considera aprobada la prueba del rechazo de métodos distintos de `GET`.
+
+El usuario confirma que las rutas multipágina funcionan y que `/robots.txt` y `/sitemap.xml` responden correctamente. La prueba de imágenes permanece pendiente porque el proyecto de prueba no tiene imágenes disponibles. La arquitectura sigue en certificación; estos resultados no equivalen a una auditoría de seguridad integral ni autorizan despliegues en producción.
