@@ -258,3 +258,19 @@ El Worker se actualizó en la rama de prueba para que, cuando `indexable: false`
 ### Límites de certificación
 
 La revisión del código no sustituye las pruebas de navegador. Se consideran verificadas por el usuario las rutas `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga y la selección de módulos; no se afirma haber ejecutado una matriz visual completa de todas las familias ni todas las combinaciones de configuración. La arquitectura independiente debe mantenerse separada de producción hasta completar la comprobación del sitemap y cerrar los pendientes documentados.
+
+
+### Actualización de certificación — 17-10-2026
+
+Esta actualización registra las pruebas realizadas después del addendum inicial del 16-10-2026 y prevalece sobre los estados de prueba anteriores que indiquen que estas comprobaciones siguen pendientes.
+
+- Navegación de `/`, `/perfil-profesional`, `/servicios` y `/contacto`, incluida la recarga: confirmada por el usuario en Preview.
+- Ruta no declarada `/esta-pagina-no-existe`: devuelve 404.
+- `/sitemap.xml` con `indexable: false`: muestra un XML válido con `urlset` vacío, sin URLs.
+- `/robots.txt`: contiene `User-agent: *`, `Allow: /` y referencia al sitemap del mismo host.
+- Solicitud real `fetch("/", { method: "POST" })` desde Chrome DevTools: devuelve HTTP 405, confirmado por el usuario.
+- Imágenes: no verificadas, porque la configuración de prueba no contiene imágenes disponibles.
+
+El control de métodos HTTP se incorporó en el commit `517b4fcd4149bb8859f4adef15fbc8abdb564771` de la rama de certificación. La documentación operativa se actualizó en los commits `9e0906760146c272274ae8c7e90d681c0440464c`, `db524bbb12d10002204b23a063e7225cb0f49828` y `f3a3edbb44d2a2cf1113acd52c106182e7658aad`.
+
+**Estado actual:** continúan pendientes la reconciliación completa de las instrucciones históricas con el modelo independiente, la verificación de imágenes cuando haya recursos disponibles y una regresión representativa de la configuración de cliente real. Estas pruebas no equivalen a una auditoría de seguridad integral ni autorizan cambios o despliegues en producción.
