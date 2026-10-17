@@ -97,8 +97,18 @@ export default {
             html = html.replace(/<section\b(?=[^>]*\bid="(?:proyectos|problema|solucion|soluciones)")(?:"[^"]*"|'[^']*'|[^'">])*?>[\s\S]*?<\/section>/gi, "");
         }
 
-        // Las preguntas se generan desde config.json por script.js; no dejar FAQ de SIDeN preinsertadas.
+        // Las preguntas se generan desde config.json por script.js; no dejar FAQ predeterminadas en el HTML.
         html = html.replace(/(<div\s+id="lista-faq"[^>]*>)[\s\S]*?(<\/div>)/i, "$1$2");
+
+        if (esClienteCorporativo) {
+            // Retirar marcas y textos promocionales de SIDeN del HTML entregado al cliente.
+            html = html.replace(/<div class="hero-brand">[\s\S]*?<\/div>/i, "");
+            html = html.replace(/<footer><div class="footer-inner"><div>[\s\S]*?<\/div><span>/i, '<footer><div class="footer-inner"><span>');
+            html = html.replace("Da el siguiente paso", "Contáctanos");
+            html = html.replace("¿Listo para mejorar la presencia digital de tu negocio?", "¿Cómo podemos ayudarte?");
+            html = html.replace("Conoce cómo SIDeN puede ayudarte a presentar tu negocio de forma profesional, visible y fácil de contactar.", "Comunícate con nosotros para recibir más información.");
+            html = html.replace("💬 Quiero hablar sobre mi página", "💬 Contáctanos por WhatsApp");
+        }
 
         const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
             ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
