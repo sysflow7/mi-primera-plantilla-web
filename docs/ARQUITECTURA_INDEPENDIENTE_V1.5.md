@@ -133,3 +133,8 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 - La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
 - Antes de utilizar esta arquitectura como estándar definitivo, completar la reconciliación de documentos históricos y verificar que las instrucciones operativas apuntan a este modelo independiente.
 - La rama de certificación no implica publicación en producción.
+
+
+### Protección de GA4 en Preview (revisión estática 17-10-2026)
+
+La lógica de `js/script.js` debe evitar el envío de eventos cuando la página se sirve desde una URL de prueba. Además del parámetro heredado `?site=`, la detección ahora considera los hosts `*.workers.dev`, `*.pages.dev`, `localhost` y `127.0.0.1`. Esto previene que un Worker de Preview con GA4 habilitado contamine las métricas del sitio de producción. La modificación está en el commit `4d845202005dcd0df0a4bee9513332c856fb7502` y requiere comprobarse en Preview antes de considerarla validada funcionalmente.
