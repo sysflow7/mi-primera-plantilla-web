@@ -175,3 +175,10 @@ Si se desea recuperar alguna de estas capacidades, debe diseñarse como un requi
 La arquitectura no se considera certificada únicamente por esta documentación. La certificación requiere código revisado, pruebas funcionales en Preview, regresión de los comportamientos afectados, documentación consistente y revisión de una instancia de cliente representativa.
 
 **Estado actual: certificación en curso.** Navegación multipágina, rutas inexistentes, sitemap, robots y rechazo de POST han sido comprobados por el usuario en Preview. La prueba de imágenes está pendiente porque la configuración de prueba no incluye imágenes. Falta una regresión representativa con una instancia real y terminar de validar los comportamientos que no están cubiertos por las pruebas actuales.
+
+
+### Hallazgo adicional — aislamiento de GA4 en Preview
+
+La revisión estática detectó que la lógica anterior solo desactivaba GA4 cuando existía el parámetro heredado `?site=`. En el modelo independiente, el Preview usa un host `*.workers.dev`, por lo que esa condición sola no era suficiente para evitar contaminar la analítica de producción si se configuraba un Measurement ID real.
+
+**Corrección aplicada en la rama de certificación:** `js/script.js` ahora considera como Preview los hosts `*.workers.dev`, `*.pages.dev`, `localhost` y `127.0.0.1`, además del parámetro `?site=`. Commit: `4d845202005dcd0df0a4bee9513332c856fb7502`. La corrección está guardada en GitHub; falta su comprobación funcional en Preview. No se modificó producción.
