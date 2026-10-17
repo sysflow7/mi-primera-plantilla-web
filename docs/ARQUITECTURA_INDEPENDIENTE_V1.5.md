@@ -121,11 +121,13 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 | Ruta no declarada `/esta-pagina-no-existe` | 404 |
 | `robots.txt` | Contiene reglas y referencia al sitemap del host |
 | `sitemap.xml` con `indexable: false` | XML válido, sin URLs |
+| Solicitud HTTP `POST` a `/` | HTTP 405 confirmado por el usuario desde DevTools |
 | ID duplicados en `index.html` | No detectados en la inspección estática |
 
 ## 12. Límites y pendientes
 
 - La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
+- La carga de imágenes sigue pendiente porque el proyecto de prueba no contiene imágenes disponibles.
 - No se ha validado visualmente toda combinación de familia, módulo y configuración.
 - La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
 - La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
