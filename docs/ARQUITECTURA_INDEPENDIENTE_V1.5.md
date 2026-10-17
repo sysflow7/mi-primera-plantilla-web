@@ -55,6 +55,8 @@ Los archivos compartidos dentro de ese proyecto constituyen el motor de esa inst
 
 La modalidad multipágina se habilita con `modoSitio: "multi"` y un arreglo `paginas` en `config.json`. Cada ruta debe ser interna, única y explícita.
 
+El Worker valida antes de resolver las rutas que `paginas` sea un arreglo no vacío, que cada elemento tenga una ruta de texto local, que exista la raíz `/`, que las rutas no contengan segmentos `.` o `..`, espacios, query/hash ni barras invertidas, y que no haya rutas duplicadas después de normalizarlas. Si la configuración multipágina falla estas validaciones, devuelve HTTP 500 con `Configuración multipágina inválida.`. Esta validación básica no sustituye una revisión completa del contenido de cada página.
+
 El Worker debe:
 - Entregar el HTML de la página raíz y de las rutas declaradas.
 - Seleccionar título, descripción, H1 y canonical según la página cuando existan valores específicos.
@@ -119,6 +121,7 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 
 - La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
 - No se ha validado visualmente toda combinación de familia, módulo y configuración.
+- La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
 - La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
 - Antes de utilizar esta arquitectura como estándar definitivo, completar la reconciliación de documentos históricos y verificar que las instrucciones operativas apuntan a este modelo independiente.
 - La rama de certificación no implica publicación en producción.
