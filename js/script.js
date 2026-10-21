@@ -313,7 +313,7 @@
             : [];
         const galeriaActiva = modulos.includes("galeria") && galeria.length > 0;
 
-        ["presentacion", "perfil", "beneficios", "servicios", "proceso", "identidad", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
+        ["presentacion", "perfil", "beneficios", "servicios", "proceso", "identidad", "filosofia", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
             const visible = modulo === "galeria" ? galeriaActiva : modulos.includes(modulo);
             showModule(modulo, visible);
         });
@@ -348,6 +348,25 @@
         }
         showModule("identidad", modulos.includes("identidad") && !!String(identidadConfig.texto || identidadConfig.descripcion || "").trim());
 
+        // FILOSOFÍA PROFESIONAL: contenido distinto de la biografía/presentación.
+        const filosofiaConfig = negocio.filosofia && typeof negocio.filosofia === "object" ? negocio.filosofia : {};
+        setText("titulo-filosofia", filosofiaConfig.titulo || etiquetas.filosofia || "Nuestra filosofía");
+        const contenidoFilosofia = document.getElementById("contenido-filosofia");
+        if (contenidoFilosofia) contenidoFilosofia.textContent = filosofiaConfig.texto || filosofiaConfig.descripcion || "";
+        const imagenFilosofia = document.getElementById("imagen-filosofia");
+        if (imagenFilosofia) {
+            if (filosofiaConfig.imagen) {
+                imagenFilosofia.src = assetUrl("images/" + filosofiaConfig.imagen);
+                imagenFilosofia.alt = filosofiaConfig.alt || (filosofiaConfig.titulo || "Filosofía profesional de " + negocioBase.nombre);
+                imagenFilosofia.hidden = false;
+            } else {
+                imagenFilosofia.removeAttribute("src");
+                imagenFilosofia.alt = "";
+                imagenFilosofia.hidden = true;
+            }
+        }
+        showModule("filosofia", modulos.includes("filosofia") && !!String(filosofiaConfig.texto || filosofiaConfig.descripcion || "").trim());
+
         // Estas secciones explican la oferta comercial de SIDeN y no forman parte de webs corporativas.
         ["proyectos", "problema", "solucion"].forEach(function (id) {
             const seccion = document.getElementById(id);
@@ -375,13 +394,13 @@
 
         // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
-        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", proceso: "proceso", identidad: "identidad", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
+        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", proceso: "proceso", identidad: "identidad", filosofia: "filosofia", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
             beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
             productos: etiquetas.productosMenu || "Productos", menu: etiquetas.menuMenu || "Menú",
             galeria: etiquetas.galeriaMenu || "Galería", ubicacion: etiquetas.ubicacionMenu || "Ubicación",
-            contacto: etiquetas.contactoMenu || "Contacto", proceso: etiquetas.procesoMenu || "Cómo trabajamos", identidad: etiquetas.identidadMenu || "Quiénes somos",
+            contacto: etiquetas.contactoMenu || "Contacto", proceso: etiquetas.procesoMenu || "Cómo trabajamos", identidad: etiquetas.identidadMenu || "Identidad", filosofia: etiquetas.filosofiaMenu || "Nuestra filosofía",
             soluciones: etiquetas.solucionesMenu || "Planes SIDeN",
             faq: etiquetas.faqMenu || etiquetas.faq || "Preguntas frecuentes"
         };
