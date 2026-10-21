@@ -121,3 +121,8 @@ No renombrar todavía la rama predeterminada, la rama de producción ni ningún 
 ## Revisión actual de la solicitud de cambio #56 — 21 de octubre de 2026
 
 La solicitud `#56` continúa abierta, con base `siden-template-v1.4` y rama de origen `arquitectura-hibrida-independiente-v1.0-2026-10-15`. Su última actualización reportada por GitHub es del 16-10-2026. Es una propuesta anterior a la candidata V1.5 actual; no se ha fusionado ni actualizado durante este trabajo. No fusionarla ni usarla como ruta de publicación sin una revisión separada del diff y una decisión explícita sobre su destino. La candidata actual se compara directamente con `prueba-aislamiento-contenido-v1.5` y sus cambios se limitan a `config.json`, `js/script.js`, `wrangler.jsonc` y documentación.
+
+
+### Resultado de inventario estático de imágenes raíz — 21-10-2026
+
+Se inspeccionaron las referencias de `index.html`, `css/style.css`, `css/redesign-v3.css` y `js/script.js`. Las referencias directas de muestra localizadas en `css/redesign-v3.css` usan `foto1.jpg`, `foto2.jpg`, `foto3.jpg` y `ferreteria-constructor.jpg` para tarjetas y elementos visuales de la familia comercial. No se eliminaron recursos: borrar imágenes sin una prueba visual podría romper estilos de la demo comercial. Los nombres de archivos de la carpeta raíz no identifican clientes. Esta es una revisión estática de nombres/rutas y referencias; no constituye una inspección visual del contenido de cada imagen ni prueba con imágenes reales de cliente.
