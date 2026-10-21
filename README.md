@@ -28,6 +28,6 @@ La rama `prueba-aislamiento-contenido-v1.5` es una **rama de certificación**, n
 
 La rama predeterminada reportada por GitHub es `siden-template-v1.3`; la rama de producción existente es `siden-corporativo-v1.3`. Son referencias distintas y no deben cambiarse durante la preparación de V1.5 sin autorización expresa.
 
-La comprobación funcional documentada en Preview está completada para los escenarios indicados en la arquitectura maestra. Aún falta preparar una candidata genérica aislada, confirmar la conexión y los disparadores de Cloudflare para la futura candidata y cerrar la reconciliación documental. La revisión funcional de Preview no equivale a una auditoría de seguridad integral.
+La candidata genérica `siden-template-candidate-2026-10` ya está creada y desplegada en el Worker independiente del mismo nombre. El usuario confirmó visualmente que muestra contenido genérico, sin datos de clientes ni planes comerciales de SIDeN. También confirmó que los CTA de WhatsApp permanecen visibles y muestran el aviso de configuración pendiente cuando falta el número. La apertura de WhatsApp con número de prueba, la revisión final de assets y la reconciliación documental siguen pendientes. Esta revisión no equivale a una auditoría de seguridad integral.
 
 **Producción:** no fusionar ni desplegar esta rama en `siden-corporativo-v1.3`, Worker `siden-corporativo` o `sidenred.com` sin autorización explícita.
