@@ -55,5 +55,5 @@ La arquitectura independiente V1.5, la arquitectura maestra V1.5 y el catálogo 
 - Se actualizó la arquitectura maestra para cerrar el estado de la validación visual comercial.
 - Se corrigió un salto de línea literal en el catálogo de módulos y se dejó explícito que las pruebas de las familias corporativa y comercial están confirmadas.
 - El README ahora distingue la rama de certificación V1.5, la rama predeterminada de GitHub y la rama de producción existente.
-- La candidata oficial aún no está preparada: el fixture de prueba y el nombre del Worker siguen siendo específicos de la certificación.
+- La candidata `siden-template-candidate-2026-10` está desplegada en un Worker independiente y contiene una configuración genérica. Aún no es la rama oficial: faltan controles técnicos y autorización explícita.
 - La documentación Word final se generará una vez cerradas las decisiones de candidata y el control de transición. Los documentos Word iniciales no se deben tratar como versión final.
