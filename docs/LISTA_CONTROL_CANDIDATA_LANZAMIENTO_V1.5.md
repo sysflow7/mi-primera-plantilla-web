@@ -67,3 +67,15 @@ La candidata solo puede declararse **lista para nuevos proyectos** cuando los co
 ## Estado de producción
 
 No se ha autorizado ni realizado como parte de esta lista ningún merge o despliegue a `siden-corporativo-v1.3`, al Worker `siden-corporativo` o al dominio `sidenred.com`.
+
+
+## Enfoque de cierre acordado
+
+La revisión de `siden-template-v1.3` y `siden-corporativo-v1.3` no se usa para volver a comparar funcionalmente la arquitectura antigua con V1.5. Esas referencias solo se mantienen para identificar el estado previo y proteger la producción durante la transición.
+
+El cierre se organiza en tres entregables distintos:
+1. **V1.5 certificada:** código y documentación reconciliados con las pruebas ya realizadas.
+2. **Candidata oficial para nuevos proyectos:** configuración genérica y Worker nombrado según una política definida, aislados de los fixtures de certificación.
+3. **Migración de `sidenred.com`:** plan separado, con inspección de la configuración real del Worker de producción, aprobación expresa y pruebas de aceptación propias.
+
+La captura de Cloudflare revisada el 21-10-2026 confirma que el Worker de pruebas `siden-prueba-cliente-multipagina-v15` está conectado al repositorio `sysflow7/mi-primera-plantilla-web`, usa `prueba-aislamiento-contenido-v1.5` como rama de producción de ese Worker y tiene builds habilitados con el comando `npx wrangler deploy`. Esta configuración es del Worker de pruebas, no del Worker `siden-corporativo`; no extrapolarla a producción.
