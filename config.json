@@ -89,12 +89,18 @@
         "beneficios",
         "servicios",
         "contacto",
-        "productos"
+        "productos",
+        "proceso",
+        "identidad"
       ],
       "etiquetas": {
         "presentacion": "Sobre el negocio",
         "beneficios": "Beneficios",
-        "servicios": "Servicios"
+        "servicios": "Servicios",
+        "proceso": "Cómo trabajamos",
+        "procesoMenu": "Cómo trabajamos",
+        "identidad": "Nuestra identidad",
+        "identidadMenu": "Nuestra identidad"
       },
       "textos": {
         "contacto": "Contáctanos para más información."
@@ -171,8 +177,20 @@
       "descripcion": "Contenido ficticio para comprobar módulos."
     }
   ],
-  "proceso": [],
-  "identidad": {},
+  "proceso": [
+    {
+      "titulo": "Paso 1: Escuchamos",
+      "descripcion": "Conocemos las necesidades de cada cliente."
+    },
+    {
+      "titulo": "Paso 2: Proponemos",
+      "descripcion": "Definimos una solución adecuada."
+    }
+  ],
+  "identidad": {
+    "titulo": "Nuestra identidad",
+    "texto": "Este es un texto de prueba para validar el módulo de identidad de SIDeN."
+  },
   "mapEmbedUrl": "",
   "cintaInformativa": {
     "mostrar": true,
