@@ -1,6 +1,6 @@
 # SIDeN MINI — Arquitectura y alcance V1.0
 
-**Estado:** definición funcional inicial; requiere contrastar con la oferta comercial vigente antes de usar como contrato.  
+**Estado:** definición funcional inicial, no certificada ni confirmada como implementación en la arquitectura independiente SIDeN V1.5. Requiere contrastar con la oferta comercial vigente antes de usar como contrato.  
 **Principio:** SIDeN MINI es una variante de alcance reducido y controlado, no una copia improvisada de una web completa con secciones borradas manualmente.
 
 ## 1. Objetivo
@@ -84,3 +84,8 @@ Este documento define el alcance esperado; no afirma que exista ya una implement
 - modo técnico que activa MINI y mecanismo de certificación.
 
 No resolver estas decisiones por inferencia durante la programación; reflejarlas en la ficha comercial y en la configuración de la variante.
+
+
+## 10. Vigencia y relación con la arquitectura independiente — 21-10-2026
+
+Este documento define alcance propuesto y controles, pero no demuestra que exista una instancia MINI funcional en el modelo independiente V1.5. No ofrecer ni desplegar MINI desde la arquitectura nueva hasta que se confirme el diseño técnico de activación, se compare el alcance con la oferta comercial vigente y se ejecute una prueba en Preview. Las reglas generales de aislamiento y cambios compartidos de `ARQUITECTURA_MAESTRA_V1.5.md` y `PROCEDIMIENTO_CREACION_PROYECTO_CLIENTE_V1.1.md` siguen aplicando.
