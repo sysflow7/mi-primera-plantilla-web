@@ -94,3 +94,15 @@ No declarar la arquitectura lista para migrar mientras siga sin confirmarse el P
 El usuario confirmó que la rama de producción del Worker independiente `siden-template-candidate-2026-10` se cambió en Cloudflare a la rama Git `siden-template-candidate-2026-10`. Se registra este cambio documental para generar un nuevo evento de compilación de la candidata y verificar que Cloudflare utilice la rama correcta.
 
 Esta anotación no constituye certificación ni aprobación de producción. Tras finalizar la compilación, comprobar el commit/branch desplegado, que el Worker resultante sea `siden-template-candidate-2026-10`, y revisar el registro de Wrangler para descartar conflictos de nombre o archivos heredados inesperados.
+
+
+## Primera implementación de la candidata — 21-10-2026
+
+- La compilación `ea9946ab` terminó correctamente desde la rama `siden-template-candidate-2026-10`.
+- Worker desplegado: `siden-template-candidate-2026-10`.
+- URL de prueba de Workers: `https://siden-template-candidate-2026-10.darvincanal2025.workers.dev`.
+- El registro no muestra la advertencia anterior de discrepancia entre el nombre de Worker de Wrangler y el nombre esperado por Cloudflare.
+- Wrangler leyó 229 archivos del directorio de assets y reportó 28 archivos nuevos/modificados en esta implementación. Entre los archivos listados hay recursos visuales de SIDeN y de ejemplo; esto se registra para revisar que los recursos compartidos sean intencionales y no contengan datos de clientes antes de certificar la candidata.
+- La revisión del registro detectó que `config.json` aún heredaba `siden.baseDomain: "sidenred.com"`, aunque esta candidata es genérica. Se corrigió el campo a cadena vacía en un commit posterior para evitar asociar la configuración genérica al dominio de producción. Cloudflare debe completar la nueva compilación automática antes de validar esta corrección.
+
+Esta implementación confirma el despliegue aislado de la candidata, no la certificación funcional completa ni la autorización para migrar el sitio público.
