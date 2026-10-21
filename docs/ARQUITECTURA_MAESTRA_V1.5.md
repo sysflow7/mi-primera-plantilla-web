@@ -182,3 +182,10 @@ La arquitectura no se considera certificada únicamente por esta documentación.
 La revisión estática detectó que la lógica anterior solo desactivaba GA4 cuando existía el parámetro heredado `?site=`. En el modelo independiente, el Preview usa un host `*.workers.dev`, por lo que esa condición sola no era suficiente para evitar contaminar la analítica de producción si se configuraba un Measurement ID real.
 
 **Corrección aplicada en la rama de certificación:** `js/script.js` ahora considera como Preview los hosts `*.workers.dev`, `*.pages.dev`, `localhost` y `127.0.0.1`, además del parámetro `?site=`. Commit: `4d845202005dcd0df0a4bee9513332c856fb7502`. La corrección está guardada en GitHub; falta su comprobación funcional en Preview. No se modificó producción.
+
+
+## Cierre del alcance de certificación funcional V1.5 — 20-10-2026
+
+Se actualiza el estado anterior «certificación en curso»: las comprobaciones funcionales acordadas en Preview han sido completadas con confirmación del usuario. Incluyen navegación multipágina y rutas, 404, rechazo de POST con 405, sitemap/robots, protección de GA4 en la sesión revisada, validación de enlaces externos y enlace de catálogo de prueba. Se corrigió y verificó visualmente la tarjeta de producto sin imagen (commit `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`). Resultados registrados en `ARQUITECTURA_INDEPENDIENTE_V1.5.md` (commit `4d9eb41ad769419c1cd478fe75e8c0c153d4cc6c`).
+
+El cierre aplica solo al alcance funcional acordado en Preview. No representa una auditoría de seguridad integral ni certifica toda combinación de configuración/dispositivo. No se ha modificado ni autorizado el despliegue en producción.
