@@ -179,9 +179,16 @@
         }
 
         const logo = document.getElementById("logo-negocio");
-        if (logo && negocioBase.logo) {
-            logo.src = assetUrl("images/" + negocioBase.logo);
-            logo.alt = "Logo de " + negocioBase.nombre;
+        if (logo) {
+            if (negocioBase.logo) {
+                logo.src = assetUrl("images/" + negocioBase.logo);
+                logo.alt = "Logo de " + negocioBase.nombre;
+                logo.hidden = false;
+            } else {
+                logo.removeAttribute("src");
+                logo.alt = "";
+                logo.hidden = true;
+            }
         }
 
         // HERO / CABECERA INTERNA
