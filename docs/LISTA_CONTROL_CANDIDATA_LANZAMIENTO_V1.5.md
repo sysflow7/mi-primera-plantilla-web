@@ -35,11 +35,11 @@ Definir los controles que deben cumplirse antes de declarar SIDeN V1.5 como plan
 ## Controles pendientes antes de declarar una candidata oficial
 
 ### A. Preparación aislada de la candidata
-- [ ] Crear una rama candidata separada solo después de confirmar que crearla no dispara un despliegue no deseado; no sobrescribir la rama de certificación activa.
-- [ ] Preparar `config.json` genérico sin nombre, teléfono, catálogo, dominio ni datos ficticios de prueba.
+- [x] Crear una rama candidata separada (siden-template-candidate-2026-10) sin sobrescribir la rama de certificación activa. La relación exacta entre todos los eventos de Cloudflare y cada Worker sigue siendo un control de transición independiente.
+- [x] Preparar `config.json` genérico sin nombre de cliente, teléfono, catálogo, dominio de producción ni datos de contacto ficticios.
 - [ ] Mantener `indexable:false` por defecto hasta aprobación explícita del cliente para indexación.
 - [ ] Definir una política de nombres de Worker que no pueda confundirse con el Worker de producción ni con el Worker de certificación.
-- [ ] Revisar `.assetsignore` y confirmar qué archivos se publican como assets.
+- [x] Revisar `.assetsignore`: excluye `sites/**`, `mini/**`, `docs/**`, Markdown y archivos internos. La candidata contiene una carpeta raíz `images/` con iconos de la plantilla y recursos visuales de ejemplo; estos no pertenecen a carpetas de clientes, pero se debe decidir antes de la publicación oficial cuáles se conservan como recursos compartidos y cuáles se retiran.
 - [ ] Confirmar la política de aliases de Preview y documentar cuándo se agregan y retiran.
 
 ### B. GitHub y Cloudflare
@@ -47,14 +47,14 @@ Definir los controles que deben cumplirse antes de declarar SIDeN V1.5 como plan
 - [ ] Verificar en Cloudflare qué rama está conectada a cada Worker y qué eventos disparan despliegues.
 - [ ] Revisar la solicitud #56 y resolver si es histórica, sigue siendo necesaria o contradice la ruta V1.5 actual.
 - [ ] No cambiar la rama predeterminada del repositorio, rama de producción de Cloudflare, bindings, Worker ni dominio sin autorización explícita.
-- [ ] Desplegar la candidata únicamente en un Worker de pruebas separado y con una rama de Preview identificada.
-- [ ] Registrar commit, rama, Worker y URL de Preview usados para certificar la candidata.
+- [x] Desplegar la candidata en el Worker separado `siden-template-candidate-2026-10`; el usuario confirmó que la URL muestra la configuración genérica. La revisión de aislamiento entre todos los Workers y sus eventos de despliegue sigue pendiente.
+- [x] Registrar rama `siden-template-candidate-2026-10`, Worker `siden-template-candidate-2026-10` y URL `https://siden-template-candidate-2026-10.darvincanal2025.workers.dev`. Los commits y pruebas concretos quedan documentados en `CANDIDATA_PLANTILLA_MAESTRA_V1.5.md`.
 
 ### C. Certificación final
 - [ ] Revisar que la configuración genérica no incluya credenciales ni datos de clientes.
 - [ ] Probar una instancia corporativa y una comercial con configuraciones separadas; no repetir las pruebas funcionales ya marcadas como confirmadas salvo que cambie el código relevante.
 - [ ] Confirmar comportamiento con recursos reales (imágenes/logotipo) en al menos una instancia de prueba.
-- [ ] Validar GA4 solo con un Measurement ID de prueba válido y confirmar que no se envían eventos cuando no hay ID configurado.
+- [x] Confirmar que GA4 no carga scripts ni envía eventos cuando no hay Measurement ID configurado, en la sesión de prueba reportada anteriormente. La prueba con Measurement ID válido sigue pendiente.
 - [ ] Verificar SEO/indexación con `indexable:false` y el proceso explícito para habilitar indexación.
 - [ ] Revisar el alcance comercial y técnico de SIDeN MINI antes de certificarlo o venderlo como implementación verificada.
 - [ ] Actualizar documentación Markdown y entregar el paquete final de documentos Word.
@@ -108,3 +108,11 @@ Esta convención es una propuesta documental, no una acción ya ejecutada. Antes
 5. ejecutar el cambio solo con autorización explícita y un plan de reversión.
 
 No renombrar todavía la rama predeterminada, la rama de producción ni ningún Worker.
+
+
+## Actualización de avance — 21 de octubre de 2026
+
+- La candidata está desplegada en un Worker separado y el usuario verificó la página genérica en el navegador.
+- Se corrigió el comportamiento de los CTA de WhatsApp para conservarlos visibles sin número configurado; el usuario confirmó que el aviso aparece y no se navega al inicio. La apertura de WhatsApp con un número de prueba sigue pendiente.
+- La inspección de `.assetsignore` confirma que `sites/**` y `mini/**` quedan excluidos del conjunto de assets, pero los recursos de ejemplo ubicados en `images/` raíz sí se publican. No se detectaron rutas a imágenes de carpetas de clientes en la lista de recursos raíz; queda pendiente decidir la limpieza final de recursos de muestra antes de la designación oficial.
+- No se ha autorizado ni ejecutado ningún cambio en producción.
