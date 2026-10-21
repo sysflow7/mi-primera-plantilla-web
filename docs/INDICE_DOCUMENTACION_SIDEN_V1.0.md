@@ -48,3 +48,12 @@ La arquitectura independiente V1.5, la arquitectura maestra V1.5 y el catálogo 
 - **Producción:** sin cambios ni despliegues autorizados.
 - **Documentación Word:** al terminar el alcance acordado, entregar los documentos operativos actualizados en `.docx`; no considerar los borradores Word previos como la edición final hasta esa consolidación.
 - **Siguiente etapa:** preparar una candidata aislada con configuración genérica; confirmar los disparadores de GitHub/Cloudflare; completar las verificaciones pendientes y la reconciliación documental antes de promover la arquitectura a nuevos proyectos.
+
+
+## 7. Reconciliación documental adicional — 21-10-2026
+
+- Se actualizó la arquitectura maestra para cerrar el estado de la validación visual comercial.
+- Se corrigió un salto de línea literal en el catálogo de módulos y se dejó explícito que las pruebas de las familias corporativa y comercial están confirmadas.
+- El README ahora distingue la rama de certificación V1.5, la rama predeterminada de GitHub y la rama de producción existente.
+- La candidata oficial aún no está preparada: el fixture de prueba y el nombre del Worker siguen siendo específicos de la certificación.
+- La documentación Word final se generará una vez cerradas las decisiones de candidata y el control de transición. Los documentos Word iniciales no se deben tratar como versión final.
