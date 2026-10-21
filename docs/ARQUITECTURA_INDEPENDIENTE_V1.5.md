@@ -151,3 +151,8 @@ La lógica de `js/script.js` debe evitar el envío de eventos cuando la página 
 ### Validación de enlaces externos configurables — 17-10-2026
 
 Se actualizó `js/script.js` para validar las URLs configurables de Facebook, Instagram, ubicación y catálogo: solo se aceptan URLs absolutas con protocolo HTTPS y host válido. Cuando el valor no cumple la validación, el enlace se oculta y se establece `#` como destino de reserva. Los enlaces externos visibles se configuran con `target="_blank"` y `rel="noopener noreferrer"`. Cambio guardado en el commit `d54be281002a718d040df0f31cb5886a39ea1b36`. La validación es estática; requiere comprobación funcional en Preview.
+
+
+## Incidencia de prueba: producto sin imagen configurada
+
+En la comprobación visual del 20-10-2026, el producto ficticio sin imagen mostraba un elemento de imagen roto y dejaba un espacio vacío. La causa confirmada en `js/script.js` era que se generaba una etiqueta `<img>` incluso cuando `producto.imagen` estaba vacío. Se corrigió para generar la etiqueta de imagen solo cuando existe una ruta configurada. Commit: `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`. Pendiente: publicar en el Worker de pruebas y confirmar visualmente que la tarjeta ya no muestra una imagen rota.
