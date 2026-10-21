@@ -127,7 +127,7 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 ## 12. Límites y pendientes
 
 - La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
-- La carga de imágenes sigue pendiente porque el proyecto de prueba no contiene imágenes disponibles.
+- La carga de imágenes de contenido real no se certifica en este proyecto porque no contiene archivos de imagen de cliente. Se verificó el comportamiento de productos sin imagen y se corrigieron los marcadores vacíos de logo, fondo y mapa.
 - No se ha validado visualmente toda combinación de familia, módulo y configuración.
 - La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
 - La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
@@ -146,7 +146,7 @@ La lógica de `js/script.js` debe evitar el envío de eventos cuando la página 
 - Los enlaces externos que usan `target="_blank"` en las zonas inspeccionadas incluyen `rel="noopener noreferrer"`.
 - La política HTTP GET se aplica al inicio del Worker, antes de resolver configuración, páginas o endpoints técnicos. Los recursos estáticos se siguen delegando a `ASSETS` mediante las rutas normales.
 - Se identificó y corrigió la detección insuficiente de Preview para GA4. La nueva condición cubre `workers.dev`, `pages.dev`, `localhost`, `127.0.0.1` y el parámetro heredado `?site=`. Commit de código: `4d845202005dcd0df0a4bee9513332c856fb7502`.
-- La protección de GA4 sigue pendiente de prueba funcional después de desplegar esta revisión en el Worker de Preview. No se ha comprobado todavía mediante Network/Realtime que no se cargue `gtag.js` ni se envíen eventos.
+- La protección de GA4 se comprobó en Preview mediante DevTools Network: en la prueba con GA4 no configurado no se observaron solicitudes `gtag.js` ni `collect?v=2`. La comprobación de eventos reales con un Measurement ID válido queda pendiente de una instancia configurada para analítica.
 
 ### Validación de enlaces externos configurables — 17-10-2026
 
@@ -155,7 +155,7 @@ Se actualizó `js/script.js` para validar las URLs configurables de Facebook, In
 
 ## Incidencia de prueba: producto sin imagen configurada
 
-En la comprobación visual del 20-10-2026, el producto ficticio sin imagen mostraba un elemento de imagen roto y dejaba un espacio vacío. La causa confirmada en `js/script.js` era que se generaba una etiqueta `<img>` incluso cuando `producto.imagen` estaba vacío. Se corrigió para generar la etiqueta de imagen solo cuando existe una ruta configurada. Commit: `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`. Pendiente: publicar en el Worker de pruebas y confirmar visualmente que la tarjeta ya no muestra una imagen rota.
+En la comprobación visual del 20-10-2026, el producto ficticio sin imagen mostraba un elemento de imagen roto y dejaba un espacio vacío. La causa confirmada en `js/script.js` era que se generaba una etiqueta `<img>` incluso cuando `producto.imagen` estaba vacío. Se corrigió para generar la etiqueta de imagen solo cuando existe una ruta configurada. Commit: `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`. Confirmado por el usuario en Preview: la tarjeta ya no muestra una imagen rota.
 
 
 ## Resultado de comprobación funcional en Preview — 20-10-2026
@@ -178,7 +178,7 @@ Se identificaron y corrigieron en esta rama dos comportamientos de la plantilla:
 
 Se agregó el catálogo de referencia en `docs/CATALOGO_MODULOS_CONFIGURACION_V1.5.md`.
 
-**Estado:** cambios preparados en la rama de certificación; falta validación funcional en Preview. No se ha modificado ni desplegado producción. No considerar esta rama certificada para migración hasta confirmar los casos indicados en el catálogo.
+**Estado:** pruebas funcionales principales confirmadas por el usuario en Preview, incluidas rutas multipágina, 404, sitemap no indexable, método POST rechazado, enlaces externos inválidos, módulos `proceso`/`identidad`/`filosofia`, JSON-LD y favicon. La rama aún no está certificada de forma integral: falta revisar los casos de aislamiento y una comprobación final de errores de recursos. Producción no se ha modificado ni desplegado.
 
 
 ## 12. Criterio editorial para módulos profesionales — 20 de octubre de 2026
@@ -199,7 +199,7 @@ Durante la revisión estática se detectó que el JSON-LD aceptaba cualquier val
 
 Se corrigió `worker.js` en la rama de certificación: los campos `hasMap` y `sameAs` solo incluyen URLs absolutas HTTPS con hostname válido; los valores inválidos se omiten. Commit: `c247d9618ddf0e8ff12285a5b91cb13d1848a3b6`.
 
-**Estado:** corrección revisada estáticamente; pendiente comprobar el JSON-LD renderizado en Preview con valores de prueba HTTP y `javascript:`. No se ha modificado producción.
+**Estado:** confirmado por el usuario en Preview: `hasMap` omite la URL HTTP de ejemplo y `sameAs` solo contiene la URL HTTPS válida de Facebook; Instagram con `javascript:` queda excluido. No se ha modificado producción.
 
 
 ## 14. Limpieza de recursos visuales no configurados — 20 de octubre de 2026
@@ -213,7 +213,7 @@ Se corrigió en la rama de certificación:
 
 Commits principales: `edfabbcea49e3877e96e64fb1111666ffcb91ab4`, `38091f0dde12d898889053631e17853f3cccc082`, `944081dd9e06da54e3548ec3915c5a6acdf458c7`, `574d75c050736c00e470c2841ca138d8e6aca4c9`.
 
-**Validación estática:** sintaxis de `worker.js`, `js/script.js`, `js/modules-v1.4.js` y JSON de configuración verificada correctamente. **Pendiente:** confirmar en Preview que desaparecieron las solicitudes 404 de los marcadores. Producción no fue modificada.
+**Estado:** confirmado por el usuario en Preview: desaparecieron los errores 404 de los marcadores de logo y fondo. La sintaxis de `worker.js`, `js/script.js`, `js/modules-v1.4.js` y JSON de configuración pasó la validación estática. Producción no fue modificada.
 
 
 ## 15. Favicon predeterminado cuando no hay logotipo — 20 de octubre de 2026
@@ -224,4 +224,26 @@ Se corrigió en la rama de certificación mediante un favicon SVG de respaldo in
 
 Commit: `970994051a4db6f72770925ffab1fd766d70af42`.
 
-**Validación estática:** la sintaxis de `worker.js` pasó. **Pendiente:** confirmar en Preview que el error `/favicon.ico 404` desaparece. Producción no fue modificada.
+**Estado:** confirmado por el usuario en Preview: desapareció el error `/favicon.ico 404`. La sintaxis de `worker.js` pasó la validación estática. Producción no fue modificada.
+
+
+## 16. Estado consolidado de las comprobaciones — 20 de octubre de 2026
+
+Pruebas confirmadas por el usuario en Preview:
+- Navegación multipágina, carga directa y refresco de rutas; ruta inexistente devuelve 404.
+- Sitemap XML vacío cuando `indexable:false`; `robots.txt` disponible.
+- Solicitudes POST rechazadas con 405.
+- Enlaces externos inválidos de Instagram y mapas ocultos; enlaces HTTPS válidos conservados.
+- JSON-LD omite URL HTTP de mapa y esquema `javascript:`; solo se incluye Facebook HTTPS válido.
+- Módulos `proceso`, `identidad` y `filosofia` aparecen con la configuración de prueba.
+- Producto sin imagen no genera imagen rota.
+- No se observan errores 404 para marcadores de logo/fondo ni para `favicon.ico` tras las correcciones.
+
+Pendientes antes de cerrar certificación:
+1. Revisar aislamiento de las secciones comerciales en sitios corporativos y conservación en familia comercial/demo.
+2. Reconciliar los documentos operativos históricos con el modelo independiente V1.5.
+3. Repetir las verificaciones mínimas tras las últimas modificaciones de `worker.js` y preparar una configuración de prueba limpia antes de cualquier promoción.
+4. Probar una instancia con imágenes reales y analítica GA4 configurada, si se quiere certificar esos escenarios.
+5. No fusionar ni desplegar producción sin autorización expresa.
+
+El `config.json` de esta rama contiene valores deliberadamente inválidos (`javascript:` en Instagram y URL HTTP de ejemplo en mapas) para pruebas de seguridad. Deben sustituirse por valores limpios de demostración antes de convertir la rama en plantilla reutilizable.
