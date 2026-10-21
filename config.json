@@ -1,7 +1,7 @@
 {
   "siden": {
     "instanceId": "cliente-prueba-multipagina",
-    "templateFamily": "corporate",
+    "templateFamily": "commercial",
     "baseDomain": "sidenred.com",
     "architecture": "independent-project",
     "domainMode": "subdomain",
@@ -19,22 +19,11 @@
   "etiquetaTipo": "Servicio profesional",
   "modoSitio": "multi",
   "modeloAtencion": "local",
-  "areasServicio": [
-    "San Salvador",
-    "El Salvador"
-  ],
+  "areasServicio": ["San Salvador", "El Salvador"],
   "heroImagenFondo": "",
   "heroImagenVisual": "",
   "mostrarHeroImagen": false,
-  "modulos": [
-    "presentacion",
-    "perfil",
-    "beneficios",
-    "servicios",
-    "galeria",
-    "ubicacion",
-    "contacto"
-  ],
+  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto"],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
@@ -42,15 +31,7 @@
   "ciudad": "San Salvador",
   "pais": "El Salvador",
   "direccionTexto": "San Salvador, El Salvador",
-  "direccion": {
-    "calle": "",
-    "ciudad": "San Salvador",
-    "departamento": "San Salvador",
-    "codigoPostal": "",
-    "pais": "SV",
-    "latitud": "",
-    "longitud": ""
-  },
+  "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
   "facebook": "https://www.facebook.com/",
   "instagram": "",
   "maps": "",
@@ -84,16 +65,7 @@
       "h1": "Negocio de Prueba",
       "slogan": "Bienvenido al sitio de prueba",
       "descripcion": "Página principal del sitio multipágina.",
-      "modulos": [
-        "presentacion",
-        "beneficios",
-        "servicios",
-        "contacto",
-        "productos",
-        "proceso",
-        "identidad",
-        "filosofia"
-      ],
+      "modulos": ["presentacion", "beneficios", "servicios", "contacto", "productos", "proceso", "identidad", "filosofia"],
       "etiquetas": {
         "presentacion": "Sobre el negocio",
         "beneficios": "Beneficios",
@@ -105,9 +77,7 @@
         "filosofia": "Nuestra filosofía",
         "filosofiaMenu": "Nuestra filosofía"
       },
-      "textos": {
-        "contacto": "Contáctanos para más información."
-      }
+      "textos": {"contacto": "Contáctanos para más información."}
     },
     {
       "ruta": "/perfil-profesional",
@@ -115,14 +85,8 @@
       "h1": "Nuestro perfil profesional",
       "slogan": "Experiencia y atención",
       "descripcion": "Página interna para validar el contenido independiente.",
-      "modulos": [
-        "perfil",
-        "presentacion"
-      ],
-      "etiquetas": {
-        "perfil": "Perfil profesional",
-        "presentacion": "Nuestra experiencia"
-      }
+      "modulos": ["perfil", "presentacion"],
+      "etiquetas": {"perfil": "Perfil profesional", "presentacion": "Nuestra experiencia"}
     },
     {
       "ruta": "/servicios",
@@ -130,14 +94,8 @@
       "h1": "Servicios de prueba",
       "slogan": "Soluciones para nuestros clientes",
       "descripcion": "Página de servicios de prueba.",
-      "modulos": [
-        "servicios",
-        "beneficios"
-      ],
-      "etiquetas": {
-        "servicios": "Nuestros servicios",
-        "beneficios": "Ventajas"
-      }
+      "modulos": ["servicios", "beneficios"],
+      "etiquetas": {"servicios": "Nuestros servicios", "beneficios": "Ventajas"}
     },
     {
       "ruta": "/contacto",
@@ -145,81 +103,31 @@
       "h1": "Contacto",
       "slogan": "Estamos para ayudarte",
       "descripcion": "Página de contacto de prueba.",
-      "modulos": [
-        "ubicacion",
-        "contacto"
-      ],
-      "etiquetas": {
-        "ubicacion": "Nuestra ubicación",
-        "contacto": "Escríbenos"
-      }
+      "modulos": ["ubicacion", "contacto"],
+      "etiquetas": {"ubicacion": "Nuestra ubicación", "contacto": "Escríbenos"}
     }
   ],
-  "servicios": [
-    {
-      "nombre": "Servicio de demostración",
-      "descripcion": "Contenido de prueba para comprobar la presentación de servicios."
-    }
-  ],
-  "productos": [
-    {
-      "nombre": "Producto de prueba",
-      "descripcion": "Elemento ficticio para comprobar la presentación del catálogo.",
-      "precio": "$1.00",
-      "imagen": ""
-    }
-  ],
+  "servicios": [{"nombre": "Servicio de demostración", "descripcion": "Contenido ficticio para comprobar la presentación de servicios."}],
+  "productos": [{"nombre": "Producto de prueba", "descripcion": "Elemento ficticio para comprobar la presentación del catálogo.", "precio": "$1.00", "imagen": ""}],
   "menu": [],
-  "perfil": {
-    "descripcion": "Perfil profesional de prueba."
-  },
+  "perfil": {"descripcion": "Perfil profesional de prueba."},
   "galeria": [],
-  "beneficios": [
-    {
-      "nombre": "Información clara",
-      "descripcion": "Contenido ficticio para comprobar módulos."
-    }
-  ],
+  "beneficios": [{"nombre": "Información clara", "descripcion": "Contenido ficticio para comprobar módulos."}],
   "proceso": [
-    {
-      "titulo": "Paso 1: Escuchamos",
-      "descripcion": "Conocemos las necesidades de cada cliente."
-    },
-    {
-      "titulo": "Paso 2: Proponemos",
-      "descripcion": "Definimos una solución adecuada."
-    }
+    {"titulo": "Paso 1: Escuchamos", "descripcion": "Conocemos las necesidades de cada cliente."},
+    {"titulo": "Paso 2: Proponemos", "descripcion": "Definimos una solución adecuada."}
   ],
-  "identidad": {
-    "titulo": "Identidad (módulo heredado)",
-    "texto": "Este bloque se conserva para comprobar compatibilidad con configuraciones existentes."
-  },
-  "filosofia": {
-    "titulo": "Nuestra filosofía",
-    "texto": "Nuestra atención se basa en escuchar, explicar las opciones con claridad y acompañar a cada persona durante su proceso."
-  },
+  "identidad": {"titulo": "Identidad (módulo heredado)", "texto": "Este bloque se conserva para comprobar compatibilidad con configuraciones existentes."},
+  "filosofia": {"titulo": "Nuestra filosofía", "texto": "Nuestra atención se basa en escuchar, explicar las opciones con claridad y acompañar a cada persona durante su proceso."},
   "mapEmbedUrl": "",
-  "cintaInformativa": {
-    "mostrar": true,
-    "texto": "Calidad ✦ Confianza ✦ Atención profesional ✦ Estamos para ayudarte",
-    "separador": "✦"
-  },
-  "presentacion": {
-    "titulo": "Sobre el negocio",
-    "texto": "Contenido ficticio de la página principal."
-  },
-  "estadoComercial": "cliente",
+  "cintaInformativa": {"mostrar": true, "texto": "Calidad ✦ Confianza ✦ Atención profesional ✦ Estamos para ayudarte", "separador": "✦"},
+  "presentacion": {"titulo": "Sobre el negocio", "texto": "Contenido ficticio de la página principal."},
+  "estadoComercial": "demo",
   "faq": {
     "activo": true,
     "preguntas": [
-      {
-        "pregunta": "¿Este sitio es una prueba?",
-        "respuesta": "Sí. Es un sitio ficticio para validar la arquitectura SIDeN."
-      },
-      {
-        "pregunta": "¿Los planes de SIDeN deben aparecer aquí?",
-        "respuesta": "No. En un sitio de cliente no deben mostrarse los planes comerciales de SIDeN."
-      }
+      {"pregunta": "¿Este sitio es una prueba?", "respuesta": "Sí. Es un sitio ficticio para validar la arquitectura SIDeN."},
+      {"pregunta": "¿Qué servicios ofrece SIDeN?", "respuesta": "Esta sección solo se muestra en la familia comercial de demostración."}
     ]
   }
 }
