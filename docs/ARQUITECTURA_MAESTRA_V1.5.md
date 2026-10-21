@@ -1,7 +1,7 @@
 # SIDeN — Arquitectura Maestra V1.5 (modelo independiente)
 
-**Estado:** documento operativo para la rama de certificación `prueba-aislamiento-contenido-v1.5`.  
-**Fecha de consolidación:** 17 de octubre de 2026.  
+**Estado:** referencia técnica V1.5; pruebas funcionales base ejecutadas en `prueba-aislamiento-contenido-v1.5`. La preparación de release continúa en `siden-template-candidate-2026-10`; esta rama candidata aún no es la base oficial de nuevos proyectos.  
+**Fecha de consolidación:** 21 de octubre de 2026.  
 **Producción:** no modificada por esta auditoría.
 
 > **Regla de vigencia:** este documento describe el modelo independiente vigente. No seguir instrucciones heredadas que mencionen `sites/<instanceId>/config.json`, `sites/registry.json`, resolución de instancias mediante host/registro central, ni el parámetro `?site=<instanceId>`. Esos elementos pertenecen al modelo anterior y no forman parte de esta arquitectura.
