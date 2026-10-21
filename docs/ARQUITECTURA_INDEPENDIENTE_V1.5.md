@@ -178,7 +178,7 @@ Se identificaron y corrigieron en esta rama dos comportamientos de la plantilla:
 
 Se agregó el catálogo de referencia en `docs/CATALOGO_MODULOS_CONFIGURACION_V1.5.md`.
 
-**Estado:** pruebas funcionales principales confirmadas por el usuario en Preview, incluidas rutas multipágina, 404, sitemap no indexable, método POST rechazado, enlaces externos inválidos, módulos `proceso`/`identidad`/`filosofia`, JSON-LD y favicon. La rama aún no está certificada de forma integral: falta revisar los casos de aislamiento y una comprobación final de errores de recursos. Producción no se ha modificado ni desplegado.
+**Estado:** las pruebas funcionales acordadas en Preview están confirmadas por el usuario: rutas multipágina, 404, sitemap no indexable, método POST rechazado, enlaces externos inválidos, módulos `proceso`/`identidad`/`filosofia`, JSON-LD y favicon. El aislamiento comercial del sitio corporativo de cliente también está confirmado: los planes no aparecieron y la búsqueda del HTML no encontró las secciones comerciales. No repetir esas pruebas. La lógica de conservación de secciones en `templateFamily: commercial` se revisó estáticamente; la única comprobación visual específica que no consta en el historial es la presentación de esa familia. Producción no se ha modificado ni desplegado.
 
 
 ## 12. Criterio editorial para módulos profesionales — 20 de octubre de 2026
@@ -239,11 +239,11 @@ Pruebas confirmadas por el usuario en Preview:
 - Producto sin imagen no genera imagen rota.
 - No se observan errores 404 para marcadores de logo/fondo ni para `favicon.ico` tras las correcciones.
 
-Pendientes antes de cerrar certificación:
-1. Revisar aislamiento de las secciones comerciales en sitios corporativos y conservación en familia comercial/demo.
-2. Reconciliar los documentos operativos históricos con el modelo independiente V1.5.
-3. Repetir las verificaciones mínimas tras las últimas modificaciones de `worker.js` y preparar una configuración de prueba limpia antes de cualquier promoción.
-4. Probar una instancia con imágenes reales y analítica GA4 configurada, si se quiere certificar esos escenarios.
-5. No fusionar ni desplegar producción sin autorización expresa.
+Pendientes reales y acotados:
+1. Si se desea certificar visualmente ambas familias, comprobar una sola vez la presentación de `templateFamily: commercial`; la lógica ya está revisada estáticamente.
+2. Probar imágenes reales y eventos GA4 con un Measurement ID válido solo si esos escenarios se incluyen en el alcance de certificación.
+3. No fusionar ni desplegar producción sin autorización expresa.
+
+La reconciliación documental con el modelo independiente ya está recogida en esta guía y en `ARQUITECTURA_MAESTRA_V1.5.md`; las referencias históricas que sobreviven se identifican expresamente como documentación histórica, no como instrucciones operativas.
 
 La prueba de URLs inválidas se completó con éxito y después se limpiaron esos valores en `config.json`: Instagram y mapas quedaron vacíos para evitar que el fixture de certificación conserve datos deliberadamente inválidos.
