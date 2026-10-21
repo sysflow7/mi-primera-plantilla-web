@@ -13,8 +13,8 @@ Se conservan `index.html`, `css/`, `js/` e imágenes de la base de producción, 
 - `indexable: false` durante pruebas.
 - El sitio corporativo y los Workers existentes no se modifican.
 
-## Validación pendiente
-Probar apariencia V1.5, textos retirados anteriormente, planes y FAQ demo, imágenes, botones, navegación y después rutas multipágina y configuración de cliente.
+## Estado de validación
+El alcance funcional acordado de V1.5 se ha probado en Preview y los resultados están registrados en `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md`. No repetir las pruebas ya confirmadas. La comprobación visual específica pendiente, si se requiere cerrar ambas familias, es validar la presentación de `templateFamily: commercial`; la lógica estática ya fue inspeccionada. La arquitectura no está desplegada en producción.
 
 
 ## Prueba de aislamiento de contenido
