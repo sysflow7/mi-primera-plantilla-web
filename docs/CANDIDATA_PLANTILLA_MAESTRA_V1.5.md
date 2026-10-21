@@ -43,10 +43,10 @@ El nombre de Worker ya se aisló en la configuración de la candidata como `side
 - [x] Rama candidata separada creada desde la rama de certificación.
 - [x] Configuración genérica inicial preparada y JSON válido.
 - [x] Actualizar `wrangler.jsonc` con un nombre exclusivo para la candidata: `siden-template-candidate-2026-10`.
-- [ ] Confirmar en Cloudflare que el Preview de esta rama no altera el Worker de certificación ni producción; los builds de Preview están habilitados y usan `npx wrangler preview`, pero falta comprobar el resultado de la implementación de esta candidata.
-- [ ] Validar la página genérica en Preview; no repetir pruebas de certificación previas salvo si el cambio afecta su comportamiento.
-- [ ] Revisar assets publicados y comportamiento sin imágenes/logotipo.
-- [ ] Consolidar la documentación Word final.
+- [ ] Confirmar documentalmente en Cloudflare la separación completa de disparadores, aliases y despliegues entre candidata, certificación y producción. El usuario ya confirmó que la página de la candidata se despliega en su Worker separado; eso no sustituye la revisión de todos los vínculos de configuración.
+- [x] Validar la página genérica en Preview: el usuario confirmó contenido genérico, sin datos de clientes ni planes comerciales SIDeN.
+- [ ] Terminar revisión de recursos de ejemplo publicados desde `images/` raíz y probar una imagen/logotipo configurados en una instancia de prueba.
+- [ ] Consolidar la documentación Word final después de completar los controles pendientes y reconciliar los documentos Markdown.
 - [ ] Obtener aprobación explícita antes de designar la rama oficial o modificar producción.
 
 ## Seguridad de publicación
@@ -136,3 +136,10 @@ El 21-10-2026, la primera corrección ocultó los botones cuando la configuraci�
 Commit de corrección: `e0ac57a600976d2e004bef90f761333587509027`; conservación del CTA en tarjetas de productos: `909ea1b57779e99e96012bfc54f3d8bc04f73e0d`.
 
 **Pendiente de verificación:** compilación automática de Cloudflare y comprobación visual/interactiva en la URL candidata. No se modificó producción.
+
+
+## Estado después de la comprobación visual de WhatsApp — 21-10-2026
+
+El usuario confirmó que el aviso “WhatsApp estará disponible cuando se configure el número del negocio” aparece al pulsar el CTA y que los botones flotante y de contacto permanecen visibles. Esto valida el comportamiento sin número configurado. No valida todavía que el enlace abra WhatsApp con un número de prueba. El código de la candidata conserva los CTA y evita la navegación al inicio de la página mientras no haya número.
+
+La página genérica se visualizó correctamente y no presentó datos de clientes ni los planes comerciales de SIDeN. La candidata sigue sin estar aprobada para producción o como rama oficial de nuevos proyectos.
