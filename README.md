@@ -20,3 +20,14 @@ El alcance funcional base de V1.5 y la presentación visual de las familias corp
 ## Prueba de aislamiento de contenido
 Rama `prueba-aislamiento-contenido-v1.5`: despliegue de prueba para verificar que las páginas corporativas de clientes no entreguen en el HTML las secciones comerciales de SIDeN ni las preguntas frecuentes predeterminadas.
 
+
+
+## Estado de transición — 21-10-2026
+
+La rama `prueba-aislamiento-contenido-v1.5` es una **rama de certificación**, no la rama oficial aprobada para crear nuevos proyectos. Contiene un `config.json` de prueba y un `wrangler.jsonc` con el nombre del Worker de pruebas; no se debe convertir directamente en plantilla de lanzamiento.
+
+La rama predeterminada reportada por GitHub es `siden-template-v1.3`; la rama de producción existente es `siden-corporativo-v1.3`. Son referencias distintas y no deben cambiarse durante la preparación de V1.5 sin autorización expresa.
+
+La comprobación funcional documentada en Preview está completada para los escenarios indicados en la arquitectura maestra. Aún falta preparar una candidata genérica aislada, confirmar la conexión y los disparadores de Cloudflare para la futura candidata y cerrar la reconciliación documental. La revisión funcional de Preview no equivale a una auditoría de seguridad integral.
+
+**Producción:** no fusionar ni desplegar esta rama en `siden-corporativo-v1.3`, Worker `siden-corporativo` o `sidenred.com` sin autorización explícita.
