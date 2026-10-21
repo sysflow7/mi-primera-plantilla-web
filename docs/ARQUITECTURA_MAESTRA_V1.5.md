@@ -130,7 +130,7 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 
 - La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
 - Las imágenes reales no se validaron porque el proyecto de prueba no contiene imágenes disponibles.
-- No se ha validado toda combinación de familia, módulo y configuración; la prueba visual de la familia comercial está en curso y el usuario confirmó que las FAQ ya aparecen con el módulo habilitado.
+- No se ha validado toda combinación de familia, módulo y configuración. La comprobación visual de la familia comercial quedó completada el 21-10-2026: el usuario confirmó que aparecen las secciones de proyectos, problema y solución, los planes SIDeN y las FAQ. No repetir esa prueba salvo que cambie el código relacionado.
 - La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
 - La certificación funcional base de V1.5 está cerrada para los escenarios expresamente probados; cada proyecto real debe validarse en su propio Preview antes de publicarse.
 - La reconciliación documental con el modelo independiente está recogida en esta guía, el procedimiento V1.1 y el índice de documentación; los documentos históricos deben tratarse como referencia, no como instrucciones operativas actuales.
