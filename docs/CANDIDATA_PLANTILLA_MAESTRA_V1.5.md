@@ -106,3 +106,19 @@ Esta anotación no constituye certificación ni aprobación de producción. Tras
 - La revisión del registro detectó que `config.json` aún heredaba `siden.baseDomain: "sidenred.com"`, aunque esta candidata es genérica. Se corrigió el campo a cadena vacía en un commit posterior para evitar asociar la configuración genérica al dominio de producción. Cloudflare debe completar la nueva compilación automática antes de validar esta corrección.
 
 Esta implementación confirma el despliegue aislado de la candidata, no la certificación funcional completa ni la autorización para migrar el sitio público.
+
+
+## Hallazgo funcional de WhatsApp en plantilla genérica — 21-10-2026
+
+El usuario confirmó que la página genérica cargaba correctamente, sin datos de cliente ni planes comerciales de SIDeN, pero que los botones flotante y de contacto abrían la misma página. La causa se identificó en `js/script.js`: cuando `whatsapp` está vacío, los enlaces recibían `href="#"`, que navega al inicio de la misma página.
+
+Correcciones realizadas en la candidata:
+- Si no hay número de WhatsApp configurado, los CTA `whatsapp-principal`, `whatsapp-final`, `whatsapp-flotante` y `pagina-whatsapp` quedan ocultos, sin atributo `href`.
+- Si hay número configurado, se construye el enlace `https://wa.me/<número>` y el CTA queda visible.
+- Las tarjetas de producto no generan un enlace de consulta por WhatsApp cuando no existe número configurado.
+
+Cambios en `js/script.js`:
+- `09182d9e666b31e4b33271fd0958070ca6b236a2`: ocultar CTA sin número.
+- `56d7d085a9efd9ac3da5464ce1c8069ca3c912f8`: omitir enlaces WhatsApp en tarjetas de productos cuando no hay número.
+
+**Pendiente:** esperar la compilación automática de Cloudflare y verificar en la URL de candidata que los botones no aparecen cuando WhatsApp está vacío. Esta corrección es solo de la rama candidata; no se modificó la rama de certificación ni producción.
