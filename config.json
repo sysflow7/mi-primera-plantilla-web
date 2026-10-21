@@ -1,7 +1,7 @@
 {
   "siden": {
     "instanceId": "cliente-prueba-multipagina",
-    "templateFamily": "corporate",
+    "templateFamily": "commercial",
     "baseDomain": "sidenred.com",
     "architecture": "independent-project",
     "domainMode": "subdomain",
@@ -122,7 +122,7 @@
   "mapEmbedUrl": "",
   "cintaInformativa": {"mostrar": true, "texto": "Calidad ✦ Confianza ✦ Atención profesional ✦ Estamos para ayudarte", "separador": "✦"},
   "presentacion": {"titulo": "Sobre el negocio", "texto": "Contenido ficticio de la página principal."},
-  "estadoComercial": "cliente",
+  "estadoComercial": "demo",
   "faq": {
     "activo": true,
     "preguntas": [
