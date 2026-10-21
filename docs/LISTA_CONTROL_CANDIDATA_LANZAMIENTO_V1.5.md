@@ -29,8 +29,8 @@ Definir los controles que deben cumplirse antes de declarar SIDeN V1.5 como plan
 
 - La rama predeterminada actual de GitHub fue reportada como `siden-template-v1.3`. Esto es distinto de la rama de producción `siden-corporativo-v1.3`; no se deben tratar como equivalentes.
 - Existe una solicitud de cambio #56 titulada **“Arquitectura híbrida SIDeN: proyectos independientes por cliente”**. Su descripción menciona el modelo independiente, pero conserva un historial y criterios de validación anteriores. Debe revisarse contra la implementación V1.5 actual antes de tomar decisiones de fusión o cierre. No se ha fusionado ni modificado esa solicitud.
-- No se encontraron los archivos de workflow en las rutas comunes consultadas (`.github/workflows/cloudflare.yml`, `.github/workflows/deploy.yml`, `.github/workflows/deploy.yaml`). Esto no demuestra por sí solo que no haya despliegues automáticos: la asociación de ramas, los disparadores y los ajustes del Worker deben verificarse en Cloudflare.
-- No se dispone desde esta revisión de una vista confirmada de los ajustes actuales de Cloudflare. Por ello, no se cambiará ni creará una rama candidata que pueda activar un despliegue hasta entender el vínculo de build.
+- La inspección del árbol completo del commit candidato no encontró archivos bajo `.github/workflows/`. El despliegue documentado se gestiona desde la integración GitHub/Cloudflare y `wrangler.jsonc`; la asociación de ramas y los eventos deben confirmarse en los ajustes de cada Worker en Cloudflare.
+- El usuario confirmó que el Worker de pruebas `siden-template-candidate-2026-10` usa la rama candidata para su despliegue. Sin embargo, no hay una inspección actual confirmada de todos los ajustes de Cloudflare de la candidata, certificación y producción; no se deben extrapolar los ajustes de un Worker a los demás.
 
 ## Controles pendientes antes de declarar una candidata oficial
 
