@@ -120,3 +120,8 @@ La arquitectura independiente continúa en estado de **certificación en curso**
 El usuario ejecutó desde Chrome DevTools una solicitud `fetch("/", { method: "POST" })` contra el Worker de Preview. Resultado observado: `405 (Method Not Allowed)` y `Código HTTP: 405`. Se considera aprobada la prueba del rechazo de métodos distintos de `GET`.
 
 El usuario confirma que las rutas multipágina funcionan y que `/robots.txt` y `/sitemap.xml` responden correctamente. La prueba de imágenes permanece pendiente porque el proyecto de prueba no tiene imágenes disponibles. La arquitectura sigue en certificación; estos resultados no equivalen a una auditoría de seguridad integral ni autorizan despliegues en producción.
+
+
+## Actualización de estado — 20-10-2026
+
+Las pruebas funcionales que estaban pendientes en registros anteriores se completaron en Preview según confirmación del usuario: validación de enlaces HTTPS/inseguros, botón de catálogo y producto sin imagen. La corrección del producto sin imagen se verificó visualmente después del despliegue. El estado anterior de «certificación en curso» queda reemplazado por **alcance funcional acordado completado en Preview**. Esto no implica auditoría de seguridad exhaustiva, ni autoriza despliegues en producción. Véase `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md` para los resultados consolidados.
