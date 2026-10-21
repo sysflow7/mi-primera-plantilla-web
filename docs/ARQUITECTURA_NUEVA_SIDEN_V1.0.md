@@ -122,3 +122,8 @@ Este registro no es una auditoría de seguridad exhaustiva ni certifica todas la
 - `PROCEDIMIENTO_CREACION_PROYECTO_CLIENTE_V1.0.md`: alta de proyectos nuevos.
 - `SIDEN_MINI_ARQUITECTURA_Y_ALCANCE_V1.0.md`: límites y componentes de SIDeN MINI.
 - `INDICE_DOCUMENTACION_SIDEN_V1.0.md`: mapa de documentos y control de versiones.
+
+
+## Addendum de validación de familias — 21-10-2026
+
+La comprobación visual de `templateFamily: commercial` quedó confirmada en Preview: se muestran las secciones de proyectos, problema y solución, los planes SIDeN y las FAQ cuando el módulo `faq` está habilitado en la página de inicio. El aislamiento comercial en la familia `corporate` con `estadoComercial: cliente` también había sido comprobado. La configuración de prueba fue restaurada a corporativo/cliente tras la validación. Esta evidencia aplica a los escenarios comprobados y no sustituye la validación individual de cada proyecto real. No se ha autorizado despliegue a producción.
