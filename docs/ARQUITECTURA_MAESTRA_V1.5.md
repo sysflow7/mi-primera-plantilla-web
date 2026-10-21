@@ -216,3 +216,11 @@ Esta matriz distingue las capacidades comprobadas en la rama de certificación d
 3. No cambiar la rama predeterminada del repositorio ni la configuración de producción de Cloudflare sin autorización explícita.
 4. Validar cada sitio real en su Preview, con contenido, imágenes, enlaces y dominio propios.
 5. Definir y certificar por separado la variante MINI antes de ofrecerla sobre esta arquitectura.
+
+### Hallazgo para la transición a una rama oficial
+
+La comparación de referencias GitHub muestra que `prueba-aislamiento-contenido-v1.5` está 98 commits por delante de `plantilla-maestra-v1.5-independiente-2026-10-16` y 109 commits por delante de `siden-corporativo-v1.3`, sin commits por detrás en las comparaciones realizadas. Esta diferencia incluye código y documentación de certificación, pero también archivos de prueba.
+
+**No promover esta rama directamente como plantilla oficial todavía.** La revisión del estado actual encontró que `config.json` es un fixture ficticio (negocio de prueba, teléfono ficticio, catálogo de ejemplo, `indexable: false`) y que `wrangler.jsonc` nombra al Worker `siden-prueba-cliente-multipagina-v15`. La configuración corporativa/cliente se restauró después de la prueba visual, pero sigue siendo configuración de prueba y el nombre del Worker también es específico del Preview.
+
+Antes de nombrar una rama oficial, se necesita una preparación de release separada: definir un `config.json` inicial genérico sin datos ficticios de cliente, establecer la política de nombre del Worker por proyecto, comprobar exclusiones de assets, mantener `indexable: false` por defecto y verificar el vínculo entre repositorio/rama/Worker sin tocar el Worker de producción. Esa preparación debe ocurrir en una rama nueva de candidato y no en el Worker de producción.
