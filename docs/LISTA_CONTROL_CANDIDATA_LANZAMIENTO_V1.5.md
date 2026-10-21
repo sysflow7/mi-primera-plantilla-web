@@ -25,10 +25,17 @@ Definir los controles que deben cumplirse antes de declarar SIDeN V1.5 como plan
 - [x] Configuración de prueba restaurada a familia corporativa, estado cliente e `indexable:false`.
 - [x] Verificaciones estáticas de sintaxis reportadas como correctas para los archivos principales.
 
+## Hallazgos de repositorio y transición
+
+- La rama predeterminada actual de GitHub fue reportada como `siden-template-v1.3`. Esto es distinto de la rama de producción `siden-corporativo-v1.3`; no se deben tratar como equivalentes.
+- Existe una solicitud de cambio #56 titulada **“Arquitectura híbrida SIDeN: proyectos independientes por cliente”**. Su descripción menciona el modelo independiente, pero conserva un historial y criterios de validación anteriores. Debe revisarse contra la implementación V1.5 actual antes de tomar decisiones de fusión o cierre. No se ha fusionado ni modificado esa solicitud.
+- No se encontraron los archivos de workflow en las rutas comunes consultadas (`.github/workflows/cloudflare.yml`, `.github/workflows/deploy.yml`, `.github/workflows/deploy.yaml`). Esto no demuestra por sí solo que no haya despliegues automáticos: la asociación de ramas, los disparadores y los ajustes del Worker deben verificarse en Cloudflare.
+- No se dispone desde esta revisión de una vista confirmada de los ajustes actuales de Cloudflare. Por ello, no se cambiará ni creará una rama candidata que pueda activar un despliegue hasta entender el vínculo de build.
+
 ## Controles pendientes antes de declarar una candidata oficial
 
 ### A. Preparación aislada de la candidata
-- [ ] Crear una rama candidata separada; no sobrescribir la rama de certificación activa.
+- [ ] Crear una rama candidata separada solo después de confirmar que crearla no dispara un despliegue no deseado; no sobrescribir la rama de certificación activa.
 - [ ] Preparar `config.json` genérico sin nombre, teléfono, catálogo, dominio ni datos ficticios de prueba.
 - [ ] Mantener `indexable:false` por defecto hasta aprobación explícita del cliente para indexación.
 - [ ] Definir una política de nombres de Worker que no pueda confundirse con el Worker de producción ni con el Worker de certificación.
@@ -36,8 +43,9 @@ Definir los controles que deben cumplirse antes de declarar SIDeN V1.5 como plan
 - [ ] Confirmar la política de aliases de Preview y documentar cuándo se agregan y retiran.
 
 ### B. GitHub y Cloudflare
-- [ ] Inspeccionar la rama predeterminada actual de GitHub y los disparadores de despliegue configurados en Cloudflare.
-- [ ] Confirmar qué rama está conectada a cada Worker y qué eventos disparan despliegues.
+- [x] Consultar la rama predeterminada reportada por GitHub: `siden-template-v1.3`.
+- [ ] Verificar en Cloudflare qué rama está conectada a cada Worker y qué eventos disparan despliegues.
+- [ ] Revisar la solicitud #56 y resolver si es histórica, sigue siendo necesaria o contradice la ruta V1.5 actual.
 - [ ] No cambiar la rama predeterminada del repositorio, rama de producción de Cloudflare, bindings, Worker ni dominio sin autorización explícita.
 - [ ] Desplegar la candidata únicamente en un Worker de pruebas separado y con una rama de Preview identificada.
 - [ ] Registrar commit, rama, Worker y URL de Preview usados para certificar la candidata.
