@@ -246,4 +246,4 @@ Pendientes antes de cerrar certificación:
 4. Probar una instancia con imágenes reales y analítica GA4 configurada, si se quiere certificar esos escenarios.
 5. No fusionar ni desplegar producción sin autorización expresa.
 
-El `config.json` de esta rama contiene valores deliberadamente inválidos (`javascript:` en Instagram y URL HTTP de ejemplo en mapas) para pruebas de seguridad. Deben sustituirse por valores limpios de demostración antes de convertir la rama en plantilla reutilizable.
+La prueba de URLs inválidas se completó con éxito y después se limpiaron esos valores en `config.json`: Instagram y mapas quedaron vacíos para evitar que el fixture de certificación conserve datos deliberadamente inválidos.
