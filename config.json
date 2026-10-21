@@ -70,7 +70,8 @@
     "ubicacion": "Ubicación",
     "ubicacionMenu": "Ubicación",
     "contacto": "Contáctanos",
-    "contactoMenu": "Contacto"
+    "contactoMenu": "Contacto",
+    "productos": "Productos de prueba"
   },
   "textos": {
     "contacto": "¿Tienes alguna consulta? Comunícate con nuestro negocio para recibir más información.",
@@ -151,7 +152,14 @@
       "descripcion": "Contenido de prueba para comprobar la presentación de servicios."
     }
   ],
-  "productos": [],
+  "productos": [
+    {
+      "nombre": "Producto de prueba",
+      "descripcion": "Elemento ficticio para comprobar la presentación del catálogo.",
+      "precio": "$1.00",
+      "imagen": ""
+    }
+  ],
   "menu": [],
   "perfil": {
     "descripcion": "Perfil profesional de prueba."
