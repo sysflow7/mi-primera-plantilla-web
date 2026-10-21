@@ -191,8 +191,19 @@ export default {
         if (direccion.pais) postalAddress.addressCountry = direccion.pais;
         if (Object.keys(postalAddress).length > 0 && !esAreaServicio) datosNegocio.address = { "@type": "PostalAddress", ...postalAddress };
         if (negocio.rangoPrecios) datosNegocio.priceRange = negocio.rangoPrecios;
-        if (negocio.maps?.startsWith("http")) datosNegocio.hasMap = negocio.maps;
-        const redes = [negocio.facebook, negocio.instagram].filter(red => typeof red === "string" && red.startsWith("http"));
+        // Los datos estructurados solo incluyen URLs externas absolutas HTTPS.
+        const urlHttpsValida = (valor) => {
+            if (typeof valor !== "string" || !valor.trim()) return "";
+            try {
+                const externa = new URL(valor.trim());
+                return externa.protocol === "https:" && externa.hostname ? externa.href : "";
+            } catch {
+                return "";
+            }
+        };
+        const mapaSeguro = urlHttpsValida(negocio.maps);
+        if (mapaSeguro) datosNegocio.hasMap = mapaSeguro;
+        const redes = [negocio.facebook, negocio.instagram].map(urlHttpsValida).filter(Boolean);
         if (redes.length) datosNegocio.sameAs = redes;
         if (!esAreaServicio && direccion.latitud !== "" && direccion.latitud !== undefined && direccion.longitud !== "" && direccion.longitud !== undefined) {
             datosNegocio.geo = { "@type": "GeoCoordinates", latitude: Number(direccion.latitud), longitude: Number(direccion.longitud) };
