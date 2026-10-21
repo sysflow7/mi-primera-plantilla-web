@@ -1,7 +1,7 @@
 # SIDeN — Procedimiento operativo para crear proyectos independientes V1.1
 
 **Estado:** vigente para preparación y pruebas; no autoriza publicación en producción.  
-**Base técnica:** arquitectura independiente SIDeN V1.5, en rama de certificación. La designación de una rama oficial para nuevos proyectos es una decisión pendiente y no se resuelve por este procedimiento.  
+**Base técnica:** arquitectura independiente SIDeN V1.5; pruebas funcionales base registradas en `prueba-aislamiento-contenido-v1.5` y preparación de release en `siden-template-candidate-2026-10`. La candidata no es aún una rama oficial para nuevos proyectos; la designación requiere cerrar los controles de lanzamiento y autorización expresa.  
 **Aplica a:** sitios SIDeN WEB de una página o multipágina. SIDeN MINI debe seguir además su documento de alcance específico.
 
 ## 1. Regla principal
