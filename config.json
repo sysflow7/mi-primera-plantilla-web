@@ -2,7 +2,7 @@
   "siden": {
     "instanceId": "cliente-por-configurar",
     "templateFamily": "corporate",
-    "baseDomain": "sidenred.com",
+    "baseDomain": "",
     "architecture": "independent-project",
     "domainMode": "subdomain",
     "customCss": "",
