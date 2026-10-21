@@ -232,6 +232,22 @@ export default {
         };
         Object.entries(reemplazos).forEach(([marcador, valor]) => { html = html.split(marcador).join(valor); });
 
+        // Evitar solicitudes 404 a marcadores de plantilla cuando la instancia no configura imágenes.
+        if (!logoURL) {
+            html = html.replace(/\\s+src="__LOGO_IMAGE_URL__"/g, "");
+        } else {
+            html = html.replaceAll("__LOGO_IMAGE_URL__", escHtml(logoURL));
+        }
+        const heroBackgroundName = negocio.heroImagenFondo || negocio.heroImagen || "";
+        if (heroBackgroundName) {
+            const heroBackgroundURL = construirImagenURL(heroBackgroundName);
+            html = html.replaceAll("__HERO_BACKGROUND_URL__", escHtml(heroBackgroundURL));
+        } else {
+            html = html.replace(/\\s+style="--hero-image:url\('__HERO_BACKGROUND_URL__'\);"/, "");
+        }
+        // El iframe se configura exclusivamente desde mapEmbedUrl validado por script.js.
+        html = html.replace(/\\s+src="__MAP_EMBED_URL__"/, "");
+
         const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
         if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
