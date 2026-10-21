@@ -179,3 +179,15 @@ Se identificaron y corrigieron en esta rama dos comportamientos de la plantilla:
 Se agregó el catálogo de referencia en `docs/CATALOGO_MODULOS_CONFIGURACION_V1.5.md`.
 
 **Estado:** cambios preparados en la rama de certificación; falta validación funcional en Preview. No se ha modificado ni desplegado producción. No considerar esta rama certificada para migración hasta confirmar los casos indicados en el catálogo.
+
+
+## 12. Criterio editorial para módulos profesionales — 20 de octubre de 2026
+
+Se establece la siguiente distinción para evitar secciones redundantes en webs de profesionales de salud, abogados y otros servicios:
+
+- **Presentación (`presentacion`):** módulo principal para «Quién soy» o «Quiénes somos». Presenta al profesional, la organización, la especialidad y/o trayectoria.
+- **Proceso (`proceso`):** módulo opcional que explica etapas reales de atención o prestación del servicio. El título debe adaptarse al sector (por ejemplo, «Etapas de tu tratamiento»). Si no añade valor, no se activa.
+- **Filosofía (`filosofia`):** nuevo módulo opcional para valores, enfoque de atención o principios profesionales. Debe aportar contenido distinto de la presentación y solo se muestra si existe texto.
+- **Identidad (`identidad`):** módulo existente conservado por compatibilidad. Su título y propósito pueden solaparse con la presentación, por lo que no se recomienda para nuevos sitios como segundo «Quiénes somos». Las configuraciones antiguas no se eliminan automáticamente.
+
+La implementación de `filosofia` se añadió en `index.html` y `js/script.js` en esta rama de certificación. Aún requiere comprobación visual/funcional en Preview antes de considerarse certificada. Producción no fue modificada.
