@@ -91,7 +91,8 @@
         "contacto",
         "productos",
         "proceso",
-        "identidad"
+        "identidad",
+        "filosofia"
       ],
       "etiquetas": {
         "presentacion": "Sobre el negocio",
@@ -100,7 +101,9 @@
         "proceso": "Cómo trabajamos",
         "procesoMenu": "Cómo trabajamos",
         "identidad": "Nuestra identidad",
-        "identidadMenu": "Nuestra identidad"
+        "identidadMenu": "Identidad",
+        "filosofia": "Nuestra filosofía",
+        "filosofiaMenu": "Nuestra filosofía"
       },
       "textos": {
         "contacto": "Contáctanos para más información."
@@ -188,8 +191,12 @@
     }
   ],
   "identidad": {
-    "titulo": "Nuestra identidad",
-    "texto": "Este es un texto de prueba para validar el módulo de identidad de SIDeN."
+    "titulo": "Identidad (módulo heredado)",
+    "texto": "Este bloque se conserva para comprobar compatibilidad con configuraciones existentes."
+  },
+  "filosofia": {
+    "titulo": "Nuestra filosofía",
+    "texto": "Nuestra atención se basa en escuchar, explicar las opciones con claridad y acompañar a cada persona durante su proceso."
   },
   "mapEmbedUrl": "",
   "cintaInformativa": {
