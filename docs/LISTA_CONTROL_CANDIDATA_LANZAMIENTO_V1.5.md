@@ -116,3 +116,8 @@ No renombrar todavía la rama predeterminada, la rama de producción ni ningún 
 - Se corrigió el comportamiento de los CTA de WhatsApp para conservarlos visibles sin número configurado; el usuario confirmó que el aviso aparece y no se navega al inicio. La apertura de WhatsApp con un número de prueba sigue pendiente.
 - La inspección de `.assetsignore` confirma que `sites/**` y `mini/**` quedan excluidos del conjunto de assets, pero los recursos de ejemplo ubicados en `images/` raíz sí se publican. No se detectaron rutas a imágenes de carpetas de clientes en la lista de recursos raíz; queda pendiente decidir la limpieza final de recursos de muestra antes de la designación oficial.
 - No se ha autorizado ni ejecutado ningún cambio en producción.
+
+
+## Revisión actual de la solicitud de cambio #56 — 21 de octubre de 2026
+
+La solicitud `#56` continúa abierta, con base `siden-template-v1.4` y rama de origen `arquitectura-hibrida-independiente-v1.0-2026-10-15`. Su última actualización reportada por GitHub es del 16-10-2026. Es una propuesta anterior a la candidata V1.5 actual; no se ha fusionado ni actualizado durante este trabajo. No fusionarla ni usarla como ruta de publicación sin una revisión separada del diff y una decisión explícita sobre su destino. La candidata actual se compara directamente con `prueba-aislamiento-contenido-v1.5` y sus cambios se limitan a `config.json`, `js/script.js`, `wrangler.jsonc` y documentación.
