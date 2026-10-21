@@ -168,3 +168,14 @@ El usuario confirmó en el Worker de pruebas `siden-prueba-cliente-multipagina-v
 Las comprobaciones funcionales acordadas en Preview se consideran completadas según evidencia reportada por el usuario: navegación multipágina, recarga de rutas y 404, GET-only/POST 405, sitemap y robots, ausencia de solicitudes `gtag/js` y `collect?v=2` en la sesión revisada, rechazo de enlaces externos con `javascript:` y `http:`, enlace HTTPS de catálogo funcional con destino de prueba `example.com`, y tarjeta de producto sin fotografía sin imagen rota. La corrección de producto sin imagen fue publicada y verificada visualmente por el usuario. Código: `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`. Registro funcional: `4d9eb41ad769419c1cd478fe75e8c0c153d4cc6c`.
 
 **Estado de esta etapa:** comprobaciones funcionales acordadas cerradas en Preview. Esto no equivale a una auditoría de seguridad exhaustiva, pruebas automatizadas completas, ni validación en todos los dispositivos. La certificación documental V1.5 puede cerrarse para este alcance. Producción sigue sin cambios y no queda autorizada por este registro.
+
+## 11. Revisión de módulos y aislamiento de contenido — 20 de octubre de 2026
+
+Se identificaron y corrigieron en esta rama dos comportamientos de la plantilla:
+
+1. **Módulos `proceso` e `identidad`:** ahora se consideran en la activación por `modulos`, se generan sus contenidos desde `config.json` y cuentan con destino/etiqueta de navegación. `proceso` requiere al menos un paso; `identidad` requiere texto o descripción.
+2. **Secciones comerciales `proyectos`, `problema` y `solucion`:** ahora se ocultan explícitamente en `templateFamily: corporate` y se conservan en `templateFamily: commercial`. La ocultación establece tanto `hidden` como `display:none` para evitar que reglas de estilo puedan anular el atributo.
+
+Se agregó el catálogo de referencia en `docs/CATALOGO_MODULOS_CONFIGURACION_V1.5.md`.
+
+**Estado:** cambios preparados en la rama de certificación; falta validación funcional en Preview. No se ha modificado ni desplegado producción. No considerar esta rama certificada para migración hasta confirmar los casos indicados en el catálogo.
