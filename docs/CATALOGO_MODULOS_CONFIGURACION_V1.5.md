@@ -32,7 +32,7 @@
 
 ## 3. Secciones exclusivas de marketing SIDeN
 
-Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial de SIDeN, no el negocio del cliente. El motor ahora las oculta en `templateFamily: corporate` y las conserva en `templateFamily: commercial`. Este comportamiento debe confirmarse en Preview en ambas familias antes de certificarlo.
+Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial de SIDeN, no el negocio del cliente.\n\n- **Corporativo de cliente:** aislamiento ya comprobado en Preview en esta conversación/historial: los planes de SIDeN no aparecieron y la búsqueda del HTML entregado no encontró los IDs de secciones comerciales. No repetir esta prueba.\n- **Familia comercial:** la lógica de código inspeccionada las conserva cuando `templateFamily === "commercial"`; no encontré registro de una comprobación visual específica de esta familia en la evidencia disponible. Esta es la única verificación funcional pendiente de este punto, si se requiere certificar también la presentación comercial.
 
 ## 4. Elementos complementarios
 
@@ -56,4 +56,4 @@ Cambios preparados en esta rama:
 - Añadidas etiquetas y destinos de navegación para esos módulos.
 - Ocultadas en páginas corporativas las secciones comerciales `proyectos`, `problema` y `solucion`.
 
-**Confirmado en Preview:** `proceso`, `identidad` y `filosofia` se renderizan con el contenido de prueba. La lógica de `filosofia` ya está implementada de forma independiente; `identidad` se mantiene por compatibilidad. **Pendiente para certificación integral:** comprobar activación/desactivación con contenido vacío y aislamiento de secciones comerciales entre las familias corporativa y comercial/demo.
+**Confirmado en Preview:** `proceso`, `identidad` y `filosofia` se renderizan con el contenido de prueba. La lógica de `filosofia` ya está implementada de forma independiente; `identidad` se mantiene por compatibilidad. El aislamiento comercial en el corporativo de cliente ya se probó; no debe repetirse. **Pendiente real:** revisar el comportamiento visual de la familia comercial si se desea cerrar ambas familias, y comprobar activación/desactivación con contenido vacío solo si ese caso se requiere en el alcance final.
