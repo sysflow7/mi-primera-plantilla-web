@@ -351,7 +351,11 @@
         // Estas secciones explican la oferta comercial de SIDeN y no forman parte de webs corporativas.
         ["proyectos", "problema", "solucion"].forEach(function (id) {
             const seccion = document.getElementById(id);
-            if (seccion) seccion.hidden = templateFamily !== "commercial";
+            if (seccion) {
+                const visibleComercial = templateFamily === "commercial";
+                seccion.hidden = !visibleComercial;
+                seccion.style.display = visibleComercial ? "" : "none";
+            }
         });
 
         // ORDEN PERSONALIZADO DE SECCIONES
