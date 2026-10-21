@@ -87,7 +87,8 @@
         "presentacion",
         "beneficios",
         "servicios",
-        "contacto"
+        "contacto",
+        "productos"
       ],
       "etiquetas": {
         "presentacion": "Sobre el negocio",
