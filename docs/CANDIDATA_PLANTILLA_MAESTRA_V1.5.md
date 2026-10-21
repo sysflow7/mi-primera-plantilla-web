@@ -61,3 +61,29 @@ No modificar ni desplegar a `siden-corporativo-v1.3`, Worker `siden-corporativo`
 - `config.json` mantiene `templateFamily: corporate`, `estadoComercial: cliente`, `modoSitio: single` e `indexable: false`.
 - Los datos de contacto, catálogo, redes, productos, servicios y FAQ están vacíos o desactivados para la plantilla genérica.
 - El nombre de Worker se aisló en el archivo; esto no sustituye la comprobación de Cloudflare Preview ni la aprobación de la rama oficial.
+
+
+## Revisión estática de consistencia de configuración — 21-10-2026
+
+Se compararon los campos de `config.json` con las lecturas del Worker y del motor de configuración:
+
+- El Worker y el motor toman `siden.templateFamily`; la candidata usa `corporate`.
+- El Worker decide las rutas multipágina con `modoSitio === "multi"`; la candidata usa `single` intencionalmente como punto de partida. Una instancia contratada como multipágina debe declarar `modoSitio: "multi"` y sus rutas en `paginas`.
+- `indexable: false` está definido para evitar indexación mientras se prepara el sitio.
+- El motor GA4 busca `analytics.ga4.measurementId`; como la configuración genérica no define un ID, la medición permanece desactivada por defecto. No se debe agregar un ID de cliente al fixture genérico.
+- El Worker construye el canonical con el origen real de la solicitud, no con `siden.baseDomain`; ese campo por sí solo no configura el dominio ni DNS.
+- El archivo `.assetsignore` excluye `worker.js`, `wrangler.jsonc`, Markdown/documentación y carpetas `sites/` y `mini/` del conjunto de assets estáticos. El comportamiento debe confirmarse en la implementación de Preview, no solo por lectura del archivo.
+- La inspección estática no reemplaza el Preview, la prueba con recursos reales ni la revisión de seguridad completa.
+
+## Regla de migración para evitar sorpresas tardías
+
+Antes de migrar `sidenred.com`, cerrar y registrar en una única ficha:
+1. commit exacto de la candidata aprobada;
+2. rama oficial estable (nombre sin número de versión);
+3. Worker y dominio de cada entorno, diferenciando plantilla, sitio público y pruebas;
+4. configuración Cloudflare Build/Preview y rama de producción para el Worker del sitio público;
+5. rutas, canonical, indexación y GA4 del sitio que se migra;
+6. pruebas de aceptación y plan de reversión;
+7. autorización expresa para el cambio de producción.
+
+No declarar la arquitectura lista para migrar mientras siga sin confirmarse el Preview de la candidata y sin completar la revisión de recursos reales.
