@@ -129,11 +129,11 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 ## 12. Límites y pendientes
 
 - La revisión es estática más las pruebas manuales indicadas; no es una auditoría de seguridad externa.
-- La carga de imágenes sigue pendiente porque el proyecto de prueba no contiene imágenes disponibles.
-- No se ha validado visualmente toda combinación de familia, módulo y configuración.
+- Las imágenes reales no se validaron porque el proyecto de prueba no contiene imágenes disponibles.
+- No se ha validado toda combinación de familia, módulo y configuración; la prueba visual de la familia comercial está en curso y el usuario confirmó que las FAQ ya aparecen con el módulo habilitado.
 - La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
-- La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
-- Antes de utilizar esta arquitectura como estándar definitivo, completar la reconciliación de documentos históricos y verificar que las instrucciones operativas apuntan a este modelo independiente.
+- La certificación funcional base de V1.5 está cerrada para los escenarios expresamente probados; cada proyecto real debe validarse en su propio Preview antes de publicarse.
+- La reconciliación documental con el modelo independiente está recogida en esta guía, el procedimiento V1.1 y el índice de documentación; los documentos históricos deben tratarse como referencia, no como instrucciones operativas actuales.
 - La rama de certificación no implica publicación en producción.
 
 
@@ -174,14 +174,14 @@ Si se desea recuperar alguna de estas capacidades, debe diseñarse como un requi
 
 La arquitectura no se considera certificada únicamente por esta documentación. La certificación requiere código revisado, pruebas funcionales en Preview, regresión de los comportamientos afectados, documentación consistente y revisión de una instancia de cliente representativa.
 
-**Estado al 20-10-2026:** las pruebas funcionales acordadas y registradas en `ARQUITECTURA_INDEPENDIENTE_V1.5.md` se consideran completadas en Preview. No repetir navegación multipágina, 404, sitemap/robots, POST 405, enlaces externos, JSON-LD, módulos de prueba, producto sin imagen, marcadores visuales ni favicon, salvo que una modificación posterior afecte expresamente ese comportamiento. El aislamiento de contenido comercial en corporativo de cliente también fue comprobado. La lógica de la familia comercial está revisada estáticamente; falta únicamente una comprobación visual específica de esa familia si se desea cerrar el alcance para ambas familias. Las pruebas con imágenes reales y GA4 con ID válido quedan fuera del alcance funcional básico y solo se requieren si se decide certificar esos escenarios. Producción no se ha modificado ni desplegado.
+**Estado actualizado al 20-10-2026:** las pruebas funcionales base registradas en `ARQUITECTURA_INDEPENDIENTE_V1.5.md` están cerradas en Preview. No repetir navegación multipágina, 404, sitemap/robots, POST 405, enlaces externos, JSON-LD, módulos ya confirmados, producto sin imagen, marcadores visuales ni favicon, salvo que una modificación posterior afecte expresamente ese comportamiento. El aislamiento comercial del corporativo de cliente está confirmado. En la comprobación visual de la familia comercial, el usuario confirmó que las FAQ aparecen tras habilitar el módulo `faq`; falta confirmar si también se muestran las secciones comerciales y los planes SIDeN. Las pruebas con imágenes reales y GA4 con ID válido quedan fuera del alcance funcional básico. Producción no se ha modificado ni desplegado.
 
 
 ### Hallazgo adicional — aislamiento de GA4 en Preview
 
 La revisión estática detectó que la lógica anterior solo desactivaba GA4 cuando existía el parámetro heredado `?site=`. En el modelo independiente, el Preview usa un host `*.workers.dev`, por lo que esa condición sola no era suficiente para evitar contaminar la analítica de producción si se configuraba un Measurement ID real.
 
-**Corrección aplicada en la rama de certificación:** `js/script.js` ahora considera como Preview los hosts `*.workers.dev`, `*.pages.dev`, `localhost` y `127.0.0.1`, además del parámetro `?site=`. Commit: `4d845202005dcd0df0a4bee9513332c856fb7502`. La corrección está guardada en GitHub; falta su comprobación funcional en Preview. No se modificó producción.
+**Corrección aplicada y comprobada en Preview:** `js/script.js` considera como Preview los hosts `*.workers.dev`, `*.pages.dev`, `localhost` y `127.0.0.1`, además del parámetro `?site=`. Commit: `4d845202005dcd0df0a4bee9513332c856fb7502`. Durante la sesión revisada no se observaron solicitudes `gtag.js` ni `collect?v=2`. No se modificó producción.
 
 
 ## Cierre del alcance de certificación funcional V1.5 — 20-10-2026
