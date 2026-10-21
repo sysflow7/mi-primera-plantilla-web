@@ -214,3 +214,14 @@ Se corrigió en la rama de certificación:
 Commits principales: `edfabbcea49e3877e96e64fb1111666ffcb91ab4`, `38091f0dde12d898889053631e17853f3cccc082`, `944081dd9e06da54e3548ec3915c5a6acdf458c7`, `574d75c050736c00e470c2841ca138d8e6aca4c9`.
 
 **Validación estática:** sintaxis de `worker.js`, `js/script.js`, `js/modules-v1.4.js` y JSON de configuración verificada correctamente. **Pendiente:** confirmar en Preview que desaparecieron las solicitudes 404 de los marcadores. Producción no fue modificada.
+
+
+## 15. Favicon predeterminado cuando no hay logotipo — 20 de octubre de 2026
+
+Se detectó en Preview que, al retirar el favicon basado en logotipo cuando no existe logo configurado, Chrome intentaba solicitar automáticamente `/favicon.ico` y recibía 404.
+
+Se corrigió en la rama de certificación mediante un favicon SVG de respaldo integrado como URI de datos en el HTML entregado por `worker.js`. Cuando el cliente configura un logotipo, se conserva la URL de ese recurso como favicon; cuando no, se utiliza el icono predeterminado y se evita depender de un archivo `favicon.ico` inexistente.
+
+Commit: `970994051a4db6f72770925ffab1fd766d70af42`.
+
+**Validación estática:** la sintaxis de `worker.js` pasó. **Pendiente:** confirmar en Preview que el error `/favicon.ico 404` desaparece. Producción no fue modificada.
