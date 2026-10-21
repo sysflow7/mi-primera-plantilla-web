@@ -240,10 +240,15 @@ Pruebas confirmadas por el usuario en Preview:
 - No se observan errores 404 para marcadores de logo/fondo ni para `favicon.ico` tras las correcciones.
 
 Pendientes reales y acotados:
-1. Si se desea certificar visualmente ambas familias, comprobar una sola vez la presentación de `templateFamily: commercial`; la lógica ya está revisada estáticamente.
-2. Probar imágenes reales y eventos GA4 con un Measurement ID válido solo si esos escenarios se incluyen en el alcance de certificación.
+1. Probar imágenes reales y eventos GA4 con un Measurement ID válido solo si esos escenarios se incluyen en el alcance de certificación.
+2. Antes de publicar una instancia real, validarla en su propio Preview y obtener aprobación del responsable/cliente.
 3. No fusionar ni desplegar producción sin autorización expresa.
 
 La reconciliación documental con el modelo independiente ya está recogida en esta guía y en `ARQUITECTURA_MAESTRA_V1.5.md`; las referencias históricas que sobreviven se identifican expresamente como documentación histórica, no como instrucciones operativas.
 
 La prueba de URLs inválidas se completó con éxito y después se limpiaron esos valores en `config.json`: Instagram y mapas quedaron vacíos para evitar que el fixture de certificación conserve datos deliberadamente inválidos.
+
+
+## Validación visual final de la familia comercial — 21-10-2026
+
+El usuario confirmó en el Worker de Preview que, con `templateFamily: commercial` y `estadoComercial: demo`, aparecen las secciones comerciales de proyectos, problema y solución, los planes SIDeN y las preguntas frecuentes. La comprobación visual pendiente de la familia comercial queda cerrada. Después de la prueba, `config.json` se restauró a `templateFamily: corporate` y `estadoComercial: cliente` en la rama `prueba-aislamiento-contenido-v1.5`. Producción no fue modificada ni desplegada.
