@@ -189,3 +189,30 @@ La revisión estática detectó que la lógica anterior solo desactivaba GA4 cua
 Se actualiza el estado anterior «certificación en curso»: las comprobaciones funcionales acordadas en Preview han sido completadas con confirmación del usuario. Incluyen navegación multipágina y rutas, 404, rechazo de POST con 405, sitemap/robots, protección de GA4 en la sesión revisada, validación de enlaces externos y enlace de catálogo de prueba. Se corrigió y verificó visualmente la tarjeta de producto sin imagen (commit `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`). Resultados registrados en `ARQUITECTURA_INDEPENDIENTE_V1.5.md` (commit `4d9eb41ad769419c1cd478fe75e8c0c153d4cc6c`).
 
 El cierre aplica solo al alcance funcional acordado en Preview. No representa una auditoría de seguridad integral ni certifica toda combinación de configuración/dispositivo. No se ha modificado ni autorizado el despliegue en producción.
+
+## 17. Matriz de capacidades y límites de la arquitectura V1.5 — 21-10-2026
+
+Esta matriz distingue las capacidades comprobadas en la rama de certificación de las capacidades que requieren validación adicional. No implica publicación ni designación de rama oficial.
+
+| Área | Capacidad / estado | Alcance y límite |
+|---|---|---|
+| Aislamiento de clientes | Modelo independiente implementado | Un repositorio/proyecto, configuración raíz y Worker por sitio. No reutilizar un Worker de otro cliente. |
+| Familia corporativa | Comprobada en Preview | Los sitios corporativos de cliente no muestran planes ni secciones de marketing SIDeN. Las FAQ dependen de configuración propia y del módulo por página. |
+| Familia comercial | Comprobada visualmente en Preview | Con `templateFamily: commercial` se muestran las secciones de proyectos, problema, solución y planes SIDeN. Las FAQ de demostración aparecen cuando `faq` está habilitado en los módulos de la página. |
+| Multipágina | Comprobada en Preview | Rutas declaradas, navegación, acceso directo/recarga, selección de módulos por página y 404 para ruta no declarada. Validación de rutas básica, no validación completa de todo el contenido. |
+| Módulos | Parcialmente comprobados | `proceso`, `identidad`, `filosofia`, producto sin imagen y FAQ fueron comprobados con contenido de prueba. No se ha probado toda combinación de módulo/configuración. |
+| Enlaces externos | Comprobados en Preview | Se ocultan destinos inválidos en los campos revisados; se aceptan URLs HTTPS absolutas con host válido. No constituye una política de seguridad universal para cualquier URL introducida en cualquier campo. |
+| SEO y rastreo | Comprobación base realizada | Metadatos, canonical, robots y sitemap revisados en escenarios de prueba, incluyendo `indexable: false`. Cada dominio real necesita revisión propia antes de indexarse. |
+| GA4 | Protección de Preview comprobada en sesión | No se observaron solicitudes `gtag.js` ni `collect?v=2` en la prueba registrada. No se validaron eventos reales con Measurement ID propio válido. |
+| Recursos visuales | Comportamiento sin recurso corregido | Producto sin imagen, marcadores vacíos de logo/fondo y favicon corregidos. Las imágenes reales de un cliente no se certificaron en esta prueba. |
+| Métodos HTTP | GET permitido, otros métodos rechazados | POST devolvió 405 en Preview. Esto no equivale a auditoría de seguridad integral. |
+| SIDeN MINI | No certificada en V1.5 independiente | Existe una definición de alcance, pero falta confirmar el modo técnico, reconciliar límites comerciales y probar una instancia MINI. No asumir que está disponible por compartir componentes con WEB. |
+| Producción | No autorizada | No se ha fusionado ni desplegado esta rama a producción. La designación de la rama oficial para nuevos proyectos continúa pendiente. |
+
+### Decisiones y pasos que todavía requieren control
+
+1. Terminar la reconciliación de documentación y entregar la edición final en Word.
+2. Confirmar y autorizar qué rama será la base oficial para nuevos proyectos independientes.
+3. No cambiar la rama predeterminada del repositorio ni la configuración de producción de Cloudflare sin autorización explícita.
+4. Validar cada sitio real en su Preview, con contenido, imágenes, enlaces y dominio propios.
+5. Definir y certificar por separado la variante MINI antes de ofrecerla sobre esta arquitectura.
