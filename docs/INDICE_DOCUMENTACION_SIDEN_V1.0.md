@@ -47,7 +47,7 @@ La arquitectura independiente V1.5, la arquitectura maestra V1.5 y el catálogo 
 - **Configuración del fixture:** restaurada a `templateFamily: corporate` y `estadoComercial: cliente` en la rama de certificación.
 - **Producción:** sin cambios ni despliegues autorizados.
 - **Documentación Word:** al terminar el alcance acordado, entregar los documentos operativos actualizados en `.docx`; no considerar los borradores Word previos como la edición final hasta esa consolidación.
-- **Siguiente etapa:** preparar una candidata aislada con configuración genérica; confirmar los disparadores de GitHub/Cloudflare; completar las verificaciones pendientes y la reconciliación documental antes de promover la arquitectura a nuevos proyectos.
+- **Siguiente etapa:** la candidata aislada `siden-template-candidate-2026-10` ya existe y fue revisada visualmente por el usuario. Falta probar WhatsApp con número de prueba, decidir sobre los recursos de ejemplo de la carpeta raíz `images/`, confirmar el mapa completo de vínculos y disparadores de Cloudflare y terminar la reconciliación documental antes de promover la arquitectura a nuevos proyectos.
 
 
 ## 7. Reconciliación documental adicional — 21-10-2026
