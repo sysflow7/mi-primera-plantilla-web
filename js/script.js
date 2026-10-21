@@ -313,9 +313,45 @@
             : [];
         const galeriaActiva = modulos.includes("galeria") && galeria.length > 0;
 
-        ["presentacion", "perfil", "beneficios", "servicios", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
+        ["presentacion", "perfil", "beneficios", "servicios", "proceso", "identidad", "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(function (modulo) {
             const visible = modulo === "galeria" ? galeriaActiva : modulos.includes(modulo);
             showModule(modulo, visible);
+        });
+
+        // MÓDULOS CORPORATIVOS: proceso e identidad
+        const listaProceso = document.getElementById("lista-proceso");
+        if (listaProceso) {
+            listaProceso.innerHTML = "";
+            const pasos = Array.isArray(negocio.proceso) ? negocio.proceso : [];
+            pasos.forEach(function (paso, indice) {
+                const titulo = paso.titulo || paso.nombre || ("Paso " + (indice + 1));
+                addCard(listaProceso, "service", `<h3>${escapeHtml(titulo)}</h3><p>${escapeHtml(paso.descripcion || paso.detalle || "")}</p>`);
+            });
+            showModule("proceso", modulos.includes("proceso") && pasos.length > 0);
+        }
+
+        const identidadConfig = negocio.identidad && typeof negocio.identidad === "object" ? negocio.identidad : {};
+        setText("titulo-identidad", identidadConfig.titulo || etiquetas.identidad || "Quiénes somos");
+        const contenidoIdentidad = document.getElementById("contenido-identidad");
+        if (contenidoIdentidad) contenidoIdentidad.textContent = identidadConfig.texto || identidadConfig.descripcion || "";
+        const imagenIdentidad = document.getElementById("imagen-identidad");
+        if (imagenIdentidad) {
+            if (identidadConfig.imagen) {
+                imagenIdentidad.src = assetUrl("images/" + identidadConfig.imagen);
+                imagenIdentidad.alt = identidadConfig.alt || (identidadConfig.titulo || "Identidad de " + negocioBase.nombre);
+                imagenIdentidad.hidden = false;
+            } else {
+                imagenIdentidad.removeAttribute("src");
+                imagenIdentidad.alt = "";
+                imagenIdentidad.hidden = true;
+            }
+        }
+        showModule("identidad", modulos.includes("identidad") && !!String(identidadConfig.texto || identidadConfig.descripcion || "").trim());
+
+        // Estas secciones explican la oferta comercial de SIDeN y no forman parte de webs corporativas.
+        ["proyectos", "problema", "solucion"].forEach(function (id) {
+            const seccion = document.getElementById(id);
+            if (seccion) seccion.hidden = templateFamily !== "commercial";
         });
 
         // ORDEN PERSONALIZADO DE SECCIONES
@@ -335,13 +371,13 @@
 
         // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
-        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
+        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", proceso: "proceso", identidad: "identidad", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
             beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
             productos: etiquetas.productosMenu || "Productos", menu: etiquetas.menuMenu || "Menú",
             galeria: etiquetas.galeriaMenu || "Galería", ubicacion: etiquetas.ubicacionMenu || "Ubicación",
-            contacto: etiquetas.contactoMenu || "Contacto",
+            contacto: etiquetas.contactoMenu || "Contacto", proceso: etiquetas.procesoMenu || "Cómo trabajamos", identidad: etiquetas.identidadMenu || "Quiénes somos",
             soluciones: etiquetas.solucionesMenu || "Planes SIDeN",
             faq: etiquetas.faqMenu || etiquetas.faq || "Preguntas frecuentes"
         };
