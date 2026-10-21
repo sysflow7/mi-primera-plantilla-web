@@ -44,15 +44,15 @@ Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial
 
 La navegación se genera a partir de los módulos seleccionados y las etiquetas de menú disponibles. Los módulos `proceso` e `identidad` ahora tienen destino y etiqueta de navegación. Si un módulo requiere datos y estos faltan, puede no mostrarse aunque figure en la lista.
 
-## 6. Riesgo de cambios
+## 7. Riesgo de cambios
 
 Los módulos y secciones pertenecen al HTML y JavaScript compartidos dentro de cada proyecto. Un cambio en la plantilla maestra puede afectar a múltiples instancias cuando se replique. Antes de alterar un elemento compartido, identificar si el requisito es general o exclusivo de un cliente; si es exclusivo, valorar una configuración existente o una plantilla separada en vez de introducir una excepción global.
 
-## 7. Estado de la revisión
+## 8. Estado de la revisión
 
 Cambios preparados en esta rama:
 - Añadida lógica de renderizado para `proceso` e `identidad`.
 - Añadidas etiquetas y destinos de navegación para esos módulos.
 - Ocultadas en páginas corporativas las secciones comerciales `proyectos`, `problema` y `solucion`.
 
-**Pendiente:** comprobar en Preview: activar/desactivar `proceso` e `identidad`, navegación a ambos, contenido vacío, aislamiento de las tres secciones en corporativo y conservación en comercial. No declarar la certificación cerrada hasta realizar esas comprobaciones.
+**Pendiente:** comprobar en Preview: activar/desactivar `proceso` e `identidad`, navegación a ambos, contenido vacío, aislamiento de las tres secciones en corporativo y conservación en comercial. La distinción editorial entre presentación, proceso y filosofía queda definida; la conversión técnica de `identidad` en un módulo explícito de filosofía requiere un cambio de código y compatibilidad que se completará antes de declarar la arquitectura certificada.
