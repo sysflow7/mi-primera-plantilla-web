@@ -122,3 +122,17 @@ Cambios en `js/script.js`:
 - `56d7d085a9efd9ac3da5464ce1c8069ca3c912f8`: omitir enlaces WhatsApp en tarjetas de productos cuando no hay número.
 
 **Pendiente:** esperar la compilación automática de Cloudflare y verificar en la URL de candidata que los botones no aparecen cuando WhatsApp está vacío. Esta corrección es solo de la rama candidata; no se modificó la rama de certificación ni producción.
+
+
+### Corrección posterior: conservar los CTA de WhatsApp visibles
+
+El 21-10-2026, la primera corrección ocultó los botones cuando la configuración genérica no tenía número. El usuario indicó que esto eliminó toda referencia visible a WhatsApp y empeoró la página. Se corrigió esa decisión en la candidata:
+
+- Los CTA flotante, de contacto y otros CTA de WhatsApp permanecen visibles aunque el número todavía no esté configurado.
+- Cuando hay número, el botón abre el enlace `https://wa.me/<número>`.
+- Cuando no hay número, el clic se intercepta y muestra un aviso de que WhatsApp estará disponible al configurar el número; no debe navegar a la misma página.
+- Los CTA de consulta por WhatsApp de las tarjetas de producto también se conservan y muestran el aviso mientras no exista número configurado.
+
+Commit de corrección: `e0ac57a600976d2e004bef90f761333587509027`; conservación del CTA en tarjetas de productos: `909ea1b57779e99e96012bfc54f3d8bc04f73e0d`.
+
+**Pendiente de verificación:** compilación automática de Cloudflare y comprobación visual/interactiva en la URL candidata. No se modificó producción.
