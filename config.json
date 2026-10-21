@@ -1,133 +1,130 @@
 {
   "siden": {
-    "instanceId": "cliente-prueba-multipagina",
+    "instanceId": "cliente-por-configurar",
     "templateFamily": "corporate",
     "baseDomain": "sidenred.com",
     "architecture": "independent-project",
     "domainMode": "subdomain",
     "customCss": "",
-    "template": "siden-template-v1.5",
+    "template": "siden-template",
     "version": "1.5"
   },
   "activo": true,
-  "nombre": "Negocio de Prueba",
-  "h1": "Sitio multipágina de prueba",
-  "slogan": "Validación de arquitectura SIDeN V1.5",
-  "descripcion": "Sitio ficticio para verificar la configuración de cliente y la navegación multipágina.",
-  "descripcionSEO": "Prueba técnica de la arquitectura independiente SIDeN.",
-  "tipoNegocio": "profesional",
-  "etiquetaTipo": "Servicio profesional",
-  "modoSitio": "multi",
-  "modeloAtencion": "local",
-  "areasServicio": ["San Salvador", "El Salvador"],
+  "nombre": "Nombre del negocio",
+  "h1": "Nombre del negocio",
+  "slogan": "Describe brevemente tu propuesta de valor",
+  "descripcion": "",
+  "descripcionSEO": "",
+  "tipoNegocio": "",
+  "etiquetaTipo": "",
+  "modoSitio": "single",
+  "modeloAtencion": "",
+  "areasServicio": [],
   "heroImagenFondo": "",
   "heroImagenVisual": "",
   "mostrarHeroImagen": false,
-  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto", "faq"],
+  "modulos": [
+    "presentacion",
+    "beneficios",
+    "servicios",
+    "contacto"
+  ],
   "indexable": false,
-  "whatsapp": "50300000000",
-  "telefono": "+503 0000-0000",
+  "whatsapp": "",
+  "telefono": "",
   "email": "",
-  "ciudad": "San Salvador",
+  "ciudad": "",
   "pais": "El Salvador",
-  "direccionTexto": "San Salvador, El Salvador",
-  "direccion": {"calle": "", "ciudad": "San Salvador", "departamento": "San Salvador", "codigoPostal": "", "pais": "SV", "latitud": "", "longitud": ""},
-  "facebook": "https://www.facebook.com/",
+  "direccionTexto": "",
+  "direccion": {
+    "calle": "",
+    "ciudad": "",
+    "departamento": "",
+    "codigoPostal": "",
+    "pais": "SV",
+    "latitud": "",
+    "longitud": ""
+  },
+  "facebook": "",
   "instagram": "",
   "maps": "",
-  "catalogo": "https://example.com/",
+  "catalogo": "",
   "logo": "",
   "imagenSocial": "",
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {
-    "presentacion": "Especialidad",
-    "presentacionMenu": "Especialidad",
-    "beneficios": "Beneficios de nuestros servicios",
+    "presentacion": "Sobre el negocio",
+    "presentacionMenu": "Presentación",
+    "beneficios": "Beneficios",
     "beneficiosMenu": "Beneficios",
-    "servicios": "Nuestros servicios",
+    "servicios": "Servicios",
     "serviciosMenu": "Servicios",
     "ubicacion": "Ubicación",
     "ubicacionMenu": "Ubicación",
-    "contacto": "Contáctanos",
+    "contacto": "Contacto",
     "contactoMenu": "Contacto",
-    "productos": "Productos de prueba"
+    "productos": "Productos"
   },
   "textos": {
-    "contacto": "¿Tienes alguna consulta? Comunícate con nuestro negocio para recibir más información.",
-    "ubicacion": "Consulta la ubicación y las opciones de contacto de nuestro negocio."
+    "contacto": "",
+    "ubicacion": ""
   },
   "paginas": [
     {
       "ruta": "/",
       "nombre": "Inicio",
-      "h1": "Negocio de Prueba",
-      "slogan": "Bienvenido al sitio de prueba",
-      "descripcion": "Página principal del sitio multipágina.",
-      "modulos": ["presentacion", "beneficios", "servicios", "contacto", "productos", "proceso", "identidad", "filosofia", "faq"],
+      "h1": "Nombre del negocio",
+      "slogan": "Describe brevemente tu propuesta de valor",
+      "descripcion": "",
+      "modulos": [
+        "presentacion",
+        "beneficios",
+        "servicios",
+        "contacto"
+      ],
       "etiquetas": {
         "presentacion": "Sobre el negocio",
         "beneficios": "Beneficios",
         "servicios": "Servicios",
-        "proceso": "Cómo trabajamos",
-        "procesoMenu": "Cómo trabajamos",
-        "identidad": "Nuestra identidad",
-        "identidadMenu": "Identidad",
-        "filosofia": "Nuestra filosofía",
-        "filosofiaMenu": "Nuestra filosofía"
+        "contacto": "Contacto"
       },
-      "textos": {"contacto": "Contáctanos para más información."}
-    },
-    {
-      "ruta": "/perfil-profesional",
-      "nombre": "Perfil profesional",
-      "h1": "Nuestro perfil profesional",
-      "slogan": "Experiencia y atención",
-      "descripcion": "Página interna para validar el contenido independiente.",
-      "modulos": ["perfil", "presentacion"],
-      "etiquetas": {"perfil": "Perfil profesional", "presentacion": "Nuestra experiencia"}
-    },
-    {
-      "ruta": "/servicios",
-      "nombre": "Servicios",
-      "h1": "Servicios de prueba",
-      "slogan": "Soluciones para nuestros clientes",
-      "descripcion": "Página de servicios de prueba.",
-      "modulos": ["servicios", "beneficios"],
-      "etiquetas": {"servicios": "Nuestros servicios", "beneficios": "Ventajas"}
-    },
-    {
-      "ruta": "/contacto",
-      "nombre": "Contacto",
-      "h1": "Contacto",
-      "slogan": "Estamos para ayudarte",
-      "descripcion": "Página de contacto de prueba.",
-      "modulos": ["ubicacion", "contacto"],
-      "etiquetas": {"ubicacion": "Nuestra ubicación", "contacto": "Escríbenos"}
+      "textos": {
+        "contacto": ""
+      }
     }
   ],
-  "servicios": [{"nombre": "Servicio de demostración", "descripcion": "Contenido ficticio para comprobar la presentación de servicios."}],
-  "productos": [{"nombre": "Producto de prueba", "descripcion": "Elemento ficticio para comprobar la presentación del catálogo.", "precio": "$1.00", "imagen": ""}],
+  "servicios": [],
+  "productos": [],
   "menu": [],
-  "perfil": {"descripcion": "Perfil profesional de prueba."},
+  "perfil": {
+    "descripcion": ""
+  },
   "galeria": [],
-  "beneficios": [{"nombre": "Información clara", "descripcion": "Contenido ficticio para comprobar módulos."}],
-  "proceso": [
-    {"titulo": "Paso 1: Escuchamos", "descripcion": "Conocemos las necesidades de cada cliente."},
-    {"titulo": "Paso 2: Proponemos", "descripcion": "Definimos una solución adecuada."}
-  ],
-  "identidad": {"titulo": "Identidad (módulo heredado)", "texto": "Este bloque se conserva para comprobar compatibilidad con configuraciones existentes."},
-  "filosofia": {"titulo": "Nuestra filosofía", "texto": "Nuestra atención se basa en escuchar, explicar las opciones con claridad y acompañar a cada persona durante su proceso."},
+  "beneficios": [],
+  "proceso": [],
+  "identidad": {
+    "titulo": "",
+    "texto": ""
+  },
+  "filosofia": {
+    "titulo": "",
+    "texto": ""
+  },
   "mapEmbedUrl": "",
-  "cintaInformativa": {"mostrar": true, "texto": "Calidad ✦ Confianza ✦ Atención profesional ✦ Estamos para ayudarte", "separador": "✦"},
-  "presentacion": {"titulo": "Sobre el negocio", "texto": "Contenido ficticio de la página principal."},
+  "cintaInformativa": {
+    "mostrar": false,
+    "texto": "",
+    "separador": "✦"
+  },
+  "presentacion": {
+    "titulo": "Sobre el negocio",
+    "texto": ""
+  },
   "estadoComercial": "cliente",
   "faq": {
-    "activo": true,
-    "preguntas": [
-      {"pregunta": "¿Este sitio es una prueba?", "respuesta": "Sí. Es un sitio ficticio para validar la arquitectura SIDeN."},
-      {"pregunta": "¿Qué servicios ofrece SIDeN?", "respuesta": "Esta sección solo se muestra en la familia comercial de demostración."}
-    ]
+    "activo": false,
+    "preguntas": []
   }
 }
