@@ -1,7 +1,7 @@
 # SIDeN — Procedimiento operativo para crear proyectos independientes V1.1
 
 **Estado:** vigente para preparación y pruebas; no autoriza publicación en producción.  
-**Base técnica:** arquitectura independiente SIDeN V1.5, rama aprobada de plantilla maestra.  
+**Base técnica:** arquitectura independiente SIDeN V1.5, en rama de certificación. La designación de una rama oficial para nuevos proyectos es una decisión pendiente y no se resuelve por este procedimiento.  
 **Aplica a:** sitios SIDeN WEB de una página o multipágina. SIDeN MINI debe seguir además su documento de alcance específico.
 
 ## 1. Regla principal
@@ -26,7 +26,7 @@ No inventar datos. Los valores desconocidos se dejan pendientes o se identifican
 
 ## 3. Crear el proyecto aislado
 
-1. Verificar cuál es la rama aprobada para nuevos proyectos; no asumir que una rama de prueba ya es la plantilla oficial.
+1. Verificar cuál es la rama aprobada para nuevos proyectos. Al 21-10-2026, `prueba-aislamiento-contenido-v1.5` es una rama de certificación, no una base oficial aprobada. No usarla como plantilla maestra por defecto hasta completar la reconciliación documental y recibir autorización explícita para designar la rama base.
 2. Crear un repositorio independiente desde esa base aprobada.
 3. Registrar el commit de origen y crear una rama de trabajo para la instancia.
 4. Confirmar la estructura del proyecto: `index.html`, `config.json`, `worker.js`, `wrangler.jsonc`, `css/`, `js/`, recursos y exclusiones.
@@ -107,3 +107,8 @@ En la ficha de entrega guardar repositorio, rama, commit, Worker, dominio, famil
 ## 9. Límites
 
 Este procedimiento no reemplaza el contrato, el formulario de alta, la matriz comercial vigente ni una auditoría de seguridad. No garantiza que todas las combinaciones de configuración hayan sido probadas. Las capacidades y exclusiones comerciales deben confirmarse en la ficha vigente del plan antes de ofrecerlas al cliente.
+
+
+## 10. Control de transición a la plantilla oficial
+
+La certificación visual de las familias `corporate` y `commercial` quedó confirmada en Preview el 21-10-2026. Antes de designar una rama como base oficial, verificar que contiene los commits documentados de la arquitectura independiente, reconciliar el índice y los documentos normativos, comprobar que el fixture de prueba está restaurado a corporativo/cliente y registrar la autorización de transición. No cambiar la rama predeterminada del repositorio, la rama de producción de Cloudflare ni ningún Worker de producción como parte de esta preparación sin autorización expresa.
