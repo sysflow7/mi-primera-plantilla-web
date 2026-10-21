@@ -14,7 +14,7 @@ Se conservan `index.html`, `css/`, `js/` e imágenes de la base de producción, 
 - El sitio corporativo y los Workers existentes no se modifican.
 
 ## Estado de validación
-El alcance funcional base de V1.5 se ha probado en Preview y los resultados están registrados en `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md`. No repetir las pruebas ya confirmadas. En la comprobación visual de `templateFamily: commercial`, el usuario confirmó que las FAQ aparecen al incluir el módulo `faq`; aún debe confirmar si se muestran las secciones comerciales y los planes SIDeN. La arquitectura no está desplegada en producción.
+El alcance funcional base de V1.5 y la presentación visual de las familias corporate/commercial se comprobaron en Preview. El usuario confirmó que en la familia comercial aparecen las FAQ (con el módulo `faq` habilitado), las secciones comerciales y los planes SIDeN. Resultados registrados en `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md`. No repetir pruebas confirmadas salvo que un cambio posterior afecte el comportamiento. La arquitectura no está desplegada en producción.
 
 
 ## Prueba de aislamiento de contenido
