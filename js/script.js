@@ -215,8 +215,14 @@
                 imagenHero.onerror = function () {
                     console.error("SIDEN: no se pudo cargar la imagen de fondo del Hero:", rutaHero);
                     hero.classList.remove("hero-has-image");
+                    hero.style.removeProperty("--hero-image");
+                    hero.style.backgroundImage = "";
                 };
                 imagenHero.src = rutaHero;
+            } else {
+                hero.classList.remove("hero-has-image");
+                hero.style.removeProperty("--hero-image");
+                hero.style.backgroundImage = "";
             }
         }
 
