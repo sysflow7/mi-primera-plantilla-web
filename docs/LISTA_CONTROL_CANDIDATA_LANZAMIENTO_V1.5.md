@@ -79,3 +79,32 @@ El cierre se organiza en tres entregables distintos:
 3. **Migración de `sidenred.com`:** plan separado, con inspección de la configuración real del Worker de producción, aprobación expresa y pruebas de aceptación propias.
 
 La captura de Cloudflare revisada el 21-10-2026 confirma que el Worker de pruebas `siden-prueba-cliente-multipagina-v15` está conectado al repositorio `sysflow7/mi-primera-plantilla-web`, usa `prueba-aislamiento-contenido-v1.5` como rama de producción de ese Worker y tiene builds habilitados con el comando `npx wrangler deploy`. Esta configuración es del Worker de pruebas, no del Worker `siden-corporativo`; no extrapolarla a producción.
+
+
+## Política de nombres para evitar confusión de versiones — propuesta de transición
+
+**Problema histórico que se debe evitar:** una rama llamada V1.4 parecía más reciente por su número aunque la producción real estuviera en V1.3. Por ello, el nombre operativo de la rama oficial no debe depender del número de versión.
+
+### Convención propuesta
+
+- **Rama oficial de plantilla:** `siden-template-maestra` — nombre estable, sin número de versión. Su contenido se identifica por el commit y por el documento de versión.
+- **Rama candidata temporal:** `siden-template-candidate-2026-10` (o fecha equivalente al crearla), nunca llamada simplemente “producción”.
+- **Ramas de certificación/pruebas:** conservar el prefijo `prueba-` o `certificacion-` y el propósito; no confundirlas con la rama oficial.
+- **Worker de producción del sitio público de SIDeN:** nombre descriptivo del sitio, propuesto `siden-web-principal-prod`, si se decide renombrarlo tras verificar rutas, dominios y referencias.
+- **Worker de prueba:** conservar nombre explícito de prueba, por ejemplo `siden-prueba-cliente-multipagina-v15`; no utilizarlo como Worker oficial.
+- **Versión:** registrarla en `README.md`, documentación de arquitectura, changelog y commit/tag de release, no usarla como único indicador de cuál rama está en producción.
+
+### Distinción fundamental
+
+La plantilla maestra es el código base para crear proyectos independientes; no necesita por sí misma un Worker de producción salvo que se despliegue un sitio que la utilice. El Worker `siden-corporativo` sirve el sitio actual `sidenred.com`; es un recurso de producción del sitio, no una prueba de cuál es la versión oficial de la plantilla.
+
+### Condiciones para aplicar los nombres
+
+Esta convención es una propuesta documental, no una acción ya ejecutada. Antes de renombrar ramas o Workers:
+1. aprobar el nombre definitivo;
+2. comprobar qué configuración de Cloudflare, dominios, rutas y procesos depende del nombre actual;
+3. asegurar que el cambio no dispare despliegues inesperados;
+4. registrar rama, commit, Worker y dominio resultantes;
+5. ejecutar el cambio solo con autorización explícita y un plan de reversión.
+
+No renombrar todavía la rama predeterminada, la rama de producción ni ningún Worker.
