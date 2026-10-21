@@ -26,7 +26,7 @@
 | `menu` | `menu[]` con `nombre`, `descripcion`, opcional `categoria`, `precio`, `imagen` | Se muestra si está incluido. |
 | `galeria` | `galeria[]` con nombres de archivos de imagen | Requiere que el módulo esté incluido y que la lista tenga imágenes. |
 | `ubicacion` | `direccion`, `direccionTexto`, `maps`, `mapEmbedUrl`, `horarios`, teléfono | Los enlaces externos deben ser HTTPS válido; el mapa embebido admite los proveedores y rutas permitidos por el motor. |
-| `contacto` | `whatsapp`, `telefono`, `email`, `catalogo`, `textos.contacto` | Los enlaces externos configurables deben ser HTTPS válido; WhatsApp se construye a partir del número. |
+| `contacto` | `whatsapp`, `telefono`, `email`, `catalogo`, `textos.contacto` | Si hay número válido, el CTA abre `https://wa.me/<número>`; si falta, los CTA permanecen visibles y muestran un aviso de configuración pendiente, sin navegar al inicio. Los demás enlaces externos deben ser HTTPS válido. |
 | `faq` | `faq.activo`, `faq.titulo`, `faq.preguntas[]` con `pregunta` y `respuesta` | En web de cliente se requiere `activo: true`, preguntas válidas y módulo `faq` en la página. En demo/comercial se aplican valores predeterminados de SIDeN. |
 | `soluciones` | Sección de planes SIDeN integrada en la plantilla | Visible en `templateFamily: commercial` y en demo corporativa (`estadoComercial: demo`); no debe aparecer en cliente corporativo. |
 
@@ -60,3 +60,8 @@ Cambios preparados en esta rama:
 - Ocultadas en páginas corporativas las secciones comerciales `proyectos`, `problema` y `solucion`.
 
 **Confirmado en Preview:** `proceso`, `identidad` y `filosofia` se renderizan con el contenido de prueba. La lógica de `filosofia` ya está implementada de forma independiente; `identidad` se mantiene por compatibilidad. El aislamiento comercial en el corporativo de cliente ya se probó; no debe repetirse. **Estado:** la presentación visual de la familia comercial y sus planes está confirmada en Preview. La prueba de módulos vacíos solo se requiere si ese caso se incorpora al alcance final.
+
+
+## Comportamiento de WhatsApp sin número configurado — 21-10-2026
+
+En la candidata `siden-template-candidate-2026-10`, el usuario confirmó que los CTA flotante y de contacto permanecen visibles y muestran un aviso al pulsarlos cuando `whatsapp` está vacío. La primera corrección, que ocultaba los CTA, quedó supersedida. Pendiente: probar un número de WhatsApp de prueba y confirmar la apertura del enlace. Este registro no afirma que el enlace con número real ya esté certificado.
