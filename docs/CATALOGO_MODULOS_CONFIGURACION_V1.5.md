@@ -8,7 +8,7 @@
 - `config.json` define el contenido de la instancia y los módulos activos.
 - En modo multipágina, cada objeto de `paginas[]` puede definir su propia lista `modulos`, además de `ruta`, `nombre`, `h1`, `slogan`, `descripcion`, `etiquetas` y `textos`.
 - Si una página tiene `modulos`, esa lista determina los módulos que se muestran en esa ruta.
-- Los campos de contenido —servicios, productos, perfil, proceso, identidad, galería y FAQ— se configuran en el nivel raíz; las páginas seleccionan dónde se muestran.
+- Los campos de contenido —servicios, productos, perfil, proceso, identidad, filosofía, galería y FAQ— se configuran en el nivel raíz; las páginas seleccionan dónde se muestran.
 - No confundir un módulo del cliente con secciones de marketing propias de SIDeN.
 
 ## 2. Módulos
@@ -19,8 +19,8 @@
 | `perfil` | `perfil.descripcion`, `perfil.datos[]` con `titulo` y `valor` | Se muestra si está incluido en `modulos`. |
 | `beneficios` | `beneficios[]` con `titulo`, `descripcion`, opcional `imagen` | Se muestra si está incluido en `modulos`. |
 | `servicios` | `servicios[]` con `nombre`, `descripcion` | Se muestra si está incluido en `modulos`. |
-| `proceso` | `proceso[]` con `titulo` o `nombre`, y `descripcion` o `detalle` | Se muestra si está incluido y contiene al menos un paso. |
-| `identidad` | `identidad.titulo`, `identidad.texto` o `identidad.descripcion`, opcional `imagen` y `alt` | Se muestra si está incluido y hay texto descriptivo. |
+| `proceso` | `proceso[]` con `titulo` o `nombre`, y `descripcion` o `detalle` | Módulo opcional; solo se muestra si está incluido y contiene al menos un paso. Personalizar el título según el servicio. |
+| `identidad` | `identidad.titulo`, `identidad.texto` o `identidad.descripcion`, opcional `imagen` y `alt` | Módulo legado que puede solaparse con `presentacion`; no usarlo como segundo «Quiénes somos». |\n| `filosofia` | `filosofia.titulo`, `filosofia.texto` o `filosofia.descripcion`, opcional `imagen` y `alt` | Módulo opcional para valores, enfoque o principios profesionales; requiere texto y debe aportar algo distinto de la biografía. |
 | `productos` | `productos[]` con `nombre`, `descripcion`, opcional `precio`, `imagen` | Se muestra si está incluido. Sin imagen, la tarjeta no genera una imagen rota. |
 | `menu` | `menu[]` con `nombre`, `descripcion`, opcional `categoria`, `precio`, `imagen` | Se muestra si está incluido. |
 | `galeria` | `galeria[]` con nombres de archivos de imagen | Requiere que el módulo esté incluido y que la lista tenga imágenes. |
@@ -42,7 +42,7 @@ Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial
 
 ## 5. Navegación
 
-La navegación se genera a partir de los módulos seleccionados y las etiquetas de menú disponibles. Los módulos `proceso` e `identidad` ahora tienen destino y etiqueta de navegación. Si un módulo requiere datos y estos faltan, puede no mostrarse aunque figure en la lista.
+La navegación se genera a partir de los módulos seleccionados y las etiquetas de menú disponibles. Los módulos `proceso`, `identidad` y `filosofia` tienen destino y etiqueta de navegación. Si un módulo requiere datos y estos faltan, puede no mostrarse aunque figure en la lista.
 
 ## 7. Riesgo de cambios
 
