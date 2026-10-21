@@ -87,3 +87,10 @@ Antes de migrar `sidenred.com`, cerrar y registrar en una única ficha:
 7. autorización expresa para el cambio de producción.
 
 No declarar la arquitectura lista para migrar mientras siga sin confirmarse el Preview de la candidata y sin completar la revisión de recursos reales.
+
+
+## Registro de activación de compilación — 21-10-2026
+
+El usuario confirmó que la rama de producción del Worker independiente `siden-template-candidate-2026-10` se cambió en Cloudflare a la rama Git `siden-template-candidate-2026-10`. Se registra este cambio documental para generar un nuevo evento de compilación de la candidata y verificar que Cloudflare utilice la rama correcta.
+
+Esta anotación no constituye certificación ni aprobación de producción. Tras finalizar la compilación, comprobar el commit/branch desplegado, que el Worker resultante sea `siden-template-candidate-2026-10`, y revisar el registro de Wrangler para descartar conflictos de nombre o archivos heredados inesperados.
