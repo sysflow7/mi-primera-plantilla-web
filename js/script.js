@@ -527,7 +527,10 @@
                 const mensaje = "Hola, estoy interesado en " + String(producto.nombre || "") + (producto.precio ? " de " + String(producto.precio) : "");
                 const enlaceProducto = enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje);
                 const imagen = producto.imagen ? assetUrl("images/" + producto.imagen) : "";
-                addCard(listaProductos, "product", `<img src="${escapeHtml(imagen)}" alt="${escapeHtml(producto.nombre || "Producto")} - ${escapeHtml(negocioBase.nombre)}" loading="lazy"><div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
+                const imagenHTML = imagen
+                    ? `<img src="${escapeHtml(imagen)}" alt="${escapeHtml(producto.nombre || "Producto")} - ${escapeHtml(negocioBase.nombre)}" loading="lazy">`
+                    : "";
+                addCard(listaProductos, "product", `${imagenHTML}<div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
             });
         }
 
