@@ -161,3 +161,10 @@ En la comprobación visual del 20-10-2026, el producto ficticio sin imagen mostr
 ## Resultado de comprobación funcional en Preview — 20-10-2026
 
 El usuario confirmó en el Worker de pruebas `siden-prueba-cliente-multipagina-v15` que el botón «Ver catálogo completo» abre `https://example.com/`. El destino es ficticio y se usa únicamente para la prueba. También confirmó visualmente que el menú multipágina aparece, Facebook se muestra como enlace activo, Instagram con URL `javascript:` y ubicación con URL `http:` no se muestran como enlaces activos, y que la tarjeta de producto sin imagen ya no presenta una imagen rota tras el cambio de `js/script.js` (commit `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`). El navegador mostró que GA4 no hizo solicitudes coincidentes con `gtag/js` ni `collect?v=2` durante la sesión de prueba. Estos resultados son comprobaciones funcionales puntuales en Preview; no constituyen una auditoría de seguridad exhaustiva ni certifican todos los dispositivos, contenidos o escenarios posibles. Producción no fue modificada.
+
+
+## Estado actualizado de certificación — 20-10-2026
+
+Las comprobaciones funcionales acordadas en Preview se consideran completadas según evidencia reportada por el usuario: navegación multipágina, recarga de rutas y 404, GET-only/POST 405, sitemap y robots, ausencia de solicitudes `gtag/js` y `collect?v=2` en la sesión revisada, rechazo de enlaces externos con `javascript:` y `http:`, enlace HTTPS de catálogo funcional con destino de prueba `example.com`, y tarjeta de producto sin fotografía sin imagen rota. La corrección de producto sin imagen fue publicada y verificada visualmente por el usuario. Código: `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`. Registro funcional: `4d9eb41ad769419c1cd478fe75e8c0c153d4cc6c`.
+
+**Estado de esta etapa:** comprobaciones funcionales acordadas cerradas en Preview. Esto no equivale a una auditoría de seguridad exhaustiva, pruebas automatizadas completas, ni validación en todos los dispositivos. La certificación documental V1.5 puede cerrarse para este alcance. Producción sigue sin cambios y no queda autorizada por este registro.
