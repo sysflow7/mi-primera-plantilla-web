@@ -32,7 +32,9 @@
 
 ## 3. Secciones exclusivas de marketing SIDeN
 
-Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial de SIDeN, no el negocio del cliente.\n\n- **Corporativo de cliente:** aislamiento ya comprobado en Preview en esta conversación/historial: los planes de SIDeN no aparecieron y la búsqueda del HTML entregado no encontró los IDs de secciones comerciales. No repetir esta prueba.\n- **Familia comercial:** el usuario confirmó que las FAQ aparecen al incluir `faq` en los módulos generales y de inicio. La lógica de código conserva las secciones comerciales cuando `templateFamily === "commercial"`; queda confirmar visualmente si también aparecen las secciones de proyectos, problema, solución y los planes SIDeN.
+Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial de SIDeN, no el negocio del cliente.
+
+- **Corporativo de cliente:** aislamiento ya comprobado en Preview en esta conversación/historial: los planes de SIDeN no aparecieron y la búsqueda del HTML entregado no encontró los IDs de secciones comerciales. No repetir esta prueba.\n- **Familia comercial:** el usuario confirmó que las FAQ aparecen al incluir `faq` en los módulos generales y de inicio. La lógica de código conserva las secciones comerciales cuando `templateFamily === "commercial"`; queda confirmar visualmente si también aparecen las secciones de proyectos, problema, solución y los planes SIDeN.
 
 ## 4. Elementos complementarios
 
