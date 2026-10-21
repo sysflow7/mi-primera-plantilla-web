@@ -20,7 +20,8 @@
 | `beneficios` | `beneficios[]` con `titulo`, `descripcion`, opcional `imagen` | Se muestra si está incluido en `modulos`. |
 | `servicios` | `servicios[]` con `nombre`, `descripcion` | Se muestra si está incluido en `modulos`. |
 | `proceso` | `proceso[]` con `titulo` o `nombre`, y `descripcion` o `detalle` | Módulo opcional; solo se muestra si está incluido y contiene al menos un paso. Personalizar el título según el servicio. |
-| `identidad` | `identidad.titulo`, `identidad.texto` o `identidad.descripcion`, opcional `imagen` y `alt` | Módulo legado que puede solaparse con `presentacion`; no usarlo como segundo «Quiénes somos». |\n| `filosofia` | `filosofia.titulo`, `filosofia.texto` o `filosofia.descripcion`, opcional `imagen` y `alt` | Módulo opcional para valores, enfoque o principios profesionales; requiere texto y debe aportar algo distinto de la biografía. |
+| `identidad` | `identidad.titulo`, `identidad.texto` o `identidad.descripcion`, opcional `imagen` y `alt` | Módulo legado que puede solaparse con `presentacion`; no usarlo como segundo «Quiénes somos». |
+| `filosofia` | `filosofia.titulo`, `filosofia.texto` o `filosofia.descripcion`, opcional `imagen` y `alt` | Módulo opcional para valores, enfoque o principios profesionales; requiere texto y debe aportar algo distinto de la biografía. |
 | `productos` | `productos[]` con `nombre`, `descripcion`, opcional `precio`, `imagen` | Se muestra si está incluido. Sin imagen, la tarjeta no genera una imagen rota. |
 | `menu` | `menu[]` con `nombre`, `descripcion`, opcional `categoria`, `precio`, `imagen` | Se muestra si está incluido. |
 | `galeria` | `galeria[]` con nombres de archivos de imagen | Requiere que el módulo esté incluido y que la lista tenga imágenes. |
