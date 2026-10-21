@@ -156,3 +156,8 @@ Se actualizó `js/script.js` para validar las URLs configurables de Facebook, In
 ## Incidencia de prueba: producto sin imagen configurada
 
 En la comprobación visual del 20-10-2026, el producto ficticio sin imagen mostraba un elemento de imagen roto y dejaba un espacio vacío. La causa confirmada en `js/script.js` era que se generaba una etiqueta `<img>` incluso cuando `producto.imagen` estaba vacío. Se corrigió para generar la etiqueta de imagen solo cuando existe una ruta configurada. Commit: `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`. Pendiente: publicar en el Worker de pruebas y confirmar visualmente que la tarjeta ya no muestra una imagen rota.
+
+
+## Resultado de comprobación funcional en Preview — 20-10-2026
+
+El usuario confirmó en el Worker de pruebas `siden-prueba-cliente-multipagina-v15` que el botón «Ver catálogo completo» abre `https://example.com/`. El destino es ficticio y se usa únicamente para la prueba. También confirmó visualmente que el menú multipágina aparece, Facebook se muestra como enlace activo, Instagram con URL `javascript:` y ubicación con URL `http:` no se muestran como enlaces activos, y que la tarjeta de producto sin imagen ya no presenta una imagen rota tras el cambio de `js/script.js` (commit `98a87f3df6ea3e440455c94b2bf06e3b13ca0b3a`). El navegador mostró que GA4 no hizo solicitudes coincidentes con `gtag/js` ni `collect?v=2` durante la sesión de prueba. Estos resultados son comprobaciones funcionales puntuales en Preview; no constituyen una auditoría de seguridad exhaustiva ni certifican todos los dispositivos, contenidos o escenarios posibles. Producción no fue modificada.
