@@ -191,3 +191,12 @@ Se establece la siguiente distinción para evitar secciones redundantes en webs 
 - **Identidad (`identidad`):** módulo existente conservado por compatibilidad. Su título y propósito pueden solaparse con la presentación, por lo que no se recomienda para nuevos sitios como segundo «Quiénes somos». Las configuraciones antiguas no se eliminan automáticamente.
 
 La implementación de `filosofia` se añadió en `index.html` y `js/script.js` en esta rama de certificación. Aún requiere comprobación visual/funcional en Preview antes de considerarse certificada. Producción no fue modificada.
+
+
+## 13. Validación de URLs en datos estructurados — 20 de octubre de 2026
+
+Durante la revisión estática se detectó que el JSON-LD aceptaba cualquier valor de `maps`, `facebook` e `instagram` que comenzara con `http`. Eso permitía incluir URLs HTTP o esquemas no seguros en los datos estructurados aunque la interfaz rechazara esos enlaces.
+
+Se corrigió `worker.js` en la rama de certificación: los campos `hasMap` y `sameAs` solo incluyen URLs absolutas HTTPS con hostname válido; los valores inválidos se omiten. Commit: `c247d9618ddf0e8ff12285a5b91cb13d1848a3b6`.
+
+**Estado:** corrección revisada estáticamente; pendiente comprobar el JSON-LD renderizado en Preview con valores de prueba HTTP y `javascript:`. No se ha modificado producción.
