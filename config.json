@@ -1,45 +1,58 @@
 {
   "siden": {
-    "instanceId": "cliente-por-configurar",
-    "templateFamily": "corporate",
-    "baseDomain": "",
+    "instanceId": "sidenred-comercial",
+    "templateFamily": "commercial",
+    "baseDomain": "sidenred.com",
     "architecture": "independent-project",
-    "domainMode": "subdomain",
+    "domainMode": "custom-domain",
     "customCss": "",
     "template": "siden-template",
     "version": "1.5"
   },
+  "analytics": {
+    "ga4": {
+      "enabled": true,
+      "measurementId": "G-SM7N97YP38"
+    }
+  },
   "activo": true,
-  "nombre": "Nombre del negocio",
-  "h1": "Nombre del negocio",
-  "slogan": "Describe brevemente tu propuesta de valor",
-  "descripcion": "",
-  "descripcionSEO": "",
-  "tipoNegocio": "",
-  "etiquetaTipo": "",
+  "nombre": "SIDeN",
+  "h1": "Páginas web y presencia digital para negocios en El Salvador",
+  "slogan": "Presencia digital clara, profesional y conectada.",
+  "tituloSEO": "Páginas Web para Negocios en El Salvador | SIDeN",
+  "descripcion": "Ayudamos a pequeños negocios de El Salvador a construir una presencia digital profesional, clara y fácil de encontrar. Creamos páginas web conectadas con WhatsApp y dejamos una base preparada para crecer con soluciones de presencia local.",
+  "descripcionSEO": "Páginas web profesionales para pequeños negocios en El Salvador, con SEO básico, WhatsApp y QR SIDeN. Soluciones adicionales de presencia local disponibles.",
+  "tipoNegocio": "organizacion",
+  "etiquetaTipo": "Presencia digital para negocios",
   "modoSitio": "single",
-  "modeloAtencion": "",
-  "areasServicio": [],
-  "heroImagenFondo": "",
-  "heroImagenVisual": "",
-  "mostrarHeroImagen": false,
+  "modeloAtencion": "areaServicio",
+  "areasServicio": [
+    "El Salvador"
+  ],
+  "heroImagenFondo": "Presenta01.png",
+  "heroImagenVisual": "Presenta01.png",
+  "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
     "beneficios",
     "servicios",
-    "contacto"
+    "proceso",
+    "identidad",
+    "contacto",
+    "soluciones",
+    "faq"
   ],
   "indexable": false,
-  "whatsapp": "",
-  "telefono": "",
-  "email": "",
-  "ciudad": "",
+  "whatsapp": "50371887451",
+  "telefono": "503 7188 7451",
+  "email": "admin@sidenred.com",
+  "ciudad": "San Salvador",
   "pais": "El Salvador",
   "direccionTexto": "",
   "direccion": {
     "calle": "",
-    "ciudad": "",
-    "departamento": "",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
     "codigoPostal": "",
     "pais": "SV",
     "latitud": "",
@@ -49,82 +62,135 @@
   "instagram": "",
   "maps": "",
   "catalogo": "",
-  "logo": "",
-  "imagenSocial": "",
+  "logo": "logo-SIDeN.png",
+  "imagenSocial": "logo-SIDeN.png",
   "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {
-    "presentacion": "Sobre el negocio",
-    "presentacionMenu": "Presentación",
+    "presentacion": "Quiénes somos",
+    "presentacionMenu": "Nosotros",
     "beneficios": "Beneficios",
     "beneficiosMenu": "Beneficios",
     "servicios": "Servicios",
     "serviciosMenu": "Servicios",
-    "ubicacion": "Ubicación",
-    "ubicacionMenu": "Ubicación",
+    "proceso": "Cómo trabajamos",
+    "procesoMenu": "Cómo trabajamos",
+    "identidad": "Nuestra identidad",
+    "identidadMenu": "SIDeN",
     "contacto": "Contacto",
     "contactoMenu": "Contacto",
+    "soluciones": "Planes SIDeN",
+    "solucionesMenu": "Planes",
+    "faq": "Preguntas frecuentes",
+    "faqMenu": "Preguntas frecuentes",
+    "ubicacion": "Área de servicio",
     "productos": "Productos"
   },
   "textos": {
-    "contacto": "",
-    "ubicacion": ""
+    "contacto": "Conoce cómo SIDeN puede ayudarte a construir una presencia digital profesional, clara y fácil de contactar. Si después necesitas trabajar tu presencia local, podemos ampliar la solución.",
+    "ubicacion": "Atendemos negocios en El Salvador."
   },
-  "paginas": [
+  "paginas": [],
+  "servicios": [
     {
-      "ruta": "/",
-      "nombre": "Inicio",
-      "h1": "Nombre del negocio",
-      "slogan": "Describe brevemente tu propuesta de valor",
-      "descripcion": "",
-      "modulos": [
-        "presentacion",
-        "beneficios",
-        "servicios",
-        "contacto"
-      ],
-      "etiquetas": {
-        "presentacion": "Sobre el negocio",
-        "beneficios": "Beneficios",
-        "servicios": "Servicios",
-        "contacto": "Contacto"
-      },
-      "textos": {
-        "contacto": ""
-      }
+      "nombre": "Páginas web para negocios",
+      "descripcion": "Creamos páginas web profesionales, claras y adaptadas a la identidad y necesidades de cada negocio, pensadas para presentar sus servicios y facilitar el contacto con sus clientes.",
+      "imagen": "foto1.jpg"
+    },
+    {
+      "nombre": "SEO local",
+      "descripcion": "Servicio adicional para trabajar la presencia local de un negocio y facilitar que las personas encuentren información relevante cuando realizan búsquedas locales.",
+      "imagen": "foto2.jpg"
+    },
+    {
+      "nombre": "Perfil de Empresa de Google",
+      "descripcion": "Servicio adicional para configurar y optimizar la presencia de un negocio en Google Search y Google Maps, según el alcance contratado.",
+      "imagen": "foto3.jpg"
     }
   ],
-  "servicios": [],
   "productos": [],
   "menu": [],
   "perfil": {
     "descripcion": ""
   },
   "galeria": [],
-  "beneficios": [],
-  "proceso": [],
+  "beneficios": [
+    {
+      "titulo": "Más visibilidad",
+      "descripcion": "Ayudamos a que las personas puedan encontrar información clara sobre tu negocio en internet."
+    },
+    {
+      "titulo": "Más confianza",
+      "descripcion": "Presentamos tu negocio de forma profesional y coherente en sus principales puntos de contacto digitales."
+    },
+    {
+      "titulo": "Más oportunidades",
+      "descripcion": "Facilitamos que una persona interesada pueda pasar de conocer tu negocio a contactarlo."
+    }
+  ],
+  "proceso": [
+    {
+      "titulo": "1. Conocemos tu negocio",
+      "descripcion": "Entendemos qué haces, a quién atiendes y qué información necesitan encontrar tus clientes."
+    },
+    {
+      "titulo": "2. Definimos tu presencia",
+      "descripcion": "Organizamos la información, los canales y los elementos digitales que necesita tu negocio."
+    },
+    {
+      "titulo": "3. Construimos y optimizamos",
+      "descripcion": "Creamos o mejoramos los activos digitales y aplicamos buenas prácticas de presencia digital."
+    },
+    {
+      "titulo": "4. Conectamos y mejoramos",
+      "descripcion": "Facilitamos el contacto y dejamos una base preparada para seguir mejorando la presencia digital."
+    }
+  ],
   "identidad": {
-    "titulo": "",
-    "texto": ""
+    "titulo": "SIDeN: presencia digital para negocios",
+    "texto": "SIDeN es un proyecto independiente de servicios digitales, desarrollado para ayudar a pequeños negocios a construir una presencia digital profesional y conectada. Actualmente es operado directamente por su fundador, con un trato cercano y soluciones prácticas adaptadas a las necesidades reales de cada negocio."
   },
   "filosofia": {
-    "titulo": "",
-    "texto": ""
+    "titulo": "Soluciones claras y prácticas",
+    "texto": "Construimos una base digital profesional, conectada y preparada para crecer según las necesidades de cada negocio."
   },
   "mapEmbedUrl": "",
   "cintaInformativa": {
-    "mostrar": false,
-    "texto": "",
+    "mostrar": true,
+    "texto": "Páginas web · Presencia digital · SEO local · Perfil de Empresa de Google",
     "separador": "✦"
   },
   "presentacion": {
-    "titulo": "Sobre el negocio",
-    "texto": ""
+    "titulo": "Una presencia digital que trabaja junto a tu negocio",
+    "texto": "Ayudamos a pequeños negocios a presentar sus servicios de forma profesional, conectar sus canales digitales y facilitar que sus clientes los encuentren y contacten.",
+    "imagen": "logo-SIDeN.png",
+    "alt": "Identidad visual de SIDeN"
   },
-  "estadoComercial": "cliente",
+  "estadoComercial": "demo",
   "faq": {
-    "activo": false,
-    "preguntas": []
+    "activo": true,
+    "preguntas": [
+      {
+        "pregunta": "¿Qué es SIDeN?",
+        "respuesta": "SIDeN ayuda a pequeños negocios a construir una presencia digital profesional, con páginas web y soluciones complementarias para facilitar que sus clientes encuentren información y contacten."
+      },
+      {
+        "pregunta": "¿Qué incluyen los planes SIDeN WEB?",
+        "respuesta": "Los planes incluyen una página web según el alcance contratado, botón de WhatsApp, SEO básico y servicio por 12 meses. Los entregables específicos dependen del plan elegido."
+      },
+      {
+        "pregunta": "¿SIDeN también configura el Perfil de Empresa de Google?",
+        "respuesta": "Sí. La configuración y optimización del Perfil de Empresa de Google puede contratarse como un servicio adicional, según las necesidades del negocio."
+      },
+      {
+        "pregunta": "¿Puedo solicitar cambios después de publicar mi página?",
+        "respuesta": "Sí. Cada plan contempla las condiciones de actualización indicadas en su propuesta comercial. Las funciones o cambios fuera del alcance pueden cotizarse por separado."
+      },
+      {
+        "pregunta": "¿Cómo puedo solicitar información?",
+        "respuesta": "Puedes escribirnos directamente por WhatsApp desde los botones de contacto de esta página."
+      }
+    ]
   }
 }
