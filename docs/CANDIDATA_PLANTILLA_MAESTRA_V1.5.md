@@ -27,9 +27,7 @@ El usuario confirmó en la pantalla de Cloudflare que:
 
 ## Bloqueo previo a Preview de la candidata
 
-El archivo `wrangler.jsonc` heredado todavía contiene el nombre del Worker de certificación `siden-prueba-cliente-multipagina-v15`. La actualización de ese archivo no se pudo realizar mediante la operación automatizada actual. **No iniciar el Preview de la candidata ni ejecutar `npx wrangler deploy` hasta resolver el nombre de Worker y confirmar el comportamiento de las compilaciones de Preview.**
-
-La captura confirma que los builds de Preview están habilitados en el proyecto del Worker de certificación, pero no demuestra que un Preview de una nueva rama sea completamente independiente del Worker existente. No asumir aislamiento mientras `wrangler.jsonc` conserve ese nombre. No cambiar la rama de producción del Worker de pruebas para intentar resolverlo.
+El nombre de Worker ya se aisló en la configuración de la candidata como `siden-template-candidate-2026-10`. La captura confirma que los builds de Preview están habilitados y usan `npx wrangler preview`, pero no demuestra por sí sola que el Preview de la candidata sea completamente independiente. Antes de considerarla certificada, verificar la implementación de Preview y su URL; no ejecutar `npx wrangler deploy` ni cambiar la rama de producción del Worker de pruebas.
 
 ## Política de nombres propuesta
 
@@ -44,8 +42,8 @@ La captura confirma que los builds de Preview están habilitados en el proyecto 
 
 - [x] Rama candidata separada creada desde la rama de certificación.
 - [x] Configuración genérica inicial preparada y JSON válido.
-- [ ] Actualizar `wrangler.jsonc` con un nombre de Worker exclusivo y aprobado para la candidata.
-- [ ] Confirmar en Cloudflare que el Preview de esta rama no altera el Worker de certificación ni producción.
+- [x] Actualizar `wrangler.jsonc` con un nombre exclusivo para la candidata: `siden-template-candidate-2026-10`.
+- [ ] Confirmar en Cloudflare que el Preview de esta rama no altera el Worker de certificación ni producción; los builds de Preview están habilitados y usan `npx wrangler preview`, pero falta comprobar el resultado de la implementación de esta candidata.
 - [ ] Validar la página genérica en Preview; no repetir pruebas de certificación previas salvo si el cambio afecta su comportamiento.
 - [ ] Revisar assets publicados y comportamiento sin imágenes/logotipo.
 - [ ] Consolidar la documentación Word final.
@@ -54,3 +52,12 @@ La captura confirma que los builds de Preview están habilitados en el proyecto 
 ## Seguridad de publicación
 
 No modificar ni desplegar a `siden-corporativo-v1.3`, Worker `siden-corporativo` ni dominio `sidenred.com` como parte de esta candidata. La creación de esta rama no autoriza una migración ni un cambio de rama predeterminada de GitHub.
+
+
+## Configuración actual verificada en GitHub
+
+- `wrangler.jsonc` declara `siden-template-candidate-2026-10`, distinto del Worker de certificación.
+- `config.json` se parsea correctamente como JSON.
+- `config.json` mantiene `templateFamily: corporate`, `estadoComercial: cliente`, `modoSitio: single` e `indexable: false`.
+- Los datos de contacto, catálogo, redes, productos, servicios y FAQ están vacíos o desactivados para la plantilla genérica.
+- El nombre de Worker se aisló en el archivo; esto no sustituye la comprobación de Cloudflare Preview ni la aprobación de la rama oficial.
