@@ -34,7 +34,8 @@
 
 Las secciones `proyectos`, `problema` y `solucion` describen la oferta comercial de SIDeN, no el negocio del cliente.
 
-- **Corporativo de cliente:** aislamiento ya comprobado en Preview en esta conversación/historial: los planes de SIDeN no aparecieron y la búsqueda del HTML entregado no encontró los IDs de secciones comerciales. No repetir esta prueba.\n- **Familia comercial:** comprobada visualmente en Preview. El usuario confirmó que aparecen las FAQ al incluir `faq` en los módulos generales y de inicio, así como las secciones de proyectos, problema, solución y los planes SIDeN. Tras la prueba, la configuración se restauró a corporativo/cliente.
+- **Corporativo de cliente:** aislamiento ya comprobado en Preview: los planes de SIDeN no aparecieron y la búsqueda del HTML entregado no encontró los IDs de secciones comerciales. No repetir esta prueba.
+- **Familia comercial:** comprobada visualmente en Preview. El usuario confirmó que aparecen las FAQ al incluir `faq` en los módulos correspondientes, así como las secciones de proyectos, problema, solución y los planes SIDeN. Tras la prueba, la configuración se restauró a corporativo/cliente.
 
 ## 4. Elementos complementarios
 
