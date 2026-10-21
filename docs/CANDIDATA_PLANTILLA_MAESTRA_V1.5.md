@@ -15,11 +15,21 @@ Separar la configuración reutilizable de la plantilla de los datos ficticios qu
 - Conserva campos de configuración compatibles con la arquitectura independiente V1.5 y usa textos neutros de configuración pendiente.
 - La rama de certificación `prueba-aislamiento-contenido-v1.5` no fue modificada por estos cambios.
 
-## Bloqueo previo a Preview
+## Estado de Cloudflare Preview — 21-10-2026
 
-El archivo `wrangler.jsonc` heredado todavía contiene el nombre del Worker de certificación `siden-prueba-cliente-multipagina-v15`. La actualización de ese archivo no se pudo realizar mediante la operación automatizada actual. **No desplegar esta candidata ni usar el comando `npx wrangler deploy` hasta resolver el nombre de Worker y confirmar el comportamiento de las compilaciones de Preview.**
+El usuario confirmó en la pantalla de Cloudflare que:
+- Los builds para ramas de vista previa están habilitados.
+- El comando de vista previa configurado es `npx wrangler preview`.
+- El directorio raíz es `/`.
+- La ruta de vigilancia incluye `*`.
+- No hay variables ni secretos de compilación configurados.
+- Hay un token de API seleccionado en la interfaz; su nombre no se replica en esta documentación.
 
-No asumir que el Worker de certificación y el Worker de esta candidata son entornos separados mientras `wrangler.jsonc` conserve ese nombre. No cambiar la rama de producción del Worker de pruebas para intentar resolverlo.
+## Bloqueo previo a Preview de la candidata
+
+El archivo `wrangler.jsonc` heredado todavía contiene el nombre del Worker de certificación `siden-prueba-cliente-multipagina-v15`. La actualización de ese archivo no se pudo realizar mediante la operación automatizada actual. **No iniciar el Preview de la candidata ni ejecutar `npx wrangler deploy` hasta resolver el nombre de Worker y confirmar el comportamiento de las compilaciones de Preview.**
+
+La captura confirma que los builds de Preview están habilitados en el proyecto del Worker de certificación, pero no demuestra que un Preview de una nueva rama sea completamente independiente del Worker existente. No asumir aislamiento mientras `wrangler.jsonc` conserve ese nombre. No cambiar la rama de producción del Worker de pruebas para intentar resolverlo.
 
 ## Política de nombres propuesta
 
