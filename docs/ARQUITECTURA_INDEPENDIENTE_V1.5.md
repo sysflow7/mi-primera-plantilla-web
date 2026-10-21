@@ -200,3 +200,17 @@ Durante la revisión estática se detectó que el JSON-LD aceptaba cualquier val
 Se corrigió `worker.js` en la rama de certificación: los campos `hasMap` y `sameAs` solo incluyen URLs absolutas HTTPS con hostname válido; los valores inválidos se omiten. Commit: `c247d9618ddf0e8ff12285a5b91cb13d1848a3b6`.
 
 **Estado:** corrección revisada estáticamente; pendiente comprobar el JSON-LD renderizado en Preview con valores de prueba HTTP y `javascript:`. No se ha modificado producción.
+
+
+## 14. Limpieza de recursos visuales no configurados — 20 de octubre de 2026
+
+En la captura de DevTools compartida durante la validación SEO se observaron solicitudes 404 a los marcadores `LOGO_IMAGE_URL` y `HERO_BACKGROUND_URL`. La configuración de prueba no incluye logo ni imagen de fondo; el HTML estaba entregando marcadores de plantilla como si fueran rutas reales.
+
+Se corrigió en la rama de certificación:
+- `worker.js` elimina los atributos `src` que contienen marcadores de logo cuando no existe logo configurado.
+- `worker.js` elimina el estilo de fondo con marcador si no hay imagen configurada y deja que `script.js` configure el mapa solo cuando `mapEmbedUrl` pasa su validación.
+- `js/script.js` oculta el logo del Hero cuando no está configurado y limpia los estilos de imagen de fondo cuando no hay archivo o cuando la carga falla.
+
+Commits principales: `edfabbcea49e3877e96e64fb1111666ffcb91ab4`, `38091f0dde12d898889053631e17853f3cccc082`, `944081dd9e06da54e3548ec3915c5a6acdf458c7`, `574d75c050736c00e470c2841ca138d8e6aca4c9`.
+
+**Validación estática:** sintaxis de `worker.js`, `js/script.js`, `js/modules-v1.4.js` y JSON de configuración verificada correctamente. **Pendiente:** confirmar en Preview que desaparecieron las solicitudes 404 de los marcadores. Producción no fue modificada.
