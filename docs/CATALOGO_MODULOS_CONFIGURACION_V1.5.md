@@ -56,4 +56,4 @@ Cambios preparados en esta rama:
 - Añadidas etiquetas y destinos de navegación para esos módulos.
 - Ocultadas en páginas corporativas las secciones comerciales `proyectos`, `problema` y `solucion`.
 
-**Pendiente:** comprobar en Preview: activar/desactivar `proceso` e `identidad`, navegación a ambos, contenido vacío, aislamiento de las tres secciones en corporativo y conservación en comercial. La distinción editorial entre presentación, proceso y filosofía queda definida; la conversión técnica de `identidad` en un módulo explícito de filosofía requiere un cambio de código y compatibilidad que se completará antes de declarar la arquitectura certificada.
+**Confirmado en Preview:** `proceso`, `identidad` y `filosofia` se renderizan con el contenido de prueba. La lógica de `filosofia` ya está implementada de forma independiente; `identidad` se mantiene por compatibilidad. **Pendiente para certificación integral:** comprobar activación/desactivación con contenido vacío y aislamiento de secciones comerciales entre las familias corporativa y comercial/demo.
