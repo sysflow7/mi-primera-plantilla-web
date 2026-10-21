@@ -130,8 +130,8 @@ Pruebas reportadas por el usuario en el Worker de Preview:
 - La carga de imágenes de contenido real no se certifica en este proyecto porque no contiene archivos de imagen de cliente. Se verificó el comportamiento de productos sin imagen y se corrigieron los marcadores vacíos de logo, fondo y mapa.
 - No se ha validado visualmente toda combinación de familia, módulo y configuración.
 - La validación de rutas multipágina es defensiva y básica; no verifica todos los campos de contenido ni sustituye pruebas de aceptación.
-- La certificación de una instancia multipágina de cliente debe repetirse en el Preview de esa instancia.
-- Antes de utilizar esta arquitectura como estándar definitivo, completar la reconciliación de documentos históricos y verificar que las instrucciones operativas apuntan a este modelo independiente.
+- La certificación funcional base de V1.5 está cerrada para los escenarios expresamente probados. Cada proyecto real debe validarse en su propio Preview antes de publicarse.
+- La reconciliación documental con el modelo independiente está recogida en esta guía, la arquitectura maestra y el procedimiento operativo V1.1. Los documentos históricos no deben tratarse como instrucciones operativas actuales.
 - La rama de certificación no implica publicación en producción.
 
 
@@ -178,7 +178,7 @@ Se identificaron y corrigieron en esta rama dos comportamientos de la plantilla:
 
 Se agregó el catálogo de referencia en `docs/CATALOGO_MODULOS_CONFIGURACION_V1.5.md`.
 
-**Estado:** las pruebas funcionales acordadas en Preview están confirmadas por el usuario: rutas multipágina, 404, sitemap no indexable, método POST rechazado, enlaces externos inválidos, módulos `proceso`/`identidad`/`filosofia`, JSON-LD y favicon. El aislamiento comercial del sitio corporativo de cliente también está confirmado: los planes no aparecieron y la búsqueda del HTML no encontró las secciones comerciales. No repetir esas pruebas. La lógica de conservación de secciones en `templateFamily: commercial` se revisó estáticamente; la única comprobación visual específica que no consta en el historial es la presentación de esa familia. Producción no se ha modificado ni desplegado.
+**Estado:** las pruebas funcionales acordadas en Preview están confirmadas por el usuario: rutas multipágina, 404, sitemap no indexable, método POST rechazado, enlaces externos inválidos, módulos `proceso`/`identidad`/`filosofia`, JSON-LD y favicon. El aislamiento comercial del sitio corporativo de cliente también está confirmado: los planes no aparecieron y la búsqueda del HTML no encontró las secciones comerciales. En la prueba de la familia `commercial`, el usuario confirmó que las FAQ aparecen tras incluir `faq` en los módulos generales y de inicio; falta que confirme la presentación visual de las secciones comerciales y los planes. Producción no se ha modificado ni desplegado.
 
 
 ## 12. Criterio editorial para módulos profesionales — 20 de octubre de 2026
@@ -190,7 +190,7 @@ Se establece la siguiente distinción para evitar secciones redundantes en webs 
 - **Filosofía (`filosofia`):** nuevo módulo opcional para valores, enfoque de atención o principios profesionales. Debe aportar contenido distinto de la presentación y solo se muestra si existe texto.
 - **Identidad (`identidad`):** módulo existente conservado por compatibilidad. Su título y propósito pueden solaparse con la presentación, por lo que no se recomienda para nuevos sitios como segundo «Quiénes somos». Las configuraciones antiguas no se eliminan automáticamente.
 
-La implementación de `filosofia` se añadió en `index.html` y `js/script.js` en esta rama de certificación. Aún requiere comprobación visual/funcional en Preview antes de considerarse certificada. Producción no fue modificada.
+La implementación de `filosofia` se añadió en `index.html` y `js/script.js` en esta rama de certificación. El usuario confirmó visualmente su aparición con el contenido de prueba en Preview. Producción no fue modificada.
 
 
 ## 13. Validación de URLs en datos estructurados — 20 de octubre de 2026
