@@ -250,7 +250,11 @@ export default {
 
         const runtimeConfig = { ...negocio, siden: { ...(negocio.siden || {}), instanceId: configuredInstance, host, canonicalOrigin: url.origin, assetPrefix: sitePrefix } };
         html = html.replace("</head>", `<script>window.__SIDEN_CONFIG__=${escJson(runtimeConfig)};</script></head>`);
-        if (!logoURL) html = html.replace(/\s*<link rel="icon" type="image\/png" href="">/i, "");
+        if (!logoURL) {
+            // Favicon SVG integrado como alternativa; evita la solicitud automática a /favicon.ico.
+            const faviconPredeterminado = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232563eb'/%3E%3Ctext x='32' y='45' font-size='42' text-anchor='middle' fill='white' font-family='Arial,sans-serif'%3ES%3C/text%3E%3C/svg%3E";
+            html = html.replace(/<link rel="icon" type="image\/png" href="">/i, '<link rel="icon" type="image/svg+xml" href="' + faviconPredeterminado + '">');
+        }
         if (!imagenSocialURL) {
             html = html.replace(/\s*<meta property="og:image" content="">/i, "");
             html = html.replace(/\s*<meta property="og:image:alt" content="[^"]*">/i, "");
