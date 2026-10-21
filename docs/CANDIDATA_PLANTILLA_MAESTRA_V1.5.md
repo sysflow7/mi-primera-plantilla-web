@@ -27,7 +27,7 @@ El usuario confirmó en la pantalla de Cloudflare que:
 
 ## Bloqueo previo a Preview de la candidata
 
-El nombre de Worker ya se aisló en la configuración de la candidata como `siden-template-candidate-2026-10`. La captura confirma que los builds de Preview están habilitados y usan `npx wrangler preview`, pero no demuestra por sí sola que el Preview de la candidata sea completamente independiente. Antes de considerarla certificada, verificar la implementación de Preview y su URL; no ejecutar `npx wrangler deploy` ni cambiar la rama de producción del Worker de pruebas.
+El nombre del Worker se aisló como `siden-template-candidate-2026-10` y el usuario confirmó que la URL pública de la candidata carga contenido genérico. La evidencia disponible confirma que la candidata se desplegó en su Worker separado; no confirma todavía todos los disparadores, aliases y relaciones de configuración entre candidata, Worker de certificación y producción. No ejecutar despliegues manuales ni cambiar la rama de producción del Worker público como parte de esta revisión.
 
 ## Política de nombres propuesta
 
