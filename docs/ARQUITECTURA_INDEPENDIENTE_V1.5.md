@@ -1,7 +1,7 @@
 # SIDeN — Arquitectura de Proyecto Independiente V1.5
 
-**Estado:** documento operativo para la rama de certificación `prueba-aislamiento-contenido-v1.5`.  
-**Fecha de revisión:** 16 de octubre de 2026.  
+**Estado:** referencia de la arquitectura independiente V1.5; pruebas funcionales base ejecutadas en `prueba-aislamiento-contenido-v1.5`. La candidata de release actual es `siden-template-candidate-2026-10`, aún no aprobada como rama oficial.  
+**Fecha de revisión:** 21 de octubre de 2026.  
 **Producción:** no modificada por esta auditoría.
 
 ## 1. Modelo vigente
