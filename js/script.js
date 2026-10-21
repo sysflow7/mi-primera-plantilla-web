@@ -452,10 +452,20 @@
 
         // CONTACTO Y ENLACES
         const whatsapp = String(negocioBase.whatsapp || "").replace(/\D/g, "");
-        const enlaceWhatsApp = whatsapp ? "https://wa.me/" + whatsapp : "#";
+        const enlaceWhatsApp = whatsapp ? "https://wa.me/" + whatsapp : "";
         ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante", "pagina-whatsapp"].forEach(function (id) {
             const elemento = document.getElementById(id);
-            if (elemento) elemento.href = enlaceWhatsApp;
+            if (!elemento) return;
+            if (enlaceWhatsApp) {
+                elemento.href = enlaceWhatsApp;
+                elemento.hidden = false;
+                elemento.style.display = "";
+            } else {
+                elemento.removeAttribute("href");
+                elemento.hidden = true;
+                elemento.style.display = "none";
+                elemento.setAttribute("aria-hidden", "true");
+            }
         });
         const email = String(negocioBase.email || "").trim();
         const emailElemento = document.getElementById("email-negocio");
