@@ -456,15 +456,16 @@
         ["whatsapp-principal", "whatsapp-final", "whatsapp-flotante", "pagina-whatsapp"].forEach(function (id) {
             const elemento = document.getElementById(id);
             if (!elemento) return;
-            if (enlaceWhatsApp) {
-                elemento.href = enlaceWhatsApp;
-                elemento.hidden = false;
-                elemento.style.display = "";
+            elemento.hidden = false;
+            elemento.style.display = "";
+            elemento.removeAttribute("aria-hidden");
+            elemento.href = enlaceWhatsApp || "#whatsapp-no-configurado";
+            if (!enlaceWhatsApp) {
+                elemento.setAttribute("data-whatsapp-pendiente", "true");
+                elemento.setAttribute("aria-label", "WhatsApp pendiente de configuración");
             } else {
-                elemento.removeAttribute("href");
-                elemento.hidden = true;
-                elemento.style.display = "none";
-                elemento.setAttribute("aria-hidden", "true");
+                elemento.removeAttribute("data-whatsapp-pendiente");
+                elemento.setAttribute("aria-label", id === "whatsapp-flotante" ? "Contactar por WhatsApp" : "Contactar por WhatsApp");
             }
         });
         const email = String(negocioBase.email || "").trim();
@@ -732,6 +733,15 @@
         ["compartir-negocio", "pagina-compartir-negocio"].forEach(function (id) {
             const boton = document.getElementById(id);
             if (boton) boton.addEventListener("click", compartirNegocio);
+        });
+
+        // Mantener visibles los CTA de WhatsApp en la plantilla genérica, pero impedir
+        // que un enlace sin número navegue al inicio de la misma página.
+        document.addEventListener("click", function (event) {
+            const enlace = event.target && event.target.closest ? event.target.closest("[data-whatsapp-pendiente=\"true\"]") : null;
+            if (!enlace) return;
+            event.preventDefault();
+            alert("WhatsApp estará disponible cuando se configure el número del negocio.");
         });
 
         // ANALÍTICA DE INTERACCIONES SIDEN
