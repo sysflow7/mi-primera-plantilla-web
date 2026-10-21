@@ -1,4 +1,6 @@
 # Informe de auditoría SIDeN — Puntos 1, 2 y 3
+
+> **DOCUMENTO HISTÓRICO — NO USAR COMO PROCEDIMIENTO OPERATIVO ACTUAL.** Este informe corresponde a la arquitectura anterior y a un estado inicial de la revisión. Para el modelo independiente vigente, consultar `ARQUITECTURA_INDEPENDIENTE_V1.5.md`, `ARQUITECTURA_MAESTRA_V1.5.md` y `PROCEDIMIENTO_CREACION_PROYECTO_CLIENTE_V1.1.md`. Los estados antiguos de «pendiente» que aparezcan en el cuerpo reflejan la fecha de aquella revisión y han sido reemplazados por el registro posterior de certificación.
 **Repositorio:** `sysflow7/mi-primera-plantilla-web`  
 **Rama revisada como baseline:** `siden-corporativo-v1.3`  
 **Documentación preparada en:** `docs/fichas-arquitectura-instancias` (PR #52)  
