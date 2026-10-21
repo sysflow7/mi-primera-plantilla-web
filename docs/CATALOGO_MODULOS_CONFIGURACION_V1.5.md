@@ -1,7 +1,7 @@
 # Catálogo de módulos y configuración SIDeN V1.5
 
-**Estado:** revisión técnica en rama de certificación `prueba-aislamiento-contenido-v1.5`.  
-**Importante:** los cambios de este documento y del motor deben verificarse en Preview antes de considerarse certificados. No implica publicación en producción.
+**Estado:** catálogo técnico V1.5. Las pruebas base de módulos se ejecutaron en `prueba-aislamiento-contenido-v1.5`; las correcciones posteriores de la candidata `siden-template-candidate-2026-10` requieren validación específica cuando afectan al comportamiento. La candidata aún no es rama oficial.  
+**Importante:** la documentación y las pruebas en Preview no implican publicación en producción.
 
 ## 1. Regla general
 
