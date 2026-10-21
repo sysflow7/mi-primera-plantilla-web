@@ -9,8 +9,8 @@
 3. **Arquitectura independiente operativa:** `ARQUITECTURA_INDEPENDIENTE_V1.5.md` — configuración y funcionamiento concreto del modelo independiente V1.5.
 4. **Creación de proyectos de clientes — VIGENTE:** `PROCEDIMIENTO_CREACION_PROYECTO_CLIENTE_V1.1.md` — procedimiento operativo para crear, configurar, probar y entregar proyectos independientes.
 5. **Procedimiento anterior:** `PROCEDIMIENTO_CREACION_PROYECTO_CLIENTE_V1.0.md` — versión inicial; conservar como historial, no usar si contradice V1.1.
-6. **SIDeN MINI:** `SIDEN_MINI_ARQUITECTURA_Y_ALCANCE_V1.0.md` — alcance, exclusiones y reglas de esa variante.
-7. **Auditoría histórica:** `AUDITORIA_CIERRE_PUNTOS_1_2_3_V1.md` — evidencia histórica y limitaciones de las pruebas.
+6. **SIDeN MINI:** `SIDEN_MINI_ARQUITECTURA_Y_ALCANCE_V1.0.md` — propuesta de alcance y exclusiones; no acredita que MINI esté implementado o certificado en la arquitectura independiente V1.5.
+7. **Auditoría histórica:** `AUDITORIA_CIERRE_PUNTOS_1_2_3_V1.md` — solo referencia histórica del modelo anterior; sus pendientes y conclusiones antiguas no prevalecen sobre los registros de certificación V1.5.
 8. **Catálogo de módulos:** `CATALOGO_MODULOS_CONFIGURACION_V1.5.md` — módulos y configuración de la plantilla V1.5.
 
 ## 2. Orden de precedencia
@@ -38,3 +38,12 @@ Cada documento debe indicar versión, estado (vigente, borrador o histórico) y 
 ## 5. Estado de la documentación
 
 La arquitectura independiente V1.5, la arquitectura maestra V1.5 y el catálogo V1.5 describen el modelo de referencia de la rama de certificación. El procedimiento V1.1 es el flujo operativo vigente para nuevos proyectos independientes. Antes de una publicación, confirmar que la rama base esté aprobada y que las instrucciones coincidan con la configuración real de GitHub y Cloudflare.
+
+
+## 6. Estado del cierre de V1.5 (21-10-2026)
+
+- **Comprobación visual de familia comercial:** completada en Preview; se confirmaron secciones comerciales, planes SIDeN y FAQ.
+- **Configuración del fixture:** restaurada a `templateFamily: corporate` y `estadoComercial: cliente` en la rama de certificación.
+- **Producción:** sin cambios ni despliegues autorizados.
+- **Documentación Word:** al terminar el alcance acordado, entregar los documentos operativos actualizados en `.docx`; no considerar los borradores Word previos como la edición final hasta esa consolidación.
+- **Siguiente etapa:** cerrar la matriz de capacidades y limitaciones, confirmar cuál será la rama base oficial y completar la reconciliación final de documentos antes de promover la arquitectura a nuevos proyectos.
