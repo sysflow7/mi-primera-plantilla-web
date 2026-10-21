@@ -23,7 +23,7 @@
   "heroImagenFondo": "",
   "heroImagenVisual": "",
   "mostrarHeroImagen": false,
-  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto"],
+  "modulos": ["presentacion", "perfil", "beneficios", "servicios", "galeria", "ubicacion", "contacto", "faq"],
   "indexable": false,
   "whatsapp": "50300000000",
   "telefono": "+503 0000-0000",
@@ -65,7 +65,7 @@
       "h1": "Negocio de Prueba",
       "slogan": "Bienvenido al sitio de prueba",
       "descripcion": "Página principal del sitio multipágina.",
-      "modulos": ["presentacion", "beneficios", "servicios", "contacto", "productos", "proceso", "identidad", "filosofia"],
+      "modulos": ["presentacion", "beneficios", "servicios", "contacto", "productos", "proceso", "identidad", "filosofia", "faq"],
       "etiquetas": {
         "presentacion": "Sobre el negocio",
         "beneficios": "Beneficios",
