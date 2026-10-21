@@ -607,12 +607,12 @@
             listaProductos.innerHTML = "";
             negocio.productos.forEach(function (producto) {
                 const mensaje = "Hola, estoy interesado en " + String(producto.nombre || "") + (producto.precio ? " de " + String(producto.precio) : "");
-                const enlaceProducto = enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje);
+                const enlaceProducto = enlaceWhatsApp ? enlaceWhatsApp + "?text=" + encodeURIComponent(mensaje) : "";
                 const imagen = producto.imagen ? assetUrl("images/" + producto.imagen) : "";
                 const imagenHTML = imagen
                     ? `<img src="${escapeHtml(imagen)}" alt="${escapeHtml(producto.nombre || "Producto")} - ${escapeHtml(negocioBase.nombre)}" loading="lazy">`
                     : "";
-                addCard(listaProductos, "product", `${imagenHTML}<div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a></div>`);
+                addCard(listaProductos, "product", `${imagenHTML}<div class="product-content"><h3>${escapeHtml(producto.nombre)}</h3><p>${escapeHtml(producto.descripcion)}</p>${producto.precio ? `<strong>${escapeHtml(producto.precio)}</strong>` : ""}${enlaceProducto ? `<a class="product-whatsapp" href="${escapeHtml(enlaceProducto)}" target="_blank" rel="noopener noreferrer">💬 Consultar por WhatsApp</a>` : ""}</div>`);
             });
         }
 
