@@ -143,3 +143,21 @@ Commit de corrección: `e0ac57a600976d2e004bef90f761333587509027`; conservación
 El usuario confirmó que el aviso “WhatsApp estará disponible cuando se configure el número del negocio” aparece al pulsar el CTA y que los botones flotante y de contacto permanecen visibles. Esto valida el comportamiento sin número configurado. No valida todavía que el enlace abra WhatsApp con un número de prueba. El código de la candidata conserva los CTA y evita la navegación al inicio de la página mientras no haya número.
 
 La página genérica se visualizó correctamente y no presentó datos de clientes ni los planes comerciales de SIDeN. La candidata sigue sin estar aprobada para producción o como rama oficial de nuevos proyectos.
+
+
+## Incorporación de mejoras detectadas en producción — 22-10-2026
+
+Por autorización del usuario, se incorporaron a esta rama candidata dos mejoras genéricas que ya estaban presentes en `sidenred-comercial-PROD`, sin copiar la configuración comercial del sitio ni modificar producción:
+
+1. **Navegación interna robusta (`js/script.js`):** el menú de enlaces ancla intercepta el clic, comprueba que el destino exista, revela el destino si está oculto, desplaza suavemente hacia él y actualiza el fragmento de URL. El manejador se registra una sola vez mediante `data-siden-anchor-bound`.
+2. **Presentación de imágenes y anclaje de secciones (`css/redesign-v2.css`):** las secciones `.content-split` reciben `scroll-margin-top: 100px`; las imágenes usan `display: block !important`, altura máxima de 420 px, altura automática, `object-fit: contain` y centrado. Se reemplazó el límite previo de 300 px y `object-fit: cover`.
+
+**Commits de la candidata:**
+- `js/script.js`: `324c2dcb39ad07a5a7847b8c95ea2eb2bf2a80c7`.
+- `css/redesign-v2.css`: `ee115b3969759d4fb49112e8c0bf58b6c94dd334`.
+
+Estos cambios pertenecen solo a la candidata. No se copiaron los datos de `config.json` de producción, no se modificó la rama `sidenred-comercial-PROD` ni el Worker `hola`, y los cambios todavía requieren validación en Preview y pruebas de regresión antes de certificar la candidata.
+
+## Independencia de los proyectos derivados
+
+La arquitectura independiente permite que cada proyecto derivado tenga su propio repositorio/proyecto, `config.json`, recursos, `wrangler.jsonc` y Worker. Una modificación posterior de la plantilla maestra **no se propaga automáticamente** a proyectos ya creados. Para incorporar una mejora a un proyecto existente se debe revisar su impacto, adaptar el cambio a su configuración propia y probarlo en su Preview. La plantilla maestra define la base de los nuevos proyectos, no limita la personalización independiente de cada instancia.
