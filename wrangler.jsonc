@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sidenred-comercial-v1-0",
+  "name": "hola",
   "compatibility_date": "2026-09-06",
   "main": "worker.js",
   "assets": {
