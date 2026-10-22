@@ -224,3 +224,10 @@ La comparación de referencias GitHub muestra que `prueba-aislamiento-contenido-
 **No promover esta rama directamente como plantilla oficial todavía.** La revisión del estado actual encontró que `config.json` es un fixture ficticio (negocio de prueba, teléfono ficticio, catálogo de ejemplo, `indexable: false`) y que `wrangler.jsonc` nombra al Worker `siden-prueba-cliente-multipagina-v15`. La configuración corporativa/cliente se restauró después de la prueba visual, pero sigue siendo configuración de prueba y el nombre del Worker también es específico del Preview.
 
 Antes de nombrar una rama oficial, se necesita una preparación de release separada: definir un `config.json` inicial genérico sin datos ficticios de cliente, establecer la política de nombre del Worker por proyecto, comprobar exclusiones de assets, mantener `indexable: false` por defecto y verificar el vínculo entre repositorio/rama/Worker sin tocar el Worker de producción. Esa preparación debe ocurrir en una rama nueva de candidato y no en el Worker de producción.
+
+
+## Nota de vigencia de entornos — 22-10-2026
+
+Las referencias históricas a la producción anterior `siden-corporativo-v1.3` / Worker `siden-corporativo` describen la etapa previa a la migración y no son la referencia operativa actual. Según confirmación del usuario, la rama de producción de `sidenred.com` es `sidenred-comercial-PROD` y el Worker de producción es `hola`. No modificar ni usar estos recursos para pruebas sin autorización expresa. La plantilla maestra candidata es `siden-template-candidate-2026-10`; todavía no se declara rama oficial hasta validar los cambios y cerrar la lista de lanzamiento.
+
+La arquitectura independiente permite que cada proyecto derivado tenga repositorio/proyecto, `config.json`, recursos y Worker propios. Las mejoras futuras de la plantilla maestra no se propagan automáticamente a los sitios ya creados; cualquier adaptación debe evaluarse y probarse en el Preview del proyecto correspondiente.
