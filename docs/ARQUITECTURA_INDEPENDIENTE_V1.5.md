@@ -252,3 +252,10 @@ La prueba de URLs inválidas se completó con éxito y después se limpiaron eso
 ## Validación visual final de la familia comercial — 21-10-2026
 
 El usuario confirmó en el Worker de Preview que, con `templateFamily: commercial` y `estadoComercial: demo`, aparecen las secciones comerciales de proyectos, problema y solución, los planes SIDeN y las preguntas frecuentes. La comprobación visual pendiente de la familia comercial queda cerrada. Después de la prueba, `config.json` se restauró a `templateFamily: corporate` y `estadoComercial: cliente` en la rama `prueba-aislamiento-contenido-v1.5`. Producción no fue modificada ni desplegada.
+
+
+## Nota de vigencia de entornos — 22-10-2026
+
+Las referencias históricas a la producción anterior `siden-corporativo-v1.3` / Worker `siden-corporativo` describen la etapa previa a la migración y no son la referencia operativa actual. Según confirmación del usuario, la rama de producción de `sidenred.com` es `sidenred-comercial-PROD` y el Worker de producción es `hola`. No modificar ni usar estos recursos para pruebas sin autorización expresa. La plantilla maestra candidata es `siden-template-candidate-2026-10`; todavía no se declara rama oficial hasta validar los cambios y cerrar la lista de lanzamiento.
+
+La arquitectura independiente permite que cada proyecto derivado tenga repositorio/proyecto, `config.json`, recursos y Worker propios. Las mejoras futuras de la plantilla maestra no se propagan automáticamente a los sitios ya creados; cualquier adaptación debe evaluarse y probarse en el Preview del proyecto correspondiente.
