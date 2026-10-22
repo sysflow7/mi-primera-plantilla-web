@@ -450,6 +450,24 @@
             }
         }
 
+        // Navegación robusta para enlaces internos: asegura que "Nosotros" lleve a la sección visible.
+        if (navLinks && navLinks.dataset.sidenAnchorBound !== "1") {
+            navLinks.dataset.sidenAnchorBound = "1";
+            navLinks.addEventListener("click", function (event) {
+                const enlace = event.target.closest('a[href^="#"]');
+                if (!enlace) return;
+                const id = decodeURIComponent(enlace.getAttribute("href").slice(1));
+                const destino = document.getElementById(id);
+                if (!destino) return;
+                event.preventDefault();
+                if (destino.hidden) destino.hidden = false;
+                destino.scrollIntoView({ behavior: "smooth", block: "start" });
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, "", "#" + encodeURIComponent(id));
+                }
+            });
+        }
+
         // CONTACTO Y ENLACES
         const whatsapp = String(negocioBase.whatsapp || "").replace(/\D/g, "");
         const enlaceWhatsApp = whatsapp ? "https://wa.me/" + whatsapp : "";
