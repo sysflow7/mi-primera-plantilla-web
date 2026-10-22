@@ -112,3 +112,10 @@ Este procedimiento no reemplaza el contrato, el formulario de alta, la matriz co
 ## 10. Control de transición a la plantilla oficial
 
 La certificación visual de las familias `corporate` y `commercial` quedó confirmada en Preview el 21-10-2026. Antes de designar una rama como base oficial, verificar que contiene los commits documentados de la arquitectura independiente, reconciliar el índice y los documentos normativos, comprobar que el fixture de prueba está restaurado a corporativo/cliente y registrar la autorización de transición. No cambiar la rama predeterminada del repositorio, la rama de producción de Cloudflare ni ningún Worker de producción como parte de esta preparación sin autorización expresa.
+
+
+## Nota de vigencia de entornos — 22-10-2026
+
+Las referencias históricas a la producción anterior `siden-corporativo-v1.3` / Worker `siden-corporativo` describen la etapa previa a la migración y no son la referencia operativa actual. Según confirmación del usuario, la rama de producción de `sidenred.com` es `sidenred-comercial-PROD` y el Worker de producción es `hola`. No modificar ni usar estos recursos para pruebas sin autorización expresa. La plantilla maestra candidata es `siden-template-candidate-2026-10`; todavía no se declara rama oficial hasta validar los cambios y cerrar la lista de lanzamiento.
+
+La arquitectura independiente permite que cada proyecto derivado tenga repositorio/proyecto, `config.json`, recursos y Worker propios. Las mejoras futuras de la plantilla maestra no se propagan automáticamente a los sitios ya creados; cualquier adaptación debe evaluarse y probarse en el Preview del proyecto correspondiente.
