@@ -111,12 +111,17 @@
   justify-content:center;
   min-height:220px;
 }
+.content-split{
+  scroll-margin-top:100px;
+}
 .content-split .split-media img{
-  display:block;
+  display:block!important;
   width:100%;
   max-width:420px;
-  max-height:300px;
-  object-fit:cover;
+  max-height:420px;
+  height:auto;
+  object-fit:contain;
+  object-position:center;
   border-radius:14px;
 }
 .content-split .split-content{
