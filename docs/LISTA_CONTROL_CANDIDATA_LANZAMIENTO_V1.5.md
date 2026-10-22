@@ -2,8 +2,9 @@
 
 **Fecha:** 21 de octubre de 2026  
 **Estado:** preparación pendiente; NO es autorización de despliegue.  
-**Rama de referencia:** `prueba-aislamiento-contenido-v1.5`  
-**Producción protegida:** `siden-corporativo-v1.3` / Worker `siden-corporativo` / dominio `sidenred.com`.
+**Rama de referencia de certificación:** `prueba-aislamiento-contenido-v1.5`  
+**Rama candidata a plantilla maestra:** `siden-template-candidate-2026-10`  
+**Producción SIDeN confirmada por el usuario:** rama `sidenred-comercial-PROD` / Worker `hola` / dominio `sidenred.com`. Estos recursos no se usan para pruebas ni se modifican sin autorización expresa.
 
 ## Propósito
 
@@ -27,7 +28,7 @@ Definir los controles que deben cumplirse antes de declarar SIDeN V1.5 como plan
 
 ## Hallazgos de repositorio y transición
 
-- La rama predeterminada actual de GitHub fue reportada como `siden-template-v1.3`. Esto es distinto de la rama de producción `siden-corporativo-v1.3`; no se deben tratar como equivalentes.
+- La rama predeterminada de GitHub se reportó como `siden-template-v1.3`; sigue pendiente cambiarla una vez aprobada la plantilla maestra. La rama de producción de `sidenred.com` es `sidenred-comercial-PROD`, según confirmación del usuario. No deben tratarse como equivalentes.
 - Existe una solicitud de cambio #56 titulada **“Arquitectura híbrida SIDeN: proyectos independientes por cliente”**. Su descripción menciona el modelo independiente, pero conserva un historial y criterios de validación anteriores. Debe revisarse contra la implementación V1.5 actual antes de tomar decisiones de fusión o cierre. No se ha fusionado ni modificado esa solicitud.
 - La inspección del árbol completo del commit candidato no encontró archivos bajo `.github/workflows/`. El despliegue documentado se gestiona desde la integración GitHub/Cloudflare y `wrangler.jsonc`; la asociación de ramas y los eventos deben confirmarse en los ajustes de cada Worker en Cloudflare.
 - El usuario confirmó que el Worker de pruebas `siden-template-candidate-2026-10` usa la rama candidata para su despliegue. Sin embargo, no hay una inspección actual confirmada de todos los ajustes de Cloudflare de la candidata, certificación y producción; no se deben extrapolar los ajustes de un Worker a los demás.
@@ -66,7 +67,7 @@ La candidata solo puede declararse **lista para nuevos proyectos** cuando los co
 
 ## Estado de producción
 
-No se ha autorizado ni realizado como parte de esta lista ningún merge o despliegue a `siden-corporativo-v1.3`, al Worker `siden-corporativo` o al dominio `sidenred.com`.
+No se ha autorizado ni realizado como parte de esta lista ningún merge o despliegue a la rama `sidenred-comercial-PROD`, al Worker `hola` o al dominio `sidenred.com`.
 
 
 ## Enfoque de cierre acordado
@@ -126,3 +127,10 @@ La solicitud `#56` continúa abierta, con base `siden-template-v1.4` y rama de o
 ### Resultado de inventario estático de imágenes raíz — 21-10-2026
 
 Se inspeccionaron las referencias de `index.html`, `css/style.css`, `css/redesign-v3.css` y `js/script.js`. Las referencias directas de muestra localizadas en `css/redesign-v3.css` usan `foto1.jpg`, `foto2.jpg`, `foto3.jpg` y `ferreteria-constructor.jpg` para tarjetas y elementos visuales de la familia comercial. No se eliminaron recursos: borrar imágenes sin una prueba visual podría romper estilos de la demo comercial. Los nombres de archivos de la carpeta raíz no identifican clientes. Esta es una revisión estática de nombres/rutas y referencias; no constituye una inspección visual del contenido de cada imagen ni prueba con imágenes reales de cliente.
+
+
+## Actualización de referencias operativas — 22-10-2026
+
+La documentación histórica de transición mencionaba `siden-corporativo-v1.3` y el Worker `siden-corporativo` como producción. Esas referencias quedaron obsoletas cuando SIDeN se migró a la nueva arquitectura. Para las decisiones operativas actuales, utilizar la confirmación del usuario: `sidenred-comercial-PROD` es la rama principal de producción de `sidenred.com` y `hola` es el Worker de producción. No invertir tiempo en volver a evaluar `siden-corporativo-v1.3`; conservar sus menciones solo cuando sean necesarias para explicar el historial de la migración.
+
+La candidata `siden-template-candidate-2026-10` recibió dos mejoras genéricas procedentes de producción: navegación interna robusta en `js/script.js` y ajuste de anclaje/presentación de imágenes en `css/redesign-v2.css`. Estas mejoras aún requieren validación de Preview y regresión antes de cerrar la lista de lanzamiento. Los proyectos derivados mantienen configuración y despliegue independientes; no reciben automáticamente los cambios futuros de la plantilla maestra.
