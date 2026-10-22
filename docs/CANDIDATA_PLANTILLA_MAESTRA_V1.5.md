@@ -51,7 +51,7 @@ El nombre del Worker se aisló como `siden-template-candidate-2026-10` y el usua
 
 ## Seguridad de publicación
 
-No modificar ni desplegar a `siden-corporativo-v1.3`, Worker `siden-corporativo` ni dominio `sidenred.com` como parte de esta candidata. La creación de esta rama no autoriza una migración ni un cambio de rama predeterminada de GitHub.
+No modificar ni desplegar a `sidenred-comercial-PROD`, Worker `hola` ni dominio `sidenred.com` como parte de esta candidata. La creación de esta rama no autoriza una migración ni un cambio de rama predeterminada de GitHub. Las menciones a `siden-corporativo-v1.3` / Worker `siden-corporativo` en notas históricas describen la etapa anterior a la migración.
 
 
 ## Configuración actual verificada en GitHub
@@ -161,3 +161,10 @@ Estos cambios pertenecen solo a la candidata. No se copiaron los datos de `confi
 ## Independencia de los proyectos derivados
 
 La arquitectura independiente permite que cada proyecto derivado tenga su propio repositorio/proyecto, `config.json`, recursos, `wrangler.jsonc` y Worker. Una modificación posterior de la plantilla maestra **no se propaga automáticamente** a proyectos ya creados. Para incorporar una mejora a un proyecto existente se debe revisar su impacto, adaptar el cambio a su configuración propia y probarlo en su Preview. La plantilla maestra define la base de los nuevos proyectos, no limita la personalización independiente de cada instancia.
+
+
+## Nota de vigencia de entornos — 22-10-2026
+
+Las referencias históricas a la producción anterior `siden-corporativo-v1.3` / Worker `siden-corporativo` describen la etapa previa a la migración y no son la referencia operativa actual. Según confirmación del usuario, la rama de producción de `sidenred.com` es `sidenred-comercial-PROD` y el Worker de producción es `hola`. No modificar ni usar estos recursos para pruebas sin autorización expresa. La plantilla maestra candidata es `siden-template-candidate-2026-10`; todavía no se declara rama oficial hasta validar los cambios y cerrar la lista de lanzamiento.
+
+La arquitectura independiente permite que cada proyecto derivado tenga repositorio/proyecto, `config.json`, recursos y Worker propios. Las mejoras futuras de la plantilla maestra no se propagan automáticamente a los sitios ya creados; cualquier adaptación debe evaluarse y probarse en el Preview del proyecto correspondiente.
