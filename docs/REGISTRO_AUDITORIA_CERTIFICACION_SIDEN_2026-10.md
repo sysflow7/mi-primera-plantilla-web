@@ -36,3 +36,13 @@ No se ha abierto una instancia Preview real ni ejecutado el sitio en un navegado
 ## 4. Criterio de cierre
 
 La certificación requerirá una matriz de pruebas con resultado, evidencia, commit exacto, defectos corregidos y aprobación explícita. No se autoriza ni se realiza despliegue a producción como parte de esta auditoría.
+
+
+## 5. Preparación del Worker de auditoría — 2026-10-24
+
+- Worker aislado en Cloudflare: `siden-auditoria`.
+- Rama de producción configurada en Cloudflare: `audit/certificacion-produccion-2026-10` (confirmado mediante captura del panel).
+- Se actualizó `wrangler.jsonc` en esta rama para que `name` sea `siden-auditoria`; commit: `e07bae631237402339e109536d5c441525e5d9b6`.
+- La compilación inicial ocurrió antes de que la configuración de rama y nombre quedara alineada; su log reporta discrepancia con el nombre anterior. No se considera prueba de que se haya compilado el commit correctivo.
+- Este registro se actualiza para activar una nueva compilación vinculada a la rama de auditoría. La ejecución real y el commit desplegado deben confirmarse en el panel de Cloudflare antes de iniciar pruebas funcionales.
+- No asociar dominios personalizados ni modificar el Worker de producción `hola` / `sidenred.com`.
