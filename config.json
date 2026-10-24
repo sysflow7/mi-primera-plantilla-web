@@ -1,6 +1,6 @@
 {
   "siden": {
-    "instanceId": "cliente-por-configurar",
+    "instanceId": "siden-auditoria",
     "templateFamily": "corporate",
     "baseDomain": "",
     "architecture": "independent-project",
@@ -10,14 +10,14 @@
     "version": "1.5"
   },
   "activo": true,
-  "nombre": "Nombre del negocio",
-  "h1": "Nombre del negocio",
-  "slogan": "Describe brevemente tu propuesta de valor",
-  "descripcion": "",
-  "descripcionSEO": "",
+  "nombre": "SIDeN Auditoría",
+  "h1": "SIDeN Auditoría",
+  "slogan": "Prueba controlada de plantilla multipágina",
+  "descripcion": "Instancia temporal para certificar el enrutamiento multipágina.",
+  "descripcionSEO": "Instancia temporal para certificar el enrutamiento multipágina.",
   "tipoNegocio": "",
   "etiquetaTipo": "",
-  "modoSitio": "single",
+  "modoSitio": "multi",
   "modeloAtencion": "",
   "areasServicio": [],
   "heroImagenFondo": "",
@@ -75,9 +75,9 @@
     {
       "ruta": "/",
       "nombre": "Inicio",
-      "h1": "Nombre del negocio",
-      "slogan": "Describe brevemente tu propuesta de valor",
-      "descripcion": "",
+      "h1": "SIDeN Auditoría",
+      "slogan": "Prueba controlada de plantilla multipágina",
+      "descripcion": "Página de inicio para validar el enrutamiento multipágina.",
       "modulos": [
         "presentacion",
         "beneficios",
@@ -85,13 +85,49 @@
         "contacto"
       ],
       "etiquetas": {
-        "presentacion": "Sobre el negocio",
+        "presentacion": "Sobre la prueba",
         "beneficios": "Beneficios",
         "servicios": "Servicios",
         "contacto": "Contacto"
       },
       "textos": {
-        "contacto": ""
+        "contacto": "Prueba de auditoría"
+      }
+    },
+    {
+      "ruta": "/servicios",
+      "nombre": "Servicios",
+      "h1": "Página de servicios",
+      "tituloSEO": "Servicios | SIDeN Auditoría",
+      "descripcionSEO": "Página de servicios de prueba para validar el enrutamiento multipágina.",
+      "descripcion": "Esta página existe únicamente para comprobar el enrutamiento multipágina.",
+      "modulos": [
+        "servicios",
+        "contacto"
+      ],
+      "etiquetas": {
+        "servicios": "Servicios de prueba",
+        "contacto": "Contacto"
+      },
+      "textos": {
+        "contacto": "Prueba de auditoría"
+      }
+    },
+    {
+      "ruta": "/contacto",
+      "nombre": "Contacto",
+      "h1": "Página de contacto",
+      "tituloSEO": "Contacto | SIDeN Auditoría",
+      "descripcionSEO": "Página de contacto de prueba para validar el enrutamiento multipágina.",
+      "descripcion": "Esta página existe únicamente para comprobar el enrutamiento multipágina.",
+      "modulos": [
+        "contacto"
+      ],
+      "etiquetas": {
+        "contacto": "Contacto de prueba"
+      },
+      "textos": {
+        "contacto": "Prueba de auditoría"
       }
     }
   ],
