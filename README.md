@@ -1,33 +1,24 @@
-# SIDeN — Plantilla Maestra V1.5 con arquitectura independiente
+# SIDeN — Plantilla maestra y arquitectura independiente
 
-## Origen verificado
-La base visual y funcional se toma de la rama `siden-corporativo-v1.3`, que contiene la plantilla maestra más reciente y la instancia de Dr. Carlos Reyes en `sites/drcarlosreyes/`. No se usa la V1.3 antigua ni la rama experimental basada en V1.4.
-
-## Qué se conserva
-Se conservan `index.html`, `css/`, `js/` e imágenes de la base de producción, incluyendo mejoras de presentación, módulos, planes/FAQ de demo y cambios validados. La estructura de configuración del Dr. Carlos Reyes se usa como referencia de campos, sin copiar su información profesional ni sus imágenes personales al demo genérico.
+## Referencia técnica actual
+- **Repositorio:** `sysflow7/mi-primera-plantilla-web`
+- **Rama de referencia:** `siden-template-candidate-2026-10`
+- **Commit revisado para la documentación V2.0:** `592528ebae9fd7ad658e5b6d96ae43380fefd19e`
+- **Estado:** candidata técnica; no declararla certificada hasta completar los controles pendientes y obtener aprobación explícita.
 
 ## Arquitectura
-- Un proyecto y Worker independiente por cliente.
-- El Worker lee únicamente `/config.json` y recursos de la raíz.
-- Sin `SIDEN_REGISTRY`, `registry.json` ni rutas `/sites/{instanceId}/` para resolver el sitio.
-- `indexable: false` durante pruebas.
-- El sitio corporativo y los Workers existentes no se modifican.
+SIDeN utiliza una plantilla maestra reutilizable y proyectos independientes por sitio. Cada cliente debe tener su propio repositorio/proyecto, `config.json`, Worker y configuración de dominio. Las mejoras de la plantilla no se propagan automáticamente a sitios ya publicados.
 
-## Estado de validación
-El alcance funcional base de V1.5 y la presentación visual de las familias corporate/commercial se comprobaron en Preview. El usuario confirmó que en la familia comercial aparecen las FAQ (con el módulo `faq` habilitado), las secciones comerciales y los planes SIDeN. Resultados registrados en `docs/ARQUITECTURA_INDEPENDIENTE_V1.5.md`. No repetir pruebas confirmadas salvo que un cambio posterior afecte el comportamiento. La arquitectura no está desplegada en producción.
+## Documentos operativos V2.0
+1. [Arquitectura SIDeN V2.0](docs/ARQUITECTURA_SIDEN_V2.0.md)
+2. [Procedimiento de creación de proyectos V2.0](docs/PROCEDIMIENTO_CREACION_PROYECTOS_SIDEN_V2.0.md)
+3. [SIDeN MINI: arquitectura y alcance V2.0](docs/SIDEN_MINI_ARQUITECTURA_Y_ALCANCE_V2.0.md)
+4. [Catálogo de módulos y configuración V2.0](docs/CATALOGO_MODULOS_CONFIGURACION_SIDEN_V2.0.md)
 
+El índice de documentación indica precedencia y estado de los documentos. Las versiones anteriores se conservan como historial y no deben utilizarse si contradicen los documentos V2.0.
 
-## Prueba de aislamiento de contenido
-Rama `prueba-aislamiento-contenido-v1.5`: despliegue de prueba para verificar que las páginas corporativas de clientes no entreguen en el HTML las secciones comerciales de SIDeN ni las preguntas frecuentes predeterminadas.
+## Producción comercial de SIDeN
+La rama `sidenred-comercial-PROD`, el Worker `hola` y el dominio `sidenred.com` son recursos productivos independientes. No utilizarlos para pruebas ni modificarlos/desplegarlos durante el trabajo de la plantilla maestra sin autorización explícita.
 
-
-
-## Estado de transición — 22-10-2026
-
-La rama `prueba-aislamiento-contenido-v1.5` es una **rama de certificación**, no la rama oficial aprobada para crear nuevos proyectos. Contiene configuración de prueba y no debe convertirse directamente en plantilla de lanzamiento.
-
-**Plantilla maestra candidata:** `siden-template-candidate-2026-10`. Sigue pendiente de aprobación formal hasta completar las comprobaciones y reconciliar la documentación.
-
-**Sitio comercial de SIDeN:** el usuario confirma que la rama `sidenred-comercial-PROD` corresponde a la producción de `sidenred.com` y que el Worker de producción es `hola`. Estos son recursos distintos de la plantilla maestra. No modificar ni desplegar en ellos durante el trabajo de la candidata sin autorización explícita.
-
-La candidata se desplegó en su Worker independiente del mismo nombre. El usuario confirmó visualmente contenido genérico, sin datos de clientes ni planes comerciales de SIDeN, y confirmó que los CTA de WhatsApp permanecen visibles y muestran un aviso cuando falta el número. Siguen pendientes pruebas con número de WhatsApp de prueba, revisión final de assets, comprobación de configuración Cloudflare y aprobación de la rama oficial. Esta revisión no equivale a una auditoría de seguridad integral.
+## Estado de pruebas y límites
+La candidata se despliega en un Worker independiente y el usuario confirmó visualmente que carga contenido genérico. Siguen siendo obligatorias las pruebas específicas del cambio que se realice, incluidas las regresiones pertinentes. La revisión documental no equivale a una auditoría de seguridad integral ni certifica todas las funciones.
