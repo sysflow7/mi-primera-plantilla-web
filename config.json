@@ -1,7 +1,7 @@
 {
   "siden": {
     "instanceId": "siden-auditoria",
-    "templateFamily": "corporate",
+    "templateFamily": "commercial",
     "baseDomain": "",
     "architecture": "independent-project",
     "domainMode": "subdomain",
@@ -158,7 +158,7 @@
     "titulo": "Sobre el negocio",
     "texto": ""
   },
-  "estadoComercial": "cliente",
+  "estadoComercial": "demo",
   "faq": {
     "activo": false,
     "preguntas": []
