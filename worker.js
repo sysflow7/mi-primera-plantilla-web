@@ -117,7 +117,7 @@ export default {
             const contenido = '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                 rutas.map(ruta => `<url><loc>${url.origin}${ruta}</loc></url>`).join("") + '</urlset>';
-            return new Response(contenido, { headers: { "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
+            return new Response(contenido, { headers: { "Content-Type": "application/xml; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host" } });
         }
 
         if (request.method !== "GET" || !esRutaPagina) return env.ASSETS.fetch(request);
