@@ -59,3 +59,12 @@ La revisión estática inicial confirmó que el Worker limita métodos a GET, va
 La matriz de pruebas manuales descrita arriba está completada para el alcance indicado, incluidos los modos multipágina y de una sola página. Antes de declarar la certificación final, queda revisar si las observaciones de la sección 3 requieren cambios de código o solo deben permanecer registradas como límites de esta prueba, y consolidar el resultado en la documentación de cierre.
 
 **Estado actual: pruebas ejecutadas; certificación final aún no emitida.** No se autoriza ni se realiza despliegue, fusión de rama ni modificación de producción como parte de este registro.
+
+
+## 8. Verificación de indexabilidad — 2026-10-24
+
+- Se activó `indexable: true` en `config.json` únicamente en la rama y Worker de auditoría.
+- Tras ajustar la respuesta HTML para evitar caché durante las pruebas y completar el despliegue, el usuario confirmó que la etiqueta robots muestra `index, follow`. Resultado: aprobada.
+- El usuario confirmó que `sitemap.xml` incluye la URL raíz `https://siden-auditoria.darvincanal2025.workers.dev/` en modo `single`. Resultado: aprobado para el modo de una sola página.
+- El usuario confirmó que `robots.txt` muestra `User-agent: *`, `Allow: /` y la URL del sitemap del Worker de auditoría. Resultado: aprobado para la configuración probada.
+- Estas pruebas verifican la salida generada por el Worker; no garantizan indexación efectiva en buscadores.
