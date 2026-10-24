@@ -14,7 +14,7 @@ La validación se ejecutó sobre el Worker de auditoría, separado del sitio de 
 
 | Área | Prueba / evidencia | Resultado |
 |---|---|---|
-| Rutas multipágina | Inicio, Servicios y Contacto abren; recarga directa en rutas confirmada previamente | Aprobada |
+| Rutas multipágina | Inicio, Servicios y Contacto abren; recarga directa en rutas confirmada previamente | Aprobada |\n| Modo de una sola página (`modoSitio: single`) | Página, secciones, menú y botones de contacto verificados manualmente por el usuario tras finalizar el despliegue | Aprobada |
 | Navegación | Logo, menú entre páginas y botón Atrás | Aprobada |
 | Acciones de contacto | WhatsApp, Guardar contacto y Compartir negocio | Aprobada |
 | Responsive | Vista de dispositivo móvil; contenido, menú, textos, imágenes/botones y ausencia de desplazamiento horizontal | Aprobada según verificación manual |
@@ -54,8 +54,8 @@ La revisión estática inicial confirmó que el Worker limita métodos a GET, va
 - Se actualizó `wrangler.jsonc` en esta rama para que `name` sea `siden-auditoria`; commit registrado: `e07bae631237402339e109536d5c441525e5d9b6`.
 - No asociar dominios personalizados ni modificar el Worker de producción `hola` / `sidenred.com`.
 
-## 6. Criterio de cierre y estado
+## 6. Prueba del modo de una sola página — 2026-10-24\n\nEl usuario confirmó que, tras completarse el despliegue, el modo `single` muestra correctamente la página, todas sus secciones y el menú; los botones de contacto y sus funcionalidades operan correctamente. Se registra como aprobada según comprobación manual.\n\n## 7. Criterio de cierre y estado
 
-La matriz de pruebas manuales descrita arriba está completada para el alcance indicado. Antes de declarar la certificación final, queda consolidar el resultado en la documentación de cierre y decidir expresamente si las observaciones de las secciones 3 requieren cambios de código o solo quedan registradas como límites de esta prueba.
+La matriz de pruebas manuales descrita arriba está completada para el alcance indicado, incluidos los modos multipágina y de una sola página. Antes de declarar la certificación final, queda revisar si las observaciones de la sección 3 requieren cambios de código o solo deben permanecer registradas como límites de esta prueba, y consolidar el resultado en la documentación de cierre.
 
 **Estado actual: pruebas ejecutadas; certificación final aún no emitida.** No se autoriza ni se realiza despliegue, fusión de rama ni modificación de producción como parte de este registro.
