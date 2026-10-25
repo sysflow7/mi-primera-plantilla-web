@@ -29,7 +29,7 @@
     "servicios",
     "contacto"
   ],
-  "indexable": true,
+  "indexable": false,
   "whatsapp": "",
   "telefono": "",
   "email": "",
