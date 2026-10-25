@@ -84,8 +84,10 @@ Los valores de configuración destinados a personas usuarias pueden venir en esp
 - Mantener la compatibilidad con configuraciones antiguas y con las claves internas en inglés cuando ya estén soportadas.
 - Al incorporar campos que contienen nombres, categorías o valores localizados, revisar explícitamente diferencias de idioma, acentos y capitalización.
 - Incluir al menos una prueba con datos reales en español en Preview; no dar por válida la función solo porque compile.
+- Comprobar también que el módulo contenedor de la función esté habilitado en `modulos` (y, en sitios multipágina, en los módulos de la página actual). Si el módulo contenedor está deshabilitado, sus elementos internos pueden no mostrarse aunque sus datos estén configurados correctamente.
+- Al diagnosticar una función que no aparece, revisar en este orden: configuración de visibilidad, módulo contenedor habilitado, estructura/datos de configuración y finalmente lógica de renderizado.
 
-Esta regla es obligatoria para evitar que datos correctamente configurados en español desaparezcan durante el renderizado por una comparación literal con claves en inglés.
+Esta regla evita tanto los fallos por comparación literal entre valores localizados y claves internas como los falsos diagnósticos causados por módulos contenedores deshabilitados.
 
 ## 8. Regla obligatoria para cambios compartidos
 
