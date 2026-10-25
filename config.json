@@ -17,7 +17,7 @@
   "descripcionSEO": "Instancia temporal para certificar el modo de una sola página.",
   "tipoNegocio": "",
   "etiquetaTipo": "",
-  "modoSitio": "single",
+  "modoSitio": "multi",
   "modeloAtencion": "",
   "areasServicio": [],
   "heroImagenFondo": "",
@@ -102,5 +102,40 @@
   "faq": {
     "activo": false,
     "preguntas": []
-  }
+  },
+  "paginas": [
+    {
+      "ruta": "/",
+      "nombre": "Inicio",
+      "tituloSEO": "Inicio | SIDeN Auditoría",
+      "descripcionSEO": "Página de inicio de prueba.",
+      "h1": "SIDeN Auditoría",
+      "modulos": [
+        "presentacion",
+        "servicios",
+        "contacto"
+      ]
+    },
+    {
+      "ruta": "/servicios",
+      "nombre": "Servicios",
+      "tituloSEO": "Servicios | SIDeN Auditoría",
+      "descripcionSEO": "Página de servicios de prueba.",
+      "h1": "Servicios",
+      "modulos": [
+        "servicios",
+        "contacto"
+      ]
+    },
+    {
+      "ruta": "/contacto",
+      "nombre": "Contacto",
+      "tituloSEO": "Contacto | SIDeN Auditoría",
+      "descripcionSEO": "Página de contacto de prueba.",
+      "h1": "Contacto",
+      "modulos": [
+        "contacto"
+      ]
+    }
+  ]
 }
