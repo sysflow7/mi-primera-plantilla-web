@@ -27,7 +27,6 @@
     "presentacion",
     "beneficios",
     "servicios",
-    "ubicacion",
     "contacto"
   ],
   "indexable": false,
@@ -52,67 +51,7 @@
   "catalogo": "",
   "logo": "",
   "imagenSocial": "",
-  "horarios": [
-    {
-      "dia": "lunes",
-      "intervalos": [
-        {
-          "abre": "08:00",
-          "cierra": "12:00"
-        },
-        {
-          "abre": "13:00",
-          "cierra": "17:00"
-        }
-      ]
-    },
-    {
-      "dia": "martes",
-      "intervalos": [
-        {
-          "abre": "08:00",
-          "cierra": "17:00"
-        }
-      ]
-    },
-    {
-      "dia": "miercoles",
-      "intervalos": [
-        {
-          "abre": "08:00",
-          "cierra": "17:00"
-        }
-      ]
-    },
-    {
-      "dia": "jueves",
-      "intervalos": [
-        {
-          "abre": "08:00",
-          "cierra": "17:00"
-        }
-      ]
-    },
-    {
-      "dia": "viernes",
-      "intervalos": [
-        {
-          "abre": "08:00",
-          "cierra": "16:00"
-        }
-      ]
-    },
-    {
-      "dia": "sabado",
-      "cerrado": true,
-      "intervalos": []
-    },
-    {
-      "dia": "domingo",
-      "cerrado": true,
-      "intervalos": []
-    }
-  ],
+  "horarios": [],
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {
@@ -143,7 +82,6 @@
         "presentacion",
         "beneficios",
         "servicios",
-        "ubicacion",
         "contacto"
       ],
       "etiquetas": {
@@ -190,35 +128,14 @@
     "preguntas": []
   },
   "horariosConfig": {
-    "mostrar": true
+    "mostrar": false
   },
   "resenasGoogle": {
-    "mostrar": true,
-    "titulo": "Reseñas de prueba",
-    "subtitulo": "Contenido ficticio temporal para validar la integración; no usar en un sitio real.",
+    "mostrar": false,
+    "titulo": "Lo que dicen nuestros clientes",
+    "subtitulo": "Opiniones de quienes han confiado en nosotros.",
     "url": "",
-    "items": [
-      {
-        "autor": "Cliente de prueba 1",
-        "texto": "Reseña ficticia temporal para validar el carrusel.",
-        "estrellas": 5
-      },
-      {
-        "autor": "Cliente de prueba 2",
-        "texto": "Reseña ficticia temporal para validar el carrusel.",
-        "estrellas": 4
-      },
-      {
-        "autor": "Cliente de prueba 3",
-        "texto": "Reseña ficticia temporal para validar el carrusel.",
-        "estrellas": 5
-      },
-      {
-        "autor": "Cliente de prueba 4",
-        "texto": "Reseña ficticia temporal para validar el carrusel.",
-        "estrellas": 5
-      }
-    ]
+    "items": []
   },
   "mostrarBotonGuardarContacto": true,
   "mostrarBotonCompartirNegocio": true
