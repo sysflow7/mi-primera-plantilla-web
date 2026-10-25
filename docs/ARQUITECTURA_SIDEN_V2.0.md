@@ -74,7 +74,20 @@ Cada página puede definir, según la implementación, `ruta`, `nombre`, `h1`, `
 - `.assetsignore` y los filtros de ruta son controles defensivos, no una auditoría de penetración.
 - No copiar contenido, imágenes o datos de otro cliente sin autorización.
 
-## 7. Regla obligatoria para cambios compartidos
+## 7. Regla obligatoria de normalización de datos en español
+
+Los valores de configuración destinados a personas usuarias pueden venir en español y con distintas combinaciones de mayúsculas, minúsculas o acentos. El código no debe asumir que esos valores coinciden literalmente con claves internas en inglés.
+
+- Para los días de atención, aceptar los nombres en español: lunes, martes, miércoles/miercoles, jueves, viernes, sábado/sabado y domingo.
+- Normalizar espacios y mayúsculas/minúsculas antes de comparar; contemplar las variantes con y sin tilde cuando corresponda.
+- Convertir los nombres visibles/configurados a claves internas estables antes de ordenar, agrupar o procesar los datos.
+- Mantener la compatibilidad con configuraciones antiguas y con las claves internas en inglés cuando ya estén soportadas.
+- Al incorporar campos que contienen nombres, categorías o valores localizados, revisar explícitamente diferencias de idioma, acentos y capitalización.
+- Incluir al menos una prueba con datos reales en español en Preview; no dar por válida la función solo porque compile.
+
+Esta regla es obligatoria para evitar que datos correctamente configurados en español desaparezcan durante el renderizado por una comparación literal con claves en inglés.
+
+## 8. Regla obligatoria para cambios compartidos
 
 1. Identificar archivos, funciones, selectores, módulos, rutas y familias que pueden verse afectados.
 2. Determinar si el requisito se resuelve mediante configuración.
@@ -85,7 +98,7 @@ Cada página puede definir, según la implementación, `ruta`, `nombre`, `h1`, `
 7. Documentar los resultados después de probar.
 8. No fusionar ni desplegar producción sin autorización explícita.
 
-## 8. Preview de Cloudflare
+## 9. Preview de Cloudflare
 
 1. Crear rama desde `siden-template-candidate-2026-10`, salvo autorización expresa.
 2. Si el Preview corporate requiere `corporatePreviewAliases`, agregar el nombre exacto de la rama al Worker de prueba antes de generar Preview.
@@ -94,12 +107,12 @@ Cada página puede definir, según la implementación, `ruta`, `nombre`, `h1`, `
 5. Registrar pruebas y evidencias.
 6. Tras aprobar, integrar conforme al flujo autorizado y retirar aliases temporales que ya no se necesiten.
 
-## 9. SEO, GA4 y publicación
+## 10. SEO, GA4 y publicación
 
 Revisar título, descripción, canonical, datos estructurados, `robots.txt`, `sitemap.xml` y ausencia de `noindex` contradictorio. `indexable: true` no garantiza que Google indexe el sitio. Cada cliente debe usar su propio Measurement ID de GA4 cuando corresponda y Preview no debe contaminar analítica real.
 
 Publicar únicamente en el Worker y dominio del proyecto aprobado, tras autorización expresa. Registrar commit publicado, dominio, Worker y pruebas posteriores.
 
-## 10. Estado
+## 11. Estado
 
 Esta arquitectura está alineada con el código de la rama y commit indicados; no equivale a certificación integral de todas las funciones ni a aprobación de producción. Las pruebas específicas pendientes deben permanecer identificadas como tales.
