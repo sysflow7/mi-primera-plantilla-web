@@ -598,7 +598,19 @@
                     horarios.forEach(h => {
                         if (!h || !h.dia) return;
                         // La configuración suele guardar los días en español; internamente se ordenan con claves inglesas.
-                        const claveDia = dias[h.dia] ? h.dia : clavesDiaEspanol[h.dia];
+                        const nombreDiaNormalizado = String(h.dia).trim().toLocaleLowerCase("es");
+                        const diasEspanolNormalizados = {
+                            lunes: "Monday",
+                            martes: "Tuesday",
+                            miercoles: "Wednesday",
+                            miércoles: "Wednesday",
+                            jueves: "Thursday",
+                            viernes: "Friday",
+                            sabado: "Saturday",
+                            sábado: "Saturday",
+                            domingo: "Sunday"
+                        };
+                        const claveDia = dias[h.dia] || diasEspanolNormalizados[nombreDiaNormalizado] || clavesDiaEspanol[h.dia];
                         if (claveDia) horariosPorDia.set(claveDia, h);
                     });
                     const formatearHora = valor => {
