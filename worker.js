@@ -99,7 +99,7 @@ export default {
 
         if (url.pathname === "/robots.txt") {
             const contenido = "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n";
-            return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "public, max-age=3600", "Vary": "Host" } });
+            return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host" } });
         }
 
         if (url.pathname === "/sitemap.xml") {
@@ -153,7 +153,7 @@ export default {
             ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
 
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
-            (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre} | ${negocio.ciudad}`);
+            (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre}${negocio.ciudad ? " | " + negocio.ciudad : ""}`);
         const descripcionSEO = paginaActual?.descripcionSEO || negocio.descripcionSEO || negocio.seo?.descripcion ||
             paginaActual?.descripcion || negocio.descripcion || negocio.slogan || negocio.nombre;
         const h1Title = paginaActual?.h1 || paginaActual?.nombre || negocio.h1 || negocio.nombre;
@@ -264,6 +264,6 @@ export default {
             html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>');
         }
 
-        return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "Vary": "Host" } });
+        return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host", "X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin", "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()" } });
     }
 };
