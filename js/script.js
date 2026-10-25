@@ -86,14 +86,14 @@
         };
 
         const tipoNormalizado = aliases[tipo] || "comercio";
-        const rutaActual = window.location.pathname.replace(/\/$/, "") || "/";
+        const rutaActual = window.location.pathname.replace(/\/+$/, "") || "/";
         const esMulti = negocioBase.modoSitio === "multi" && Array.isArray(negocioBase.paginas);
         let negocio = { ...negocioBase };
         let paginaActual = null;
 
         if (esMulti) {
             paginaActual = negocioBase.paginas.find(function (pagina) {
-                const ruta = String(pagina.ruta || "/").replace(/\/$/, "") || "/";
+                const ruta = String(pagina.ruta || "/").replace(/\/+$/, "") || "/";
                 return ruta === rutaActual;
             });
             if (paginaActual) {
