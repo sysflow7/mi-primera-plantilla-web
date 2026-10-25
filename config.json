@@ -126,5 +126,17 @@
   "faq": {
     "activo": false,
     "preguntas": []
-  }
+  },
+  "horariosConfig": {
+    "mostrar": false
+  },
+  "resenasGoogle": {
+    "mostrar": false,
+    "titulo": "Lo que dicen nuestros clientes",
+    "subtitulo": "Opiniones de quienes han confiado en nosotros.",
+    "url": "",
+    "items": []
+  },
+  "mostrarBotonGuardarContacto": true,
+  "mostrarBotonCompartirNegocio": true
 }
