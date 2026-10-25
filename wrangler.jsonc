@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "siden-template-candidate-2026-10",
+  "name": "desarrollo-pm",
   "compatibility_date": "2026-09-06",
   "main": "worker.js",
   "assets": {
