@@ -27,6 +27,7 @@
     "presentacion",
     "beneficios",
     "servicios",
+    "ubicacion",
     "contacto"
   ],
   "indexable": false,
@@ -142,6 +143,7 @@
         "presentacion",
         "beneficios",
         "servicios",
+        "ubicacion",
         "contacto"
       ],
       "etiquetas": {
