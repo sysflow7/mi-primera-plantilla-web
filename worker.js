@@ -213,7 +213,28 @@ export default {
             if (areas.length) datosNegocio.areaServed = areas;
         }
         if (Array.isArray(negocio.horarios) && negocio.horarios.length) {
-            datosNegocio.openingHoursSpecification = negocio.horarios.flatMap(horario => (horario.dias || []).map(dia => ({ "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra })));
+            const diasValidosSchema = new Set(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+            const especificacionesHorario = [];
+            negocio.horarios.forEach(horario => {
+                if (!horario || typeof horario !== "object") return;
+                // Formato nuevo: un registro por día con uno o varios intervalos.
+                if (horario.dia) {
+                    if (!diasValidosSchema.has(horario.dia)) return;
+                    (Array.isArray(horario.intervalos) ? horario.intervalos : []).forEach(intervalo => {
+                        if (intervalo?.abre && intervalo?.cierra) especificacionesHorario.push({
+                            "@type": "OpeningHoursSpecification", dayOfWeek: horario.dia, opens: intervalo.abre, closes: intervalo.cierra
+                        });
+                    });
+                    return;
+                }
+                // Compatibilidad con el formato anterior.
+                (Array.isArray(horario.dias) ? horario.dias : []).forEach(dia => {
+                    if (diasValidosSchema.has(dia) && horario.abre && horario.cierra) especificacionesHorario.push({
+                        "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra
+                    });
+                });
+            });
+            if (especificacionesHorario.length) datosNegocio.openingHoursSpecification = especificacionesHorario;
         }
 
         const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
