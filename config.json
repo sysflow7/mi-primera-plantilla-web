@@ -1,28 +1,29 @@
 {
   "siden": {
-    "instanceId": "cliente-por-configurar",
+    "instanceId": "drcarlosreyes-prueba-multipagina",
     "templateFamily": "corporate",
     "baseDomain": "",
     "architecture": "independent-project",
     "domainMode": "subdomain",
-    "customCss": "",
-    "template": "siden-template",
-    "version": "1.5"
+    "customCss": ""
   },
   "activo": true,
-  "nombre": "Nombre del negocio",
-  "h1": "Nombre del negocio",
-  "slogan": "Describe brevemente tu propuesta de valor",
-  "descripcion": "",
-  "descripcionSEO": "",
-  "tipoNegocio": "",
-  "etiquetaTipo": "",
-  "modoSitio": "single",
-  "modeloAtencion": "",
-  "areasServicio": [],
-  "heroImagenFondo": "",
-  "heroImagenVisual": "",
-  "mostrarHeroImagen": false,
+  "nombre": "Dr. Carlos Reyes",
+  "h1": "Dr. Carlos Reyes | Cirugía General y Laparoscópica",
+  "slogan": "Atención profesional, cercana y centrada en tu bienestar",
+  "descripcion": "Sitio de demostración multipágina para evaluar la arquitectura SIDeN. Todos los datos de contacto, horarios y reseñas son ficticios y no deben publicarse.",
+  "descripcionSEO": "Sitio de prueba del Dr. Carlos Reyes, especialista ficticio en Cirugía General y Laparoscópica. Información demostrativa.",
+  "tipoNegocio": "medico",
+  "etiquetaTipo": "Cirugía General y Laparoscópica",
+  "modoSitio": "multi",
+  "modeloAtencion": "local",
+  "areasServicio": [
+    "San Salvador",
+    "El Salvador"
+  ],
+  "heroImagenFondo": "HeroImagenFondo.jpg",
+  "heroImagenVisual": "HeroImagenFrente.jpg",
+  "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
     "beneficios",
@@ -30,16 +31,16 @@
     "contacto"
   ],
   "indexable": false,
-  "whatsapp": "",
-  "telefono": "",
-  "email": "",
-  "ciudad": "",
+  "whatsapp": "50370000000",
+  "telefono": "+503 7000-0000",
+  "email": "prueba@example.com",
+  "ciudad": "San Salvador",
   "pais": "El Salvador",
-  "direccionTexto": "",
+  "direccionTexto": "Dirección ficticia para pruebas, San Salvador, El Salvador",
   "direccion": {
-    "calle": "",
-    "ciudad": "",
-    "departamento": "",
+    "calle": "Dirección ficticia para pruebas",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
     "codigoPostal": "",
     "pais": "SV",
     "latitud": "",
@@ -49,35 +50,121 @@
   "instagram": "",
   "maps": "",
   "catalogo": "",
-  "logo": "",
-  "imagenSocial": "",
-  "horarios": [],
+  "logo": "logo.jpg",
+  "imagenSocial": "HeroImagenFondo.jpg",
+  "horarios": [
+    {
+      "dia": "lunes",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "12:00"
+        },
+        {
+          "abre": "13:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "martes",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "12:00"
+        },
+        {
+          "abre": "13:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "miércoles",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "12:00"
+        },
+        {
+          "abre": "13:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "jueves",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "12:00"
+        },
+        {
+          "abre": "13:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "viernes",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "12:00"
+        },
+        {
+          "abre": "13:00",
+          "cierra": "16:00"
+        }
+      ]
+    },
+    {
+      "dia": "sábado",
+      "cerrado": true,
+      "intervalos": []
+    },
+    {
+      "dia": "domingo",
+      "cerrado": true,
+      "intervalos": []
+    }
+  ],
+  "horariosConfig": {
+    "mostrar": true
+  },
   "rangoPrecios": "",
-  "galeriaAlt": [],
+  "galeriaAlt": [
+    "Imagen de presentación del consultorio (prueba)",
+    "Imagen ilustrativa de cirugía general",
+    "Imagen ilustrativa de cirugía laparoscópica",
+    "Imagen de galería médica de prueba"
+  ],
   "etiquetas": {
-    "presentacion": "Sobre el negocio",
-    "presentacionMenu": "Presentación",
-    "beneficios": "Beneficios",
+    "presentacion": "Especialidad",
+    "presentacionMenu": "Inicio",
+    "beneficios": "Ventajas de la cirugía laparoscópica",
     "beneficiosMenu": "Beneficios",
-    "servicios": "Servicios",
+    "servicios": "Servicios médicos",
     "serviciosMenu": "Servicios",
-    "ubicacion": "Ubicación",
+    "ubicacion": "Consultorio",
     "ubicacionMenu": "Ubicación",
-    "contacto": "Contacto",
+    "contacto": "Agenda tu cita",
     "contactoMenu": "Contacto",
-    "productos": "Productos"
+    "productos": ""
   },
   "textos": {
-    "contacto": "",
-    "ubicacion": ""
+    "contacto": "Este formulario de contacto es demostrativo. Los datos no corresponden a un canal médico real.",
+    "ubicacion": "Ubicación ficticia utilizada exclusivamente para validar la plantilla."
   },
   "paginas": [
     {
       "ruta": "/",
       "nombre": "Inicio",
-      "h1": "Nombre del negocio",
-      "slogan": "Describe brevemente tu propuesta de valor",
-      "descripcion": "",
+      "h1": "Dr. Carlos Reyes",
+      "slogan": "Cirugía General y Laparoscópica",
+      "descripcion": "Una experiencia de atención médica clara, profesional y centrada en cada paciente.",
+      "tituloSEO": "Inicio | Dr. Carlos Reyes — Sitio de prueba",
+      "descripcionSEO": "Página inicial demostrativa del sitio multipágina SIDeN.",
       "modulos": [
         "presentacion",
         "beneficios",
@@ -85,46 +172,229 @@
         "contacto"
       ],
       "etiquetas": {
-        "presentacion": "Sobre el negocio",
+        "presentacion": "Conoce al especialista",
         "beneficios": "Beneficios",
-        "servicios": "Servicios",
-        "contacto": "Contacto"
-      },
-      "textos": {
-        "contacto": ""
+        "servicios": "Servicios destacados",
+        "contacto": "Solicita información"
+      }
+    },
+    {
+      "ruta": "/perfil",
+      "nombre": "Perfil profesional",
+      "h1": "Perfil profesional",
+      "slogan": "Experiencia y atención centrada en el paciente",
+      "descripcion": "Contenido de ejemplo para probar la página de perfil profesional.",
+      "tituloSEO": "Perfil profesional | Dr. Carlos Reyes — Prueba",
+      "descripcionSEO": "Perfil profesional ficticio para pruebas.",
+      "modulos": [
+        "perfil",
+        "identidad"
+      ],
+      "etiquetas": {
+        "perfil": "Sobre el médico",
+        "identidad": "Enfoque de atención"
+      }
+    },
+    {
+      "ruta": "/servicios",
+      "nombre": "Servicios",
+      "h1": "Servicios médicos",
+      "slogan": "Información general sobre los servicios de ejemplo",
+      "descripcion": "Servicios ficticios utilizados para comprobar navegación y renderizado multipágina.",
+      "tituloSEO": "Servicios | Dr. Carlos Reyes — Prueba",
+      "descripcionSEO": "Listado de servicios demostrativos.",
+      "modulos": [
+        "servicios",
+        "resenas-google"
+      ],
+      "etiquetas": {
+        "servicios": "Servicios médicos"
+      }
+    },
+    {
+      "ruta": "/galeria",
+      "nombre": "Galería",
+      "h1": "Galería",
+      "slogan": "Imágenes para la demostración del sitio",
+      "descripcion": "Galería visual de prueba.",
+      "tituloSEO": "Galería | Dr. Carlos Reyes — Prueba",
+      "descripcionSEO": "Galería de imágenes demostrativas.",
+      "modulos": [
+        "galeria"
+      ],
+      "etiquetas": {
+        "galeria": "Galería"
+      }
+    },
+    {
+      "ruta": "/ubicacion",
+      "nombre": "Ubicación y horarios",
+      "h1": "Ubicación y horarios",
+      "slogan": "Información de atención ficticia",
+      "descripcion": "Dirección y horarios de ejemplo, solo para validar el módulo.",
+      "tituloSEO": "Ubicación y horarios | Dr. Carlos Reyes — Prueba",
+      "descripcionSEO": "Ubicación y horarios ficticios.",
+      "modulos": [
+        "ubicacion"
+      ],
+      "etiquetas": {
+        "ubicacion": "Consultorio y horarios"
+      }
+    },
+    {
+      "ruta": "/contacto",
+      "nombre": "Contacto",
+      "h1": "Contacto y citas",
+      "slogan": "Canales de contacto demostrativos",
+      "descripcion": "Los datos de contacto de esta página son ficticios y no permiten agendar una consulta real.",
+      "tituloSEO": "Contacto | Dr. Carlos Reyes — Prueba",
+      "descripcionSEO": "Contacto ficticio para pruebas técnicas.",
+      "modulos": [
+        "contacto",
+        "faq"
+      ],
+      "etiquetas": {
+        "contacto": "Contacto",
+        "faq": "Preguntas frecuentes"
       }
     }
   ],
-  "servicios": [],
+  "servicios": [
+    {
+      "nombre": "Cirugía de vesícula biliar",
+      "descripcion": "Servicio demostrativo para validar la tarjeta de servicios y sus imágenes.",
+      "imagen": "servicio1.jpg"
+    },
+    {
+      "nombre": "Cirugía de apéndice",
+      "descripcion": "Contenido de prueba; no constituye orientación médica.",
+      "imagen": "servicio2.jpg"
+    },
+    {
+      "nombre": "Cirugía intestinal",
+      "descripcion": "Descripción ficticia para comprobar tarjetas y distribución.",
+      "imagen": "servicio3.jpg"
+    },
+    {
+      "nombre": "Evaluación de hernias",
+      "descripcion": "Ejemplo de servicio para validar la visualización multipágina.",
+      "imagen": "servicio4.jpg"
+    }
+  ],
   "productos": [],
   "menu": [],
   "perfil": {
-    "descripcion": ""
+    "descripcion": "Perfil profesional ficticio. Los datos de esta instancia se usan exclusivamente para evaluar la plantilla SIDeN.",
+    "datos": [
+      {
+        "titulo": "Especialidad",
+        "valor": "Cirugía General y Laparoscópica (demo)"
+      },
+      {
+        "titulo": "Atención",
+        "valor": "Consultas demostrativas"
+      },
+      {
+        "titulo": "Ubicación",
+        "valor": "San Salvador (dirección ficticia)"
+      }
+    ]
   },
-  "galeria": [],
-  "beneficios": [],
+  "galeria": [
+    "galeria01.jpg",
+    "galeria02.jpg",
+    "galeria03.jpg",
+    "galeria04.jpg"
+  ],
+  "beneficios": [
+    {
+      "titulo": "Información clara",
+      "descripcion": "Presentación organizada de la información para facilitar la navegación.",
+      "imagen": "servicio1.jpg"
+    },
+    {
+      "titulo": "Estructura multipágina",
+      "descripcion": "Contenido separado por secciones y rutas para evaluar la arquitectura.",
+      "imagen": "servicio2.jpg"
+    },
+    {
+      "titulo": "Diseño adaptable",
+      "descripcion": "Distribución diseñada para escritorio, tableta y móvil.",
+      "imagen": "servicio3.jpg"
+    },
+    {
+      "titulo": "Contacto accesible",
+      "descripcion": "Llamadas a la acción configurables para la demostración.",
+      "imagen": "servicio4.jpg"
+    }
+  ],
   "proceso": [],
   "identidad": {
-    "titulo": "",
-    "texto": ""
+    "titulo": "Enfoque de atención",
+    "texto": "Contenido ficticio para probar el módulo de identidad."
   },
   "filosofia": {
-    "titulo": "",
-    "texto": ""
+    "titulo": "Nuestra filosofía",
+    "texto": "Texto de demostración que debe reemplazarse por información aprobada antes de publicar."
   },
   "mapEmbedUrl": "",
   "cintaInformativa": {
-    "mostrar": false,
-    "texto": "",
+    "mostrar": true,
+    "texto": "SITIO DE PRUEBA · DATOS FICTICIOS · NO UTILIZAR PARA AGENDAR CITAS",
     "separador": "✦"
   },
   "presentacion": {
-    "titulo": "Sobre el negocio",
-    "texto": ""
+    "titulo": "Cirugía General y Laparoscópica",
+    "texto": "Esta página multipágina se ha creado para medir el tiempo de implementación de SIDeN. La identidad, los datos médicos, los horarios y los canales de contacto son ficticios.",
+    "imagen": "HeroImagenFrente.jpg",
+    "alt": "Imagen de demostración del sitio del Dr. Carlos Reyes"
   },
-  "estadoComercial": "cliente",
+  "estadoComercial": "demo",
   "faq": {
-    "activo": false,
-    "preguntas": []
-  }
+    "activo": true,
+    "preguntas": [
+      {
+        "pregunta": "¿Este sitio está activo para pacientes?",
+        "respuesta": "No. Es una demostración técnica y no permite agendar consultas reales."
+      },
+      {
+        "pregunta": "¿Los horarios y datos son reales?",
+        "respuesta": "No. Todos los datos de esta instancia son ficticios."
+      },
+      {
+        "pregunta": "¿Las reseñas están verificadas?",
+        "respuesta": "No. Las reseñas se incluyen solo para probar el carrusel de la plantilla."
+      }
+    ]
+  },
+  "resenasGoogle": {
+    "mostrar": true,
+    "titulo": "Opiniones de ejemplo",
+    "subtitulo": "Reseñas ficticias para validar el carrusel (no son opiniones reales)",
+    "url": "https://www.google.com/maps",
+    "items": [
+      {
+        "autor": "Paciente de prueba 1",
+        "texto": "Reseña ficticia utilizada para comprobar la tarjeta del carrusel.",
+        "estrellas": 5
+      },
+      {
+        "autor": "Paciente de prueba 2",
+        "texto": "Comentario de demostración; no representa una experiencia real.",
+        "estrellas": 5
+      },
+      {
+        "autor": "Paciente de prueba 3",
+        "texto": "Texto temporal para verificar el diseño adaptable de reseñas.",
+        "estrellas": 4
+      },
+      {
+        "autor": "Paciente de prueba 4",
+        "texto": "Dato ficticio exclusivo del entorno de pruebas.",
+        "estrellas": 5
+      }
+    ]
+  },
+  "mostrarBotonGuardarContacto": true,
+  "mostrarBotonCompartirNegocio": true
 }
