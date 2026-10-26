@@ -256,5 +256,28 @@
   },
   "horariosConfig": {
     "mostrar": true
+  },
+  "resenasGoogle": {
+    "mostrar": true,
+    "titulo": "Reseñas de prueba SIDeN",
+    "subtitulo": "Contenido ficticio utilizado exclusivamente para validar el diseño. No son opiniones reales.",
+    "url": "",
+    "items": [
+      {
+        "autor": "PRUEBA SIDeN — Dato ficticio",
+        "texto": "Esta es una reseña de prueba para comprobar la presentación visual de las opiniones.",
+        "estrellas": 5
+      },
+      {
+        "autor": "PRUEBA SIDeN — Dato ficticio",
+        "texto": "Este segundo ejemplo permite verificar el diseño de varias tarjetas y su adaptación al espacio disponible.",
+        "estrellas": 4
+      },
+      {
+        "autor": "PRUEBA SIDeN — Dato ficticio",
+        "texto": "Tercera reseña ficticia para probar la navegación del carrusel si corresponde.",
+        "estrellas": 5
+      }
+    ]
   }
 }
