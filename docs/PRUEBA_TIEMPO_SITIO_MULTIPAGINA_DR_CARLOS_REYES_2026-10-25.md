@@ -34,7 +34,6 @@ Se reutilizaron 11 archivos de imagen existentes en `web-dr-carlos-reyes-v1.3-20
 - **Tiempo total de la prueba:** no cerrado; se registrará después de validar el Preview.
 - **Limitación:** la aprobación de esta rama no autoriza fusionar con la plantilla maestra ni desplegar en producción.
 
-
 ## Verificación estática inicial — 22:56:54
 - JSON de configuración: válido.
 - Seis rutas declaradas, sin duplicados; ruta raíz `/` presente.
@@ -45,6 +44,8 @@ Se reutilizaron 11 archivos de imagen existentes en `web-dr-carlos-reyes-v1.3-20
 - **Pendiente:** despliegue/compilación y validación en navegador en el Worker `desarrollo-pm`. La validación estática no equivale a Preview aprobado ni a prueba funcional.
 - **Tiempo transcurrido desde el inicio hasta esta verificación estática:** aproximadamente 2 min 54 s. La medición final se cerrará después de la prueba en Preview.
 
+## Solicitudes de nueva compilación — 25-10-2026
+1. Se registró un commit para provocar actualización tras asignar la rama al Worker `desarrollo-pm`; no se observó una nueva implementación en el panel.
+2. **Segundo intento:** este commit modifica el registro de prueba para generar un nuevo evento en la integración Git conectada.
 
-## Solicitud de nueva compilación — 25-10-2026
-El usuario confirmó que asignó esta rama al Worker `desarrollo-pm` y solicitó forzar una implementación para tomar los últimos cambios. Se registra este commit en la rama para generar un nuevo evento de actualización en la integración conectada. La confirmación de que Cloudflare inició y completó el despliegue debe verificarse en el panel del Worker; este registro por sí solo no demuestra que el Preview ya esté actualizado.
+**Importante:** no tengo acceso directo a una acción de despliegue de Cloudflare desde esta conexión. Este commit es un nuevo disparador por Git, no prueba que Cloudflare haya iniciado ni completado la compilación. Verificar el resultado en `Workers y Pages > desarrollo-pm > Implementaciones`. No se modificó producción ni se fusionó la rama.
