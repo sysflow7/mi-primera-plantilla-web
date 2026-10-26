@@ -33,7 +33,7 @@ export default {
         }
 
         // Arquitectura independiente: este Worker sirve exclusivamente este proyecto.
-        const sitePrefix = "";
+        const sitePrefix = "/sites/drcarlosreyes";
         const configPath = "/config.json";
 
         const loadAsset = async (pathname) => env.ASSETS.fetch(
