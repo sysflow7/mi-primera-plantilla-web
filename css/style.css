@@ -411,3 +411,51 @@ footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13p
     object-fit:cover;
   }
 }
+
+/* SIDeN — reseñas de Google configurables: carrusel responsive */
+.google-reviews-section{padding:76px 6%;background:var(--surface-soft,#f8fafc)}
+.google-reviews-section .section-heading{margin-bottom:30px}
+.google-reviews-carousel{display:flex;align-items:center;gap:14px;max-width:1260px;margin:0 auto}
+.google-reviews-grid{display:flex;flex:1;gap:20px;min-width:0;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain}
+.google-reviews-grid::-webkit-scrollbar{display:none}
+.google-review-card{display:flex;flex:0 0 calc((100% - 40px)/3);flex-direction:column;align-items:flex-start;min-width:0;padding:25px 24px;background:var(--surface,#fff);border:1px solid var(--border,#e5e7eb);border-radius:18px;box-shadow:0 8px 24px rgba(15,23,42,.045);scroll-snap-align:start}
+.google-review-stars{color:#d99b12;font-size:20px;letter-spacing:2px;line-height:1.3;margin-bottom:14px}
+.google-review-card blockquote{margin:0 0 20px;color:var(--text,#1f2937);font-size:15px;line-height:1.7;overflow-wrap:anywhere;flex:1}
+.google-review-author{margin:0 0 4px;font-size:14px;font-weight:800;color:var(--text,#111827)}
+.google-review-source{font-size:12px;color:var(--muted,#64748b)}
+.google-reviews-arrow{display:inline-flex;flex:0 0 42px;width:42px;height:42px;align-items:center;justify-content:center;border:1px solid var(--border,#dce2ea);border-radius:50%;background:#fff;color:var(--text,#172033);font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(15,23,42,.08);transition:background .2s ease,color .2s ease,transform .2s ease}
+.google-reviews-arrow:hover{background:var(--primary,#1d4ed8);color:#fff;transform:translateY(-1px)}
+.google-reviews-arrow:disabled{opacity:.35;cursor:default;transform:none}
+.google-reviews-arrow:focus-visible{outline:3px solid #93c5fd;outline-offset:3px}
+.google-reviews-actions{display:flex;justify-content:center;margin-top:26px}
+.google-reviews-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;border-radius:999px;background:var(--primary,#1d4ed8);color:#fff;text-decoration:none;font-weight:800;font-size:14px}
+.google-reviews-link:hover{filter:brightness(.95)}
+@media(max-width:900px){.google-review-card{flex-basis:calc((100% - 20px)/2)}}
+@media(max-width:600px){.google-reviews-section{padding:56px 5%}.google-reviews-carousel{gap:8px}.google-reviews-arrow{flex-basis:34px;width:34px;height:34px;font-size:25px}.google-review-card{flex-basis:100%;padding:21px 20px}}
+
+
+/* SIDeN — scroll reveal: animación breve, discreta y accesible. */
+.siden-reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity 500ms ease var(--siden-reveal-delay,0ms),transform 500ms ease var(--siden-reveal-delay,0ms);
+  will-change:opacity,transform;
+}
+.siden-reveal.siden-reveal-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media(prefers-reduced-motion:reduce){
+  .siden-reveal,
+  .siden-reveal.siden-reveal-visible{
+    opacity:1;
+    transform:none;
+    transition:none;
+    will-change:auto;
+  }
+}
+
+
+/* La propiedad hidden debe prevalecer sobre los estilos display de los botones. */
+.contact-action-siden[hidden],
+.contact-actions-siden[hidden]{display:none!important;}
