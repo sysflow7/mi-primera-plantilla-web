@@ -979,8 +979,22 @@
         const inicializarScrollReveal = function () {
             const selectoresReveal = [
                 "main [data-module]:not([hidden])",
+                // Clases reales generadas por el motor comercial SIDeN.
+                "#lista-servicios .service",
+                "#lista-beneficios .benefit",
+                "#lista-productos .product",
+                "#lista-menu .menu-item",
+                "#lista-galeria img",
+                "#lista-proceso .service",
+                ".plans-grid .plan-card",
+                ".showcase-grid .showcase-card",
+                ".problem-grid article",
+                ".solution-grid article",
+                "#lista-faq details",
+                ".google-review-card",
+                // Compatibilidad con nombres usados por otras familias de plantilla.
                 ".service-card", ".benefit-card", ".product-card",
-                ".gallery-item", ".process-step", ".google-review-card"
+                ".gallery-item", ".process-step"
             ].join(",");
             const elementosReveal = Array.from(document.querySelectorAll(selectoresReveal))
                 .filter(function (elemento) {
