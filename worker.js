@@ -213,7 +213,43 @@ export default {
             if (areas.length) datosNegocio.areaServed = areas;
         }
         if (Array.isArray(negocio.horarios) && negocio.horarios.length) {
-            datosNegocio.openingHoursSpecification = negocio.horarios.flatMap(horario => (horario.dias || []).map(dia => ({ "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra })));
+            const diasValidosSchema = new Set(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+            const diasSchemaPorNombre = {
+                monday: "Monday", lunes: "Monday",
+                tuesday: "Tuesday", martes: "Tuesday",
+                wednesday: "Wednesday", miercoles: "Wednesday",
+                thursday: "Thursday", jueves: "Thursday",
+                friday: "Friday", viernes: "Friday",
+                saturday: "Saturday", sabado: "Saturday",
+                sunday: "Sunday", domingo: "Sunday"
+            };
+            const normalizarDiaSchema = dia => {
+                const clave = String(dia || "").trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+                return diasSchemaPorNombre[clave] || "";
+            };
+            const especificacionesHorario = [];
+            negocio.horarios.forEach(horario => {
+                if (!horario || typeof horario !== "object") return;
+                // Formato nuevo: acepta nombres en español o inglés y normaliza para Schema.org.
+                if (horario.dia) {
+                    const diaSchema = normalizarDiaSchema(horario.dia);
+                    if (!diasValidosSchema.has(diaSchema)) return;
+                    (Array.isArray(horario.intervalos) ? horario.intervalos : []).forEach(intervalo => {
+                        if (intervalo?.abre && intervalo?.cierra) especificacionesHorario.push({
+                            "@type": "OpeningHoursSpecification", dayOfWeek: diaSchema, opens: intervalo.abre, closes: intervalo.cierra
+                        });
+                    });
+                    return;
+                }
+                // Compatibilidad con el formato anterior; también normaliza los días localizados.
+                (Array.isArray(horario.dias) ? horario.dias : []).forEach(dia => {
+                    const diaSchema = normalizarDiaSchema(dia);
+                    if (diasValidosSchema.has(diaSchema) && horario.abre && horario.cierra) especificacionesHorario.push({
+                        "@type": "OpeningHoursSpecification", dayOfWeek: diaSchema, opens: horario.abre, closes: horario.cierra
+                    });
+                });
+            });
+            if (especificacionesHorario.length) datosNegocio.openingHoursSpecification = especificacionesHorario;
         }
 
         const escHtml = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");

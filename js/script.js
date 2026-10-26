@@ -559,32 +559,117 @@
             }
         }
 
+        const tarjetaUbicacion = document.querySelector("#ubicacion .location");
         if (mapaWrap && mapaIframe) {
             if (mapaValido) {
                 mapaIframe.src = mapEmbedUrl;
                 mapaWrap.hidden = false;
                 mapaWrap.style.display = "block";
+                if (tarjetaUbicacion) tarjetaUbicacion.classList.remove("location-no-map");
             } else {
                 mapaIframe.removeAttribute("src");
                 mapaWrap.hidden = true;
                 mapaWrap.style.display = "none";
+                // Sin mapa, la tarjeta pasa a una sola columna y evita reservar espacio vacío.
+                if (tarjetaUbicacion) tarjetaUbicacion.classList.add("location-no-map");
             }
         }
         const horarioUbicacion = document.getElementById("horario-ubicacion");
         if (horarioUbicacion) {
             const horarios = Array.isArray(negocioBase.horarios) ? negocioBase.horarios : [];
-            if (horarios.length) {
-                const dias = {Monday:"Lunes",Tuesday:"Martes",Wednesday:"Miércoles",Thursday:"Jueves",Friday:"Viernes",Saturday:"Sábado",Sunday:"Domingo"};
-                const bloques = horarios.map(function(h) {
-                    const nombres = Array.isArray(h.dias) ? h.dias.map(function(d){ return dias[d] || d; }).join(", ") : "";
-                    return [nombres, h.abre && h.cierra ? h.abre + "–" + h.cierra : ""].filter(Boolean).join(": ");
-                }).filter(Boolean);
-                horarioUbicacion.textContent = bloques.join(" · ");
-                horarioUbicacion.hidden = !bloques.length;
-            } else {
-                horarioUbicacion.textContent = "";
-                horarioUbicacion.hidden = true;
+            const configHorarios = negocioBase.horariosConfig && typeof negocioBase.horariosConfig === "object" ? negocioBase.horariosConfig : {};
+            // Si el campo de visibilidad no existe, se conserva el comportamiento histórico.
+            const mostrarHorarios = typeof configHorarios.mostrar === "boolean" ? configHorarios.mostrar : horarios.length > 0;
+            const dias = { Monday:"Lunes", Tuesday:"Martes", Wednesday:"Miércoles", Thursday:"Jueves", Friday:"Viernes", Saturday:"Sábado", Sunday:"Domingo" };
+            const clavesDiaEspanol = { Lunes:"Monday", Martes:"Tuesday", "Miércoles":"Wednesday", Jueves:"Thursday", Viernes:"Friday", "Sábado":"Saturday", "Domingo":"Sunday" };
+            horarioUbicacion.replaceChildren();
+            horarioUbicacion.classList.add("location-hours");
+            const crearTexto = (tag, texto, clase) => {
+                const elemento = document.createElement(tag);
+                if (clase) elemento.className = clase;
+                elemento.textContent = texto;
+                return elemento;
+            };
+            if (mostrarHorarios && horarios.length) {
+                const usaFormatoNuevo = horarios.some(h => h && typeof h === "object" && h.dia);
+                if (usaFormatoNuevo) {
+                    const ordenDias = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                    const horariosPorDia = new Map();
+                    horarios.forEach(h => {
+                        if (!h || !h.dia) return;
+                        // La configuración suele guardar los días en español; internamente se ordenan con claves inglesas.
+                        const nombreDiaNormalizado = String(h.dia).trim().toLocaleLowerCase("es");
+                        const diasEspanolNormalizados = {
+                            lunes: "Monday",
+                            martes: "Tuesday",
+                            miercoles: "Wednesday",
+                            miércoles: "Wednesday",
+                            jueves: "Thursday",
+                            viernes: "Friday",
+                            sabado: "Saturday",
+                            sábado: "Saturday",
+                            domingo: "Sunday"
+                        };
+                        const claveDia = dias[h.dia] || diasEspanolNormalizados[nombreDiaNormalizado] || clavesDiaEspanol[h.dia];
+                        if (claveDia) horariosPorDia.set(claveDia, h);
+                    });
+                    const formatearHora = valor => {
+                        const coincidencia = String(valor || "").match(/^(\d{1,2}):(\d{2})$/);
+                        if (!coincidencia) return String(valor || "");
+                        const hora24 = Number(coincidencia[1]);
+                        const minutos = coincidencia[2];
+                        if (hora24 > 23 || Number(minutos) > 59) return String(valor);
+                        const sufijo = hora24 >= 12 ? "pm" : "am";
+                        const hora12 = hora24 % 12 || 12;
+                        return hora12 + ":" + minutos + " " + sufijo;
+                    };
+                    const prepararHorario = horario => {
+                        const intervalos = Array.isArray(horario?.intervalos) ? horario.intervalos.filter(i => i && i.abre && i.cierra) : [];
+                        const cerrado = Boolean(horario?.cerrado) || intervalos.length === 0;
+                        const texto = cerrado ? "Cerrado" : intervalos.map(i => formatearHora(i.abre) + "–" + formatearHora(i.cierra)).join(" y ");
+                        return { cerrado, texto, clave: cerrado ? "cerrado" : intervalos.map(i => String(i.abre) + "-" + String(i.cierra)).join("|") };
+                    };
+                    const diasConfigurados = ordenDias.map((dia, indice) => {
+                        const horario = horariosPorDia.get(dia);
+                        return horario ? { dia, indice, ...prepararHorario(horario) } : null;
+                    });
+                    let grupo = null;
+                    const agregarGrupo = item => {
+                        if (!item) return;
+                        const fila = crearTexto("div", "", "location-hours-row");
+                        fila.appendChild(crearTexto("span", item.etiqueta || nombreGrupo(item.dias), "location-hours-day"));
+                        fila.appendChild(crearTexto("span", item.texto, "location-hours-times"));
+                        horarioUbicacion.appendChild(fila);
+                    };
+                    const nombreGrupo = grupoDias => {
+                        if (grupoDias.length === 1) return dias[grupoDias[0]];
+                        return dias[grupoDias[0]] + " a " + dias[grupoDias[grupoDias.length - 1]].toLowerCase();
+                    };
+                    diasConfigurados.forEach((item, indice) => {
+                        if (!item) {
+                            if (grupo) { grupo.etiqueta = nombreGrupo(grupo.dias); agregarGrupo(grupo); grupo = null; }
+                            return;
+                        }
+                        if (grupo && grupo.clave === item.clave && grupo.ultimoIndice === indice - 1) {
+                            grupo.dias.push(item.dia);
+                            grupo.ultimoIndice = indice;
+                        } else {
+                            if (grupo) agregarGrupo(grupo);
+                            grupo = { etiqueta: "", dias: [item.dia], texto: item.texto, clave: item.clave, ultimoIndice: indice };
+                        }
+                    });
+                    if (grupo) agregarGrupo(grupo);
+
+                } else {
+                    // Renderizado legado conservado para no cambiar sitios ya configurados.
+                    const bloques = horarios.map(h => {
+                        const nombres = Array.isArray(h?.dias) ? h.dias.map(d => dias[d] || d).join(", ") : "";
+                        return [nombres, h?.abre && h?.cierra ? h.abre + "–" + h.cierra : ""].filter(Boolean).join(": ");
+                    }).filter(Boolean);
+                    if (bloques.length) horarioUbicacion.appendChild(crearTexto("p", bloques.join(" · "), "location-hours-legacy"));
+                }
             }
+            horarioUbicacion.hidden = !mostrarHorarios || horarioUbicacion.childElementCount === 0;
         }
         const telefonoUbicacion = document.getElementById("telefono-ubicacion");
         if (telefonoUbicacion) telefonoUbicacion.hidden = !String(negocioBase.telefono || "").trim();
@@ -618,6 +703,83 @@
             negocio.servicios.forEach(function (servicio) {
                 addCard(listaServicios, "service", `<h3>${escapeHtml(servicio.nombre)}</h3><p>${escapeHtml(servicio.descripcion)}</p>`);
             });
+        }
+
+        // RESEÑAS DE GOOGLE (administradas manualmente en config.json)
+        const resenasConfig = negocioBase.resenasGoogle && typeof negocioBase.resenasGoogle === "object"
+            ? negocioBase.resenasGoogle : {};
+        const itemsResenas = Array.isArray(resenasConfig.items)
+            ? resenasConfig.items.filter(item => item && String(item.autor || "").trim() && String(item.texto || "").trim())
+            : [];
+        const listaResenasGoogle = document.getElementById("lista-resenas-google");
+        const mostrarResenasGoogle = resenasConfig.mostrar === true && itemsResenas.length > 0 && (!esMulti || modulos.includes("resenas-google"));
+        showModule("resenas-google", mostrarResenasGoogle);
+        if (mostrarResenasGoogle && listaResenasGoogle) {
+            setText("titulo-resenas-google", resenasConfig.titulo || "Lo que dicen nuestros clientes");
+            setText("subtitulo-resenas-google", resenasConfig.subtitulo || "");
+            const enlaceResenas = document.getElementById("enlace-resenas-google");
+            const urlResenasGoogle = urlHttpsValida(resenasConfig.url);
+            if (enlaceResenas) {
+                enlaceResenas.href = urlResenasGoogle;
+                enlaceResenas.hidden = !urlResenasGoogle;
+            }
+            listaResenasGoogle.replaceChildren();
+            itemsResenas.forEach(function (resena) {
+                const tarjeta = document.createElement("article");
+                tarjeta.className = "google-review-card";
+                const puntuacion = Math.max(1, Math.min(5, Math.round(Number(resena.estrellas) || 5)));
+                const estrellas = document.createElement("div");
+                estrellas.className = "google-review-stars";
+                estrellas.setAttribute("role", "img");
+                estrellas.setAttribute("aria-label", puntuacion + " de 5 estrellas");
+                estrellas.textContent = "★".repeat(puntuacion) + "☆".repeat(5 - puntuacion);
+                const textoResena = document.createElement("blockquote");
+                textoResena.textContent = String(resena.texto).trim();
+                const autor = document.createElement("p");
+                autor.className = "google-review-author";
+                autor.textContent = String(resena.autor).trim();
+                const fuente = document.createElement("span");
+                fuente.className = "google-review-source";
+                fuente.textContent = "Reseña de Google";
+                tarjeta.append(estrellas, textoResena, autor, fuente);
+                listaResenasGoogle.appendChild(tarjeta);
+            });
+
+            // Carrusel responsive: 3 reseñas en escritorio, 2 en tableta y 1 en móvil.
+            const botonResenaAnterior = document.getElementById("resenas-anterior");
+            const botonResenaSiguiente = document.getElementById("resenas-siguiente");
+            const actualizarCarruselResenas = function () {
+                if (!listaResenasGoogle || !botonResenaAnterior || !botonResenaSiguiente) return;
+                const tarjeta = listaResenasGoogle.querySelector(".google-review-card");
+                if (!tarjeta) {
+                    botonResenaAnterior.hidden = true;
+                    botonResenaSiguiente.hidden = true;
+                    return;
+                }
+                const anchoTarjeta = tarjeta.getBoundingClientRect().width;
+                const estilosLista = window.getComputedStyle(listaResenasGoogle);
+                const espacio = parseFloat(estilosLista.columnGap || estilosLista.gap) || 0;
+                const visibles = Math.max(1, Math.round((listaResenasGoogle.clientWidth + espacio) / (anchoTarjeta + espacio)));
+                const hayMas = itemsResenas.length > visibles;
+                botonResenaAnterior.hidden = !hayMas;
+                botonResenaSiguiente.hidden = !hayMas;
+                botonResenaAnterior.disabled = listaResenasGoogle.scrollLeft <= 2;
+                botonResenaSiguiente.disabled = listaResenasGoogle.scrollLeft + listaResenasGoogle.clientWidth >= listaResenasGoogle.scrollWidth - 2;
+            };
+            const moverCarruselResenas = function (direccion) {
+                const tarjeta = listaResenasGoogle.querySelector(".google-review-card");
+                if (!tarjeta) return;
+                const espacio = parseFloat(window.getComputedStyle(listaResenasGoogle).columnGap) || 0;
+                listaResenasGoogle.scrollBy({ left: direccion * (tarjeta.getBoundingClientRect().width + espacio), behavior: "smooth" });
+                window.setTimeout(actualizarCarruselResenas, 350);
+            };
+            if (botonResenaAnterior && botonResenaSiguiente) {
+                botonResenaAnterior.addEventListener("click", function () { moverCarruselResenas(-1); });
+                botonResenaSiguiente.addEventListener("click", function () { moverCarruselResenas(1); });
+                listaResenasGoogle.addEventListener("scroll", actualizarCarruselResenas, { passive: true });
+                window.addEventListener("resize", actualizarCarruselResenas);
+                window.requestAnimationFrame(actualizarCarruselResenas);
+            }
         }
 
         // PRODUCTOS
@@ -753,6 +915,26 @@
             if (boton) boton.addEventListener("click", compartirNegocio);
         });
 
+        // VISIBILIDAD CONFIGURABLE DE ACCIONES DE CONTACTO.
+        // Si los campos no existen, se conserva el comportamiento anterior.
+        const mostrarGuardarContacto = negocioBase.mostrarBotonGuardarContacto !== false;
+        const mostrarCompartirNegocio = negocioBase.mostrarBotonCompartirNegocio !== false;
+        ["guardar-contacto", "pagina-guardar-contacto"].forEach(function (id) {
+            const boton = document.getElementById(id);
+            if (boton) boton.hidden = !mostrarGuardarContacto;
+        });
+        ["compartir-negocio", "pagina-compartir-negocio"].forEach(function (id) {
+            const boton = document.getElementById(id);
+            if (boton) boton.hidden = !mostrarCompartirNegocio;
+        });
+        // Ocultar el contenedor solo si ambas acciones están deshabilitadas.
+        document.querySelectorAll(".contact-actions-siden").forEach(function (contenedor) {
+            const tieneAccionVisible = Array.from(contenedor.querySelectorAll(
+                "#guardar-contacto, #pagina-guardar-contacto, #compartir-negocio, #pagina-compartir-negocio"
+            )).some(function (boton) { return !boton.hidden; });
+            contenedor.hidden = !tieneAccionVisible;
+        });
+
         // Mantener visibles los CTA de WhatsApp en la plantilla genérica, pero impedir
         // que un enlace sin número navegue al inicio de la misma página.
         document.addEventListener("click", function (event) {
@@ -795,6 +977,45 @@
                 sidenAnalyticsEvent("directions_click", { button_id: id });
             }
         });
+
+        // SCROLL REVEAL — aparición suave de módulos y tarjetas al entrar en pantalla.
+        // Se ejecuta una sola vez por elemento y respeta las preferencias de movimiento reducido.
+        const inicializarScrollReveal = function () {
+            const selectoresReveal = [
+                "main [data-module]:not([hidden])",
+                ".service-card", ".benefit-card", ".product-card",
+                ".gallery-item", ".process-step", ".google-review-card"
+            ].join(",");
+            const elementosReveal = Array.from(document.querySelectorAll(selectoresReveal))
+                .filter(function (elemento) {
+                    return !elemento.closest("[hidden]") &&
+                        !elemento.classList.contains("siden-reveal") &&
+                        elemento.getClientRects().length > 0;
+                });
+
+            if (!elementosReveal.length) return;
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+                !("IntersectionObserver" in window)) {
+                elementosReveal.forEach(function (elemento) { elemento.classList.add("siden-reveal-visible"); });
+                return;
+            }
+
+            const observadorReveal = new IntersectionObserver(function (entradas, observador) {
+                entradas.forEach(function (entrada) {
+                    if (!entrada.isIntersecting) return;
+                    entrada.target.classList.add("siden-reveal-visible");
+                    observador.unobserve(entrada.target);
+                });
+            }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+
+            elementosReveal.forEach(function (elemento, indice) {
+                elemento.classList.add("siden-reveal");
+                // Desfase corto y limitado para evitar que muchos elementos aparezcan a la vez.
+                elemento.style.setProperty("--siden-reveal-delay", Math.min(indice % 4, 3) * 65 + "ms");
+                observadorReveal.observe(elemento);
+            });
+        };
+        inicializarScrollReveal();
 
         // El menú móvil se inicializa una sola vez desde el módulo común de navegación.
         // Evitamos registrar aquí un segundo click handler que pueda alternar dos veces el estado.
