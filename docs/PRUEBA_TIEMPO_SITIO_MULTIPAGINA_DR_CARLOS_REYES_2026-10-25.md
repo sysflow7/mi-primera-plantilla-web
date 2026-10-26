@@ -44,3 +44,7 @@ Se reutilizaron 11 archivos de imagen existentes en `web-dr-carlos-reyes-v1.3-20
 - Se comprobó que al menos un recurso gráfico está presente en `/images/`; los 11 archivos fueron añadidos a la rama.
 - **Pendiente:** despliegue/compilación y validación en navegador en el Worker `desarrollo-pm`. La validación estática no equivale a Preview aprobado ni a prueba funcional.
 - **Tiempo transcurrido desde el inicio hasta esta verificación estática:** aproximadamente 2 min 54 s. La medición final se cerrará después de la prueba en Preview.
+
+
+## Solicitud de nueva compilación — 25-10-2026
+El usuario confirmó que asignó esta rama al Worker `desarrollo-pm` y solicitó forzar una implementación para tomar los últimos cambios. Se registra este commit en la rama para generar un nuevo evento de actualización en la integración conectada. La confirmación de que Cloudflare inició y completó el despliegue debe verificarse en el panel del Worker; este registro por sí solo no demuestra que el Preview ya esté actualizado.
