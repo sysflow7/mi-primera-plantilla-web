@@ -307,6 +307,26 @@
         setText("descripcion-negocio", textoPresentacion);
         const imagenPresentacion = document.getElementById("imagen-presentacion");
         const seccionPresentacion = document.getElementById("nosotros");
+
+        // Contenido de identidad integrado dentro de «Nosotros».
+        const identidadFusionConfig = negocio.identidad && typeof negocio.identidad === "object" ? negocio.identidad : {};
+        const identidadFusionTexto = String(identidadFusionConfig.texto || identidadFusionConfig.descripcion || "").trim();
+        const identidadFusionTitulo = String(identidadFusionConfig.titulo || etiquetas.identidad || "").trim();
+        const presentacionContenedor = seccionPresentacion && seccionPresentacion.querySelector(".split-content");
+        if (presentacionContenedor && identidadFusionTexto) {
+            const bloqueIdentidad = document.createElement("div");
+            bloqueIdentidad.className = "nosotros-identidad-integrada";
+            if (identidadFusionTitulo) {
+                const tituloIdentidad = document.createElement("h3");
+                tituloIdentidad.textContent = identidadFusionTitulo;
+                bloqueIdentidad.appendChild(tituloIdentidad);
+            }
+            const textoIdentidad = document.createElement("p");
+            textoIdentidad.className = "split-text";
+            textoIdentidad.textContent = identidadFusionTexto;
+            bloqueIdentidad.appendChild(textoIdentidad);
+            presentacionContenedor.appendChild(bloqueIdentidad);
+        }
         if (imagenPresentacion) {
             if (presentacionConfig.imagen) {
                 imagenPresentacion.src = assetUrl("images/" + presentacionConfig.imagen);
@@ -343,25 +363,7 @@
             showModule("proceso", modulos.includes("proceso") && pasos.length > 0);
         }
 
-        const identidadConfig = negocio.identidad && typeof negocio.identidad === "object" ? negocio.identidad : {};
-        setText("titulo-identidad", identidadConfig.titulo || etiquetas.identidad || "Quiénes somos");
-        const contenidoIdentidad = document.getElementById("contenido-identidad");
-        if (contenidoIdentidad) contenidoIdentidad.textContent = identidadConfig.texto || identidadConfig.descripcion || "";
-        const imagenIdentidad = document.getElementById("imagen-identidad");
-        if (imagenIdentidad) {
-            if (identidadConfig.imagen) {
-                imagenIdentidad.src = assetUrl("images/" + identidadConfig.imagen);
-                imagenIdentidad.alt = identidadConfig.alt || (identidadConfig.titulo || "Identidad de " + negocioBase.nombre);
-                imagenIdentidad.hidden = false;
-            } else {
-                imagenIdentidad.removeAttribute("src");
-                imagenIdentidad.alt = "";
-                imagenIdentidad.hidden = true;
-            }
-        }
-        showModule("identidad", modulos.includes("identidad") && !!String(identidadConfig.texto || identidadConfig.descripcion || "").trim());
-
-        // FILOSOFÍA PROFESIONAL: contenido distinto de la biografía/presentación.
+        // La identidad ya se muestra dentro de «Nosotros»; se conserva la configuración original.\n\n        // FILOSOFÍA PROFESIONAL: contenido distinto de la biografía/presentación.
         const filosofiaConfig = negocio.filosofia && typeof negocio.filosofia === "object" ? negocio.filosofia : {};
         setText("titulo-filosofia", filosofiaConfig.titulo || etiquetas.filosofia || "Nuestra filosofía");
         const contenidoFilosofia = document.getElementById("contenido-filosofia");
@@ -407,13 +409,13 @@
 
         // NAVEGACIÓN
         const navLinks = document.getElementById("nav-links");
-        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", proceso: "proceso", identidad: "identidad", filosofia: "filosofia", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
+        const navTargets = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios", servicios: "servicios", proceso: "proceso", filosofia: "filosofia", productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion", contacto: "contacto", soluciones: "soluciones", faq: "faq" };
         const navLabels = {
             presentacion: etiquetas.presentacionMenu || "Nosotros", perfil: etiquetas.perfilMenu || "Perfil",
             beneficios: etiquetas.beneficiosMenu || "¿Por qué elegirnos?", servicios: etiquetas.serviciosMenu || "Servicios",
             productos: etiquetas.productosMenu || "Productos", menu: etiquetas.menuMenu || "Menú",
             galeria: etiquetas.galeriaMenu || "Galería", ubicacion: etiquetas.ubicacionMenu || "Ubicación",
-            contacto: etiquetas.contactoMenu || "Contacto", proceso: etiquetas.procesoMenu || "Cómo trabajamos", identidad: etiquetas.identidadMenu || "Identidad", filosofia: etiquetas.filosofiaMenu || "Nuestra filosofía",
+            contacto: etiquetas.contactoMenu || "Contacto", proceso: etiquetas.procesoMenu || "Cómo trabajamos", filosofia: etiquetas.filosofiaMenu || "Nuestra filosofía",
             soluciones: etiquetas.solucionesMenu || "Planes SIDeN",
             faq: etiquetas.faqMenu || etiquetas.faq || "Preguntas frecuentes"
         };
@@ -432,7 +434,7 @@
                 });
             } else {
                 const modulosNavegacion = modulos.filter(function (modulo) {
-                    if (modulo === "galeria") return galeriaActiva;
+                    if (modulo === "identidad") return false;\n                    if (modulo === "galeria") return galeriaActiva;
                     if (modulo === "soluciones") return mostrarPlanesSiden;
                     if (modulo === "faq") return mostrarFAQ;
                     return true;
