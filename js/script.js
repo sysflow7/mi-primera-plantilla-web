@@ -887,6 +887,7 @@
                 "END:VCARD"
             ].filter(Boolean);
             const archivo = new Blob([lineasVcard.join("\n")], { type: "text/vcard;charset=utf-8" });
+            // SIDeN: conservar el salto de línea escapado para generar correctamente la vCard.
             const url = URL.createObjectURL(archivo);
             const enlace = document.createElement("a");
             enlace.href = url;
