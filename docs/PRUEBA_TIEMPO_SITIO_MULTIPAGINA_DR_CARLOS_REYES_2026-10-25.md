@@ -33,3 +33,14 @@ Se reutilizaron 11 archivos de imagen existentes en `web-dr-carlos-reyes-v1.3-20
 - **Estado:** configuración y recursos preparados en GitHub; pendiente activar/verificar Preview desde el Worker existente `desarrollo-pm`, probar las seis rutas directamente y recargando, comprobar imágenes y módulos por página, consola/solicitudes y respuestas 404.
 - **Tiempo total de la prueba:** no cerrado; se registrará después de validar el Preview.
 - **Limitación:** la aprobación de esta rama no autoriza fusionar con la plantilla maestra ni desplegar en producción.
+
+
+## Verificación estática inicial — 22:56:54
+- JSON de configuración: válido.
+- Seis rutas declaradas, sin duplicados; ruta raíz `/` presente.
+- `indexable:false` confirmado.
+- Módulos asignados explícitamente por página.
+- Código de plantilla contiene soporte para `resenas-google`, `horariosConfig`, visibilidad de botones y Scroll Reveal.
+- Se comprobó que al menos un recurso gráfico está presente en `/images/`; los 11 archivos fueron añadidos a la rama.
+- **Pendiente:** despliegue/compilación y validación en navegador en el Worker `desarrollo-pm`. La validación estática no equivale a Preview aprobado ni a prueba funcional.
+- **Tiempo transcurrido desde el inicio hasta esta verificación estática:** aproximadamente 2 min 54 s. La medición final se cerrará después de la prueba en Preview.
