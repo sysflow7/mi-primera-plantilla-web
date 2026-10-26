@@ -64,7 +64,67 @@
   "catalogo": "",
   "logo": "logo-SIDeN.png",
   "imagenSocial": "logo-SIDeN.png",
-  "horarios": [],
+  "horarios": [
+    {
+      "dia": "Lunes",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "Martes",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "Miércoles",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "Jueves",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "Viernes",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "17:00"
+        }
+      ]
+    },
+    {
+      "dia": "Sábado",
+      "intervalos": [
+        {
+          "abre": "09:00",
+          "cierra": "12:00"
+        }
+      ]
+    },
+    {
+      "dia": "Domingo",
+      "cerrado": true,
+      "intervalos": []
+    }
+  ],
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {
@@ -193,6 +253,7 @@
       }
     ]
   },
-  "mostrarBotonGuardarContacto": false,
-  "mostrarBotonCompartirNegocio": true
+  "horariosConfig": {
+    "mostrar": true
+  }
 }
