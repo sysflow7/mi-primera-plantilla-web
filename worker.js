@@ -214,23 +214,38 @@ export default {
         }
         if (Array.isArray(negocio.horarios) && negocio.horarios.length) {
             const diasValidosSchema = new Set(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+            const diasSchemaPorNombre = {
+                monday: "Monday", lunes: "Monday",
+                tuesday: "Tuesday", martes: "Tuesday",
+                wednesday: "Wednesday", miercoles: "Wednesday",
+                thursday: "Thursday", jueves: "Thursday",
+                friday: "Friday", viernes: "Friday",
+                saturday: "Saturday", sabado: "Saturday",
+                sunday: "Sunday", domingo: "Sunday"
+            };
+            const normalizarDiaSchema = dia => {
+                const clave = String(dia || "").trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+                return diasSchemaPorNombre[clave] || "";
+            };
             const especificacionesHorario = [];
             negocio.horarios.forEach(horario => {
                 if (!horario || typeof horario !== "object") return;
-                // Formato nuevo: un registro por día con uno o varios intervalos.
+                // Formato nuevo: acepta nombres en español o inglés y normaliza para Schema.org.
                 if (horario.dia) {
-                    if (!diasValidosSchema.has(horario.dia)) return;
+                    const diaSchema = normalizarDiaSchema(horario.dia);
+                    if (!diasValidosSchema.has(diaSchema)) return;
                     (Array.isArray(horario.intervalos) ? horario.intervalos : []).forEach(intervalo => {
                         if (intervalo?.abre && intervalo?.cierra) especificacionesHorario.push({
-                            "@type": "OpeningHoursSpecification", dayOfWeek: horario.dia, opens: intervalo.abre, closes: intervalo.cierra
+                            "@type": "OpeningHoursSpecification", dayOfWeek: diaSchema, opens: intervalo.abre, closes: intervalo.cierra
                         });
                     });
                     return;
                 }
-                // Compatibilidad con el formato anterior.
+                // Compatibilidad con el formato anterior; también normaliza los días localizados.
                 (Array.isArray(horario.dias) ? horario.dias : []).forEach(dia => {
-                    if (diasValidosSchema.has(dia) && horario.abre && horario.cierra) especificacionesHorario.push({
-                        "@type": "OpeningHoursSpecification", dayOfWeek: dia, opens: horario.abre, closes: horario.cierra
+                    const diaSchema = normalizarDiaSchema(dia);
+                    if (diasValidosSchema.has(diaSchema) && horario.abre && horario.cierra) especificacionesHorario.push({
+                        "@type": "OpeningHoursSpecification", dayOfWeek: diaSchema, opens: horario.abre, closes: horario.cierra
                     });
                 });
             });
