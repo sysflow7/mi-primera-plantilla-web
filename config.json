@@ -192,5 +192,7 @@
         "respuesta": "Puedes escribirnos directamente por WhatsApp desde los botones de contacto de esta página."
       }
     ]
-  }
+  },
+  "mostrarBotonGuardarContacto": false,
+  "mostrarBotonCompartirNegocio": true
 }
