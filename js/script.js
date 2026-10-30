@@ -504,19 +504,59 @@
                 emailElemento.hidden = true;
             }
         }
-        const facebook = document.getElementById("facebook-negocio");
-        if (facebook) {
-            const urlFacebook = urlHttpsValida(negocioBase.facebook);
-            facebook.href = urlFacebook || "#";
-            facebook.hidden = !urlFacebook;
-            if (urlFacebook) { facebook.target = "_blank"; facebook.rel = "noopener noreferrer"; }
-        }
-        const instagram = document.getElementById("instagram-negocio");
-        if (instagram) {
-            const urlInstagram = urlHttpsValida(negocioBase.instagram);
-            instagram.href = urlInstagram || "#";
-            instagram.hidden = !urlInstagram;
-            if (urlInstagram) { instagram.target = "_blank"; instagram.rel = "noopener noreferrer"; }
+        // REDES SOCIALES: renderizado común para proyectos corporate y commercial.
+        // Se conserva compatibilidad con los campos históricos facebook e instagram.
+        const redesContainer = document.getElementById("redes-sociales-negocio");
+        if (redesContainer) {
+            const redesConfig = negocioBase.redesSociales && typeof negocioBase.redesSociales === "object"
+                ? negocioBase.redesSociales
+                : {};
+            const redesDefinidas = [
+                {
+                    clave: "facebook", nombre: "Facebook",
+                    url: redesConfig.facebook || negocioBase.facebook,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M13.55 20v-7.3h2.45l.37-2.85h-2.82V8.03c0-.83.23-1.4 1.42-1.4h1.51V4.08c-.26-.04-1.16-.11-2.21-.11-2.19 0-3.69 1.34-3.69 3.8v2.08H8.1v2.85h2.48V20h2.97Z"/></svg>'
+                },
+                {
+                    clave: "linkedin", nombre: "LinkedIn", url: redesConfig.linkedin,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.15h2.55V17H7.1V9.15Zm1.28-3.9a1.48 1.48 0 1 1-.02 2.96 1.48 1.48 0 0 1 .02-2.96ZM10.1 9.15h2.45v1.07h.04c.34-.64 1.17-1.31 2.4-1.31 2.57 0 3.05 1.69 3.05 3.88V17h-2.55v-3.73c0-.89-.02-2.03-1.24-2.03-1.24 0-1.43.97-1.43 1.97V17h-2.55V9.15Z"/></svg>'
+                },
+                {
+                    clave: "instagram", nombre: "Instagram",
+                    url: redesConfig.instagram || negocioBase.instagram,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="siden-instagram-gradient" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".35" stop-color="#FA7E1E"/><stop offset=".68" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#siden-instagram-gradient)"/><rect x="5.1" y="5.1" width="13.8" height="13.8" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3.25" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.45" cy="7.7" r="1.05" fill="#fff"/></svg>'
+                },
+                {
+                    clave: "youtube", nombre: "YouTube", url: redesConfig.youtube,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#FF0033"/><path fill="#fff" d="M18.9 8.15a2.1 2.1 0 0 0-1.48-1.49C16.12 6.3 12 6.3 12 6.3s-4.12 0-5.42.36A2.1 2.1 0 0 0 5.1 8.15 21.8 21.8 0 0 0 4.75 12a21.8 21.8 0 0 0 .35 3.85 2.1 2.1 0 0 0 1.48 1.49c1.3.36 5.42.36 5.42.36s4.12 0 5.42-.36a2.1 2.1 0 0 0 1.48-1.49A21.8 21.8 0 0 0 19.25 12a21.8 21.8 0 0 0-.35-3.85ZM10.5 14.85v-5.7l4.95 2.85-4.95 2.85Z"/></svg>'
+                },
+                {
+                    clave: "tiktok", nombre: "TikTok", url: redesConfig.tiktok,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#111"/><path fill="#25F4EE" d="M13.2 4.1h2.25c.15 1.65 1.05 2.75 2.55 3.2v2.25a7.1 7.1 0 0 1-2.55-.85v5.05a4.8 4.8 0 1 1-4.8-4.8c.35 0 .7.04 1.05.12v2.5a2.35 2.35 0 1 0 1.5 2.18V4.1Z" transform="translate(-.55 .35)"/><path fill="#FE2C55" d="M13.2 4.1h2.25c.15 1.65 1.05 2.75 2.55 3.2v2.25a7.1 7.1 0 0 1-2.55-.85v5.05a4.8 4.8 0 1 1-4.8-4.8c.35 0 .7.04 1.05.12v2.5a2.35 2.35 0 1 0 1.5 2.18V4.1Z" transform="translate(.35 -.15)"/><path fill="#fff" d="M13.2 4.1h2.25c.15 1.65 1.05 2.75 2.55 3.2v2.25a7.1 7.1 0 0 1-2.55-.85v5.05a4.8 4.8 0 1 1-4.8-4.8c.35 0 .7.04 1.05.12v2.5a2.35 2.35 0 1 0 1.5 2.18V4.1Z"/></svg>'
+                },
+                {
+                    clave: "twitter", nombre: "Twitter", url: redesConfig.twitter,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1DA1F2"/><path fill="#fff" d="M19.7 7.1c-.57.25-1.18.42-1.82.5a3.16 3.16 0 0 0 1.39-1.75 6.3 6.3 0 0 1-2 .77 3.14 3.14 0 0 0-5.35 2.86 8.9 8.9 0 0 1-6.46-3.28 3.14 3.14 0 0 0 .97 4.2 3.1 3.1 0 0 1-1.42-.39v.04a3.15 3.15 0 0 0 2.52 3.08 3.2 3.2 0 0 1-1.42.05 3.15 3.15 0 0 0 2.94 2.18 6.3 6.3 0 0 1-3.9 1.35c-.25 0-.5-.02-.75-.04a8.88 8.88 0 0 0 4.81 1.41c5.77 0 8.93-4.78 8.93-8.93v-.4a6.4 6.4 0 0 0 1.56-1.65Z"/></svg>'
+                }
+            ];
+            const redesVisibles = redesConfig.mostrar !== false
+                ? redesDefinidas.map(function (red) {
+                    return { ...red, url: urlHttpsValida(red.url) };
+                }).filter(function (red) { return !!red.url; })
+                : [];
+            redesContainer.replaceChildren();
+            redesVisibles.forEach(function (red) {
+                const enlace = document.createElement("a");
+                enlace.className = "social-link";
+                enlace.href = red.url;
+                enlace.target = "_blank";
+                enlace.rel = "noopener noreferrer";
+                enlace.setAttribute("aria-label", red.nombre + " (se abre en una pestaña nueva)");
+                enlace.innerHTML = red.icono + "<span></span>";
+                enlace.querySelector("span").textContent = red.nombre;
+                redesContainer.appendChild(enlace);
+            });
+            redesContainer.hidden = redesVisibles.length === 0;
         }
         const maps = document.getElementById("maps-negocio");
         if (maps) {
