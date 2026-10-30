@@ -499,19 +499,59 @@
                 emailElemento.hidden = true;
             }
         }
-        const facebook = document.getElementById("facebook-negocio");
-        if (facebook) {
-            const urlFacebook = urlHttpsValida(negocioBase.facebook);
-            facebook.href = urlFacebook || "#";
-            facebook.hidden = !urlFacebook;
-            if (urlFacebook) { facebook.target = "_blank"; facebook.rel = "noopener noreferrer"; }
-        }
-        const instagram = document.getElementById("instagram-negocio");
-        if (instagram) {
-            const urlInstagram = urlHttpsValida(negocioBase.instagram);
-            instagram.href = urlInstagram || "#";
-            instagram.hidden = !urlInstagram;
-            if (urlInstagram) { instagram.target = "_blank"; instagram.rel = "noopener noreferrer"; }
+        // REDES SOCIALES: renderizado común para proyectos corporate y commercial.
+        // Se conserva compatibilidad con los campos históricos facebook e instagram.
+        const redesContainer = document.getElementById("redes-sociales-negocio");
+        if (redesContainer) {
+            const redesConfig = negocioBase.redesSociales && typeof negocioBase.redesSociales === "object"
+                ? negocioBase.redesSociales
+                : {};
+            const redesDefinidas = [
+                {
+                    clave: "facebook", nombre: "Facebook",
+                    url: redesConfig.facebook || negocioBase.facebook,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.6 1.6-1.6h1.7V3.5c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.2H7.3V13h2.8v8h3.4z"/></svg>'
+                },
+                {
+                    clave: "linkedin", nombre: "LinkedIn", url: redesConfig.linkedin,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 8.5a1.9 1.9 0 1 0 0-3.8 1.9 1.9 0 0 0 0 3.8ZM3.6 10h3.2v10H3.6V10Zm5.2 0h3.1v1.4h.1c.4-.8 1.5-1.7 3.1-1.7 3.3 0 3.9 2.1 3.9 4.8V20h-3.2v-4.9c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V20H8.8V10Z"/></svg>'
+                },
+                {
+                    clave: "instagram", nombre: "Instagram",
+                    url: redesConfig.instagram || negocioBase.instagram,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.7" r="1.1"/></svg>'
+                },
+                {
+                    clave: "youtube", nombre: "YouTube", url: redesConfig.youtube,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.1a3 3 0 0 0-2.1-2.1C19 4.5 12 4.5 12 4.5s-7 0-8.9.5A3 3 0 0 0 1 7.1 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.9 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.9 31 31 0 0 0-.5-4.9ZM9.7 15.5v-7l6 3.5-6 3.5Z"/></svg>'
+                },
+                {
+                    clave: "tiktok", nombre: "TikTok", url: redesConfig.tiktok,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 3c.3 2.2 1.5 3.5 3.4 3.7v3.1a8 8 0 0 1-3.4-1v6.4a6.1 6.1 0 1 1-6.1-6.1c.4 0 .8 0 1.2.1v3.3a3 3 0 1 0 1.8 2.7V3h3.1Z"/></svg>'
+                },
+                {
+                    clave: "twitter", nombre: "Twitter", url: redesConfig.twitter,
+                    icono: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.6 5.5 22H2.3l7.3-8.4L1.8 2h6.5l4.5 6.8L18.9 2Zm-1.1 18h1.7L7.2 3.9H5.4L17.8 20Z"/></svg>'
+                }
+            ];
+            const redesVisibles = redesConfig.mostrar !== false
+                ? redesDefinidas.map(function (red) {
+                    return { ...red, url: urlHttpsValida(red.url) };
+                }).filter(function (red) { return !!red.url; })
+                : [];
+            redesContainer.replaceChildren();
+            redesVisibles.forEach(function (red) {
+                const enlace = document.createElement("a");
+                enlace.className = "social-link";
+                enlace.href = red.url;
+                enlace.target = "_blank";
+                enlace.rel = "noopener noreferrer";
+                enlace.setAttribute("aria-label", red.nombre + " (se abre en una pestaña nueva)");
+                enlace.innerHTML = red.icono + "<span></span>";
+                enlace.querySelector("span").textContent = red.nombre;
+                redesContainer.appendChild(enlace);
+            });
+            redesContainer.hidden = redesVisibles.length === 0;
         }
         const maps = document.getElementById("maps-negocio");
         if (maps) {
