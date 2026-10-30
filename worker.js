@@ -303,5 +303,3 @@ export default {
         return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host", "X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin", "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()" } });
     }
 };
-
-// Activación de despliegue de prueba: configuración de redes sociales en contacto (2026-10-30).
