@@ -58,7 +58,7 @@
     "latitud": "",
     "longitud": ""
   },
-  "facebook": "",
+  "facebook": "https://www.facebook.com/share/1EHkucAe7T/",
   "instagram": "",
   "maps": "",
   "catalogo": "",
@@ -192,5 +192,14 @@
         "respuesta": "Puedes escribirnos directamente por WhatsApp desde los botones de contacto de esta página."
       }
     ]
+  },
+  "redesSociales": {
+    "mostrar": true,
+    "facebook": "https://www.facebook.com/share/1EHkucAe7T/",
+    "linkedin": "https://www.linkedin.com/in/darvin-bautista",
+    "instagram": "",
+    "youtube": "",
+    "tiktok": "",
+    "twitter": ""
   }
 }
