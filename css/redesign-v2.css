@@ -271,3 +271,10 @@
     .cta-panel .social-networks { gap:9px; }
     .cta-panel .social-networks .social-link { min-height:40px; padding:8px 12px; font-size:13px; }
 }
+
+
+/* SIDeN — iconos circulares con colores oficiales de redes sociales */
+.cta-panel .social-networks .social-link svg {
+    display:block; width:26px; height:26px; flex:0 0 26px;
+    fill:none; overflow:visible;
+}
