@@ -187,6 +187,12 @@ section h2 { text-align: center; margin-bottom: 32px; font-size: 34px; line-heig
 .contact-email { display: block; margin-top: 15px; color: #cdd7e7; text-decoration: none; }
 .social { text-align: center; margin-top: 25px; }
 .social a { color: #cdd7e7; margin: 0 10px; text-decoration: none; }
+.social-networks { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px 20px; margin-top: 28px; }
+.social-networks .social-link { display: inline-flex; align-items: center; gap: 8px; min-height: 42px; margin: 0; padding: 8px 12px; border: 1px solid rgba(205,215,231,.22); border-radius: 9px; color: #dce5f5; text-decoration: none; font-size: 14px; font-weight: 650; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.social-networks .social-link:hover { background: rgba(255,255,255,.09); border-color: rgba(205,215,231,.5); transform: translateY(-1px); }
+.social-networks .social-link svg { display: block; width: 19px; height: 19px; flex: 0 0 19px; fill: currentColor; }
+.social-networks .social-link span { white-space: nowrap; }
+@media (max-width: 480px) { .social-networks { gap: 9px; } .social-networks .social-link { min-height: 40px; padding: 7px 10px; font-size: 13px; } }
 footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13px; }
 .footer-inner { max-width: 1180px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
 .footer-inner strong { display: block; margin-bottom: 3px; color: #fff; font-size: 17px; }
@@ -477,3 +483,5 @@ footer { background: #070c16; color: #8995a7; padding: 28px 24px; font-size: 13p
 .contact-actions-siden[hidden]{
   display:none!important;
 }
+
+/* SIDeN: activación de compilación de prueba de redes sociales — 2026-10-30 */

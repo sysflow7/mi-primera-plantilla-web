@@ -126,5 +126,14 @@
   "faq": {
     "activo": false,
     "preguntas": []
+  },
+  "redesSociales": {
+    "mostrar": true,
+    "facebook": "",
+    "linkedin": "",
+    "instagram": "",
+    "youtube": "",
+    "tiktok": "",
+    "twitter": ""
   }
 }
