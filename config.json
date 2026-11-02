@@ -122,7 +122,7 @@
     "titulo": "Sobre el negocio",
     "texto": ""
   },
-  "estadoComercial": "cliente",
+  "estadoComercial": "demo",
   "faq": {
     "activo": false,
     "preguntas": []
