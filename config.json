@@ -34,7 +34,6 @@
   "mostrarHeroImagen": true,
   "modulos": [
     "presentacion",
-    "beneficios",
     "servicios",
     "proceso",
     "identidad",
@@ -70,8 +69,8 @@
   "etiquetas": {
     "presentacion": "Quiénes somos",
     "presentacionMenu": "Nosotros",
-    "beneficios": "Beneficios",
-    "beneficiosMenu": "Beneficios",
+    "beneficios": "",
+    "beneficiosMenu": "",
     "servicios": "Servicios",
     "serviciosMenu": "Servicios",
     "proceso": "Cómo trabajamos",
