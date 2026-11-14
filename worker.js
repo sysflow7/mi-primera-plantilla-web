@@ -320,7 +320,7 @@ export default {
                 sunday: "Sunday", domingo: "Sunday"
             };
             const normalizarDiaSchema = dia => {
-                const clave = String(dia || "").trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+                const clave = String(dia || "").trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                 return diasSchemaPorNombre[clave] || "";
             };
             const especificacionesHorario = [];
