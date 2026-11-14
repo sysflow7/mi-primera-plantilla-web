@@ -235,7 +235,7 @@ export default {
 
         if (paginaActual && rutaNormalizada(url.pathname) !== "/") {
             reemplazarContenido("pagina-tipo", escaparHTML(negocio.etiquetaTipo || ""));
-            reemplazarContenido("pagina-titulo", escaparHTML(paginaActual.nombre || paginaActual.h1 || ""));
+            reemplazarContenido("pagina-titulo", escaparHTML(paginaActual.h1 || paginaActual.nombre || ""));
             reemplazarContenido("pagina-descripcion", escaparHTML(paginaActual.descripcion || paginaActual.descripcionSEO || ""));
             html = html.replace(/(<section\b(?=[^>]*\bid="pagina-cabecera")[^>]*)\s+hidden(?:="[^"]*")?/i, "$1");
         }
