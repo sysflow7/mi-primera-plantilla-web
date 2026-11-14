@@ -98,7 +98,7 @@ export default {
         }
 
         if (url.pathname === "/robots.txt") {
-            const contenido = "User-agent: *\nAllow: /\nSitemap: " + url.origin + "/sitemap.xml\n";
+            const contenido = "User-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: *\nAllow: /\n\nSitemap: " + url.origin + "/sitemap.xml\n";
             return new Response(contenido, { headers: { "Content-Type": "text/plain; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host" } });
         }
 
@@ -152,6 +152,85 @@ export default {
         const paginaActual = negocio.modoSitio === "multi" && Array.isArray(negocio.paginas)
             ? negocio.paginas.find(pagina => rutaNormalizada(pagina.ruta) === rutaNormalizada(url.pathname)) : null;
 
+        // Renderizado inicial del contenido textual esencial: los buscadores reciben contenido
+        // útil en el HTML sin depender de ejecutar JavaScript. script.js conserva el renderizado
+        // interactivo y reconstruye estas mismas listas al iniciar.
+        const contenidoPagina = paginaActual ? {
+            ...negocio,
+            ...paginaActual,
+            etiquetas: { ...(negocio.etiquetas || {}), ...(paginaActual.etiquetas || {}) },
+            textos: { ...(negocio.textos || {}), ...(paginaActual.textos || {}) }
+        } : negocio;
+        const modulosIniciales = Array.isArray(contenidoPagina.modulos) ? contenidoPagina.modulos : [];
+        const escaparHTML = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        const reemplazarContenido = (id, contenido) => {
+            const patron = new RegExp('(<(?:div|p)\\b(?=[^>]*\\bid="' + id + '")[^>]*>)[\\s\\S]*?(<\\/(?:div|p)>)', "i");
+            html = html.replace(patron, "$1" + contenido + "$2");
+        };
+        const renderizarTarjetas = (id, clase, elementos, construirContenido) => {
+            if (!Array.isArray(elementos)) return;
+            const contenido = elementos.map((elemento, indice) =>
+                '<div class="' + clase + '">' + construirContenido(elemento || {}, indice) + '</div>'
+            ).join("");
+            reemplazarContenido(id, contenido);
+        };
+        const visibilidadModulo = (modulo, visible) => {
+            const ids = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios",
+                servicios: "servicios", proceso: "proceso", identidad: "identidad", filosofia: "filosofia",
+                productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion",
+                contacto: "contacto", "resenas-google": "resenas-google" };
+            const id = ids[modulo];
+            if (!id) return;
+            const patron = new RegExp('<section\\b(?=[^>]*\\bid="' + id + '")([^>]*)>', "i");
+            html = html.replace(patron, (apertura, atributos) => {
+                const limpios = atributos.replace(/\\s+hidden(?:="[^"]*")?/gi, "");
+                return "<section" + limpios + (visible ? "" : " hidden") + ">";
+            });
+        };
+
+        const textoPresentacionInicial = contenidoPagina.presentacion?.texto || contenidoPagina.descripcion || "";
+        reemplazarContenido("descripcion-negocio", escaparHTML(textoPresentacionInicial));
+        reemplazarContenido("descripcion-perfil", escaparHTML(contenidoPagina.perfil?.descripcion || contenidoPagina.descripcion || ""));
+        reemplazarContenido("contenido-identidad", escaparHTML(contenidoPagina.identidad?.texto || contenidoPagina.identidad?.descripcion || ""));
+        reemplazarContenido("contenido-filosofia", escaparHTML(contenidoPagina.filosofia?.texto || contenidoPagina.filosofia?.descripcion || ""));
+        renderizarTarjetas("lista-servicios", "service", contenidoPagina.servicios,
+            item => "<h3>" + escaparHTML(item.nombre) + "</h3><p>" + escaparHTML(item.descripcion) + "</p>");
+        renderizarTarjetas("lista-beneficios", "benefit", contenidoPagina.beneficios,
+            item => "<h3>" + escaparHTML(item.titulo) + "</h3><p>" + escaparHTML(item.descripcion) + "</p>");
+        renderizarTarjetas("lista-proceso", "service", contenidoPagina.proceso,
+            (item, indice) => "<h3>" + escaparHTML(item.titulo || item.nombre || ("Paso " + (indice + 1))) +
+                "</h3><p>" + escaparHTML(item.descripcion || item.detalle || "") + "</p>");
+        renderizarTarjetas("lista-productos", "product", contenidoPagina.productos,
+            item => "<div class=\"product-content\"><h3>" + escaparHTML(item.nombre) + "</h3><p>" +
+                escaparHTML(item.descripcion) + "</p>" + (item.precio ? "<strong>" + escaparHTML(item.precio) + "</strong>" : "") + "</div>");
+        renderizarTarjetas("lista-menu", "menu-item", contenidoPagina.menu,
+            item => "<div><h3>" + escaparHTML(item.nombre) + "</h3><p>" + escaparHTML(item.descripcion) +
+                "</p>" + (item.precio ? "<strong>" + escaparHTML(item.precio) + "</strong>" : "") + "</div>");
+
+        const faqInicial = contenidoPagina.faq && typeof contenidoPagina.faq === "object" ? contenidoPagina.faq : {};
+        const preguntasIniciales = Array.isArray(faqInicial.preguntas) ? faqInicial.preguntas.filter(item =>
+            item && String(item.pregunta || "").trim() && String(item.respuesta || "").trim()) : [];
+        const faqVisibleInicial = faqInicial.activo === true && preguntasIniciales.length > 0 &&
+            (contenidoPagina.modoSitio !== "multi" || modulosIniciales.includes("faq"));
+        if (faqVisibleInicial) {
+            const faqHTML = preguntasIniciales.slice(0, 6).map(item =>
+                "<details><summary>" + escaparHTML(item.pregunta) + "</summary><p>" +
+                escaparHTML(item.respuesta) + "</p></details>").join("");
+            reemplazarContenido("lista-faq", faqHTML);
+        } else {
+            reemplazarContenido("lista-faq", "");
+        }
+
+        ["presentacion", "perfil", "beneficios", "servicios", "proceso", "identidad", "filosofia",
+            "productos", "menu", "galeria", "ubicacion", "contacto"].forEach(modulo => {
+            const visible = modulosIniciales.includes(modulo) &&
+                (modulo !== "galeria" || (Array.isArray(contenidoPagina.galeria) && contenidoPagina.galeria.length > 0));
+            visibilidadModulo(modulo, visible);
+        });
+        visibilidadModulo("resenas-google", contenidoPagina.resenasGoogle?.mostrar === true &&
+            Array.isArray(contenidoPagina.resenasGoogle.items) && contenidoPagina.resenasGoogle.items.length > 0);
+
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre}${negocio.ciudad ? " | " + negocio.ciudad : ""}`);
         const descripcionSEO = paginaActual?.descripcionSEO || negocio.descripcionSEO || negocio.seo?.descripcion ||
@@ -203,7 +282,13 @@ export default {
         };
         const mapaSeguro = urlHttpsValida(negocio.maps);
         if (mapaSeguro) datosNegocio.hasMap = mapaSeguro;
-        const redes = [negocio.facebook, negocio.instagram].map(urlHttpsValida).filter(Boolean);
+        // Identidad social estructurada: usa redesSociales y conserva compatibilidad heredada.
+        const redesConfig = negocio.redesSociales && typeof negocio.redesSociales === "object" ? negocio.redesSociales : {};
+        const redes = [...new Set([
+            redesConfig.facebook, redesConfig.linkedin, redesConfig.instagram,
+            redesConfig.youtube, redesConfig.tiktok, redesConfig.twitter,
+            negocio.facebook, negocio.instagram
+        ].map(urlHttpsValida).filter(Boolean))];
         if (redes.length) datosNegocio.sameAs = redes;
         if (!esAreaServicio && direccion.latitud !== "" && direccion.latitud !== undefined && direccion.longitud !== "" && direccion.longitud !== undefined) {
             datosNegocio.geo = { "@type": "GeoCoordinates", latitude: Number(direccion.latitud), longitude: Number(direccion.longitud) };
