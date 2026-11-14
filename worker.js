@@ -184,7 +184,7 @@ export default {
             if (!id) return;
             const patron = new RegExp('<section\\b(?=[^>]*\\bid="' + id + '")([^>]*)>', "i");
             html = html.replace(patron, (apertura, atributos) => {
-                const limpios = atributos.replace(/\\s+hidden(?:="[^"]*")?/gi, "");
+                const limpios = atributos.replace(/\s+hidden(?:="[^"]*")?/gi, "");
                 return "<section" + limpios + (visible ? "" : " hidden") + ">";
             });
         };
@@ -404,9 +404,9 @@ export default {
         }
 
         // Normalizar atributos booleanos duplicados heredados de la plantilla HTML.
-        html = html.replace(/<([a-z][\\w:-]*)([^>]*)>/gi, (tagCompleto, nombreTag, atributos) => {
+        html = html.replace(/<([a-z][\w:-]*)([^>]*)>/gi, (tagCompleto, nombreTag, atributos) => {
             let hiddenEncontrado = false;
-            const atributosLimpios = atributos.replace(/\\s+hidden(?:="[^"]*")?/gi, atributo => {
+            const atributosLimpios = atributos.replace(/\s+hidden(?:="[^"]*")?/gi, atributo => {
                 if (hiddenEncontrado) return "";
                 hiddenEncontrado = true;
                 return " hidden";
