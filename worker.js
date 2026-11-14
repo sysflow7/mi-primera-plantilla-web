@@ -244,7 +244,9 @@ export default {
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre}${negocio.ciudad ? " | " + negocio.ciudad : ""}`);
         const descripcionSEO = paginaActual?.descripcionSEO || paginaActual?.descripcion || negocio.descripcionSEO || negocio.seo?.descripcion ||
             negocio.descripcion || negocio.slogan || negocio.nombre;
-        const h1Title = paginaActual?.h1 || paginaActual?.nombre || negocio.h1 || negocio.nombre;
+        const h1Title = paginaActual && rutaNormalizada(url.pathname) !== "/" ?
+            (paginaActual.nombre || paginaActual.h1 || negocio.nombre) :
+            (paginaActual?.h1 || paginaActual?.nombre || negocio.h1 || negocio.nombre);
         const h1Description = paginaActual?.slogan || negocio.slogan || paginaActual?.descripcion ||
             paginaActual?.descripcionSEO || negocio.descripcion || negocio.nombre;
         const canonical = url.origin + rutaNormalizada(url.pathname);
