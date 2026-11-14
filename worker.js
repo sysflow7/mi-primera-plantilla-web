@@ -395,7 +395,7 @@ export default {
             html = html.replace(/\s*<meta name="twitter:image" content="">/i, "");
         }
         if (paginaActual && rutaNormalizada(url.pathname) !== "/") {
-            html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<h2 id="nombre-negocio">' + escHtml(h1Title) + '</h2>');
+            html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<div id="nombre-negocio" class="hero-page-title">' + escHtml(h1Title) + '</div>');
         }
 
         return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host", "X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin", "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()" } });
