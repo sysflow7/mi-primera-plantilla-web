@@ -266,7 +266,9 @@ export default {
         };
         const tipoClave = String(paginaActual?.tipoNegocio || negocio.tipoNegocio || "LocalBusiness").toLowerCase();
         const datosNegocio = { "@context": "https://schema.org", "@type": schemaTypes[tipoClave] || "LocalBusiness", "@id": negocioId,
-            name: negocio.nombre, description: descripcionSEO, url: canonical, telephone: negocio.telefono };
+            name: negocio.nombre,
+            description: negocio.descripcionSEO || negocio.seo?.descripcion || negocio.descripcion || negocio.slogan || negocio.nombre,
+            url: url.origin + "/", telephone: negocio.telefono, mainEntityOfPage: canonical };
         if (logoURL) datosNegocio.logo = logoURL;
         if (imagenSocialURL) datosNegocio.image = [imagenSocialURL];
         if (negocio.email) datosNegocio.email = negocio.email;
