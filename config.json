@@ -1,6 +1,6 @@
 {
   "siden": {
-    "instanceId": "cliente-por-configurar",
+    "instanceId": "prueba-seo-geo-sv-2026",
     "templateFamily": "corporate",
     "baseDomain": "",
     "architecture": "independent-project",
@@ -10,16 +10,19 @@
     "version": "1.5"
   },
   "activo": true,
-  "nombre": "Nombre del negocio",
-  "h1": "Nombre del negocio",
-  "slogan": "Describe brevemente tu propuesta de valor",
-  "descripcion": "",
-  "descripcionSEO": "",
-  "tipoNegocio": "",
-  "etiquetaTipo": "",
-  "modoSitio": "single",
+  "nombre": "Café de Prueba SIDeN",
+  "h1": "Café de Prueba SIDeN",
+  "slogan": "Café de especialidad, desayunos y repostería artesanal en San Salvador.",
+  "descripcion": "Café de Prueba SIDeN es un negocio demostrativo creado para validar el renderizado SEO y GEO de la plantilla SIDeN. Ofrece café de especialidad, desayunos y repostería artesanal en San Salvador.",
+  "descripcionSEO": "Conoce Café de Prueba SIDeN en San Salvador: café de especialidad, desayunos y repostería artesanal. Consulta nuestros servicios y horarios.",
+  "tipoNegocio": "Cafetería",
+  "etiquetaTipo": "Cafetería en San Salvador",
+  "modoSitio": "multi",
   "modeloAtencion": "",
-  "areasServicio": [],
+  "areasServicio": [
+    "San Salvador",
+    "Santa Tecla"
+  ],
   "heroImagenFondo": "",
   "heroImagenVisual": "",
   "mostrarHeroImagen": false,
@@ -27,31 +30,88 @@
     "presentacion",
     "beneficios",
     "servicios",
-    "contacto"
+    "contacto",
+    "faq",
+    "ubicacion"
   ],
   "indexable": false,
-  "whatsapp": "",
-  "telefono": "",
-  "email": "",
-  "ciudad": "",
+  "whatsapp": "50320000000",
+  "telefono": "+503 2000-0000",
+  "email": "hola@cafedeprueba.example",
+  "ciudad": "San Salvador",
   "pais": "El Salvador",
-  "direccionTexto": "",
+  "direccionTexto": "Colonia de prueba, San Salvador, El Salvador",
   "direccion": {
-    "calle": "",
-    "ciudad": "",
-    "departamento": "",
+    "calle": "Colonia de prueba",
+    "ciudad": "San Salvador",
+    "departamento": "San Salvador",
     "codigoPostal": "",
     "pais": "SV",
-    "latitud": "",
-    "longitud": ""
+    "latitud": "13.6929",
+    "longitud": "-89.2182"
   },
-  "facebook": "",
-  "instagram": "",
+  "facebook": "https://www.facebook.com/cafedeprueba.siden",
+  "instagram": "https://www.instagram.com/cafedeprueba.siden/",
   "maps": "",
   "catalogo": "",
   "logo": "",
   "imagenSocial": "",
-  "horarios": [],
+  "horarios": [
+    {
+      "dia": "lunes",
+      "intervalos": [
+        {
+          "abre": "07:00",
+          "cierra": "18:00"
+        }
+      ]
+    },
+    {
+      "dia": "martes",
+      "intervalos": [
+        {
+          "abre": "07:00",
+          "cierra": "18:00"
+        }
+      ]
+    },
+    {
+      "dia": "miercoles",
+      "intervalos": [
+        {
+          "abre": "07:00",
+          "cierra": "18:00"
+        }
+      ]
+    },
+    {
+      "dia": "jueves",
+      "intervalos": [
+        {
+          "abre": "07:00",
+          "cierra": "18:00"
+        }
+      ]
+    },
+    {
+      "dia": "viernes",
+      "intervalos": [
+        {
+          "abre": "07:00",
+          "cierra": "19:00"
+        }
+      ]
+    },
+    {
+      "dia": "sabado",
+      "intervalos": [
+        {
+          "abre": "08:00",
+          "cierra": "19:00"
+        }
+      ]
+    }
+  ],
   "rangoPrecios": "",
   "galeriaAlt": [],
   "etiquetas": {
@@ -75,34 +135,148 @@
     {
       "ruta": "/",
       "nombre": "Inicio",
-      "h1": "Nombre del negocio",
-      "slogan": "Describe brevemente tu propuesta de valor",
-      "descripcion": "",
+      "h1": "Café de Prueba SIDeN",
+      "slogan": "Café de especialidad, desayunos y repostería artesanal en San Salvador.",
+      "descripcion": "Descubre nuestra cafetería demostrativa, conoce nuestros productos y encuentra información para visitarnos.",
       "modulos": [
         "presentacion",
         "beneficios",
         "servicios",
-        "contacto"
+        "contacto",
+        "faq",
+        "ubicacion"
       ],
       "etiquetas": {
-        "presentacion": "Sobre el negocio",
-        "beneficios": "Beneficios",
-        "servicios": "Servicios",
-        "contacto": "Contacto"
+        "presentacion": "Conoce nuestra cafetería",
+        "beneficios": "¿Por qué visitarnos?",
+        "servicios": "Lo que ofrecemos",
+        "contacto": "Contáctanos"
+      }
+    },
+    {
+      "ruta": "/servicios",
+      "nombre": "Servicios",
+      "h1": "Café, desayunos y repostería artesanal",
+      "slogan": "Opciones para disfrutar cualquier momento del día.",
+      "descripcion": "Conoce nuestra selección de café de especialidad, desayunos preparados al momento y repostería artesanal.",
+      "modulos": [
+        "presentacion",
+        "servicios",
+        "productos",
+        "contacto"
+      ],
+      "presentacion": {
+        "titulo": "Nuestros servicios",
+        "texto": "En Café de Prueba SIDeN reunimos bebidas preparadas por baristas, desayunos frescos y postres artesanales."
       },
-      "textos": {
-        "contacto": ""
+      "servicios": [
+        {
+          "nombre": "Bebidas de café",
+          "descripcion": "Espresso, cappuccino y café filtrado."
+        },
+        {
+          "nombre": "Desayunos",
+          "descripcion": "Alternativas dulces y saladas preparadas al momento."
+        },
+        {
+          "nombre": "Postres",
+          "descripcion": "Repostería artesanal para acompañar tu bebida."
+        }
+      ],
+      "productos": [
+        {
+          "nombre": "Cappuccino",
+          "descripcion": "Espresso con leche vaporizada.",
+          "precio": "$3.00"
+        },
+        {
+          "nombre": "Cheesecake",
+          "descripcion": "Postre artesanal del día.",
+          "precio": "$3.75"
+        }
+      ],
+      "etiquetas": {
+        "servicios": "Nuestra oferta",
+        "contacto": "Solicita información"
+      }
+    },
+    {
+      "ruta": "/nosotros",
+      "nombre": "Nosotros",
+      "h1": "Una cafetería creada para disfrutar",
+      "slogan": "Calidad, cercanía y buenos momentos.",
+      "descripcion": "Conoce la propuesta de Café de Prueba SIDeN y nuestra forma de entender el café.",
+      "modulos": [
+        "presentacion",
+        "beneficios",
+        "contacto"
+      ],
+      "presentacion": {
+        "titulo": "Nuestra historia",
+        "texto": "Café de Prueba SIDeN es una marca ficticia utilizada exclusivamente para probar la plantilla y su contenido indexable."
+      },
+      "beneficios": [
+        {
+          "titulo": "Atención cercana",
+          "descripcion": "Queremos que cada visita sea sencilla y agradable."
+        },
+        {
+          "titulo": "Calidad constante",
+          "descripcion": "Cuidamos la preparación de cada bebida y alimento."
+        }
+      ],
+      "etiquetas": {
+        "presentacion": "Nuestra historia",
+        "beneficios": "Lo que nos distingue",
+        "contacto": "Conversemos"
       }
     }
   ],
-  "servicios": [],
-  "productos": [],
+  "servicios": [
+    {
+      "nombre": "Café de especialidad",
+      "descripcion": "Bebidas espresso, americano y métodos filtrados."
+    },
+    {
+      "nombre": "Desayunos",
+      "descripcion": "Opciones dulces y saladas para comenzar el día."
+    },
+    {
+      "nombre": "Repostería artesanal",
+      "descripcion": "Pasteles y postres preparados en pequeñas cantidades."
+    }
+  ],
+  "productos": [
+    {
+      "nombre": "Cappuccino",
+      "descripcion": "Espresso con leche vaporizada y espuma cremosa.",
+      "precio": "$3.00"
+    },
+    {
+      "nombre": "Cheesecake artesanal",
+      "descripcion": "Porción individual de cheesecake del día.",
+      "precio": "$3.75"
+    }
+  ],
   "menu": [],
   "perfil": {
     "descripcion": ""
   },
   "galeria": [],
-  "beneficios": [],
+  "beneficios": [
+    {
+      "titulo": "Café seleccionado",
+      "descripcion": "Granos elegidos y preparados para disfrutar cada taza."
+    },
+    {
+      "titulo": "Hecho al momento",
+      "descripcion": "Bebidas y alimentos preparados al momento con ingredientes frescos."
+    },
+    {
+      "titulo": "Ambiente acogedor",
+      "descripcion": "Un espacio agradable para reunirte, estudiar o trabajar."
+    }
+  ],
   "proceso": [],
   "identidad": {
     "titulo": "",
@@ -119,19 +293,32 @@
     "separador": "✦"
   },
   "presentacion": {
-    "titulo": "Sobre el negocio",
-    "texto": ""
+    "titulo": "Conoce nuestra cafetería",
+    "texto": "Somos una cafetería demostrativa en San Salvador. Preparamos café de especialidad, desayunos y repostería artesanal en un ambiente cómodo para compartir o trabajar."
   },
   "estadoComercial": "cliente",
   "faq": {
-    "activo": false,
-    "preguntas": []
+    "activo": true,
+    "preguntas": [
+      {
+        "pregunta": "¿Dónde está ubicada la cafetería?",
+        "respuesta": "En la zona de prueba de San Salvador, El Salvador."
+      },
+      {
+        "pregunta": "¿Ofrecen opciones para llevar?",
+        "respuesta": "Sí, puedes solicitar tus bebidas y alimentos para llevar."
+      },
+      {
+        "pregunta": "¿Qué métodos de pago aceptan?",
+        "respuesta": "Esta es una instancia demostrativa; los métodos de pago se configurarán al activar un negocio real."
+      }
+    ]
   },
   "redesSociales": {
     "mostrar": true,
-    "facebook": "",
-    "linkedin": "",
-    "instagram": "",
+    "facebook": "https://www.facebook.com/cafedeprueba.siden",
+    "linkedin": "https://www.linkedin.com/company/cafe-de-prueba-siden/",
+    "instagram": "https://www.instagram.com/cafedeprueba.siden/",
     "youtube": "",
     "tiktok": "",
     "twitter": ""
