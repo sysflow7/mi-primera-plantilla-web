@@ -165,7 +165,7 @@ export default {
         const escaparHTML = valor => String(valor ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;")
             .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
         const reemplazarContenido = (id, contenido) => {
-            const patron = new RegExp('(<(?:div|p)\\b(?=[^>]*\\bid="' + id + '")[^>]*>)[\\s\\S]*?(<\\/(?:div|p)>)', "i");
+            const patron = new RegExp('(<(?:div|p|h1|h2|h3|span)\\b(?=[^>]*\\bid="' + id + '")[^>]*>)[\\s\\S]*?(<\\/(?:div|p|h1|h2|h3|span)>)', "i");
             html = html.replace(patron, (coincidencia, apertura, cierre) => apertura + contenido + cierre);
         };
         const renderizarTarjetas = (id, clase, elementos, construirContenido) => {
@@ -179,7 +179,7 @@ export default {
             const ids = { presentacion: "nosotros", perfil: "perfil", beneficios: "beneficios",
                 servicios: "servicios", proceso: "proceso", identidad: "identidad", filosofia: "filosofia",
                 productos: "productos", menu: "menu", galeria: "galeria", ubicacion: "ubicacion",
-                contacto: "contacto", "resenas-google": "resenas-google" };
+                contacto: "contacto", faq: "faq", "resenas-google": "resenas-google" };
             const id = ids[modulo];
             if (!id) return;
             const patron = new RegExp('<section\\b(?=[^>]*\\bid="' + id + '")([^>]*)>', "i");
@@ -232,6 +232,13 @@ export default {
         // Las reseñas se renderizan con lógica interactiva en el navegador; mantener el bloque
         // oculto en el HTML inicial para no entregar una sección vacía a rastreadores sin JS.
         visibilidadModulo("resenas-google", false);
+
+        if (paginaActual && rutaNormalizada(url.pathname) !== "/") {
+            reemplazarContenido("pagina-tipo", escaparHTML(negocio.etiquetaTipo || ""));
+            reemplazarContenido("pagina-titulo", escaparHTML(paginaActual.nombre || paginaActual.h1 || ""));
+            reemplazarContenido("pagina-descripcion", escaparHTML(paginaActual.descripcion || paginaActual.descripcionSEO || ""));
+            html = html.replace(/(<section\b(?=[^>]*\bid="pagina-cabecera")[^>]*)\s+hidden(?:="[^"]*")?/i, "$1");
+        }
 
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre}${negocio.ciudad ? " | " + negocio.ciudad : ""}`);
