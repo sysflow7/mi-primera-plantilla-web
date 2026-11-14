@@ -398,6 +398,17 @@ export default {
             html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<div id="nombre-negocio" class="hero-page-title">' + escHtml(h1Title) + '</div>');
         }
 
+        // Normalizar atributos booleanos duplicados heredados de la plantilla HTML.
+        html = html.replace(/<([a-z][\\w:-]*)([^>]*)>/gi, (tagCompleto, nombreTag, atributos) => {
+            let hiddenEncontrado = false;
+            const atributosLimpios = atributos.replace(/\\s+hidden(?:="[^"]*")?/gi, atributo => {
+                if (hiddenEncontrado) return "";
+                hiddenEncontrado = true;
+                return " hidden";
+            });
+            return "<" + nombreTag + atributosLimpios + ">";
+        });
+
         return new Response(html, { status: respuestaHTML.status, headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store", "Vary": "Host", "X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin", "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()" } });
     }
 };
