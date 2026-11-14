@@ -398,6 +398,11 @@ export default {
             html = html.replace('<h1 id="nombre-negocio">' + escHtml(h1Title) + '</h1>', '<div id="nombre-negocio" class="hero-page-title">' + escHtml(h1Title) + '</div>');
         }
 
+        // En inicio, el encabezado interno permanece oculto; convertir su H1 vacío evita duplicar el H1 del hero.
+        if (rutaNormalizada(url.pathname) === "/") {
+            html = html.replace('<h1 id="pagina-titulo"></h1>', '<div id="pagina-titulo"></div>');
+        }
+
         // Normalizar atributos booleanos duplicados heredados de la plantilla HTML.
         html = html.replace(/<([a-z][\\w:-]*)([^>]*)>/gi, (tagCompleto, nombreTag, atributos) => {
             let hiddenEncontrado = false;
