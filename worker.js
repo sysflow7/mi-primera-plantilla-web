@@ -166,7 +166,7 @@ export default {
             .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
         const reemplazarContenido = (id, contenido) => {
             const patron = new RegExp('(<(?:div|p)\\b(?=[^>]*\\bid="' + id + '")[^>]*>)[\\s\\S]*?(<\\/(?:div|p)>)', "i");
-            html = html.replace(patron, "$1" + contenido + "$2");
+            html = html.replace(patron, (coincidencia, apertura, cierre) => apertura + contenido + cierre);
         };
         const renderizarTarjetas = (id, clase, elementos, construirContenido) => {
             if (!Array.isArray(elementos)) return;
@@ -228,8 +228,10 @@ export default {
                 (modulo !== "galeria" || (Array.isArray(contenidoPagina.galeria) && contenidoPagina.galeria.length > 0));
             visibilidadModulo(modulo, visible);
         });
-        visibilidadModulo("resenas-google", contenidoPagina.resenasGoogle?.mostrar === true &&
-            Array.isArray(contenidoPagina.resenasGoogle.items) && contenidoPagina.resenasGoogle.items.length > 0);
+        visibilidadModulo("faq", faqVisibleInicial);
+        // Las reseñas se renderizan con lógica interactiva en el navegador; mantener el bloque
+        // oculto en el HTML inicial para no entregar una sección vacía a rastreadores sin JS.
+        visibilidadModulo("resenas-google", false);
 
         const tituloSEO = paginaActual?.tituloSEO || negocio.tituloSEO || negocio.seo?.titulo ||
             (paginaActual?.nombre ? `${paginaActual.nombre} | ${negocio.nombre}` : `${negocio.nombre}${negocio.ciudad ? " | " + negocio.ciudad : ""}`);
