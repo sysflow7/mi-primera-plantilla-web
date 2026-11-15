@@ -280,15 +280,8 @@
 }
 
 
-/* SIDeN SEO/GEO V1 — tarjetas de servicios sin imagen: evitar bloques vacíos y conservar encabezado semántico. */
+/* SIDeN SEO/GEO V1 — tarjetas de servicios sin imagen configurada: altura natural y sin espacios decorativos reservados. */
 .multi-inner-page #servicios > h2{display:block!important;max-width:760px;margin:0 auto 12px;text-align:center;font-size:clamp(30px,4vw,43px);letter-spacing:-1.5px}
-#servicios .service{min-height:0!important;height:auto!important;padding:27px!important;display:block!important;text-align:left!important}
-#servicios .service::before,#servicios .service::after{display:none!important;content:none!important}
-#servicios .service h3,#servicios .service p{max-width:100%!important}
-@media(max-width:640px){#servicios .service{min-height:0!important;padding:24px!important}}
-
-
-/* SIDeN SEO/GEO V1.1 — anular alturas reservadas de imagen en tarjetas de servicios sin imagen. */
 html body #servicios .services > article.service,
 html body #servicios .services > .service {
   min-height: unset !important;
@@ -313,3 +306,4 @@ html body #servicios .services > .service h3,
 html body #servicios .services > .service p {
   max-width: 100% !important;
 }
+@media(max-width:640px){html body #servicios .services > article.service,html body #servicios .services > .service{padding:24px!important}}
