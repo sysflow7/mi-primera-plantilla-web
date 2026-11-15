@@ -286,3 +286,30 @@
 #servicios .service::before,#servicios .service::after{display:none!important;content:none!important}
 #servicios .service h3,#servicios .service p{max-width:100%!important}
 @media(max-width:640px){#servicios .service{min-height:0!important;padding:24px!important}}
+
+
+/* SIDeN SEO/GEO V1.1 — anular alturas reservadas de imagen en tarjetas de servicios sin imagen. */
+html body #servicios .services > article.service,
+html body #servicios .services > .service {
+  min-height: unset !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  padding: 24px !important;
+  display: block !important;
+  flex: initial !important;
+  align-self: start !important;
+}
+html body #servicios .services > article.service::before,
+html body #servicios .services > article.service::after,
+html body #servicios .services > .service::before,
+html body #servicios .services > .service::after {
+  display: none !important;
+  content: none !important;
+}
+html body #servicios .services > article.service h3,
+html body #servicios .services > article.service p,
+html body #servicios .services > .service h3,
+html body #servicios .services > .service p {
+  max-width: 100% !important;
+}
