@@ -194,6 +194,7 @@ export default {
         reemplazarContenido("descripcion-perfil", escaparHTML(contenidoPagina.perfil?.descripcion || contenidoPagina.descripcion || ""));
         reemplazarContenido("contenido-identidad", escaparHTML(contenidoPagina.identidad?.texto || contenidoPagina.identidad?.descripcion || ""));
         reemplazarContenido("contenido-filosofia", escaparHTML(contenidoPagina.filosofia?.texto || contenidoPagina.filosofia?.descripcion || ""));
+        reemplazarContenido("titulo-servicios", escaparHTML(contenidoPagina.etiquetas?.servicios || "Nuestros servicios"));
         renderizarTarjetas("lista-servicios", "service", contenidoPagina.servicios,
             item => "<h3>" + escaparHTML(item.nombre) + "</h3><p>" + escaparHTML(item.descripcion) + "</p>");
         renderizarTarjetas("lista-beneficios", "benefit", contenidoPagina.beneficios,
