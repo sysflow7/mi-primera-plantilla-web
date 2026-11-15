@@ -1,3 +1,4 @@
+// SIDeN CORPORATIVO — disparador controlado de despliegue SEO/GEO V1 (2026-11-14)
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
