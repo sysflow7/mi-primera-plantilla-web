@@ -278,3 +278,32 @@
     display:block; width:26px; height:26px; flex:0 0 26px;
     fill:none; overflow:visible;
 }
+
+
+/* SIDeN SEO/GEO V1 — tarjetas de servicios sin imagen configurada: altura natural y sin espacios decorativos reservados. */
+.multi-inner-page #servicios > h2{display:block!important;max-width:760px;margin:0 auto 12px;text-align:center;font-size:clamp(30px,4vw,43px);letter-spacing:-1.5px}
+html body #servicios .services > article.service,
+html body #servicios .services > .service {
+  min-height: unset !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  padding: 24px !important;
+  display: block !important;
+  flex: initial !important;
+  align-self: start !important;
+}
+html body #servicios .services > article.service::before,
+html body #servicios .services > article.service::after,
+html body #servicios .services > .service::before,
+html body #servicios .services > .service::after {
+  display: none !important;
+  content: none !important;
+}
+html body #servicios .services > article.service h3,
+html body #servicios .services > article.service p,
+html body #servicios .services > .service h3,
+html body #servicios .services > .service p {
+  max-width: 100% !important;
+}
+@media(max-width:640px){html body #servicios .services > article.service,html body #servicios .services > .service{padding:24px!important}}
