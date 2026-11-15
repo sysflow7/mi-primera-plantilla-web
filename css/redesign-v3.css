@@ -128,3 +128,30 @@
 }
 @media(max-width:900px){#servicios .services{grid-template-columns:1fr 1fr}#proceso .services{grid-template-columns:1fr 1fr;gap:35px}#proceso .services::before{display:none}.hero-visual::before{left:-12px}.hero-visual::after{right:-12px}}
 @media(max-width:640px){#servicios .services{grid-template-columns:1fr}#servicios .service{min-height:250px}#servicios .service h3,#servicios .service p{max-width:100%}#servicios .service::after{opacity:.22}#proceso .services{grid-template-columns:1fr;gap:28px}#proceso .service{padding:0 5px}#identidad .profile-card{padding:28px 22px}.showcase-preview{min-height:200px!important}.section-heading h2{font-size:clamp(31px,9vw,40px)}.hero-visual::before{width:105px;height:78px;left:-4px}.hero-visual::after{width:115px;height:82px;right:-4px}.contact-actions-siden{flex-direction:column;align-items:stretch}.contact-action-siden{width:100%}}
+
+
+/* SIDeN SEO/GEO V1.1 — anular alturas reservadas de imagen en tarjetas de servicios sin imagen. */
+html body #servicios .services > article.service,
+html body #servicios .services > .service {
+  min-height: unset !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  padding: 24px !important;
+  display: block !important;
+  flex: initial !important;
+  align-self: start !important;
+}
+html body #servicios .services > article.service::before,
+html body #servicios .services > article.service::after,
+html body #servicios .services > .service::before,
+html body #servicios .services > .service::after {
+  display: none !important;
+  content: none !important;
+}
+html body #servicios .services > article.service h3,
+html body #servicios .services > article.service p,
+html body #servicios .services > .service h3,
+html body #servicios .services > .service p {
+  max-width: 100% !important;
+}
