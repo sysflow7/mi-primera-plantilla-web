@@ -5,7 +5,7 @@ Fecha: 14 de noviembre de 2026
 - Repositorio: sysflow7/mi-primera-plantilla-web
 - Rama de trabajo: feature/seo-geo-v1-2026-11-14
 - Rama base: siden-template-candidate-2026-10
-- Archivo modificado: worker.js
+- Archivos modificados: worker.js, css/style.css y css/redesign-v2.css
 - Alcance: cambios compartidos en plantilla maestra; no incluye despliegue, fusión ni cambios a proyectos de clientes.
 
 ## Cambios implementados
@@ -42,6 +42,11 @@ No se incorporó renderizado inicial de imágenes, reseñas ni componentes inter
 - La descripción de la entidad prioriza la descripción SEO general del negocio, sin cambiar la meta description específica de cada página.
 
 No se añadió FAQPage ni marcado de reseñas AggregateRating.
+
+### Ajustes visuales asociados a la validación
+- css/style.css conserva el estilo del título Hero en rutas internas después de separar el contenedor visual del H1 semántico.
+- css/redesign-v2.css mantiene visible el encabezado configurable de Servicios en páginas internas y adapta las tarjetas sin imagen configurada a la altura de su contenido.
+- No se modifica css/redesign-v3.css; la hoja utilizada por index.html para esta presentación es redesign-v2.css.
 
 ## Validaciones realizadas
 
