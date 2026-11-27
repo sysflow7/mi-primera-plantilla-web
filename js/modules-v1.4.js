@@ -15,7 +15,7 @@
             const h1 = heroCopy.querySelector("#nombre-negocio");
             const slogan = heroCopy.querySelector("#slogan-negocio");
             if (h1) h1.insertAdjacentHTML("beforebegin", '<span class="hero-eyebrow">Presencia digital para negocios</span>');
-            if (slogan) slogan.insertAdjacentHTML("afterend", '<p class="hero-description">Creamos páginas web profesionales que ayudan a tus clientes a encontrarte, conocer tus servicios y contactarte fácilmente.</p><div class="hero-actions"><a id="whatsapp-principal" class="hero-primary" target="_blank" rel="noopener noreferrer">Quiero mi página web <span>→</span></a><a href="#proyectos" class="hero-secondary">Ver ejemplos <span>↘</span></a></div><div class="hero-trust"><span>✓ Diseño profesional</span><span>✓ SEO básico</span><span>✓ Google + WhatsApp</span></div>');
+            if (slogan) slogan.insertAdjacentHTML("afterend", '<p class="hero-description">Creamos páginas web profesionales que ayudan a tus clientes a encontrarte, conocer tus servicios y contactarte fácilmente.</p><div class="hero-trust"><span>✓ Diseño profesional</span><span>✓ SEO básico</span><span>✓ Google + WhatsApp</span></div>');
         }
 
         const navContainer = document.querySelector(".nav-container");
